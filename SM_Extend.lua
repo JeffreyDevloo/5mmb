@@ -2,34 +2,48 @@ Printd("SM_extend.lua loaded OK!")
 --IF YOU ARE COMBINING RAIDS WITH SOMEONE ELSE, MAKE SURE YOU CHOOSE A UNIQUE RAID NAME IN THIS VARIABLE
 MB_RAID = "MULTIBOX_MyName1"
 --------------------------------------------User edited values--------------------------------------
+--Automatically delete stuff from TheList. Starts out blank and won't delete shit.
 MB_autodelete=true
+--Automatically buy reagents, food, and ammo if you have a vendor open and hit CTRL-1
 MB_buystacks=true
-MB_debugmsgs=false
+--Automatically turn by following raidleader if you get message "Target is behind you"
 MB_autoturn=false
-MB_reportcpu=false
-MB_reportzerotime=false
+--When mage gets clearcast, this automatically fires Arcane Missles in an attempt to keep up dps while saving more mana
 MB_clearcastAM=false
-MB_reportbusy=false
 MB_default_warlock_pet="Imp"
+--All available healers jump on a tank when he is below this threshold
 MB_healtank_threshold=.5
+--All available healers jump on a raid memeber when he is below this threshold
 MB_savechump_threshold=.33
+--A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
+--ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
 MB_tanklist={"Raigore","Dwarftoss","Vandalus","Tankforhire","Farquad","Rohnin","Zena","Confusion","Furyswipes","Cuppycake","Eversmile","Komal","Mootalia","Theothertank","Estbro","Enticer","Killdozerr","Hoyabembe","Skankia","Titanator","Clubseals","Chuckspears","Wiglet"}
+--ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
 MB_healer_list= {"Feelinghordy","Steezmachine","Lavaza","Pastordave","Grtizngravy","Spiritcooker","Indulgence","Jackeebrown","Wukfah","Bigolebih","Chinesium","Barie","Aderetia","Karris","Orinoco","Punchingbear","Cashme","Refill","Shamanquatro","Bubbling","Shamancinco","Avindra","Zumwalt","Shamansiete","Shamanocho","Holybabe","Bubblefail","Bubblescum","Bubblebootie","Bubblyboo","Healuraz","Octopus","Gayforpay","Whereistotem","Negativeaura","Aintitashamy","Spankit","Consecration","Lightbomb","Twin","Surger","Di","Steezmachine","Chuntaro","Huntmilfs","Dirtyshirley","Bubblenator","Bubblydoom" }
+--This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
 MB_toonlist = { "Cashme","Ovendodger","Steezmachine","Trifling","Clubseals","Chuckspears","Indulgences","Holymufdiver","Avadevine","Wiglet","Huntmilfs","Chuntaro","Pygmage","Absharam","Trashly","JizzGrizz","Dirtyshirley","Wastrel","Scissorin","Bijikurdista","Friendlyfire","Lavaza","Troho","Harpzor","Mylika,","Phenostrix","Pastordave","Tintizzy","Grtizngravy","Occlusion","Spiritcooker","Hoyabembe","Bigolebih","Wukfah","Jackeebrown,","Bearspray","Indulgence","Killdozerr","Chinesium","Forestfire","Lesbaru","Heatedheavy","Moldylockz","Enticer","Aderetia","Theothertank","Typher","Valatorin","Cleargy","Sunkiss","Sneakyk","Karris","Horock","Tankforhire","Justforwater","Aimshoted","Imyourdaddo","Sendmebtc","Estbro","Titanator","Botinator","Feelinghordy","Hotwand","Buy", "Mootalia","Healuraz", "Kilimanjaro", "Jyssyj", "Skankia", "Furyswipes", "Cuppycake", "Shamanuno", "Brutalia", "Refill", "Bubbling", "Shamanquatro", "Olympic", "Yellowstone", "Everglades", "Flameshocked", "Brutalio", "Punchingbear", "Shamancinco", "Brutalic", "Icefloes", "Zillazee", "Komal", "Avindra", "Shamantres", "Brutalium", "Brutaliar", "Monterey", "Shamanocho", "Shamanseis", "Shamansiete", "Zumwalt", "Silza", "Merazza", "Jenjja", "Calypsa", "Crookshanks", "Pocklick", "Toshredsusay", "Stabsya", "Kimboslicer", "Eversmile", "Barie", "Orinoco", "Badlands", "Bubblyboo", "Desdemonia", "Drainsoulia", "Bubblydoom", "Bubbleup", "Bubblefail", "Bubblemad", "Bubbleplanet", "Bubblemama", "Bubblescum", "Bubblemania", "Zombiewife", "Bubblewin", "Bubblenator", "Bridesmage", "Holybabe", "Bubblebootie", "Bubblebrave", "Bubblesong", "Bubblefame", "Maala", "Renew","Dwarftoss","Kneearrow","Heartstrike","Slamminsam","Iiliililiil","Testshamrest","Stung","Understab","Dwarfstomp","Bloobs","Mysterial","Sinisterlike","Lockinabox","Thepain","Alwayshordy","Elfrocket","Badcosplay","Neckbiter","Glittery","Lightbomb","Surger" ,"Farquad" ,"Rohnin" ,"Zena" ,"Confusion" ,"Thearmor" ,"Octopus" ,"Gayforpay" ,"Whereistotem" ,"Negativeaura" ,"Aintitashamy" ,"Spankit" ,"Consecration" ,"Thunda" ,"Zing" ,"Crank" ,"Salvo" ,"Chaostard" ,"Heavenly" ,"Spun" ,"Twisted" ,"Handy" ,"Badknee" ,"Explosive" ,"Spite" ,"Pontiac" ,"Twin" ,"Sparky" ,"Druidy" ,"Fister" ,"Sploink" ,"Moredotz" ,"Zombia" ,"Zorn" ,"Sid" ,"Natalia" ,"Di","J\195\172\195\176f"}
+--This is the powerleveler your lowbies will follow when powerleveling
 MB_powerleveler="Titanator"
+--This is your set of lowbie leveling parties. You can run 4 at a time. The first toon name on the left of = is the squad leader.
 MB_levelingparties= {
 	Buy={"Skankia", "Healuraz","Jyssyj","Bubblebootie" },
 	Kneearrow={ "Drainsoulia","Holybabe","Bubblenator","Kilimanjaro"},
 	Heartstrike={ "Feelinghordy", "Dwarftoss", "Slamminsam", "Iiliililiil"},
 	Hotwand={"Bridesmage","Zombiewife","Desdemonia","Bubblydoom"}
 }
+--This is who people will run to when they have the bomb on Baron.
 MB_bombfollow="Enticer"
+--This is who people will run to when they have threatening gaze on Mandokir (raptor boss)
 MB_gazefollow="Toshredsusay"
 --LEAVE DEDICATED HEALERS BLANK. THIS IS AN ADVANCED FEATURE THAT PROBABLY DOESN'T DO WHAT YOU THINK.
 --MB_dedicated_healers={}
 MB_dedicated_healers={Cuppycakes="Avindra",Enticer="Zumwalt",Komal="Cashme",Furyswipes="Refill"}
 ---------------------------------------------End of user edited values--------------------------------
+MB_reportcpu=false
+MB_reportzerotime=false
+MB_reportbusy=false
+MB_debugmsgs=false
 MBID={}
 MB_dcrrangeerr=nil
 MB_dcrreq=nil

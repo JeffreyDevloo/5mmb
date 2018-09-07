@@ -309,7 +309,6 @@ function MB_Cast_Interrupted()
 	MB_RAIS_swingStart = false;
 	MB_Cast_Start()
 end
-
 function MB_Shot_Start()
 	MB_Cast_Start();
 	MB_RAIS_shooting = true;
@@ -320,13 +319,11 @@ function MB_Shot_End()
 	MB_RAIS_shooting = false
 	MB_RAIS_finished = true
 end
-
 function MB_Swing_Start()
 	MB_swingTime = UnitRangedDamage("player") - castTime;
 	MB_RAIS_castStart = false
 	MB_RAIS_swingStart = GetTime();
 end
-
 MB_AimedID=""
 function MB_AimedID_Get()
 	local _,_,offset,numSpells = GetSpellTabInfo(GetNumSpellTabs())
@@ -338,7 +335,6 @@ function MB_AimedID_Get()
 		end
 	end
 end
-
 MBCastSpell = CastSpell;
 function CastSpell(MBspellID, spellTab)
 	MB_AimedID_Get();
@@ -371,7 +367,6 @@ function MB_Aimed_Start()
 		castTime_Aimed = castTime_Aimed/1.2
 	end
 end
-
 ---------------END OF ALL GLOBALS----------------------------------------------------------
 --THERE IS ADDITIONAL EDITING NEEDED FOR THE FOLLOWING FUNCTIONS:
 --Also see below: MB_maxheal to set the max ranks of heal spells you want to use.
@@ -1602,7 +1597,6 @@ function FSMB:OnEvent()
 		--if you reset the key without delay, the character will keep moving backwards
 	end
 end
-
 FSMB:SetScript("OnUpdate",function()
 	if ( MB_RAIS_shooting == true ) then
 		if ( MB_RAIS_castStart ) then
@@ -1633,13 +1627,11 @@ FSMB:SetScript("OnUpdate",function()
 end)
 -- this will send all the registered events to the OnEvent function
 FSMB:SetScript("OnEvent", FSMB.OnEvent) -- event handler
-
 function FSMB:print(msg)
 	if msg then
 	DEFAULT_CHAT_FRAME:AddMessage("|cffFE2E2EF|cffF78181S|cffF6CECEM|cffFBEFEFB|r: "..msg)
 	end
 end
-
 function table.invert( tbl )
 	local rv = {}
 	for key,val in pairs( tbl ) do rv[ val ] = key end
@@ -3687,13 +3679,11 @@ end
 function ChooseEarthTotem()
 	if MB_DruidTankInParty or MB_WarriorTankInParty then return "Stoneskin Totem" end
 	if MB_MeleeDPSInParty>0 then return "Strength of Earth Totem" end
-
 	return "Stoneskin Totem"
 end
 function ChooseWaterTotem()
 	if TankTarget("Lord Skwol") or TankTarget("High Priestess Mar'li") or TankTarget("Spawn of Mar'li") or TankTarget("High Priestess Mar'li") or TankTarget("Witherbark Speaker") or  TankTarget("High Priest Venoxis") or TankTarget("Razzashi Cobra") or TankTarget("Razzashi Serpent") or TankTarget("Razzashi Adder") then return "Poison Cleansing Totem" end
 	if TankTarget("Firesworn") or TankTarget("Garr") or TankTarget("Flame") or TankTarget("Drak") or TankTarget("Chromatic") or TankTarget("Blackhand Incarcerator") or TankTarget("Dragon") or  TankTarget("Majordomo Executus") or TankTarget("Ragnaros") or TankTarget("Baron Geddon") or TankTarget("Lava Elemental") or TankTarget("Gehennas") or TankTarget("Firewalker") or  TankTarget("Magmadar") or TankTarget("Sulfuron Harbinger") or TankTarget("Firelord") or TankTarget("Lava Spawn") or TankTarget("Ancient Core Hound") then Print("Tank Targeting fire guy") return "Fire Resistance Totem" end
-
 	return "Mana Spring Totem"
 end
 function party_totems()
@@ -3719,7 +3709,6 @@ function CastTotem(totem)
 		if not buffed(string.gsub(totem," Totem",""),"player") then BuffTotem(totem) end
 	end
 end
-
 function FlametongueWeapon()
 	--Throws Flametongue on main if not on already
 	has_enchant_main,mx,mc,has_enchant_off = GetWeaponEnchantInfo()
@@ -4186,7 +4175,6 @@ end
 function InRaid()
 	if UnitInRaid("player") then return true end
 end
-
 function MageInGroup()
 	local mages={}
 	if UnitInRaid("player") then
@@ -4551,7 +4539,6 @@ function tap(modifier)
 	if class=="Druid" then dru_tap(modifier) return end
 	if class=="Hunter" then hunter_tap(modifier) return end
 end
-
 --WARLOCK
 function lock_turbo()
 	SpellStopCasting()
@@ -6016,7 +6003,6 @@ function InnervateAHealer()
 		return
 	end
 end
-
 function dru_heal_single()
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
@@ -7725,7 +7711,6 @@ function round(num, numDecimalPlaces)
 	local mult = 10^(numDecimalPlaces or 0)
 	return math.floor(num * mult + 0.5) / mult
 end
-
 function SummonOutOfRange()
 	if not IsAlive("player") then return end
 	outofrangelist = {}

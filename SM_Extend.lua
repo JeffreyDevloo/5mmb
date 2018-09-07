@@ -1712,9 +1712,6 @@ function init()
 	SHOW_MULTI_ACTIONBAR_4=1
 	ALWAYS_SHOW_MULTI_ACTIONBAR=1
 	MultiActionBar_Update()
-	local index=CreateMacro("init",188,"/script init()",1,nil)
-	-- CREATE INITIAL MACRO
-	PickupMacro(index)
 	if class=="Mage" then
 		PickupSpell(SpellNum("Conjure Water"),BOOKTYPE_SPELL)
 		PlaceAction(12)
@@ -1722,13 +1719,13 @@ function init()
 		PickupAction(12)
 		ClearCursor()
 	end
-	PickupMacro(index)
+	PickupAction(84)
 	PlaceAction(84)
-	PickupMacro(index)
+	PickupAction(96)
 	PlaceAction(96)
-	PickupMacro(index)
+	PickupAction(108)
 	PlaceAction(108)
-	PickupMacro(index)
+	PickupAction(120)
 	PlaceAction(120)
 	local index=CreateMacro("buff",327,"/script setup()",1,1)
 	PickupMacro(index)

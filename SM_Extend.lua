@@ -2,6 +2,8 @@ Printd("SM_extend.lua loaded OK!")
 --IF YOU ARE COMBINING RAIDS WITH SOMEONE ELSE, MAKE SURE YOU CHOOSE A UNIQUE RAID NAME IN THIS VARIABLE
 MB_RAID = "MULTIBOX_MyName1"
 --------------------------------------------User edited values--------------------------------------
+--Warlocks will soulstone rezzers during setup
+MB_soulstone_rezzers=true
 --Automatically delete stuff from TheList. Starts out blank and won't delete shit.
 MB_autodelete=true
 --Automatically buy reagents, food, and ammo if you have a vendor open and hit CTRL-1
@@ -11,6 +13,8 @@ MB_autoturn=false
 --When mage gets clearcast, this automatically fires Arcane Missles in an attempt to keep up dps while saving more mana
 MB_clearcastAM=false
 MB_default_warlock_pet="Imp"
+--Shammys will chain heal locks hellfire when lower than this.
+MB_hellfire_threshold=.85
 --All available healers jump on a tank when he is below this threshold
 MB_healtank_threshold=.5
 --All available healers jump on a raid memeber when he is below this threshold
@@ -41,6 +45,8 @@ MB_gazefollow="Toshredsusay"
 MB_dedicated_healers={Cuppycakes="Avindra",Enticer="Zumwalt",Komal="Cashme",Furyswipes="Refill"}
 --*Fs
 FsR_AutoRepairAllItems = true
+---------------------------------------------End of user edited values--------------------------------
+MB_debuffslotlist={"Curse of Shadow","Curse of the Elements","Curse of Agony","Curse of Agony","Curse of Agony","Demoralizing Shout","Thunder Clap","Insect Swarm(Rank 1)","Vampiric Embrace","Hunter's Mark","Fairy Fire","Placeholder for Nightfall","Placeholder for Shadow Weaving","Placeholder for Mindflay","Placeholder for Winters Chill","Scorpid Sting","Placeholder for improved Shadowbolt","Polymorph","Shackle Undead","Banish","Hibernate","Fear","Scare Beast"}
 FsR_Stuff2Track =
 	{
  	["Gold"] = {itemkind = "special"},
@@ -70,7 +76,6 @@ FsR_Stuff2Track =
  	["Ironweb Spider Silk"] = {itemkind = "item" , collector = {"Fsdm"}},
  	["Instant Poison VI"] = {itemkind = "item", class = {Rogue = {}}},
 	}
----------------------------------------------End of user edited values--------------------------------
 FsR_TrackedMaterial = {}
 FsR_ItemTrade = {}
 FsR_ItemTrade.PlayerToTradeWith = {}
@@ -84,6 +89,7 @@ FsR_ItemTrade.TradeAcceptUpdate = GetTime()
 FsR_ItemTrade.TradingStarted = GetTime
 FsR_SummoningLastCast = GetTime()
 --*Fs
+MB_maxheal={Druid=4,Priest=2,Shaman=5,Paladin=4}
 MB_reportcpu=false
 MB_reportzerotime=false
 MB_reportbusy=false
@@ -1348,9 +1354,9 @@ function FSMB:OnEvent()
 			local cc_caller=string.gsub(arg2,"^%S- ","")
 			if name==ccer then
 				AssistUnit(MBID[cc_caller])
-				if ccer and UnitInRaid("player") then
+				if ccer and MB_raidtargetnames[GetRaidTargetIndex("target")] and UnitInRaid("player") then
 					RunLine("/raid I, "..ccer.." will be immobilizing "..MB_raidtargetnames[GetRaidTargetIndex("target")])
-				elseif ccer then
+				elseif ccer and MB_raidtargetnames[GetRaidTargetIndex("target")] then
 					RunLine("/party I, "..ccer.." will be immobilizing "..MB_raidtargetnames[GetRaidTargetIndex("target")])
 				end
 				MB_My_cc_target=GetRaidTargetIndex("target")
@@ -2796,25 +2802,36 @@ function RaidHealth()
 	local raidHP=0
 	local raidHPM=0
 	local lowestHP=1
-	for i=1,GetNumRaidMembers() do
+	for name,id in MBID do
 		--give mosthurt to first connected player
-		if UnitIsConnected("raid"..i) and not UnitIsDead("raid"..i) and not UnitIsGhost("raid"..i) then
-			local mosthurt="raid"..i
-			lowsetHP=UnitHealth("raid"..i)/UnitHealthMax("raid"..i)
-			break
+		local mosthurt=id
+		lowsetHP=UnitHealth(id)/UnitHealthMax(id)
+		break
+	end
+	for name,id in MBID do
+		local health=UnitHealth(id)
+		local healthm=UnitHealthMax(id)
+		local healthp=health/healthm
+		raidHP=raidHP+health
+		raidHPM=raidHPM+healthm
+		if healthp<lowestHP then lowestHP=healthp ; mosthurt=id end
+	end
+	lowestlock=1
+	lowestlockname=nil
+	for _,name in MB_classlist.Warlock do
+		lockhealth=UnitHealth(MBID[name])/UnitHealthMax(MBID[name])
+		if buffed("Hellfire",MBID[name]) and lockhealth<MB_hellfire_threshold then 
+			if lockhealth<lowestlock then 
+				lowestlock=lockhealth 	
+				lowestlockname=name
+			end
 		end
 	end
-	for i=1,GetNumRaidMembers() do
-		local health=UnitHealth("raid"..i)
-		local healthm=UnitHealthMax("raid"..i)
-		if UnitIsConnected("raid"..i) and not UnitIsDead("raid"..i) and not UnitIsGhost("raid"..i) then
-			local healthp=health/healthm
-			raidHP=raidHP+health
-			raidHPM=raidHPM+healthm
-			if healthp<lowestHP then lowestHP=healthp ; mosthurt="raid"..i end
-		end
+	if lowestlockname then
+		return raidHP/raidHPM,MBID[lowestlockname],lowestlock
+	else
+		return raidHP/raidHPM,mosthurt,lowestHP
 	end
-	return raidHP/raidHPM,mosthurt,lowestHP
 end
 function PartyHealth()
 	--This is a party adaptation of RaidHealth().
@@ -3057,7 +3074,7 @@ function BuffCast(spell)
 	local name,realm=UnitName("target")
 	if not name or not UnitIsConnected("target") or UnitIsDead("target") or UnitIsGhost("target") then return end
 	--if not buffed(spell,"target") then Print(UnitName("target").." is not buffed with "..spell..". Buffing now.") cast(spell) end
-	if not buffed(spell,"target") then cast(spell) end
+	if FindInTable(MB_debuffslotlist,spell) and not buffed(spell,"target") then cast(spell) end
 end
 function DotCast(spell)
 	--This cast function only casts if the target is not already buffed with the spell
@@ -3291,19 +3308,20 @@ function SpellNum(spell)
 	--In the wonderful world of 1.12 programming, sometimes just using a spell name isn't enough.
 	--SOMETIMES you need to know what spell NUMBER it is, cause otherwise it doesn't work.
 	--Healthstones and feral spells are like this.
-	local i = 1
+	local i = 1 ; highestSpellNum=0
 	local spellName
 	while true do
 		spellName, spellRank = GetSpellName(i, BOOKTYPE_SPELL)
-		if not spellName or spell==spellName then
+		if not spellName then
 			do break end
 		end
+		if string.find(spellName,spell) then highestSpellNum=i end
 		i = i + 1
 	end
 	--Fs* returned the spellid of the last spell in the spellbook if the spell is not in the spellbook
-	if spellName == nil then Printd("Error! Spell " .. spell .. " does not exist in spellbook! " ); return end
+	if highestSpellNum==0 then Printd("Error! Spell " .. spell .. " does not exist in spellbook! " ); return end
 	--Fs*
-	return i
+	return highestSpellNum
 end
 function PetSpellNum(spell)
 	--In the wonderful world of 1.12 programming, you can't just say cast("petspell").
@@ -3471,7 +3489,6 @@ function LockonTarget()
 			if UnitName("target")=="Spawn of Mar'li" and not UnitIsDead("target") then return end
 			if UnitName("target")=="Witherbark Speaker" and not UnitIsDead("target") then return end
 			TargetNearestEnemy()
-			return
 		end
 	end
 	--VENOXIS
@@ -3481,7 +3498,6 @@ function LockonTarget()
 		for i=1,5 do
 			if UnitName("target")=="Razzashi Cobra" and not UnitIsDead("target") then return end
 			TargetNearestEnemy()
-			return
 		end
 	end
 	if TankTarget("Lucifron") or TankTarget("Gehennas") or TankTarget("Flamewaker Protector") then
@@ -3490,7 +3506,6 @@ function LockonTarget()
 		for i=1,3 do
 			if UnitName("target")=="Flamewaker Protector" and not UnitIsDead("target") then return end
 			TargetNearestEnemy()
-			return
 		end
 	end
 	--
@@ -3979,7 +3994,7 @@ function rezemall()
 	if UnitIsDead("player") or UnitIsGhost("player") then return end
 	if ManaDown()>0 and buffed("Drink","player") then return end
 	--Fs* Alt + 6 will start a toon Trading phase.
-	if IsAltKeyDown() then Print("Start Trading") FsR_StartTradingPeriode() return end
+	if IsAltKeyDown() then Print("Start Trading") FsR_StartTradingPeriod() return end
 	--Fs*
 	deadlist={}
 	deadlist_rezzers={}
@@ -4545,49 +4560,41 @@ function setup()
 	if not MB_raidleader and (TableLength(MBID)>1) then Print("WARNING: You have not chosen a raid leader--hit alt-4") end
 	if IsControlKeyDown() and IsAltKeyDown() then TradeGoldToLeaderAllBut(10) AcceptTrade() return end
 	if UnitLevel("player")==60 and IsControlKeyDown() then buystacks() return end
-	local class=UnitClass("player")
-	if class=="Mage" then mage_setup() return end
-	if class=="Paladin" then paladin_setup() return end
-	if class=="Shaman" then shammy_setup() return end
-	if class=="Priest" then priest_setup() return end
-	if class=="Rogue" then rogue_setup() return end
-	if class=="Warrior" then warrior_setup() return end
-	if class=="Warlock" then lock_setup() return end
-	if class=="Druid" then dru_setup() return end
-	if class=="Hunter" then hunter_setup() return end
+	if myclass=="Mage" then mage_setup() return end
+	if myclass=="Paladin" then paladin_setup() return end
+	if myclass=="Shaman" then shammy_setup() return end
+	if myclass=="Priest" then priest_setup() return end
+	if myclass=="Rogue" then rogue_setup() return end
+	if myclass=="Warrior" then warrior_setup() return end
+	if myclass=="Warlock" then lock_setup() return end
+	if myclass=="Druid" then dru_setup() return end
+	if myclass=="Hunter" then hunter_setup() return end
 end
 function single()
 	if MB_reportcpu then MB_cpustart=GetTime() end
 	if not MB_raidleader and (TableLength(MBID)>1) then Print("WARNING: You have not chosen a raid leader--hit alt-4") end
-	local class=UnitClass("player")
-	--if TankTarget("Shazzrah") then
-	--MB_Assist()
-	--if UnitIsUnit("targettarget","player") then Follow() end
-	--TargetUnit("playertarget")
-	--end
-	if class=="Mage" then mage_single() return end
-	if class=="Paladin" then paladin_single() return end
-	if class=="Shaman" then shammy_single() return end
-	if class=="Priest" then priest_single() return end
-	if class=="Rogue" then rogue_single() return end
-	if class=="Warrior" then warrior_single() return end
-	if class=="Warlock" then lock_single() return end
-	if class=="Druid" then dru_single() return end
-	if class=="Hunter" then hunter_single() return end
+	if myclass=="Mage" then mage_single() return end
+	if myclass=="Paladin" then paladin_single() return end
+	if myclass=="Shaman" then shammy_single() return end
+	if myclass=="Priest" then priest_single() return end
+	if myclass=="Rogue" then rogue_single() return end
+	if myclass=="Warrior" then warrior_single() return end
+	if myclass=="Warlock" then lock_single() return end
+	if myclass=="Druid" then dru_single() return end
+	if myclass=="Hunter" then hunter_single() return end
 end
 function multi()
 	if MB_reportcpu then MB_cpustart=GetTime() end
 	if not MB_raidleader and (TableLength(MBID)>1) then Print("WARNING: You have not chosen a raid leader--hit alt-4") end
-	local class=UnitClass("player")
-	if class=="Mage" then mage_multi() return end
-	if class=="Paladin" then paladin_multi() return end
-	if class=="Shaman" then shammy_multi() return end
-	if class=="Priest" then priest_multi() return end
-	if class=="Rogue" then rogue_multi() return end
-	if class=="Warrior" then warrior_multi() return end
-	if class=="Warlock" then lock_multi() return end
-	if class=="Druid" then dru_multi() return end
-	if class=="Hunter" then hunter_multi() return end
+	if myclass=="Mage" then mage_multi() return end
+	if myclass=="Paladin" then paladin_multi() return end
+	if myclass=="Shaman" then shammy_multi() return end
+	if myclass=="Priest" then priest_multi() return end
+	if myclass=="Rogue" then rogue_multi() return end
+	if myclass=="Warrior" then warrior_multi() return end
+	if myclass=="Warlock" then lock_multi() return end
+	if myclass=="Druid" then dru_multi() return end
+	if myclass=="Hunter" then hunter_multi() return end
 end
 function turbo()
 	if MB_reportcpu then MB_cpustart=GetTime() end
@@ -4596,17 +4603,18 @@ function turbo()
 	if not IAmFocus() then SetView(2) end
 	if IsAltKeyDown() then AcceptGroup() end
 	if IsAltKeyDown() and not IAmFocus() then follow_assist() return end
+	if IsAltKeyDown() then return end
 	if InCombat() then
-		local class=UnitClass("player")
-		if class=="Mage" then mage_turbo() return end
-		if class=="Paladin" then paladin_turbo() return end
-		if class=="Shaman" then shammy_turbo() return end
-		if class=="Priest" then priest_turbo() return end
-		if class=="Rogue" then rogue_turbo() return end
-		if class=="Warrior" then warrior_turbo() return end
-		if class=="Warlock" then lock_turbo() return end
-		if class=="Druid" then dru_turbo() return end
-		if class=="Hunter" then hunter_turbo() return end
+		local myclass=UnitClass("player")
+		if myclass=="Mage" then mage_turbo() return end
+		if myclass=="Paladin" then paladin_turbo() return end
+		if myclass=="Shaman" then shammy_turbo() return end
+		if myclass=="Priest" then priest_turbo() return end
+		if myclass=="Rogue" then rogue_turbo() return end
+		if myclass=="Warrior" then warrior_turbo() return end
+		if myclass=="Warlock" then lock_turbo() return end
+		if myclass=="Druid" then dru_turbo() return end
+		if myclass=="Hunter" then hunter_turbo() return end
 	else
 		SummonOutOfRange()
 	end
@@ -4614,30 +4622,29 @@ end
 function aoe()
 	if MB_reportcpu then MB_cpustart=GetTime() end
 	if not MB_raidleader and (TableLength(MBID)>1) then Print("WARNING: You have not chosen a raid leader--hit alt-4") end
-	local class=UnitClass("player")
-	if Jindo() and (class~="Mage" and class~="Warlock") then return end
-	if class=="Mage" then mage_aoe() return end
-	if class=="Paladin" then paladin_aoe() return end
-	if class=="Shaman" then shammy_aoe() return end
-	if class=="Priest" then priest_aoe() return end
-	if class=="Rogue" then rogue_aoe() return end
-	if class=="Warrior" then warrior_aoe() return end
-	if class=="Warlock" then lock_aoe() return end
-	if class=="Druid" then dru_aoe() return end
-	if class=="Hunter" then hunter_aoe() return end
+	if not IAmFocus() and IsAltKeyDown() and FindInTable(MB_tanklist,myname) then Follow() return end
+	if Jindo() and (myclass~="Mage" and myclass~="Warlock") then return end
+	if myclass=="Mage" then mage_aoe() return end
+	if myclass=="Paladin" then paladin_aoe() return end
+	if myclass=="Shaman" then shammy_aoe() return end
+	if myclass=="Priest" then priest_aoe() return end
+	if myclass=="Rogue" then rogue_aoe() return end
+	if myclass=="Warrior" then warrior_aoe() return end
+	if myclass=="Warlock" then lock_aoe() return end
+	if myclass=="Druid" then dru_aoe() return end
+	if myclass=="Hunter" then hunter_aoe() return end
 end
 function tap(modifier)
 	if not MB_raidleader and (TableLength(MBID)>1) then Print("WARNING: You have not chosen a raid leader--hit alt-4") end
-	local class=UnitClass("player")
-	if class=="Mage" then mage_tap(modifier) return end
-	if class=="Paladin" then paladin_tap(modifier) return end
-	if class=="Shaman" then shammy_tap(modifier) return end
-	if class=="Priest" then priest_tap(modifier) return end
-	if class=="Rogue" then rogue_tap(modifier) return end
-	if class=="Warrior" then warrior_tap(modifier) return end
-	if class=="Warlock" then lock_tap(modifier) return end
-	if class=="Druid" then dru_tap(modifier) return end
-	if class=="Hunter" then hunter_tap(modifier) return end
+	if myclass=="Mage" then mage_tap(modifier) return end
+	if myclass=="Paladin" then paladin_tap(modifier) return end
+	if myclass=="Shaman" then shammy_tap(modifier) return end
+	if myclass=="Priest" then priest_tap(modifier) return end
+	if myclass=="Rogue" then rogue_tap(modifier) return end
+	if myclass=="Warrior" then warrior_tap(modifier) return end
+	if myclass=="Warlock" then lock_tap(modifier) return end
+	if myclass=="Druid" then dru_tap(modifier) return end
+	if myclass=="Hunter" then hunter_tap(modifier) return end
 end
 --WARLOCK
 function lock_turbo()
@@ -4673,12 +4680,14 @@ function lock_setup()
 		SummonDemon()
 	end
 	if not InCombat() then smartdrink() end
-	--***This is working soulstone code that I don't use. Really, you should ss the tank.
-	--if NoRezzers() and not buffed("Soulstone","player") then
-	--if not HasSoulstone() and NumShards()>0 then CastSpell(SpellNum("Create Soulstone (Major)"),BOOKTYPE_SPELL) end
-	--use("Major Soulstone")
-	--TargetUnit("player")
-	--end
+	if MB_soulstone_rezzers then 
+		local random_rezzer=RezzersInGroup()
+		if random_rezzer and not buffed("Soulstone","player") then
+			if HasItem("Major Soulstone")==0 and NumShards()>0 then CastSpell(SpellNum("Create Soulstone.*Major"),BOOKTYPE_SPELL) end
+			TargetByName(random_rezzer)
+			use("Major Soulstone")
+		end
+	end
 	--***This is working healthstone code that I don't use.Too many shards for how much I wipe
 	--if not HasMajorHealthstone() and NumShards()>0 then CastSpell(SpellNum("Create Healthstone (Major)"),BOOKTYPE_SPELL) end
 	--if not HasGreaterHealthstone() and NumShards()>0 then CastSpell(SpellNum("Create Healthstone (Greater)"),BOOKTYPE_SPELL) end
@@ -4694,7 +4703,7 @@ function lock_single()
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	CC()
-	if not IAmFocus() then BanishManaFiend() end
+	--if not IAmFocus() then BanishManaFiend() end
 	if UnitName("target")=="Moam" and TargetManaPct()>.4 then cast("Drain Mana") end
 	if UnitName("target")=="Obsidian Eradicator" then cast("Drain Mana") end
 	if MB_My_ot_target then
@@ -4717,30 +4726,26 @@ function lock_single()
 			return
 		end
 		if GetRealZoneText()=="Molten Core" then
-			if MyClassOrder()==1 then DotCast("Curse of Shadow") end
-			if MyClassOrder()==2 then DotCast("Curse of the Elements") end
+			if MyClassOrder()==1 then BuffCast("Curse of Shadow") end
+			if MyClassOrder()==2 then BuffCast("Curse of the Elements") end
 			if MyClassOrder()>3 then
 				if UnitLevel("target")>60 or UnitLevel("target")<0 then
-					DotCast("Curse of Doom")
+					BuffCast("Curse of Doom")
 				else
-					DotCast("Curse of Weakness")
+					BuffCast("Curse of Weakness")
 				end
 			end
 		else
 			if MyClassOrder()==1 then
-				if UnitName("target")=="The Prophet Skeram" then
-					DotCast("Curse of Tongues")
-				else
-					DotCast("Curse of Recklessness")
-				end
+				BuffCast("Curse of Recklessness")
 			end
-			if MyClassOrder()==2 then DotCast("Curse of Shadow") end
-			if MyClassOrder()==3 then DotCast("Curse of the Elements") end
+			if MyClassOrder()==2 then BuffCast("Curse of Shadow") end
+			if MyClassOrder()==3 then BuffCast("Curse of the Elements") end
 			if MyClassOrder()>4 then
 				if UnitLevel("target")>60 or UnitLevel("target")<0 then
-					DotCast("Curse of Doom")
+					BuffCast("Curse of Doom")
 				else
-					DotCast("Curse of Weakness")
+					BuffCast("Curse of Weakness")
 				end
 			end
 		end
@@ -4796,9 +4801,9 @@ function lock_multi()
 			if MyClassOrder()==2 then BuffCast("Curse of the Elements") end
 			if MyClassOrder()>3 then
 				if UnitLevel("target")>60 or UnitLevel("target")<0 then
-					DotCast("Curse of Doom")
+					BuffCast("Curse of Doom")
 				else
-					DotCast("Curse of Weakness")
+					BuffCast("Curse of Weakness")
 				end
 			end
 		else
@@ -4807,16 +4812,16 @@ function lock_multi()
 			if MyClassOrder()==3 then BuffCast("Curse of the Elements") end
 			if MyClassOrder()>4 then
 				if UnitLevel("target")>60 or UnitLevel("target")<0 then
-					DotCast("Curse of Doom")
+					BuffCast("Curse of Doom")
 				else
-					DotCast("Curse of Weakness")
+					BuffCast("Curse of Weakness")
 				end
 			end
 		end
 		if Jindo() then
 			cast("Searing Pain")
 		else
-			DotCast("Corruption")
+			BuffCast("Corruption")
 			cast("Shadow Bolt")
 		end
 		--You are out of mana but not life. Why not life tap and get some mana?
@@ -4897,10 +4902,14 @@ function fearbreak()
 	CooldownCast("Tremor Totem",15)
 end
 function AutoAssignCC()
-	if IAmFocus() and UnitName("target")=="Moam" or UnitName("target")=="Vile Scarab" then
+	if IAmFocus() and (UnitName("target")=="Moam" or UnitName("target")=="Mana Fiend") then
 		for i=1,5 do
 			if UnitName("target")=="Mana Fiend" and not GetRaidTargetIndex("target") and not UnitIsDead("target") then MB_assign_cc() return end
 			TargetNearestEnemy()
+		end
+		if not MB_moamdead then RunLine("/target Moam") end
+		if UnitIsDead("target") and UnitName("target")=="Moam" then 
+			MB_moamdead=true
 		end
 	end
 end
@@ -4947,6 +4956,7 @@ end
 function warrior_tank_single()
 	AnubAlert()
 	AutoAssignINT()
+	AutoAssignCC()
 	if IsControlKeyDown() then WarriorInterrupt() return ReportCPU("Warrior tank single ctrl") end
 	--NEVeR MAKE A MOVE ON SHAZZRAH UNLESS U R Main TANK
 	if TankTarget("Shazzrah") and not IAmFocus() then return ReportCPU("Warrior tank single shazzrah") end
@@ -5096,8 +5106,6 @@ function warrior_tank_multi()
 	ReportCPU("Warrior tank multi")
 end
 function warrior_tank_aoe()
-	if not IAmFocus() and IsAltKeyDown() then Follow() return ReportCPU("Warrior tank aoe alt") end
-	if IsAltKeyDown() then return ReportCPU("Warrior tank aoe alt") end
 	local tname=UnitName("target")
 	--if UnitName("target") and (UnitLevel("target")<UnitLevel("player")-8 and UnitLevel("target")>0 ) then fury_multi() return end
 	OT()
@@ -5270,8 +5278,9 @@ end
 function pally_heal_single()
 	if IsControlKeyDown() then PallyInterrupt() ; end
 	PallySurvive()
-	if ImBusy() then return ReportCPU("Pally Heal Single busy") end
+	--if ImBusy() then return ReportCPU("Pally Heal Single busy") end
 	if TankTarget("Azuregos") and IsAltKeyDown() then return end
+	SaveAndorov(.8)
 	Decurse()
 	RaidHeal()
 	ReportCPU("Pally Heal Single")
@@ -5279,7 +5288,8 @@ end
 function pally_heal_multi()
 	if IsControlKeyDown() then PallyInterrupt() ; end
 	PallySurvive()
-	if ImBusy() then return ReportCPU("Pally heal multi busy") end
+	--if ImBusy() then return ReportCPU("Pally heal multi busy") end
+	SaveAndorov(.8)
 	Decurse()
 	RaidHeal()
 	ReportCPU("Pally heal multi")
@@ -5287,7 +5297,7 @@ end
 function pally_heal_aoe()
 	if IsControlKeyDown() then PallyInterrupt() ; end
 	PallySurvive()
-	if ImBusy() then return ReportCPU("Pally heal aoe busy") end
+	--if ImBusy() then return ReportCPU("Pally heal aoe busy") end
 	if not IAmFocus() then LockonTarget() end
 	if InMeleeRange() then cast("Consecration") end
 	Decurse()
@@ -5484,8 +5494,9 @@ end
 function shammy_heal_single()
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
-	if ImBusy() then return ReportCPU("Shammy heal single busy") end
+	--if ImBusy() then return ReportCPU("Shammy heal single busy") end
 	if TankTarget("Azuregos") and IsAltKeyDown() then return end
+	SaveAndorov(.8)
 	Decurse()
 	RaidHeal()
 	if buffed("Last Stand","target") or buffed("Shield Wall","target") or buffed("Frenzied Regeneration","target") then
@@ -5530,7 +5541,8 @@ function preheal_tanks()
 	end
 end
 function shammy_heal_multi()
-	if ImBusy() then return ReportCPU("Shammy heal multi busy") end
+	--if ImBusy() then return ReportCPU("Shammy heal multi busy") end
+	SaveAndorov(.8)
 	Decurse()
 	RaidHeal()
 	if buffed("Last Stand","target") or buffed("Shield Wall","target") or buffed("Frenzied Regeneration","target") then
@@ -5570,7 +5582,7 @@ function shammy_enh_single()
 	--if TankTarget("Lord Kazzak") and MyMana()<1000 then return end
 	if TargetInCombat() or IAmFocus() then
 		if not IsAltKeyDown() then
-			if UnitName("target")=="Shazzrah" and buffed("Deaden Magic","target") then cast("Purge") end
+			--if UnitName("target")=="Shazzrah" and buffed("Deaden Magic","target") then cast("Purge") end
 			if buffed("Focus","player") then cast("Lightning Bolt") end
 			SelfBuff("Lightning Shield")
 			--if not InMeleeRange() then cast("Lightning Bolt") end
@@ -5654,7 +5666,7 @@ function shammy_ele_single()
 	if IAmFocus() or (not IsAltKeyDown() and TargetInCombat()) then
 		if UnitName("target")=="High Priest Venoxis" and buffed("Renew","target") then cast("Purge") end
 		if UnitName("target")=="Azuregos" and buffed("Magic Shield","target") then SpellStopCasting() return end
-		if UnitName("target")=="Shazzrah" and buffed("Deaden Magic","target") then cast("Purge") end
+		--if UnitName("target")=="Shazzrah" and buffed("Deaden Magic","target") then cast("Purge") end
 		if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
 		SelfBuff("Lightning Shield")
 		party_totems()
@@ -5738,7 +5750,7 @@ function shammy_ele_aoe()
 	ReportCPU("Shammy ele aoe")
 end
 function shammy_heal_aoe()
-	if ImBusy() then return ReportCPU("Shammy heal aoe busy") end
+	--if ImBusy() then return ReportCPU("Shammy heal aoe busy") end
 	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	--Stoneclaw()
@@ -5747,14 +5759,16 @@ function shammy_heal_aoe()
 	CombatUse(13)
 	CombatUse(14)
 	cast("Fire Nova Totem")
-	local raidhealth,mosthurt=RaidHealth()
-	if mosthurt and UnitName(mosthurt) then TargetByName(mosthurt,1) end
-	cast("Chain Heal")
-	Decurse()
-	if not TargetInCombat() then if IsCurrentAction(72) then UseAction(72) end end
-	if TargetInCombat() and InMeleeRange() then
-		if not IsCurrentAction(72) then UseAction(72) end
+	local raidhealth,mosthurt,hp=RaidHealth()
+	Print("hp is")
+	Print(hp)
+	if hp and hp<1 then 
+		if mosthurt and UnitName(mosthurt) then 
+			TargetUnit(mosthurt)
+			cast("Chain Heal")
+		end
 	end
+	Decurse()
 	ReportCPU("Shammy heal aoe")
 end
 ----HUNTER
@@ -5856,7 +5870,7 @@ function hunter_single()
 					if UnitName("target")=="Obsidian Eradicator" or UnitName("target")=="Moam" then BuffCast("Viper Sting") end
 					--if buffed("Frenzy","target") and not OnCooldown("Tranquilizing Shot") then cast ("Tranquilizing Shot") end
 					if UnitName("target")=="Magmadar" and MyMana()<244 then return ReportCPU("Hunter Single save mana for tranq") end
-					--stingit()
+					stingit()
 					if UnitIsPlayer("targettarget") and UnitName("targettarget")~=MB_raidleader then cast("growl") end
 					if UnitName("target")=="Magmadar" then
 						BuffCast("Hunter's Mark")
@@ -5917,7 +5931,7 @@ function hunter_multi()
 			else
 				SelfBuff("Aspect of the Hawk")
 				if not (IsAltKeyDown()) then
-				--stingit()
+					stingit()
 					cast("Multi-Shot")
 					--PerfectAim()
 					cast("Aimed Shot")
@@ -5931,11 +5945,7 @@ function stingit()
 	if ImBusy() then return end
 	if UnitName("target")=="Plague Slime" then return end
 	if UnitName("target")=="Stoneskin Gargoyle" then return end
-	--if UnitPowerType("target")==0 then
-		--BuffCast("Viper Sting")
-	--else
-		BuffCast("Serpent Sting");
-	--end
+	BuffCast("Scorpid Sting");
 end
 function PetStuff()
 	if UnitExists("pet") and IsAlive("pet") then
@@ -6062,42 +6072,20 @@ function dru_aoe()
 	dru_cat_single()
 end
 function InnervateAHealer()
-	if ImBusy() then return end
 	if OnCooldown("Innervate") or not InCombat() then return end
 	if MyMana()<62 then use("Major Mana Potion") end
 	if MyMana()<62 then return end
-	if UnitInRaid("player") then
-		for i=1,TableLength(MB_healerinraid) do
-			local found=nil
-			for x=1,GetNumRaidMembers() do
-				name,realm=UnitName("raid"..x)
-				if name==MB_healerinraid[i] and UnitIsConnected("raid"..x) and UnitMana("raid"..x)<800 then
-					TargetUnit(MBID[name])
-					CancelForm()
-					BuffCast("Innervate")
-					MB_msg("<<INNERVATING "..name.." >>")
-					TargetUnit("playertarget")
-					return
-				end
-			end
-		end
-	else
-		for i=1,TableLength(MB_healerinraid) do
-			local found=nil
-			for x=1,GetNumPartyMembers() do
-				name,realm=UnitName("party"..x)
-				if name==MB_healerinraid[i] and UnitIsConnected("party"..x) and UnitMana("party"..x)<800 then
-					CancelForm()
-					TargetUnit(MBID[name])
-					cast("Innervate")
-					MB_msg("<<INNERVATING "..name.." >>")
-					TargetUnit("playertarget")
-					return
-				end
-			end
+	for _,name in MB_healerinraid do
+		if UnitMana(MBID[name])<800 then
+			TargetUnit(MBID[name])
+			CancelForm()
+			BuffCast("Innervate")
+			MB_msg("<<INNERVATING "..name.." >>")
+			TargetUnit("playertarget")
+			return
 		end
 	end
-	if IsDruidHealer() or IsHybridDruid() and UnitMana("player")<1000 then
+	if (IsDruidHealer() or IsHybridDruid()) and UnitMana("player")<1000 then
 		cast("Innervate",1)
 		MB_msg("<<INNERVATING myself, punks! Heal better! >>")
 		return
@@ -6108,10 +6096,13 @@ function dru_heal_single()
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	if TankTarget("Azuregos") and IsAltKeyDown() then return end
 	CC()
+	SaveAndorov(.8)
 	Decurse()
+	if not IAmFocus() then LockonTarget() end
+	if not buffed("Insect Swarm","target") then BuffCast("Insect Swarm(Rank 1)") end
 	RaidHeal()
-	if ImBusy() then return ReportCPU("Dru heal single busy") end
-	--InnervateAHealer()
+	--if ImBusy() then return ReportCPU("Dru heal single busy") end
+	InnervateAHealer()
 	if buffed("Last Stand","target") or buffed("Shield Wall","target") or buffed("Frenzied Regeneration","target") then
 		CombatUse(13)
 		CombatUse(14)
@@ -6132,9 +6123,10 @@ function dru_heal_single()
 end
 function dru_heal_multi()
 	CC()
+	SaveAndorov(.8)
 	Decurse()
 	RaidHeal()
-	if ImBusy() then return ReportCPU("Dru heal multi busy") end
+	--if ImBusy() then return ReportCPU("Dru heal multi busy") end
 	InnervateAHealer()
 	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if UnitHealth("player")/UnitHealthMax("player")<.6 then cast ("Barkskin") end
@@ -6287,7 +6279,6 @@ function dru_tank_multi()
 end
 function dru_tank_aoe()
 	--Print("In Dru Tank aoe")
-	if not IAmFocus() and IsAltKeyDown() then Follow() return ReportCPU("Dru tank aoe alt") end
 	if SpellExists("Dire Bear Form") then
 		SelfBuff("Dire Bear Form")
 	else
@@ -6453,10 +6444,11 @@ function priest_heal_single()
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	ShieldBomb()
 	CC()
+	SaveAndorov(.8)
 	if TankTarget("Obsidian Eradicator") or TankTarget("Moam") then MB_Assist() cast("Mana Burn") end
 	if TankTarget("Azuregos") and IsAltKeyDown() then return end
 	SelfBuff("Inner Fire")
-	if ImBusy() then return ReportCPU("Priest heal single busy") end
+	--if ImBusy() then return ReportCPU("Priest heal single busy") end
 	Decurse()
 	RaidHeal()
 	Fade()
@@ -6470,11 +6462,11 @@ end
 function priest_heal_multi()
 	CC()
 	SelfBuff("Inner Fire")
-	if ImBusy() then return ReportCPU("Priest heal multi busy") end
+	--if ImBusy() then return ReportCPU("Priest heal multi busy") end
+	SaveAndorov(.8)
 	Decurse()
 	RaidHeal()
 	Fade()
-	--SaveAndorov(.5)
 	if buffed("Last Stand","target") or buffed("Shield Wall","target") or buffed("Frenzied Regeneration","target") then
 		CombatUse(13)
 		CombatUse(14)
@@ -6482,11 +6474,27 @@ function priest_heal_multi()
 	ReportCPU("Priest heal multi")
 end
 function SaveAndorov(thresh)
-	RunLine("/target Lieutenant General Andorov")
-	if UnitHealth("target")/UnitHealthMax("target")<thresh then
-		QuickHeal("target")
+	--RAJAXX--Cast of characters
+	--Captain Qeez-Intimidating shout
+	--Captain Tuubid-Attack one person
+	--Captain Drenn-Hurricane VERY DANGEROUS, STRAFE
+	--Captain Zurrem-Shockwave (knockdown)
+	--Major Yeggeth-BOP and Big cleave, Andorov killer, face him away
+	--Major Pakkon-Sweeping Slam, face away.
+	--Colonel Zerran-Casts dispellable enlarge on himself and adds. Extra damage
+	--NOTE: If you are having a hard time in Rajaxx, use shift-F1 to fear adds
+	--Try killing captains first in that strat.
+	--Also, let Andorov tank Rajaxx--he's immune to knockback.
+	--BACK UP YOUR RAID AGAINST WALL for Rajaxx. Back up your Rajaxx tank against other wall. Doesn't matter if you lose hunters against adds, back em up.
+	--If none of that works, run away between fights on VG. The next fight won't start till you buff and heal and come back
+	--Don't forget to buff and mark andorov before the fight!
+	if TankTarget("Captain Qeez") or TankTarget("Captain Tuubid") or TankTarget("Major Yeggeth") or TankTarget("Captain Drenn") or TankTarget("Captain Xurrem") or TankTarget("Major Pakkon") or TankTarget("Colonel Zerran") or TankTarget("Qiraji Warrior") or TankTarget("Swarmguard Needler") or TankTarget("General Rajaxx") then 
+		TargetByName("Lieutenant General Andorov",1)
+		if UnitHealth("target")/UnitHealthMax("target")<=thresh then 
+			RunLine("/yell Healing Andorov!")
+			MBHeal("target")
+		end
 	end
-	TargetUnit("playertarget")
 end
 function priest_heal_aoe()
 	RaidHeal()
@@ -7043,8 +7051,6 @@ function Fear()
 	if not MB_My_fear_target then return end
 	for i=1,10 do
 		if GetRaidTargetIndex("target")==MB_My_fear_target and not UnitIsDead("target") then
-			Print("Fear spell is ")
-			Print(MB_Fear_spell[UnitClass("player")])
 			if UnitName("target") and not buffed(MB_Fear_spell[UnitClass("player")],"target") then
 				MB_msg("Fearing "..UnitName("target"))
 				BuffCast(MB_Fear_spell[UnitClass("player")])
@@ -7213,6 +7219,42 @@ function MB_assign_cc()
 			else
 				MB_cc_current.Mage=MB_cc_current.Mage+1
 			end
+		end
+	end
+end
+function MB_assign_fear()
+	if not IAmFocus() then return end
+	if not GetRaidTargetIndex("target") or GetRaidTargetIndex("target")==0 then
+		SetRaidTarget("target",MB_currentraidtarget)
+		if MB_currentraidtarget==8 then MB_currentraidtarget=1 else MB_currentraidtarget=MB_currentraidtarget+1 end
+	end
+	num_locks=TableLength(MB_classlist["Warlock"])
+	--Print("num_locks="..num_locks)
+	if num_locks>0 then
+		Print("Fear that Fool")
+		if UnitInRaid("player") then 
+			SendAddonMessage(MB_RAID.."_FEAR",MB_classlist["Warlock"][MB_fear_current.Warlock].." "..UnitName("player"),"RAID")
+		else
+			SendAddonMessage(MB_RAID.."_FEAR",MB_classlist["Warlock"][MB_fear_current.Warlock].." "..UnitName("player"))
+		end
+		if MB_fear_current.Warlock==num_locks then 
+			MB_fear_current.Warlock=1
+		else
+			MB_fear_current.Warlock=MB_fear_current.Warlock+1
+		end
+	end
+	num_hunters=TableLength(MB_classlist["Hunter"])
+	if num_hunters>0 and UnitCreatureType("target")=="Beast" then
+		Print("Fear that beast")
+		if UnitInRaid("player") then 
+			SendAddonMessage(MB_RAID.."_FEAR",MB_classlist["Hunter"][MB_fear_current.Hunter].." "..UnitName("player"),"RAID")
+		else
+			SendAddonMessage(MB_RAID.."_FEAR",MB_classlist["Hunter"][MB_fear_current.Hunter].." "..UnitName("player"))
+		end
+		if MB_fear_current.Hunter==num_locks then 
+			MB_fear_current.Hunter=1
+		else
+			MB_fear_current.Hunter=MB_fear_current.Hunter+1
 		end
 	end
 end
@@ -7691,7 +7733,7 @@ function RaidHeal()
 		MB_maxheal={Druid=11,Priest=3,Shaman=5,Paladin=5}
 	else
 		--MB_maxheal={Druid=11,Priest=11,Shaman=11,Paladin=11}
-		MB_maxheal={Druid=5,Priest=3,Shaman=5,Paladin=4}
+		MB_maxheal={Druid=4,Priest=2,Shaman=5,Paladin=4}
 	end
 	--for parties just quickheal
 	if GetNumRaidMembers()<6 then QuickHeal() return end
@@ -7780,14 +7822,19 @@ function RaidHeal()
 	--If there are any tanks in trouble, they get healed first (and only)
 	--If there are any chumps in trouble, they get healed second (and only)
 	--If no tanks in trouble or chumps in trouble, normal healing order, wrapping around to the top if excess healers.
-	--If the healer list is longer than the hurt list, loop around to double up the healers on the hurt list.
+	--If the healer list is longer than the hurt list, loop around to double up the healers on the hurt list. But only double up. Don't triple up. That wastes MP5 canceling out of spells.
 	local hurt_idx=1 ; num_hurt=TableLength(MB_hurt_list)
+	if num_hurt==0 then return end
 	local healer_idx=1 ; num_healers=TableLength(MB_healer_mana)
 	local num_damaged=TableLength(MB_hurt_list)
 	for name,mana in spairs(MB_healer_mana, function(t,a,b) return t[b] < t[a] end) do
+	--Print("Checking healer "..healer_idx.." . "..name.." "..mana)
+	--Print("On hurt list --hurt_idx")
+	--Print(hurt_idx)
+	--Print(MB_hurt_list[hurt_idx])
 		if name==myname and MB_hurt_list[hurt_idx] then
 			local id=MBID[MB_hurt_list[hurt_idx]]
-			Print("My healing order is "..healer_idx.." Healing "..MB_hurt_list[hurt_idx])
+			Print("My healing order is "..healer_idx.." Healing "..MB_hurt_list[hurt_idx].." who is down "..(UnitHealthMax(id)-UnitHealth(id)))
 			NS(id)
 			Shield(id)
 			Bubble(id)
@@ -7797,6 +7844,7 @@ function RaidHeal()
 		--circle around to the top of the hurt list when every hurt has a heal.
 		if healer_idx==num_healers then healer_idx=1 else healer_idx=healer_idx+1 end
 		if hurt_idx==num_hurt then hurt_idx=1 else hurt_idx=hurt_idx+1 end
+		--if hurt_idx==num_hurt then break end
 	end
 end
 function ReportCPU(mystring)
@@ -7920,7 +7968,6 @@ function FsR_RequestMaterialUpdate()
 end
 function FsR_ReceivingMaterialChatMessage(message, sender)
 	if (message == "Update me!") then
-		Print("Update me!")
 		FsR_AnnounceMaterials()
 	else
 		local ItemName = string.sub(message, 1, string.find(message,":") - 1)
@@ -8067,7 +8114,7 @@ function FsR_UpdateTradeList()
 		end
 	end
 end
-function FsR_StartTradingPeriode()
+function FsR_StartTradingPeriod()
 	FsR_ItemTrade.TradingWindowCloseTime = GetTime() + 30
 end
 function FsR_DoTrades()
@@ -8214,3 +8261,30 @@ function FsR_PutItemInTrade(itemIn, amount, partner)
 	ClearCursor()
 end
 --Fs*
+function MBHeal(targ)
+	MB_classheals={Druid="Healing Touch",Priest="Heal",Shaman="Healing Wave",Paladin="Holy Light"}
+	if RaidHealth()<.65 then MB_classheals["Shaman"]="Chain Heal" end
+	if PartyHurt(800,3) then MB_classheals["Priest"]="Prayer of Healing" end
+	class=UnitClass("player")
+	TargetUnit(targ)
+	NS()
+	if UnitName("target") then Print("Healing "..UnitName("target").."  with "..MB_classheals[class]) end
+	--if UnitHealth(targ)/UnitHealthMax(targ)==1 then SpellStopCasting() return end
+	for i=0,MB_maxheal[class]-1 do
+		spell=MB_classheals[class].."(Rank "..MB_maxheal[class]-i..")"
+		cast(spell)
+	end
+end
+function RezzersInGroup()
+	--Returns name of random rezzer in the raid or party
+	local rezzers={}
+	for name,id in MBID do 
+		local class=UnitClass(id)
+		if (class=="Shaman"  or class=="Priest" or class=="Druid" or class=="Paladin") then table.insert(rezzers,name) end
+	end
+	if TableLength(rezzers)==0 then
+		return nil
+	else
+		return(rezzers[math.random(TableLength(rezzers))])
+	end
+end

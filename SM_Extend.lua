@@ -22,11 +22,11 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={"Raigore","Dwarftoss","Vandalus","Tankforhire","Farquad","Rohnin","Zena","Confusion","Furyswipes","Cuppycake","Eversmile","Komal","Mootalia","Theothertank","Estbro","Enticer","Killdozerr","Hoyabembe","Skankia","Titanator","Clubseals","Chuckspears","Wiglet"}
+MB_tanklist={"Cachorro","Cachorrob","Cachorroa","Cachorra","Raigore","Dwarftoss","Vandalus","Tankforhire","Farquad","Rohnin","Zena","Confusion","Furyswipes","Cuppycake","Eversmile","Komal","Mootalia","Theothertank","Estbro","Enticer","Killdozerr","Hoyabembe","Skankia","Titanator","Clubseals","Chuckspears","Wiglet"}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list= {"Feelinghordy","Steezmachine","Lavaza","Pastordave","Grtizngravy","Spiritcooker","Indulgence","Jackeebrown","Wukfah","Bigolebih","Chinesium","Barie","Aderetia","Karris","Orinoco","Punchingbear","Cashme","Refill","Shamanquatro","Bubbling","Shamancinco","Avindra","Zumwalt","Shamansiete","Shamanocho","Holybabe","Bubblefail","Bubblescum","Bubblebootie","Bubblyboo","Healuraz","Octopus","Gayforpay","Whereistotem","Negativeaura","Aintitashamy","Spankit","Consecration","Lightbomb","Twin","Surger","Di","Steezmachine","Chuntaro","Huntmilfs","Dirtyshirley","Bubblenator","Bubblydoom" }
+MB_healer_list= {"Zangadoo","Blackbeastxd","Darkspiritxd","Darkspiriton","Kuhmilch","Darkspiritqt","Darkspirittw","Zangadoxd","Feelinghordy","Steezmachine","Lavaza","Pastordave","Grtizngravy","Spiritcooker","Indulgence","Jackeebrown","Wukfah","Bigolebih","Chinesium","Barie","Aderetia","Karris","Orinoco","Punchingbear","Cashme","Refill","Shamanquatro","Bubbling","Shamancinco","Avindra","Zumwalt","Shamansiete","Shamanocho","Holybabe","Bubblefail","Bubblescum","Bubblebootie","Bubblyboo","Healuraz","Octopus","Gayforpay","Whereistotem","Negativeaura","Aintitashamy","Spankit","Consecration","Lightbomb","Twin","Surger","Di","Steezmachine","Chuntaro","Huntmilfs","Dirtyshirley","Bubblenator","Bubblydoom" }
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist = { "Cashme","Ovendodger","Steezmachine","Trifling","Clubseals","Chuckspears","Indulgences","Holymufdiver","Avadevine","Wiglet","Huntmilfs","Chuntaro","Pygmage","Absharam","Trashly","JizzGrizz","Dirtyshirley","Wastrel","Scissorin","Bijikurdista","Friendlyfire","Lavaza","Troho","Harpzor","Mylika,","Phenostrix","Pastordave","Tintizzy","Grtizngravy","Occlusion","Spiritcooker","Hoyabembe","Bigolebih","Wukfah","Jackeebrown,","Bearspray","Indulgence","Killdozerr","Chinesium","Forestfire","Lesbaru","Heatedheavy","Moldylockz","Enticer","Aderetia","Theothertank","Typher","Valatorin","Cleargy","Sunkiss","Sneakyk","Karris","Horock","Tankforhire","Justforwater","Aimshoted","Imyourdaddo","Sendmebtc","Estbro","Titanator","Botinator","Feelinghordy","Hotwand","Buy", "Mootalia","Healuraz", "Kilimanjaro", "Jyssyj", "Skankia", "Furyswipes", "Cuppycake", "Shamanuno", "Brutalia", "Refill", "Bubbling", "Shamanquatro", "Olympic", "Yellowstone", "Everglades", "Flameshocked", "Brutalio", "Punchingbear", "Shamancinco", "Brutalic", "Icefloes", "Zillazee", "Komal", "Avindra", "Shamantres", "Brutalium", "Brutaliar", "Monterey", "Shamanocho", "Shamanseis", "Shamansiete", "Zumwalt", "Silza", "Merazza", "Jenjja", "Calypsa", "Crookshanks", "Pocklick", "Toshredsusay", "Stabsya", "Kimboslicer", "Eversmile", "Barie", "Orinoco", "Badlands", "Bubblyboo", "Desdemonia", "Drainsoulia", "Bubblydoom", "Bubbleup", "Bubblefail", "Bubblemad", "Bubbleplanet", "Bubblemama", "Bubblescum", "Bubblemania", "Zombiewife", "Bubblewin", "Bubblenator", "Bridesmage", "Holybabe", "Bubblebootie", "Bubblebrave", "Bubblesong", "Bubblefame", "Maala", "Renew","Dwarftoss","Kneearrow","Heartstrike","Slamminsam","Iiliililiil","Testshamrest","Stung","Understab","Dwarfstomp","Bloobs","Mysterial","Sinisterlike","Lockinabox","Thepain","Alwayshordy","Elfrocket","Badcosplay","Neckbiter","Glittery","Lightbomb","Surger" ,"Farquad" ,"Rohnin" ,"Zena" ,"Confusion" ,"Thearmor" ,"Octopus" ,"Gayforpay" ,"Whereistotem" ,"Negativeaura" ,"Aintitashamy" ,"Spankit" ,"Consecration" ,"Thunda" ,"Zing" ,"Crank" ,"Salvo" ,"Chaostard" ,"Heavenly" ,"Spun" ,"Twisted" ,"Handy" ,"Badknee" ,"Explosive" ,"Spite" ,"Pontiac" ,"Twin" ,"Sparky" ,"Druidy" ,"Fister" ,"Sploink" ,"Moredotz" ,"Zombia" ,"Zorn" ,"Sid" ,"Natalia" ,"Di","J\195\172\195\176f"}
+MB_toonlist = { "Zangadoo","Poisonmugger","Blackbeastxd","Jablanic","Darkspiritxd","Tornshriek","Cachorra","Darkspiriton","Schranzerone","Schranzertwo","Epockone","Poisonone","Darkspirittw","Schranzerthr","Epocktwo","Nympheone","Darkspiritqt","Kuhmilch","Zangadoxd","Zangadoone","Zangadotwo","Epockthree","Schranzerf","Kuhschubser","Epockxd","Schranzerqt","Cachorroa","Cachorrob","Bugxd","Epocka","Epockb","Epockc","Epockd","Schranzera","Trollhunterx","Buuhaa","Nymphe","Cachorro","Epock","Schranzerr","Cashme","Ovendodger","Steezmachine","Trifling","Clubseals","Chuckspears","Indulgences","Holymufdiver","Avadevine","Wiglet","Huntmilfs","Chuntaro","Pygmage","Absharam","Trashly","JizzGrizz","Dirtyshirley","Wastrel","Scissorin","Bijikurdista","Friendlyfire","Lavaza","Troho","Harpzor","Mylika,","Phenostrix","Pastordave","Tintizzy","Grtizngravy","Occlusion","Spiritcooker","Hoyabembe","Bigolebih","Wukfah","Jackeebrown,","Bearspray","Indulgence","Killdozerr","Chinesium","Forestfire","Lesbaru","Heatedheavy","Moldylockz","Enticer","Aderetia","Theothertank","Typher","Valatorin","Cleargy","Sunkiss","Sneakyk","Karris","Horock","Tankforhire","Justforwater","Aimshoted","Imyourdaddo","Sendmebtc","Estbro","Titanator","Botinator","Feelinghordy","Hotwand","Buy", "Mootalia","Healuraz", "Kilimanjaro", "Jyssyj", "Skankia", "Furyswipes", "Cuppycake", "Shamanuno", "Brutalia", "Refill", "Bubbling", "Shamanquatro", "Olympic", "Yellowstone", "Everglades", "Flameshocked", "Brutalio", "Punchingbear", "Shamancinco", "Brutalic", "Icefloes", "Zillazee", "Komal", "Avindra", "Shamantres", "Brutalium", "Brutaliar", "Monterey", "Shamanocho", "Shamanseis", "Shamansiete", "Zumwalt", "Silza", "Merazza", "Jenjja", "Calypsa", "Crookshanks", "Pocklick", "Toshredsusay", "Stabsya", "Kimboslicer", "Eversmile", "Barie", "Orinoco", "Badlands", "Bubblyboo", "Desdemonia", "Drainsoulia", "Bubblydoom", "Bubbleup", "Bubblefail", "Bubblemad", "Bubbleplanet", "Bubblemama", "Bubblescum", "Bubblemania", "Zombiewife", "Bubblewin", "Bubblenator", "Bridesmage", "Holybabe", "Bubblebootie", "Bubblebrave", "Bubblesong", "Bubblefame", "Maala", "Renew","Dwarftoss","Kneearrow","Heartstrike","Slamminsam","Iiliililiil","Testshamrest","Stung","Understab","Dwarfstomp","Bloobs","Mysterial","Sinisterlike","Lockinabox","Thepain","Alwayshordy","Elfrocket","Badcosplay","Neckbiter","Glittery","Lightbomb","Surger" ,"Farquad" ,"Rohnin" ,"Zena" ,"Confusion" ,"Thearmor" ,"Octopus" ,"Gayforpay" ,"Whereistotem" ,"Negativeaura" ,"Aintitashamy" ,"Spankit" ,"Consecration" ,"Thunda" ,"Zing" ,"Crank" ,"Salvo" ,"Chaostard" ,"Heavenly" ,"Spun" ,"Twisted" ,"Handy" ,"Badknee" ,"Explosive" ,"Spite" ,"Pontiac" ,"Twin" ,"Sparky" ,"Druidy" ,"Fister" ,"Sploink" ,"Moredotz" ,"Zombia" ,"Zorn" ,"Sid" ,"Natalia" ,"Di","J\195\172\195\176f"}
 --This is the powerleveler your lowbies will follow when powerleveling
 MB_powerleveler="Titanator"
 --This is your set of lowbie leveling parties. You can run 4 at a time. The first toon name on the left of = is the squad leader.
@@ -2044,12 +2044,12 @@ function init()
 		PickupSpell(SpellNum("Attack"),BOOKTYPE_SPELL)
 		PlaceAction(71)
 	elseif class=="Rogue" then
-		PickupSpell(SpellNum("Backstab"),BOOKTYPE_SPELL)
+		if SpellNum("Backstab") then PickupSpell(SpellNum("Backstab"),BOOKTYPE_SPELL) end
 		PlaceAction(71)
 		PickupSpell(SpellNum("Attack"),BOOKTYPE_SPELL)
 		PlaceAction(72)
 	elseif class=="Druid" then
-		PickupSpell(SpellNum("Ravage"),BOOKTYPE_SPELL)
+		if SpellNum("Ravage") then PickupSpell(SpellNum("Ravage"),BOOKTYPE_SPELL) end
 		PlaceAction(71)
 		PickupSpell(SpellNum("Attack"),BOOKTYPE_SPELL)
 		PlaceAction(72)
@@ -3780,7 +3780,7 @@ function NumInParty(checkclass)
 end
 function ChooseAirTotem()
 	if TankTarget("Hakkar") or TankTarget("Lucifron") or TankTarget("The Prophet Skeram") then return "Grounding Totem" end
-	if TankTarget("Stoneskin Gargoyle") or TankTarget("Lord Skwol") or TankTarget("High Priestess Mar'li") or TankTarget("Spawn of Mar'li") or TankTarget("High Priestess Mar'li") or TankTarget("Witherbark Speaker") or TankTarget("High Priest Venoxis") or TankTarget("Razzashi Cobra") or TankTarget("Razzashi Adder") or TankTarget("Razzashi Serpent") then return "Nature Resistance Totem" end
+	if TankTarget("Buru the Gorger") or TankTarget("Lord Skwol") or TankTarget("High Priestess Mar'li") or TankTarget("Spawn of Mar'li") or TankTarget("High Priestess Mar'li") or TankTarget("Witherbark Speaker") or TankTarget("High Priest Venoxis") or TankTarget("Razzashi Cobra") or TankTarget("Razzashi Adder") or TankTarget("Razzashi Serpent") then return "Nature Resistance Totem" end
 	if MB_DruidTankInParty or (NumInParty("Hunter")>0 and NumInParty("Hunter")>NumInParty("Rogue")) then return "Grace of Air Totem" end
 	if MB_WarriorTankInParty or NumInParty("Rogue")>0 and NumInParty("Rogue")>=NumInParty("Hunter") then return "Windfury Totem" end
 	return "Tranquil Air Totem"
@@ -4721,7 +4721,7 @@ function lock_single()
 		if MyHealthPct()<.1 then cast("Drain Life") end
 		if NumShards()<20 and UnitHealth("target")/UnitHealthMax("target")<.10 then cast("Drain Soul") end
 		if UnitName("target")=="Powerful Healing Ward" then cast("Searing Pain") end
-		if UnitName("target")=="Anubisath Sentinel" and buffed("Shadow and Frost Reflect","target") then
+		if (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel") and buffed("Shadow and Frost Reflect","target") then
 			cast("Searing Pain")
 			return
 		end
@@ -6076,7 +6076,7 @@ function InnervateAHealer()
 	if MyMana()<62 then use("Major Mana Potion") end
 	if MyMana()<62 then return end
 	for _,name in MB_healerinraid do
-		if UnitMana(MBID[name])<800 then
+		if IsAlive(MBID[name]) and UnitMana(MBID[name])<800 then
 			TargetUnit(MBID[name])
 			CancelForm()
 			BuffCast("Innervate")
@@ -6085,7 +6085,7 @@ function InnervateAHealer()
 			return
 		end
 	end
-	if (IsDruidHealer() or IsHybridDruid()) and UnitMana("player")<1000 then
+	if IsAlive("player") and (IsDruidHealer() or IsHybridDruid()) and UnitMana("player")<1000 then
 		cast("Innervate",1)
 		MB_msg("<<INNERVATING myself, punks! Heal better! >>")
 		return
@@ -6652,12 +6652,12 @@ function mage_fire_single()
 	if MyManaPct()<.1 and not OnCooldown("Evocation") then cast("Evocation") end
 	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
 	if TargetInCombat() or IAmFocus() then
-		if not buffed("Detect Magic","player") and (UnitName("target")=="Anubisath Sentinel" or UnitName("target")=="Shazzrah") then BuffCast("Detect Magic") end
-		if IsAltKeyDown() and not UnitName("target")=="Anubisath Sentinel" then SpellStopCasting() end
+		if not buffed("Detect Magic","player") and (UnitName("target")=="Anubisath Sentinel" or UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Shazzrah") then BuffCast("Detect Magic") end
+		if IsAltKeyDown() and not (UnitName("target")=="Anubisath Sentinel" or UnitName("target")=="Anubisath Guardian") then SpellStopCasting() end
 		if not IsAltKeyDown() then
 			--if UnitName("target")=="Ayamiss the Hunter" and (TargetHealthPct()<.75 and TargetHealthPct()>.69) then return end
 			if UnitName("target")=="Powerful Healing Ward" then cast("Fire Blast") end
-			if UnitName("target")=="Anubisath Sentinel" and buffed("Arcane and Fire Reflect","target") then
+			if (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel") and buffed("Arcane and Fire Reflect","target") then
 				cast("Frostbolt")
 			end
 			if UnitName("target")=="Azuregos" then
@@ -6779,13 +6779,13 @@ function mage_frost_single()
 	--CrowdControl()
 	--if TankTarget("Lord Kazzak") and MyMana()<1000 then return end
 	if TargetInCombat() or IAmFocus() then
-		if not buffed("Detect Magic","player") and (UnitName("target")=="Anubisath Sentinel" or UnitName("target")=="Shazzrah") then BuffCast("Detect Magic") end
-		if IsAltKeyDown() then if (not MB_My_cc_target and not UnitName("target")=="Anubisath Sentinel") then SpellStopCasting() return ReportCPU("Mage frost single alt") end end
+		if not buffed("Detect Magic","player") and (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel" or UnitName("target")=="Shazzrah") then BuffCast("Detect Magic") end
+		if IsAltKeyDown() then if (not MB_My_cc_target and not (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel")) then SpellStopCasting() return ReportCPU("Mage frost single alt") end end
 		if not IsAltKeyDown() and (TargetInCombat() or IAmFocus()) then
 			--if UnitName("target")=="Ayamiss the Hunter" and (TargetHealthPct()<.75 and TargetHealthPct()>.69) then return end
 			--if UnitName("target")=="Magmadar" then BuffCast("Detect Magic") end
 			if Jindo() then cast("Scorch") end
-			if UnitName("target")=="Anubisath Sentinel" and buffed("Shadow and Frost Reflect","target") then
+			if (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel") and buffed("Shadow and Frost Reflect","target") then
 				cast("Fireball")
 			end
 			if UnitName("target")=="Azuregos" then

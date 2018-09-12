@@ -22,9 +22,9 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={"Cachorro","Cachorrob","Cachorroa","Cachorra","Raigore","Dwarftoss","Vandalus","Tankforhire","Farquad","Rohnin","Zena","Confusion","Furyswipes","Cuppycake","Eversmile","Komal","Mootalia","Theothertank","Estbro","Enticer","Killdozerr","Hoyabembe","Skankia","Titanator","Clubseals","Chuckspears","Wiglet"}
+MB_tanklist={"Bugxd","Cachorro","Cachorrob","Cachorroa","Cachorra","Raigore","Dwarftoss","Vandalus","Tankforhire","Farquad","Rohnin","Zena","Confusion","Furyswipes","Cuppycake","Eversmile","Komal","Mootalia","Theothertank","Estbro","Enticer","Killdozerr","Hoyabembe","Skankia","Titanator","Clubseals","Chuckspears","Wiglet"}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list= {"Zangadoo","Blackbeastxd","Darkspiritxd","Darkspiriton","Kuhmilch","Darkspiritqt","Darkspirittw","Zangadoxd","Feelinghordy","Steezmachine","Lavaza","Pastordave","Grtizngravy","Spiritcooker","Indulgence","Jackeebrown","Wukfah","Bigolebih","Chinesium","Barie","Aderetia","Karris","Orinoco","Punchingbear","Cashme","Refill","Shamanquatro","Bubbling","Shamancinco","Avindra","Zumwalt","Shamansiete","Shamanocho","Holybabe","Bubblefail","Bubblescum","Bubblebootie","Bubblyboo","Healuraz","Octopus","Gayforpay","Whereistotem","Negativeaura","Aintitashamy","Spankit","Consecration","Lightbomb","Twin","Surger","Di","Steezmachine","Chuntaro","Huntmilfs","Dirtyshirley","Bubblenator","Bubblydoom" }
+MB_healer_list= {"Zangadoone","Zangadotwo","Zangadoo","Blackbeastxd","Darkspiritxd","Darkspiriton","Kuhmilch","Darkspiritqt","Darkspirittw","Zangadoxd","Feelinghordy","Steezmachine","Lavaza","Pastordave","Grtizngravy","Spiritcooker","Indulgence","Jackeebrown","Wukfah","Bigolebih","Chinesium","Barie","Aderetia","Karris","Orinoco","Punchingbear","Cashme","Refill","Shamanquatro","Bubbling","Shamancinco","Avindra","Zumwalt","Shamansiete","Shamanocho","Holybabe","Bubblefail","Bubblescum","Bubblebootie","Bubblyboo","Healuraz","Octopus","Gayforpay","Whereistotem","Negativeaura","Aintitashamy","Spankit","Consecration","Lightbomb","Twin","Surger","Di","Steezmachine","Chuntaro","Huntmilfs","Dirtyshirley","Bubblenator","Bubblydoom" }
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
 MB_toonlist = { "Zangadoo","Poisonmugger","Blackbeastxd","Jablanic","Darkspiritxd","Tornshriek","Cachorra","Darkspiriton","Schranzerone","Schranzertwo","Epockone","Poisonone","Darkspirittw","Schranzerthr","Epocktwo","Nympheone","Darkspiritqt","Kuhmilch","Zangadoxd","Zangadoone","Zangadotwo","Epockthree","Schranzerf","Kuhschubser","Epockxd","Schranzerqt","Cachorroa","Cachorrob","Bugxd","Epocka","Epockb","Epockc","Epockd","Schranzera","Trollhunterx","Buuhaa","Nymphe","Cachorro","Epock","Schranzerr","Cashme","Ovendodger","Steezmachine","Trifling","Clubseals","Chuckspears","Indulgences","Holymufdiver","Avadevine","Wiglet","Huntmilfs","Chuntaro","Pygmage","Absharam","Trashly","JizzGrizz","Dirtyshirley","Wastrel","Scissorin","Bijikurdista","Friendlyfire","Lavaza","Troho","Harpzor","Mylika,","Phenostrix","Pastordave","Tintizzy","Grtizngravy","Occlusion","Spiritcooker","Hoyabembe","Bigolebih","Wukfah","Jackeebrown,","Bearspray","Indulgence","Killdozerr","Chinesium","Forestfire","Lesbaru","Heatedheavy","Moldylockz","Enticer","Aderetia","Theothertank","Typher","Valatorin","Cleargy","Sunkiss","Sneakyk","Karris","Horock","Tankforhire","Justforwater","Aimshoted","Imyourdaddo","Sendmebtc","Estbro","Titanator","Botinator","Feelinghordy","Hotwand","Buy", "Mootalia","Healuraz", "Kilimanjaro", "Jyssyj", "Skankia", "Furyswipes", "Cuppycake", "Shamanuno", "Brutalia", "Refill", "Bubbling", "Shamanquatro", "Olympic", "Yellowstone", "Everglades", "Flameshocked", "Brutalio", "Punchingbear", "Shamancinco", "Brutalic", "Icefloes", "Zillazee", "Komal", "Avindra", "Shamantres", "Brutalium", "Brutaliar", "Monterey", "Shamanocho", "Shamanseis", "Shamansiete", "Zumwalt", "Silza", "Merazza", "Jenjja", "Calypsa", "Crookshanks", "Pocklick", "Toshredsusay", "Stabsya", "Kimboslicer", "Eversmile", "Barie", "Orinoco", "Badlands", "Bubblyboo", "Desdemonia", "Drainsoulia", "Bubblydoom", "Bubbleup", "Bubblefail", "Bubblemad", "Bubbleplanet", "Bubblemama", "Bubblescum", "Bubblemania", "Zombiewife", "Bubblewin", "Bubblenator", "Bridesmage", "Holybabe", "Bubblebootie", "Bubblebrave", "Bubblesong", "Bubblefame", "Maala", "Renew","Dwarftoss","Kneearrow","Heartstrike","Slamminsam","Iiliililiil","Testshamrest","Stung","Understab","Dwarfstomp","Bloobs","Mysterial","Sinisterlike","Lockinabox","Thepain","Alwayshordy","Elfrocket","Badcosplay","Neckbiter","Glittery","Lightbomb","Surger" ,"Farquad" ,"Rohnin" ,"Zena" ,"Confusion" ,"Thearmor" ,"Octopus" ,"Gayforpay" ,"Whereistotem" ,"Negativeaura" ,"Aintitashamy" ,"Spankit" ,"Consecration" ,"Thunda" ,"Zing" ,"Crank" ,"Salvo" ,"Chaostard" ,"Heavenly" ,"Spun" ,"Twisted" ,"Handy" ,"Badknee" ,"Explosive" ,"Spite" ,"Pontiac" ,"Twin" ,"Sparky" ,"Druidy" ,"Fister" ,"Sploink" ,"Moredotz" ,"Zombia" ,"Zorn" ,"Sid" ,"Natalia" ,"Di","J\195\172\195\176f"}
 --This is the powerleveler your lowbies will follow when powerleveling
@@ -37,7 +37,7 @@ MB_levelingparties= {
 	Hotwand={"Bridesmage","Zombiewife","Desdemonia","Bubblydoom"}
 }
 --This is who people will run to when they have the bomb on Baron.
-MB_bombfollow="Enticer"
+MB_bombfollow="Cachorra"
 --This is who people will run to when they have threatening gaze on Mandokir (raptor boss)
 MB_gazefollow="Toshredsusay"
 --LEAVE DEDICATED HEALERS BLANK. THIS IS AN ADVANCED FEATURE THAT PROBABLY DOESN'T DO WHAT YOU THINK.
@@ -46,7 +46,7 @@ MB_dedicated_healers={Cuppycakes="Avindra",Enticer="Zumwalt",Komal="Cashme",Fury
 --*Fs
 FsR_AutoRepairAllItems = true
 ---------------------------------------------End of user edited values--------------------------------
-MB_debuffslotlist={"Curse of Shadow","Curse of the Elements","Curse of Agony","Curse of Agony","Curse of Agony","Demoralizing Shout","Thunder Clap","Insect Swarm(Rank 1)","Vampiric Embrace","Hunter's Mark","Fairy Fire","Placeholder for Nightfall","Placeholder for Shadow Weaving","Placeholder for Mindflay","Placeholder for Winters Chill","Scorpid Sting","Placeholder for improved Shadowbolt","Polymorph","Shackle Undead","Banish","Hibernate","Fear","Scare Beast"}
+MB_debuffslotlist={"Detect Magic","Curse of Shadow","Curse of the Elements","Curse of Agony","Curse of Agony","Curse of Agony","Demoralizing Shout","Thunder Clap","Insect Swarm(Rank 1)","Vampiric Embrace","Hunter's Mark","Fairy Fire","Placeholder for Nightfall","Placeholder for Shadow Weaving","Placeholder for Mindflay","Placeholder for Winters Chill","Scorpid Sting","Placeholder for improved Shadowbolt","Polymorph","Shackle Undead","Banish","Hibernate","Fear","Scare Beast"}
 FsR_Stuff2Track =
 	{
  	["Gold"] = {itemkind = "special"},
@@ -3074,7 +3074,11 @@ function BuffCast(spell)
 	local name,realm=UnitName("target")
 	if not name or not UnitIsConnected("target") or UnitIsDead("target") or UnitIsGhost("target") then return end
 	--if not buffed(spell,"target") then Print(UnitName("target").." is not buffed with "..spell..". Buffing now.") cast(spell) end
-	if FindInTable(MB_debuffslotlist,spell) and not buffed(spell,"target") then cast(spell) end
+	if UnitIsEnemy("player","target") then 
+		if FindInTable(MB_debuffslotlist,spell) and not buffed(spell,"target") then cast(spell) end
+        else
+		if not buffed(spell,"target") then cast(spell) end
+        end
 end
 function DotCast(spell)
 	--This cast function only casts if the target is not already buffed with the spell
@@ -5872,13 +5876,12 @@ function hunter_single()
 					if UnitName("target")=="Magmadar" and MyMana()<244 then return ReportCPU("Hunter Single save mana for tranq") end
 					stingit()
 					if UnitIsPlayer("targettarget") and UnitName("targettarget")~=MB_raidleader then cast("growl") end
-					if UnitName("target")=="Magmadar" then
+						if buffed("Enrage","target") and not OnCooldown("Tranquilizing Shot") then cast("Tranquilizing Shot") end
 						BuffCast("Hunter's Mark")
-						if not OnCooldown("Tranquilizing Shot") then cast("Tranquilizing Shot") end
 						--cast("Multi-Shot")
 						--cast("Arcane Shot")
 						if not IsAutoRepeatAction(72) then cast("Auto Shot") end
-					elseif Jindo() then
+					if Jindo() then
 						if not IsAutoRepeatAction(72) then cast("Auto Shot") end
 						if UnitName("target")=="Powerful Healing Totem" then
 									cast("Multi-Shot")
@@ -5886,6 +5889,7 @@ function hunter_single()
 						end
 					else
 						if not IsAutoRepeatAction(72) then cast("Auto Shot") end
+						if (buffed("Frenzy","target") or buffed("Enrage","target")) and not OnCooldown("Tranquilizing Shot") then cast("Tranquilizing Shot") end
 						BuffCast("Hunter's Mark")
 						cast("Aimed Shot")
 						--PerfectAim()
@@ -5923,6 +5927,7 @@ function hunter_multi()
 	if TargetInCombat() or IAmFocus() then
 		if not IsAltKeyDown() then
 			if not MB_My_ot_target then SickemTarget() end
+			if UnitName("target")=="Magmadar" and MyMana()<244 then return ReportCPU("Hunter Single save mana for tranq") end
 			if IsControlKeyDown() then
 				cast("Concussive Shot")
 			end
@@ -5931,6 +5936,7 @@ function hunter_multi()
 			else
 				SelfBuff("Aspect of the Hawk")
 				if not (IsAltKeyDown()) then
+					if (buffed("Frenzy","target") or buffed("Enrage","target")) and not OnCooldown("Tranquilizing Shot") then cast("Tranquilizing Shot") end
 					stingit()
 					cast("Multi-Shot")
 					--PerfectAim()
@@ -6072,17 +6078,22 @@ function dru_aoe()
 	dru_cat_single()
 end
 function InnervateAHealer()
+	--if OnCooldown("Innervate") then return end
 	if OnCooldown("Innervate") or not InCombat() then return end
 	if MyMana()<62 then use("Major Mana Potion") end
 	if MyMana()<62 then return end
+	--Innervate at a random mana value so everyone doesn't innervate the same healer.
+	rando=math.random(50)
 	for _,name in MB_healerinraid do
-		if IsAlive(MBID[name]) and UnitMana(MBID[name])<800 then
+		if IsAlive(MBID[name]) and UnitMana(MBID[name])<(800+rando) then
 			TargetUnit(MBID[name])
-			CancelForm()
-			BuffCast("Innervate")
-			MB_msg("<<INNERVATING "..name.." >>")
-			TargetUnit("playertarget")
-			return
+			if not buffed("Innervate","target") then
+				CancelForm()
+				MB_msg("<<INNERVATING "..name.." >>")
+				cast("Innervate")
+				return
+			end
+		  
 		end
 	end
 	if IsAlive("player") and (IsDruidHealer() or IsHybridDruid()) and UnitMana("player")<1000 then
@@ -6652,7 +6663,7 @@ function mage_fire_single()
 	if MyManaPct()<.1 and not OnCooldown("Evocation") then cast("Evocation") end
 	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
 	if TargetInCombat() or IAmFocus() then
-		if not buffed("Detect Magic","player") and (UnitName("target")=="Anubisath Sentinel" or UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Shazzrah") then BuffCast("Detect Magic") end
+		if not buffed("Detect Magic","player") and (UnitName("target")=="Magmadar" or UnitName("target")=="Anubisath Sentinel" or UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Shazzrah") then BuffCast("Detect Magic") end
 		if IsAltKeyDown() and not (UnitName("target")=="Anubisath Sentinel" or UnitName("target")=="Anubisath Guardian") then SpellStopCasting() end
 		if not IsAltKeyDown() then
 			--if UnitName("target")=="Ayamiss the Hunter" and (TargetHealthPct()<.75 and TargetHealthPct()>.69) then return end
@@ -6779,7 +6790,7 @@ function mage_frost_single()
 	--CrowdControl()
 	--if TankTarget("Lord Kazzak") and MyMana()<1000 then return end
 	if TargetInCombat() or IAmFocus() then
-		if not buffed("Detect Magic","player") and (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel" or UnitName("target")=="Shazzrah") then BuffCast("Detect Magic") end
+		if not buffed("Detect Magic","player") and (UnitName("target")=="Magmadar" or UnitName("target")=="Anubisath Sentinel" or UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Shazzrah") then BuffCast("Detect Magic") end
 		if IsAltKeyDown() then if (not MB_My_cc_target and not (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel")) then SpellStopCasting() return ReportCPU("Mage frost single alt") end end
 		if not IsAltKeyDown() and (TargetInCombat() or IAmFocus()) then
 			--if UnitName("target")=="Ayamiss the Hunter" and (TargetHealthPct()<.75 and TargetHealthPct()>.69) then return end
@@ -7746,6 +7757,7 @@ function RaidHeal()
 	MB_healers_introuble={}
 	MB_tanks_introuble={}
 	MB_hurt_list={}
+	MB_emer_list={}
 	------ A dedicated healer is a toon who will ONLY heal a certain other toon. The other healers won't help. Unless he's out of mana or dead.
 	MB_dedicated_targets=table.invert(MB_dedicated_healers)
 	if ImDH() then
@@ -7799,16 +7811,19 @@ function RaidHeal()
 	if TableLength(MB_tanks_introuble)>0 then
 		for name,dmg in spairs(MB_tanks_introuble, function(t,a,b) return t[b] > t[a] end) do
 			MB_hurt_list[i]=name
+			MB_emer_list[i]=name
 			i=i+1
 		end
 	elseif TableLength(MB_healers_introuble)>0 then
 		for name,dmg in spairs(MB_healers_introuble, function(t,a,b) return t[b] > t[a] end) do
 			MB_hurt_list[i]=name
+			MB_emer_list[i]=name
 			i=i+1
 		end
 	elseif TableLength(MB_chumps_introuble)>0 then
 		for name,dmg in spairs(MB_chumps_introuble, function(t,a,b) return t[b] > t[a] end) do
 			MB_hurt_list[i]=name
+			MB_emer_list[i]=name
 			i=i+1
 		end
 	elseif TableLength(MB_raid_damage)>0 then
@@ -7843,6 +7858,7 @@ function RaidHeal()
 		end
 		--circle around to the top of the hurt list when every hurt has a heal.
 		if healer_idx==num_healers then healer_idx=1 else healer_idx=healer_idx+1 end
+		--if not second_pass and hurt_idx==num_hurt then hurt_idx=1 second_pass=true else hurt_idx=hurt_idx+1 end
 		if hurt_idx==num_hurt then hurt_idx=1 else hurt_idx=hurt_idx+1 end
 		--if hurt_idx==num_hurt then break end
 	end

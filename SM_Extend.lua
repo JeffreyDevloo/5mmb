@@ -1963,6 +1963,16 @@ end
 function init()
 --Run this function with /init to create all macros and keybinds!
 --MAAAAAGIC!!!!
+	if GetAddOnInfo("Eavesdrop") then DisableAddOn("Eavesdrop") end
+        if (myclass=="Rogue" or myclass=="Warrior" or myclass=="Hunter" or myclass=="Warlock") then
+		if GetAddOnInfo("Decursive") then DisableAddOn("Decursive") end
+		if GetAddOnInfo("QuickHeal") then DisableAddOn("QuickHeal") end
+	end
+	if not FindInTable(MB_tankinraid,myname) then 
+		if GetAddOnInfo("DPSMate") then DisableAddOn("DPSMate") end
+		if GetAddOnInfo("BananaBar Raid Symbols") then DisableAddOn("BananaBar Raid Symbols") end
+		if GetAddOnInfo("Big Wigs VG") then DisableAddOn("Big Wigs VG") end
+	end
 	clearmacros()
 	clearsupermacros()
 	local class=UnitClass("player")
@@ -2175,7 +2185,7 @@ function init()
 	PickupMacro(index)
 	PlaceAction(94)
 	PickupMacro(index)
-	PlaceAction(107)
+	PlaceAction(106)
 	PickupMacro(index)
 	PlaceAction(118)
 	PickupAction(61)
@@ -2517,7 +2527,7 @@ function norm()
 	PickupMacro(index)
 	PlaceAction(95)
 	PickupMacro(index)
-	PlaceAction(108)
+	PlaceAction(107)
 	PickupMacro(index)
 	PlaceAction(119)
 	index=CreateSuperMacro("levparty","Interface\\Icons\\Spell_Nature_EnchantArmor","/script leveling_parties()")
@@ -8376,7 +8386,7 @@ function FsR_UpdateTradeList()
 			FsR_TrackedMaterial[item].AmmountToSpare = myAmmount - FsR_TrackedMaterial[item].AmmountForMe
 			if (FsR_TrackedMaterial[item][UnitName("player")] > (FsR_TrackedMaterial[item].AmmountForMe)) then
 				for player, amount in pairs(FsR_TrackedMaterial[item]) do
-					if MBID[player] and CheckInteractDistance(MBID[player], 2) and FsR_TrackedMaterial["EmptyBagSlots_slots"][player] > 1 then
+					if MBID[player] and CheckInteractDistance(MBID[player], 2) and FsR_TrackedMaterial["EmptyBagSlots_slots"][player] and FsR_TrackedMaterial["EmptyBagSlots_slots"][player] > 1 then
 						local HisShare = 0
 							if FsR_Stuff2Track[itemNameINStuff2Track].class then
 								if FsR_Stuff2Track[itemNameINStuff2Track].class[UnitClass(MBID[player])] then

@@ -201,7 +201,7 @@ puts $hK "<Hotkey ScrollLockOn Alt Ctrl M>"
 for { set i 0 } { $i<[array size toons] } { incr i } {
   set toonname [string tolower [lindex $toons($i) 2]]
   set account [lindex $toons($i) 0]
-  set passwd [lindex $toons($i) 0]
+  set passwd [lindex $toons($i) 1]
   set winname $acct_winname($account)
   puts $hK "  <if WinDoesNotExist $winname>"
   puts $hK "  <LaunchAndRename Local $winname $account $passwd [lindex $raidhash(20) [expr $i*4+0]] [lindex $raidhash(20) [expr $i*4+1]] [lindex $raidhash(20) [expr $i*4+2]] [lindex $raidhash(20) [expr $i*4+3]]>"
@@ -211,7 +211,7 @@ puts $hK "<Hotkey ScrollLockOn Shift Ctrl M>"
 for { set i 0 } { $i<[array size toons] } { incr i } {
   set toonname [string tolower [lindex $toons($i) 2]]
   set account [lindex $toons($i) 0]
-  set passwd [lindex $toons($i) 0]
+  set passwd [lindex $toons($i) 1]
   set winname $acct_winname($account)
   puts $hK "  <ResetWindowPosition Local $winname $account $passwd [lindex $raidhash(20) [expr $i*4+0]] [lindex $raidhash(20) [expr $i*4+1]] [lindex $raidhash(20) [expr $i*4+2]] [lindex $raidhash(20) [expr $i*4+3]]>"
 }

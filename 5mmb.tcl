@@ -58,7 +58,13 @@ gets stdin char
 if { $char=="Y" || $char=="y" } {
   set oem oem5
 } else {
-  set oem oem3
+  puts "ARE YOU USING A British KEYBOARD? y/n"
+  gets stdin char
+  if { $char=="Y" || $char=="y" } {
+    set oem oem8
+  } else {
+    set oem oem3
+  }
 }
 set numtoons 0
 while { [gets $tL line] >= 0 } {

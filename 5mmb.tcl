@@ -66,6 +66,13 @@ if { $char=="Y" || $char=="y" } {
     set oem oem3
   }
 }
+puts "ARE YOU USING A 4K MONITOR? y/n"
+gets stdin char
+if { $char=="Y" || $char=="y" } {
+  set 4k true
+} else {
+  set 4k false
+}
 set numtoons 0
 while { [gets $tL line] >= 0 } {
   set line [string trim $line] 
@@ -192,10 +199,13 @@ for { set i 0 } { $i<[array size toons] } { incr i } {
 puts $hK ""
   
 # 20 Window Raid 
-#1080p
-set raidhash(20) "320 240 320 0 480 360 0 480 680 480 360 480 320 240 0 0 320 240 640 0 320 240 960 0 320 240 1280 0 320 240 1600 0 320 240 0 240 320 240 320 240 320 240 640 240 320 240 960 240 320 240 960 480 320 240 1600 240 320 240 1280 240 320 240 1280 480 320 240  1600 480 320 240 960 720 320 240 1280 720 320 240 1600 720"
-#4k
-set raidhash(20) "640 480 0 0 1280 960 720 960 960 720 0 960 640 480 640 0 640 480 1280 0 640 480 1920 0 640 480 2560 0 640 480 3200 0 640 480 0 480 640 480 640 480 640 480 1280 480 640 480 1920 480 640 480 2560 480 640 480 3200 480 640 480 1920 960 640 480 2560 960 640 480  3200 960 640 480 1920 1440 640 480 2560 1440 640 480 3200 1440"
+if $4k {
+  #4k
+  set raidhash(20) "640 480 0 0 1280 960 720 960 960 720 0 960 640 480 640 0 640 480 1280 0 640 480 1920 0 640 480 2560 0 640 480 3200 0 640 480 0 480 640 480 640 480 640 480 1280 480 640 480 1920 480 640 480 2560 480 640 480 3200 480 640 480 1920 960 640 480 2560 960 640 480  3200 960 640 480 1920 1440 640 480 2560 1440 640 480 3200 1440"
+} else {
+  #1080p
+  set raidhash(20) "320 240 320 0 480 360 0 480 680 480 360 480 320 240 0 0 320 240 640 0 320 240 960 0 320 240 1280 0 320 240 1600 0 320 240 0 240 320 240 320 240 320 240 640 240 320 240 960 240 320 240 960 480 320 240 1600 240 320 240 1280 240 320 240 1280 480 320 240  1600 480 320 240 960 720 320 240 1280 720 320 240 1600 720"
+}
 
 puts $hK "<Hotkey ScrollLockOn Alt Ctrl M>"
 for { set i 0 } { $i<[array size toons] } { incr i } {
@@ -503,10 +513,10 @@ while { [gets $sM line] >= 0 } {
       if { [lindex $toons($i) 3] == "tank" } {
         set name [string totitle [ string tolower [lindex $toons($i) 2]]]
         if { $first=="false" } { 
-          puts -nonewline $sMN $name
+          puts -nonewline $sMN \"$name\"
           set first true
         } else {
-          puts -nonewline $sMN ",$name"
+          puts -nonewline $sMN ,\"$name\"
         } 
       }
     }
@@ -518,10 +528,10 @@ while { [gets $sM line] >= 0 } {
       if { [lindex $toons($i) 3] == "healer" } {
         set name [string totitle [ string tolower [lindex $toons($i) 2]]]
         if { $first=="false" } { 
-          puts -nonewline $sMN $name
+          puts -nonewline $sMN \"$name\"
           set first true
         } else {
-          puts -nonewline $sMN ",$name"
+          puts -nonewline $sMN ,\"$name\"
         } 
       }
     }
@@ -532,10 +542,10 @@ while { [gets $sM line] >= 0 } {
     for { set i 0 } { $i<[array size toons] } { incr i } {
       set name [string totitle [ string tolower [lindex $toons($i) 2]]]
       if { $first=="false" } { 
-        puts -nonewline $sMN $name
+        puts -nonewline $sMN \"$name\"
         set first true
       } else {
-        puts -nonewline $sMN ",$name"
+        puts -nonewline $sMN ,\"$name\"
       } 
     }
     puts $sMN "\}"

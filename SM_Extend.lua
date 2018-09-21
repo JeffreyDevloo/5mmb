@@ -89,8 +89,8 @@ FsR_Stuff2Track =
  	["Coin"] = {itemkind = "itemGrp" , collector = {"Cuppycake","Zumwalt","Lendandana", "Omalim"}},
  	["Major Healing Potion"] = {itemkind = "item", class = {Druid = {AnnounceValue = 2},Rogue = {AnnounceValue = 2},Warrior = {AnnounceValue = 2},Hunter = {AnnounceValue = 2},Warlock = {AnnounceValue = 2},Mage = {AnnounceValue = 2}, Priest = {AnnounceValue = 2}, Shaman = {AnnounceValue = 2}, Paladin = {AnnounceValue=2}}},
  	["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {AnnounceValue = 5}, Priest = {AnnounceValue = 5}, Shaman = {AnnounceValue = 5}, Paladin = {AnnounceValue=5}}},
- 	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={AnnounceValue=20},Hunter = {AnnounceValue = 5}, Druid = {AnnounceValue = 5}, Priest = {AnnounceValue = 5}, Shaman = {AnnounceValue = 5}, Paladin = {AnnounceValue=5}}},
- 	["Conjured Sparkling Water"] = {itemkind = "item" , class = {Mage={AnnounceValue=20},Hunter = {AnnounceValue = 5}, Druid = {AnnounceValue = 5}, Priest = {AnnounceValue = 5}, Shaman = {AnnounceValue = 5}, Paladin = {AnnounceValue=5}}}
+ 	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={AnnounceValue=20,Ratio=2},Hunter = {AnnounceValue = 5,Ratio=1}, Druid = {AnnounceValue = 5,Ratio=1}, Priest = {AnnounceValue = 5,Ratio=1}, Shaman = {AnnounceValue = 5,Ratio=1}, Paladin = {AnnounceValue=5,Ratio=1}}},
+ 	["Conjured Sparkling Water"] = {itemkind = "item" , class = {Mage={AnnounceValue=20, Ratio=2},Hunter = {AnnounceValue = 5,Ratio=1}, Druid = {AnnounceValue = 5,Ratio=1}, Priest = {AnnounceValue = 5,Ratio=1}, Shaman = {AnnounceValue = 5,Ratio=1}, Paladin = {AnnounceValue=5,Ratio=1}}}
 	}
 FsR_TrackedMaterial = {}
 FsR_ItemTrade = {}
@@ -4707,7 +4707,7 @@ function smartdrink()
 		if MageWater()>20 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then Print("Accepting Trade") AcceptTrade() return end
 		if not MB_autotrade and MageWater()<21 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then Print("Declining Trade--not enough of my own water left") CancelTrade() return end
 	end
-	if class~="Mage" and not MB_tradeopen then
+	if class~="Mage" and not MB_autotrade and not MB_tradeopen then
 		local mage=MageInGroup()
 		if mage then
 			if MageWater()<1 and ManaUser() then
@@ -4716,7 +4716,7 @@ function smartdrink()
 			end
 		end
 	end
-	if class=="Mage" and MB_tradeopen then
+	if class=="Mage" and not MB_autotrade and MB_tradeopen then
 		if MageWater()>20 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then AcceptTrade() end
 		if MageWater()>21 and PickupWater() then
 			Print("Trading Water")
@@ -4733,7 +4733,7 @@ function smartdrink()
 	if class=="Mage" and ManaDown()>0 and not mybest and not buffed("Drink","player") then cast("Conjure Water") end
 end
 function PartyHurt(hurt,num_party_hurt)
-	local mygroup=MBGroupID[myname]
+	local mygroup=MB_GroupID[myname]
 	local numhurt=0
 	local guyshurt=0
 	for _,name in MB_ToonsInGroup[mygroup] do

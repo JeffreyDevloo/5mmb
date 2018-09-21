@@ -82,12 +82,15 @@ FsR_Stuff2Track =
 	{
  	["EmptyBagSlots"] = {itemkind = "special"},
  	["Soul Shard"] = {itemkind = "item"},
+ 	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 10}}},
+ 	["Symbol of Kings"] = {itemkind = "item" , class = {Paladin = {AnnounceValue = 10}}},
  	["BOE"] = {itemkind = "itemGrp" , collector = {"Crookshanks","Cashme","Lendandana", "Omalim"}},
  	["Bijou"] = {itemkind = "itemGrp" , collector = {"Cuppycake","Zumwalt","Lendandana", "Omalim"}},
  	["Coin"] = {itemkind = "itemGrp" , collector = {"Cuppycake","Zumwalt","Lendandana", "Omalim"}},
  	["Major Healing Potion"] = {itemkind = "item", class = {Druid = {AnnounceValue = 2},Rogue = {AnnounceValue = 2},Warrior = {AnnounceValue = 2},Hunter = {AnnounceValue = 2},Warlock = {AnnounceValue = 2},Mage = {AnnounceValue = 2}, Priest = {AnnounceValue = 2}, Shaman = {AnnounceValue = 2}, Paladin = {AnnounceValue=2}}},
  	["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {AnnounceValue = 5}, Priest = {AnnounceValue = 5}, Shaman = {AnnounceValue = 5}, Paladin = {AnnounceValue=5}}},
- 	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={AnnounceValue=20},Hunter = {AnnounceValue = 5}, Druid = {AnnounceValue = 5}, Priest = {AnnounceValue = 5}, Shaman = {AnnounceValue = 5}, Paladin = {AnnounceValue=5}}}
+ 	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={AnnounceValue=20},Hunter = {AnnounceValue = 5}, Druid = {AnnounceValue = 5}, Priest = {AnnounceValue = 5}, Shaman = {AnnounceValue = 5}, Paladin = {AnnounceValue=5}}},
+ 	["Conjured Sparkling Water"] = {itemkind = "item" , class = {Mage={AnnounceValue=20},Hunter = {AnnounceValue = 5}, Druid = {AnnounceValue = 5}, Priest = {AnnounceValue = 5}, Shaman = {AnnounceValue = 5}, Paladin = {AnnounceValue=5}}}
 	}
 FsR_TrackedMaterial = {}
 FsR_ItemTrade = {}
@@ -822,6 +825,7 @@ local pa15manraid1 = {
 		local subgroup=WhichSubgroup(name)
 		TargetByName(name,1)
 		local online=UnitIsConnected("target")
+		if not raidgrouporder then return end
 		if not raidgrouporder[name] or not online then
 			if not raidgrouporder[name] then Print("ERROR! "..name.." is not in the raidgrouporder list! This will mess up raid order!") end
 			if not online then Print("ERROR! "..name.." is offline. I cannot move him in raid automatically.") end
@@ -1254,12 +1258,13 @@ function AutoDelete()
 end
 function Pentagram()
 	--Make your shamen cast chain heal at each other. For fun.
-	numshammys=IsInParty("Shaman")
-	for i=1,numshammys do
-		myOrder=MyClassOrder()
-		if myOrder==numshammys then targetOrder=1 else targetOrder=myOrder+1 end
-		TargetByName(GetClassOrder("Shaman",targetOrder),1)
-		cast("Chain Heal(Rank 1)")
+	numshams=TableLength(MB_classlist.Shaman)
+	for i=1,numshams do
+		if i+1>numshams then targ=1 else targ=i+1 end
+                if MyClassOrder()==i then
+			TargetUnit(MBID[MB_classlist.Shaman[targ]])
+			cast("Chain Heal(Rank 1)")
+		end
 	end
 end
 -- lua code --THANKS TO ATTREYO FOR HELP ON THIS PART
@@ -3046,6 +3051,12 @@ function PriestInParty(name)
 		if IsAlive(MBID[gname]) and UnitClass(MBID[gname])=="Priest" and UnitMana(MBID[name])>409 then return true end
 	end
 end
+function IsInParty(class)
+	if not class then return end
+	for _,gname in MB_ToonsInGroup[MB_GroupID[name]] do
+		if UnitClass(MBID[gname])==class then return true end
+	end
+end
 function NthMostHurt(num)
         --num is the order of hurtness
 	--Returns 1(st) most hurt, 2(nd) most hurt, etc.
@@ -4700,10 +4711,11 @@ function smartdrink()
 	if class=="Mage" and ManaDown()>0 and not mybest and not buffed("Drink","player") then cast("Conjure Water") end
 end
 function PartyHurt(hurt,num_party_hurt)
-	local mygroup=MB_GroupID[myname]
+	local mygroup=MBGroupID[myname]
 	local numhurt=0
+	local guyshurt=0
 	for _,name in MB_ToonsInGroup[mygroup] do
-		local guyshurt=UnitHealthMax(MBID[name])-UnitHealth(MBID[name])
+		if MBID[name] then  guyshurt=UnitHealthMax(MBID[name])-UnitHealth(MBID[name]) end
 		if guyshurt>hurt then numhurt=numhurt+1 end
 	end
 	if numhurt>=num_party_hurt then return numhurt end

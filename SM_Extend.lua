@@ -366,7 +366,9 @@ function InitializeClasslists()
 end
 alphavalue = 0
 IndicatorFrame = CreateFrame("Frame",nil,UIParent)
-
+IndicatorFrame.FlashTime = GetTime()
+IndicatorFrame.FlashColor = {red = 0, green = 0, blue = 0, alpha = 0}
+IndicatorFrame.PulseAlphaValue = 0
 local t1 = IndicatorFrame:CreateTexture(nil,"BACKGROUND")
 t1:SetTexture(1.0,0.0,0.0,0.4)
 t1:SetHeight(GetScreenHeight()/20/ UIParent:GetEffectiveScale())
@@ -391,28 +393,42 @@ IndicatorFrame:SetPoint("CENTER",0,0)
 --IndicatorFrame:Hide()
 
 function FlashHandler()
-	if MBID[MB_raidleader] and UnitName(MBID[MB_raidleader].."targettarget")==UnitName("player") then
-		if FindInTable(MB_tanklist,UnitName("player")) then
-			t1:SetTexture(1.0,1.0,1.0,0.4)
-			t2:SetTexture(1.0,1.0,1.0,0.4)
-			t3:SetTexture(1.0,1.0,1.0,0.4)
-			t4:SetTexture(1.0,1.0,1.0,0.4)
-		else
-			t1:SetTexture(1.0,0.0,0.0,alphavalue )
-			t2:SetTexture(1.0,0.0,0.0,alphavalue )
-			t3:SetTexture(1.0,0.0,0.0,alphavalue )
-			t4:SetTexture(1.0,0.0,0.0,alphavalue )
-			alphavalue  = alphavalue  + 0.05
-			if alphavalue  > 1 then
-				alphavalue  = 0
+	--Special indicator active
+	if IndicatorFrame.FlashTime > GetTime() then
+		t1:SetTexture(IndicatorFrame.FlashColor.red,IndicatorFrame.FlashColor.green,IndicatorFrame.FlashColor.blue,IndicatorFrame.FlashColor.alpha)
+		t2:SetTexture(IndicatorFrame.FlashColor.red,IndicatorFrame.FlashColor.green,IndicatorFrame.FlashColor.blue,IndicatorFrame.FlashColor.alpha)
+		t3:SetTexture(IndicatorFrame.FlashColor.red,IndicatorFrame.FlashColor.green,IndicatorFrame.FlashColor.blue,IndicatorFrame.FlashColor.alpha)
+		t4:SetTexture(IndicatorFrame.FlashColor.red,IndicatorFrame.FlashColor.green,IndicatorFrame.FlashColor.blue,IndicatorFrame.FlashColor.alpha)
+		return
+	else
+		--Highlight MainTankTargetstarget
+		if MBID[MB_raidleader] and UnitName(MBID[MB_raidleader].."targettarget")==UnitName("player") then
+			if FindInTable(MB_tanklist,UnitName("player")) then
+				--Highlight Tank
+				t1:SetTexture(1.0,1.0,1.0,0.4)
+				t2:SetTexture(1.0,1.0,1.0,0.4)
+				t3:SetTexture(1.0,1.0,1.0,0.4)
+				t4:SetTexture(1.0,1.0,1.0,0.4)
+				return
+			else
+				--Highlight Toon not in tanklist
+				t1:SetTexture(1.0,0.0,0.0,IndicatorFrame.PulseAlphaValue )
+				t2:SetTexture(1.0,0.0,0.0,IndicatorFrame.PulseAlphaValue )
+				t3:SetTexture(1.0,0.0,0.0,IndicatorFrame.PulseAlphaValue )
+				t4:SetTexture(1.0,0.0,0.0,IndicatorFrame.PulseAlphaValue )
+				IndicatorFrame.PulseAlphaValue  = IndicatorFrame.PulseAlphaValue  + 0.05
+				if IndicatorFrame.PulseAlphaValue  > 1 then
+					IndicatorFrame.PulseAlphaValue  = 0
+				end
+				return
 			end
 		end
-	else
-		t1:SetTexture(1.0,0.0,0.0,0.0)
-		t2:SetTexture(1.0,0.0,0.0,0.0)
-		t3:SetTexture(1.0,0.0,0.0,0.0)
-		t4:SetTexture(1.0,0.0,0.0,0.0)
 	end
+	--Hide it!
+	t1:SetTexture(1.0,0.0,0.0,0.0)
+	t2:SetTexture(1.0,0.0,0.0,0.0)
+	t3:SetTexture(1.0,0.0,0.0,0.0)
+	t4:SetTexture(1.0,0.0,0.0,0.0)
 end
 
 local function EventHandler()
@@ -423,11 +439,17 @@ local function EventHandler()
 		t2:SetWidth(GetScreenWidth())
 		t3:SetHeight(GetScreenHeight()-t1:GetHeight() - t2:GetHeight())
 		t4:SetHeight(GetScreenHeight()-t1:GetHeight() - t2:GetHeight())
-		Print("Adjust Size!") 
+		Print("Adjust Size!")
+	elseif (event == "UI_ERROR_MESSAGE") then
+		if ((arg1 =="Target needs to be in front of you")or (arg1 =="Out of range.")) and MB_raidleader and MB_raidleader~=UnitName("player") then
+			IndicatorFrame.FlashTime = GetTime() + 1
+			IndicatorFrame.FlashColor = {red = 1, green = 1, blue = 0, alpha = .4}
+		end
 	end
 end
 
 IndicatorFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+IndicatorFrame:RegisterEvent("UI_ERROR_MESSAGE")
 IndicatorFrame:SetScript('OnEvent', EventHandler)
 IndicatorFrame:SetScript("OnUpdate", FlashHandler)
 

@@ -6,6 +6,8 @@ MB_RAID = "MULTIBOX_MyName1"
 MB_soulstone_rezzers=true
 --Automatically Trade a list of items to specific people. See FsR_Stuff2Track below.
 MB_autotrade=true
+--Flashes frames yellow if target out of range or behind you. Flashes red if aggro and you aren't a tank. White if aggro and you ARE a tank. Blue if missing a reagent.
+MB_frameflash=true
 --Automatically delete stuff from TheList. Starts out blank and won't delete shit.
 MB_autodelete=true
 --Automatically buy reagents, food, and ammo if you have a vendor open and hit CTRL-1
@@ -24,11 +26,11 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={"Bugxd","Cachorro","Cachorrob","Cachorroa","Cachorra","Raigore","Dwarftoss","Vandalus","Tankforhire","Farquad","Rohnin","Zena","Confusion","Furyswipes","Cuppycake","Eversmile","Komal","Mootalia","Theothertank","Estbro","Enticer","Killdozerr","Hoyabembe","Skankia","Titanator","Clubseals","Chuckspears","Wiglet"}
+MB_tanklist={"Cuppycake","Eversmile","Furyswipes","Komal","Enticer"}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list= {"Zangadoone","Zangadotwo","Zangadoo","Blackbeastxd","Darkspiritxd","Darkspiriton","Kuhmilch","Darkspiritqt","Darkspirittw","Zangadoxd","Feelinghordy","Steezmachine","Lavaza","Pastordave","Grtizngravy","Spiritcooker","Indulgence","Jackeebrown","Wukfah","Bigolebih","Chinesium","Barie","Aderetia","Karris","Orinoco","Punchingbear","Cashme","Refill","Shamanquatro","Bubbling","Shamancinco","Avindra","Zumwalt","Shamansiete","Shamanocho","Holybabe","Bubblefail","Bubblescum","Bubblebootie","Bubblyboo","Healuraz","Octopus","Gayforpay","Whereistotem","Negativeaura","Aintitashamy","Spankit","Consecration","Lightbomb","Twin","Surger","Di","Steezmachine","Chuntaro","Huntmilfs","Dirtyshirley","Bubblenator","Bubblydoom" }
+MB_healer_list={"Shamantres","Shamanuno","Cashme","Punchingbear","Shamanquatro","Avindra","Shamancinco","Shamansiete","Shamanocho","Orinoco","Refill","Bubbling","Zumwalt"}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist = { "Zangadoo","Poisonmugger","Blackbeastxd","Jablanic","Darkspiritxd","Tornshriek","Cachorra","Darkspiriton","Schranzerone","Schranzertwo","Epockone","Poisonone","Darkspirittw","Schranzerthr","Epocktwo","Nympheone","Darkspiritqt","Kuhmilch","Zangadoxd","Zangadoone","Zangadotwo","Epockthree","Schranzerf","Kuhschubser","Epockxd","Schranzerqt","Cachorroa","Cachorrob","Bugxd","Epocka","Epockb","Epockc","Epockd","Schranzera","Trollhunterx","Buuhaa","Nymphe","Cachorro","Epock","Schranzerr","Cashme","Ovendodger","Steezmachine","Trifling","Clubseals","Chuckspears","Indulgences","Holymufdiver","Avadevine","Wiglet","Huntmilfs","Chuntaro","Pygmage","Absharam","Trashly","JizzGrizz","Dirtyshirley","Wastrel","Scissorin","Bijikurdista","Friendlyfire","Lavaza","Troho","Harpzor","Mylika,","Phenostrix","Pastordave","Tintizzy","Grtizngravy","Occlusion","Spiritcooker","Hoyabembe","Bigolebih","Wukfah","Jackeebrown,","Bearspray","Indulgence","Killdozerr","Chinesium","Forestfire","Lesbaru","Heatedheavy","Moldylockz","Enticer","Aderetia","Theothertank","Typher","Valatorin","Cleargy","Sunkiss","Sneakyk","Karris","Horock","Tankforhire","Justforwater","Aimshoted","Imyourdaddo","Sendmebtc","Estbro","Titanator","Botinator","Feelinghordy","Hotwand","Buy", "Mootalia","Healuraz", "Kilimanjaro", "Jyssyj", "Skankia", "Furyswipes", "Cuppycake", "Shamanuno", "Brutalia", "Refill", "Bubbling", "Shamanquatro", "Olympic", "Yellowstone", "Everglades", "Flameshocked", "Brutalio", "Punchingbear", "Shamancinco", "Brutalic", "Icefloes", "Zillazee", "Komal", "Avindra", "Shamantres", "Brutalium", "Brutaliar", "Monterey", "Shamanocho", "Shamanseis", "Shamansiete", "Zumwalt", "Silza", "Merazza", "Jenjja", "Calypsa", "Crookshanks", "Pocklick", "Toshredsusay", "Stabsya", "Kimboslicer", "Eversmile", "Barie", "Orinoco", "Badlands", "Bubblyboo", "Desdemonia", "Drainsoulia", "Bubblydoom", "Bubbleup", "Bubblefail", "Bubblemad", "Bubbleplanet", "Bubblemama", "Bubblescum", "Bubblemania", "Zombiewife", "Bubblewin", "Bubblenator", "Bridesmage", "Holybabe", "Bubblebootie", "Bubblebrave", "Bubblesong", "Bubblefame", "Maala", "Renew","Dwarftoss","Kneearrow","Heartstrike","Slamminsam","Iiliililiil","Testshamrest","Stung","Understab","Dwarfstomp","Bloobs","Mysterial","Sinisterlike","Lockinabox","Thepain","Alwayshordy","Elfrocket","Badcosplay","Neckbiter","Glittery","Lightbomb","Surger" ,"Farquad" ,"Rohnin" ,"Zena" ,"Confusion" ,"Thearmor" ,"Octopus" ,"Gayforpay" ,"Whereistotem" ,"Negativeaura" ,"Aintitashamy" ,"Spankit" ,"Consecration" ,"Thunda" ,"Zing" ,"Crank" ,"Salvo" ,"Chaostard" ,"Heavenly" ,"Spun" ,"Twisted" ,"Handy" ,"Badknee" ,"Explosive" ,"Spite" ,"Pontiac" ,"Twin" ,"Sparky" ,"Druidy" ,"Fister" ,"Sploink" ,"Moredotz" ,"Zombia" ,"Zorn" ,"Sid" ,"Natalia" ,"Di","J\195\172\195\176f"}
+MB_toonlist={"Shamantres","Cuppycake","Eversmile","Brutalic","Shamanuno","Brutalio","Jenjja","Brutaliar","Monterey","Brutalium","Furyswipes","Cashme","Stabsya","Komal","Punchingbear","Enticer","Silza","Shamanquatro","Avindra","Shamancinco","Brutalia","Shamansiete","Icefloes","Shamanocho","Crookshanks","Orinoco","Refill","Kimboslicer","Bubbling","Olympic","Zumwalt","Everglades","Shamanseis","Yellowstone","Toshredsusay","Badlands","Merazza","Flameshocked","Calypsa","Zillazee"}
 --This is the powerleveler your lowbies will follow when powerleveling
 MB_powerleveler="Titanator"
 --This is your set of lowbie leveling parties. You can run 4 at a time. The first toon name on the left of = is the squad leader.
@@ -39,74 +41,36 @@ MB_levelingparties= {
 	Hotwand={"Bridesmage","Zombiewife","Desdemonia","Bubblydoom"}
 }
 --This is who people will run to when they have the bomb on Baron.
-MB_bombfollow="Cachorra"
 MB_bombfollow="Enticer"
 --This is who people will run to when they have threatening gaze on Mandokir (raptor boss)
 MB_gazefollow="Toshredsusay"
 --LEAVE DEDICATED HEALERS BLANK. THIS IS AN ADVANCED FEATURE THAT PROBABLY DOESN'T DO WHAT YOU THINK.
 --MB_dedicated_healers={}
-MB_dedicated_healers={Cuppycakes="Avindra",Enticer="Zumwalt",Komal="Cashme",Furyswipes="Refill"}
+MB_dedicated_healers={Cuppycake="Avindra",Enticer="Zumwalt",Komal="Cashme",Furyswipes="Refill"}
+MB_dedicated_healers={Cuppycake="Avindra",Enticer="Zumwalt",Komal="Cashme",Furyswipes="Refill"}
 --*Fs
 FsR_AutoRepairAllItems = true
 ---------------------------------------------End of user edited values--------------------------------
 MB_debuffslotlist={"Viper Sting","Detect Magic","Curse of Shadow","Curse of the Elements","Curse of Agony","Curse of Agony","Curse of Agony","Demoralizing Shout","Thunder Clap","Insect Swarm(Rank 1)","Vampiric Embrace","Hunter's Mark","Fairy Fire","Placeholder for Nightfall","Placeholder for Shadow Weaving","Placeholder for Mindflay","Placeholder for Winters Chill","Scorpid Sting","Placeholder for improved Shadowbolt","Polymorph","Shackle Undead","Banish","Hibernate","Fear","Scare Beast"}
-FsR_Stuff2Track =
-	{
- 	["Gold"] = {itemkind = "special"},
+FsR_Stuff2Track={
+	["Gold"] = {itemkind = "special", collector = {"Eversmile"}},
+	["EmptyBagSlots"] = {itemkind = "special"},
  	["Soul Shard"] = {itemkind = "item"},
- 	["Demonic Figurine"] = {itemkind = "item" , class = { Warlock = {AnnounceValue = 3}}},
- 	["Infernal Stone"] = {itemkind = "item", class = { Warlock = {}}},
- 	["Ankh"] = {itemkind = "item" , class = { Shaman = { AnnounceValue = 5}}},
- 	["Arcane Powder"] = {itemkind = "item" , class = {Mage = {AnnounceValue = 3}}},
- 	["Rune of Portals"] = {itemkind = "item" , class = {Mage = {AnnounceValue = 2}}},
- 	["Rune of Teleportation"] = {itemkind = "item" , class = {Mage = {}}},
- 	["Roasted Quail"] = {itemkind = "item" , class = {Hunter = {AnnounceValue = 2}}},
- 	["Dried King Bolete"] = {itemkind = "item" , class = {Hunter = {AnnounceValue = 2}}},
- 	["Jagged Arrow"] = {itemkind = "item" , class = {Hunter = {AnnounceValue = 100, Ratio = 10}, Rogue = {AnnounceValue = 10, Ratio = 1}, Warrior = {AnnounceValue = 10, Ratio = 1}}},
- 	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 10}}},
+	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5}}},
+ 	["Symbol of Kings"] = {itemkind = "item" , class = {Paladin = {AnnounceValue = 5}}},
+ 	["Instant Poison VI"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
+ 	["Wound Poison IV"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
  	["Wild Thornroot"] = {itemkind = "item" , class = {Druid = {AnnounceValue = 5}}},
- 	["Lockbox"] = {itemkind = "itemGrp" , collector = {"Shmida"}},
- 	["Bijou"] = {itemkind = "itemGrp" , collector = {"Furyswipes","Lendandana", "Omalim"}},
- 	["Coin"] = {itemkind = "itemGrp" , collector = {"Furyswipes","Lendandana", "Omalim"}},
- 	["Runecloth"] = {itemkind = "item" , collector = {"Durokigar", "Fsmage"}},
- 	["Bolt of Runecloth"] = {itemkind = "item" , collector = {"Durokigar", "Fsmage"}},
- 	["Felcloth"] = {itemkind = "item" , collector = {"Fsdm"}},
- 	["Mooncloth"] = {itemkind = "item" , collector = {"Fsdm"}},
- 	["Bloodvine"] = {itemkind = "item" , collector = {"Fsdm"}},
- 	["Powerful Mojo"] = {itemkind = "item", collector = {"Fsdm"}},
- 	["Thick Leather"] = {itemkind = "item", collector = {"Leytuha"}},
- 	["Ironweb Spider Silk"] = {itemkind = "item" , collector = {"Fsdm"}},
- 	["Instant Poison VI"] = {itemkind = "item", class = {Rogue = {}}},
-	}
-FsR_Stuff2Track =
-	{
- 	["EmptyBagSlots"] = {itemkind = "special"},
- 	["Soul Shard"] = {itemkind = "item"},
- 	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 10}}},
- 	["Symbol of Kings"] = {itemkind = "item" , class = {Paladin = {AnnounceValue = 10}}},
- 	["BOE"] = {itemkind = "itemGrp" , collector = {"Crookshanks","Cashme","Lendandana", "Omalim"}},
- 	["Bijou"] = {itemkind = "itemGrp" , collector = {"Cuppycake","Zumwalt","Lendandana", "Omalim"}},
- 	["Coin"] = {itemkind = "itemGrp" , collector = {"Cuppycake","Zumwalt","Lendandana", "Omalim"}},
- 	["Major Healing Potion"] = {itemkind = "item", class = {Druid = {AnnounceValue = 2},Rogue = {AnnounceValue = 2},Warrior = {AnnounceValue = 2},Hunter = {AnnounceValue = 2},Warlock = {AnnounceValue = 2},Mage = {AnnounceValue = 2}, Priest = {AnnounceValue = 2}, Shaman = {AnnounceValue = 2}, Paladin = {AnnounceValue=2}}},
- 	["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {AnnounceValue = 5}, Priest = {AnnounceValue = 5}, Shaman = {AnnounceValue = 5}, Paladin = {AnnounceValue=5}}},
- 	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={AnnounceValue=20,Ratio=2},Hunter = {AnnounceValue = 5,Ratio=1}, Druid = {AnnounceValue = 5,Ratio=1}, Priest = {AnnounceValue = 5,Ratio=1}, Shaman = {AnnounceValue = 5,Ratio=1}, Paladin = {AnnounceValue=5,Ratio=1}}},
- 	["Conjured Sparkling Water"] = {itemkind = "item" , class = {Mage={AnnounceValue=20, Ratio=2},Hunter = {AnnounceValue = 5,Ratio=1}, Druid = {AnnounceValue = 5,Ratio=1}, Priest = {AnnounceValue = 5,Ratio=1}, Shaman = {AnnounceValue = 5,Ratio=1}, Paladin = {AnnounceValue=5,Ratio=1}}}
-	}
+ 	["Major Healing Potion"] = {itemkind = "item", class = {Druid = {},Rogue = {},Warrior = {},Hunter = {},Warlock = {},Mage = {}, Priest = {}, Shaman = {}, Paladin = {}}},
+	["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {}, Priest = {}, Shaman = {}, Paladin = {}}},
+	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
+	["Conjured Sparkling Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}}
+}
 FsR_TrackedMaterial = {}
-FsR_ItemTrade = {}
-FsR_ItemTrade.PlayerToTradeWith = {}
-FsR_ItemTrade.TradingWindowCloseTime = GetTime() - 30
-FsR_ItemTrade.IndexYouLast = 0
-FsR_ItemTrade.IndexPartnerLast = 0
-FsR_ItemTrade.LastRequestTarget = nil
-FsR_ItemTrade.NextRequestTime = GetTime()
-FsR_ItemTrade.LastItemUpdate = GetTime()
-FsR_ItemTrade.TradeAcceptUpdate = GetTime()
-FsR_ItemTrade.TradingStarted = GetTime
 FsR_SummoningLastCast = GetTime()
 --*Fs
 MB_spellsToInt={"Arcane Explosion","Greater Heal","Holy Fire","Drain Life"}
-MB_maxheal={Druid=4,Priest=2,Shaman=5,Paladin=4}
+MB_maxheal={Druid=5,Priest=2,Shaman=6,Paladin=2}
 MB_reportcpu=false
 MB_reportzerotime=false
 MB_reportbusy=false
@@ -137,7 +101,7 @@ MB_last_buff=""
 MB_last_target=""
 MB_bestmagewater={}
 MB_cc_current={Mage=1,Warlock=1,Priest=1,Druid=1}
-MB_int_current={Rogue=1,Mage=1}
+MB_int_current={Rogue=1,Mage=1,Shaman=1}
 MB_fear_current={Warlock=1,Hunter=1}
 MB_currentraidtarget=1
 MB_isCasting=false
@@ -178,20 +142,26 @@ MB_totem_table = {
 	fire_totems= {"Flametongue Totem","Fire Nova Totem","Magma Totem","Searing Totem","Frost Resistance Totem","Tremor Totem" } ,
 	water_totems={"Mana Spring Totem","Fire Resistance Totem","Healing Stream Totem" }
 }
-MB_dcrspell={ Priest={magic="Dispel Magic",
-					disease_a="Abolish Disease",
+MB_dcrspell={ 
+	Priest={
+		magic="Dispel Magic",
+		disease_a="Abolish Disease",
 		disease="Cure Disease"
 	},
-	Shaman={poison="Cure Poison",
-					disease="Cure Disease"
+	Shaman={
+		poison="Cure Poison",
+		disease="Cure Disease"
 	},
-	Mage={curse="Remove Lesser Curse"
+	Mage={
+		curse="Remove Lesser Curse"
 	},
-	Paladin={magic="Cleanse",
-					disease="Cleanse",
+	Paladin={
+		magic="Cleanse",
+		disease="Cleanse",
 		poison="Cleanse"
 	},
-	Druid={curse="Remove Curse",
+	Druid={
+		curse="Remove Curse",
 		poison_a="Abolish Poison",
 		poison="Cure Poison"
 	},
@@ -245,6 +215,7 @@ MB_i_cure_poison = SpellExists(MB_dcrspell[myclass].poison) or SpellExists(MB_dc
 MB_i_cure_disease = SpellExists(MB_dcrspell[myclass].disease) or SpellExists(MB_dcrspell[myclass].disease_a)
 MB_i_cure_magic = SpellExists(MB_dcrspell[myclass].magic)
 function InitializeClasslists()
+	MBID={}
 	if not UnitInRaid("player") and GetNumPartyMembers()==0 then return end
 	MB_classlist={Warrior={},Mage={},Shaman={},Paladin={},Priest={},Rogue={},Druid={},Hunter={},Warlock={}}
 	if UnitInRaid("player") then
@@ -262,7 +233,7 @@ function InitializeClasslists()
 			if (class=="Mage" or class=="Warlock" or class=="Shaman" or class=="Priest" or class=="Paladin") and UnitInParty("raid"..i) and UnitIsConnected("raid"..i) then MB_CastersInParty=MB_CastersInParty+1 end
 		end
 		MB_ots={}
-		MB_tankinraid={}
+		MB_raidtanks={}
 		for k,tank in pairs(MB_tanklist) do
 			if MBID[tank] then
 			MB_RealTanksInRaid=true
@@ -271,7 +242,7 @@ function InitializeClasslists()
 				if UnitClass(MBID[tank])=="Warrior" then MB_WarriorTankInParty = true end
 			end
 			if tank~=myname then table.insert(MB_ots,tank) end
-			table.insert(MB_tankinraid,tank)
+			table.insert(MB_raidtanks,tank)
 		end
 		end
 		MB_healerinraid={}
@@ -282,7 +253,7 @@ function InitializeClasslists()
 		end
 		MB_chumplist={}
 		for chump,id in pairs(MBID) do
-			if not FindInTable(MB_tankinraid,chump) and not FindInTable(MB_healerinraid,chump) then table.insert(MB_chumplist,chump) end
+			if not FindInTable(MB_raidtanks,chump) and not FindInTable(MB_healerinraid,chump) then table.insert(MB_chumplist,chump) end
 		end
 		if TableLength(MB_ots)==0 and TableLength(MB_classlist["Warlock"])>0 then
 			--Warlocks are now ots, since you have no real ots!
@@ -321,7 +292,7 @@ function InitializeClasslists()
 			if (class=="Mage" or class=="Warlock" or class=="Shaman" or class=="Priest" or class=="Paladin") and UnitInParty(id) and UnitIsConnected(id) then MB_CastersInParty=MB_CastersInParty+1 end
 		end
 		MB_ots={}
-		MB_tankinraid={}
+		MB_raidtanks={}
 		for k,tank in pairs(MB_tanklist) do
 			if MBID[tank] then
 				MB_RealTanksInRaid=true
@@ -330,7 +301,7 @@ function InitializeClasslists()
 					if UnitClass(MBID[tank])=="Warrior" then MB_WarriorTankInParty = true end
 				end
 				if tank~=myname then table.insert(MB_ots,tank) end
-				table.insert(MB_tankinraid,tank)
+				table.insert(MB_raidtanks,tank)
 			end
 		end
 		MB_healerinraid={}
@@ -341,7 +312,7 @@ function InitializeClasslists()
 		end
 		MB_chumplist={}
 		for chump,id in pairs(MBID) do
-			if not FindInTable(MB_tankinraid,chump) and not FindInTable(MB_healerinraid,chump) then table.insert(MB_chumplist,chump) end
+			if not FindInTable(MB_raidtanks,chump) and not FindInTable(MB_healerinraid,chump) then table.insert(MB_chumplist,chump) end
 		end
 		if TableLength(MB_ots)==0 and TableLength(MB_classlist["Warlock"])>0 then
 		--Warlocks are now ots, since you have no real ots!
@@ -364,32 +335,73 @@ function InitializeClasslists()
 		table.sort(MB_ots)
 	end
 end
-alphavalue = 0
+LOFGuild = CreateFrame("Frame",nil,UIParent)
+LOFGuild:RegisterEvent("GUILD_INVITE_REQUEST")
+LOFGuild:RegisterEvent("CHAT_MSG_WHISPER")
+LOFGuild:SetScript("OnEvent",function()
+	if (event == "CHAT_MSG_WHISPER") then
+		if arg1=="sucka guild invite me" then GuildInviteByName(arg2) end
+	elseif (event == "GUILD_INVITE_REQUEST") then
+		if arg2 == "Legion of Fury" then 
+			AcceptGuild()
+	        	StaticPopup_Hide("GUILD_INVITE")
+		end
+	end
+end)
+SLASH_LOFJOIN1 = '/lofjoin'
+	SlashCmdList['LOFJOIN'] = function(arg)
+	if GetGuildInfo("player") and GetGuildInfo("player")~="Legion of Fury" then
+		GuildLeave()
+	end
+	if not GetGuildInfo("player") then
+		SendChatMessage("sucka guild invite me",WHISPER,nil,"Eversmile")
+	end
+end
+SLASH_RAIDSPAWN1 = '/spawn'
+	SlashCmdList['RAIDSPAWN'] = function(arg)
+	local xStart = -500
+	local yStart = -160
+	local xOffset = 65
+	local _G = getfenv(0)
+
+	for i = 1 , 8 do
+		if not _G['RaidPullout'..(i)] then
+			RaidPullout_GenerateGroupFrame(i)
+		end
+		if _G['RaidPullout'..(i)] then
+			_G['RaidPullout'..(i)]:ClearAllPoints()
+			if i<5 then
+				_G['RaidPullout'..(i)]:SetPoint("TOP", UIParent ,"TOP", xStart + (i - 1) * xOffset , yStart)
+			else
+				_G['RaidPullout'..(i)]:SetPoint("TOP", UIParent ,"TOP", xStart + (i - 5) * xOffset , yStart-190)
+			end
+		end
+	end
+end
+
 IndicatorFrame = CreateFrame("Frame",nil,UIParent)
 IndicatorFrame.FlashTime = GetTime()
 IndicatorFrame.FlashColor = {red = 0, green = 0, blue = 0, alpha = 0}
 IndicatorFrame.PulseAlphaValue = 0
-local t1 = IndicatorFrame:CreateTexture(nil,"BACKGROUND")
-t1:SetTexture(1.0,0.0,0.0,0.4)
-t1:SetHeight(GetScreenHeight()/20/ UIParent:GetEffectiveScale())
-t1:SetPoint("TOP", 0, 0)
+	local t1 = IndicatorFrame:CreateTexture(nil,"BACKGROUND")
+	t1:SetTexture(1.0,0.0,0.0,0.4)
+	t1:SetHeight(GetScreenHeight()/20/ UIParent:GetEffectiveScale())
+	t1:SetPoint("TOP", 0, 0)
+	local t2 = IndicatorFrame:CreateTexture(nil,"BACKGROUND")
+	t2:SetTexture(1.0,0.0,0.0,0.4)
+	t2:SetHeight(GetScreenHeight()/20/ UIParent:GetEffectiveScale())
+	t2:SetPoint("BOTTOM", 0, 0)
 
-local t2 = IndicatorFrame:CreateTexture(nil,"BACKGROUND")
-t2:SetTexture(1.0,0.0,0.0,0.4)
-t2:SetHeight(GetScreenHeight()/20/ UIParent:GetEffectiveScale())
-t2:SetPoint("BOTTOM", 0, 0)
-
-local t3 = IndicatorFrame:CreateTexture(nil,"BACKGROUND")
-t3:SetTexture(1.0,0.0,0.0,0.4)
-t3:SetWidth(GetScreenHeight()/20/ UIParent:GetEffectiveScale())
-t3:SetPoint("LEFT", 0, 0)
-
-local t4 = IndicatorFrame:CreateTexture(nil,"BACKGROUND")
-t4:SetTexture(1.0,0.0,0.0,0.4)
-t4:SetWidth(GetScreenHeight()/20/ UIParent:GetEffectiveScale())
-t4:SetPoint("RIGHT", 0, 0)
-
-IndicatorFrame:SetPoint("CENTER",0,0)
+	local t3 = IndicatorFrame:CreateTexture(nil,"BACKGROUND")
+	t3:SetTexture(1.0,0.0,0.0,0.4)
+	t3:SetWidth(GetScreenHeight()/20/ UIParent:GetEffectiveScale())
+	t3:SetPoint("LEFT", 0, 0)
+	
+	local t4 = IndicatorFrame:CreateTexture(nil,"BACKGROUND")
+	t4:SetTexture(1.0,0.0,0.0,0.4)
+	t4:SetWidth(GetScreenHeight()/20/ UIParent:GetEffectiveScale())
+	t4:SetPoint("RIGHT", 0, 0)
+	IndicatorFrame:SetPoint("CENTER",0,0)
 --IndicatorFrame:Hide()
 
 function FlashHandler()
@@ -402,7 +414,8 @@ function FlashHandler()
 		return
 	else
 		--Highlight MainTankTargetstarget
-		if MBID[MB_raidleader] and UnitName(MBID[MB_raidleader].."targettarget")==UnitName("player") then
+		if MBID[MB_raidleader] and UnitName(MBID[MB_raidleader].."targettarget")==UnitName("player") and UnitIsEnemy("target","player") then
+			
 			if FindInTable(MB_tanklist,UnitName("player")) then
 				--Highlight Tank
 				t1:SetTexture(1.0,1.0,1.0,0.4)
@@ -432,6 +445,7 @@ function FlashHandler()
 end
 
 local function EventHandler()
+	if not MB_frameflash then return end
 	if (event == "PLAYER_ENTERING_WORLD") then
 		IndicatorFrame:SetWidth(GetScreenWidth())
 		IndicatorFrame:SetHeight(GetScreenHeight())
@@ -439,9 +453,8 @@ local function EventHandler()
 		t2:SetWidth(GetScreenWidth())
 		t3:SetHeight(GetScreenHeight()-t1:GetHeight() - t2:GetHeight())
 		t4:SetHeight(GetScreenHeight()-t1:GetHeight() - t2:GetHeight())
-		Print("Adjust Size!")
 	elseif (event == "UI_ERROR_MESSAGE") then
-		if ((arg1 =="Target needs to be in front of you")or (arg1 =="Out of range.")) and MB_raidleader and MB_raidleader~=UnitName("player") then
+		if ((arg1 =="Target needs to be in front of you") or (arg1 =="Out of range.") or (arg1 == "Target not in line of sight") or (arg1 == "Target too close")) and MB_raidleader and MB_raidleader~=UnitName("player") then
 			IndicatorFrame.FlashTime = GetTime() + 1
 			IndicatorFrame.FlashColor = {red = 1, green = 1, blue = 0, alpha = .4}
 		end
@@ -543,15 +556,17 @@ function partyup()
 	if MB_reportcpu then MB_cpustart=GetTime() end
 	if IsControlKeyDown() then GetMoneyFromLeader(25) return ReportCPU("Partyup getmoney") end
 	if UnitInRaid("player") and (not IsRaidLeader() or not IsRaidOfficer()) then Print("MAKE ME RAID LEADER OR ASSIST AND I'D BE GLAD TO INVITE MORE, OR PROMOTE, OR CHANGE LOOT.") return ReportCPU("Partyup notinraid") end
-	i=1
+  MB_raidleader=myname
 	for k,toon in pairs(MB_toonlist) do
-	if UnitName("player")~=toon then
-		if i==1 then Print(toon) end
-		i=i+1
-		TargetByName(toon,1)
-		if UnitIsConnected("target") then Print("Inviting "..toon) InviteByName(toon) end
-	end
-	PromoteToAssistant(toon)
+		if UnitName("player")~=toon then
+			ClearTarget()
+			TargetByName(toon,1)
+			if UnitName("target")==toon and not MBID[toon] then 
+				Print("Found "..toon.." near me. Inviting.")
+		  	if UnitIsConnected("target") then Print("Inviting "..toon) InviteByName(toon) end
+	    	PromoteToAssistant(toon)
+			end
+		end
 	end
 	SetLootMethod("freeforall",UnitName("player"))
 	--AutoPromote people you trust
@@ -868,6 +883,8 @@ local pa15manraid1 = {
 		end
 	end
 end
+MB_TheList={
+}
 function AutoDelete()
 	if not MB_autodelete then return end
 	--Delete certain items when beyond a certain number of stacks
@@ -875,383 +892,6 @@ function AutoDelete()
 	--It only works by STACKS. 1 means you allow 1 stack. 2 means 2 stacks.
 	--That could be 1.5 stacks also. Partial stacks count as a stack.
 	local amount=0
-	MB_TheList={
-	["Runecloth"]=0,
-	["Darkmoon Special"]=0,
-	["Rock Chip"]=0,
-	["Jagged Axe"]=0,
-	["Plans: Thorium"]=0,
-	["Crafted Light Shot"]=0,
-	["Scarlet Cannonball"]=0,
-	["Rough Stone"]=0,
-	["Coarse Blasting"]=0,
-	["Melon "]=0,
-	["Bruiseweed"]=0,
-	["Brocade "]=0,
-	["Blackrock Pauldrons"]=0,
-	["Lesser Healing Potion"]=0,
-	["Gnoll Spittle"]=0,
-	["Rawhide "]=0,
-	["Buzzard "]=0,
-	["Tough Condor "]=0,
-	["Ivory Boar"]=0,
-	["Tiny Fang"]=0,
-	["Linked "]=0,
-	["Wooden Maul"]=0,
-	["Short Cutlass"]=0,
-	["Smooth Pebble"]=0,
-	["Meat Cleaver"]=0,
-	["Decomposed "]=0,
-	["Lifeless Skull"]=0,
-	["Large Slimy"]=0,
-	["Bronze Tube"]=0,
-	["Extinguished Torch"]=0,
-	["Taut Compound"]=0,
-	["Broken Arrow"]=0,
-	["Shadowgem"]=0,
-	["Linen Cloth"]=0,
-	["Minor Mana Potion"]=0,
-	["Broken Boar Tusk"]=0,
-	["Boar Intestines"]=0,
-	["Boar Ribs"]=0,
-	["Ice Cold Milk"]=0,
-	["Rough Vulture Feathers"]=0,
-	["Coarse Stone"]=0,
-	["Goretusk Snout"]=0,
-	["Goretusk Liver"]=0,
-	["Severed Talon"]=0,
-	["Small Egg"]=0,
-	["Light Feather"]=0,
-	["Tigerseye"]=0,
-	["Moss Agate"]=0,
-	["Kobold Mining Shovel"]=0,
-	["Minor Healing Potion"]=0,
-	["Refreshing Spring Water"]=0,
-	["Shiny Red Apple"]=0,
-	["Darnassian Bleu"]=0,
-	["Forest Mushroom Cap"]=0,
-	["Chipped Boar Tusk"]=0,
-	["Khadgar's Whisker"]=0,
-	["Chunk of Boar Meat"]=0,
-	["Stringy Vulture Meat"]=0,
-	["Glowing Wax Stick"]=0,
-	["Large Candle"]=0,
-	["Haunch of Meat"]=0,
-	["Gnoll Paw"]=0,
-	["Gold Dust"]=0,
-	["Heavy Stone"]=0,
-	["Copper Ore"]=0,
-	["Wool Cloth"]=0,
-	["Cracked Bill"]=0,
-	["Tin Ore"]=0,
-	["Vulture Talon"]=0,
-	["Clam Meat"]=0,
-	["Dalaran Sharp"]=0,
-	["Lifeless Stone"]=0,
-	["Burning Pitch"]=0,
-	["Primed Musket"]=0,
-	["Light Plate"]=0,
-	["Bulky Maul"]=0,
-	["Brilliant Chromatic Scale"]=0,
-	["Fiery Gland"]=0,
-	["Wolf Meat"]=0,
-	["Splintering Battle Axe"]=0,
-	["Clout Mace"]=0,
-	["Fine Pointed Dagger"]=0,
-	["Blood Scythe"]=0,
-	["Feathery Wing"]=0,
-	["Ironfeather"]=0,
-	["Undamaged Hip"]=0,
-	["Shimmering Basil"]=0,
-	["Imperfect Draen"]=0,
-	["Vibrant Plume"]=0,
-	["Basilisk Venom"]=0,
-	["Basilisk Brain"]=0,
-	["Thick Furry Mane"]=0,
-	["Coal"]=0,
-	["Stout War"]=0,
-	["Solid Stone"]=0,
-	["Deeprock Stone"]=0,
-	["Ripped Wing"]=0,
-	["Journeyman's"]=0,
-	["Overlinked "]=0,
-	["Heavy Flint Ax"]=0,
-	["Sandworm Meat"]=0,
-	["Slimy Ichor"]=0,
-	["Gelatinous Goo"]=0,
-	["Heavy Silith"]=0,
-	["Armored Chitin"]=0,
-	["Crochet "]=0,
-	["Dripping Spider "]=0,
-	["Thick Leather "]=0,
-	["Spiked "]=0,
-	["Greater Mana"]=0,
-	["Twill "]=0,
-	["Laminated Scale "]=0,
-	["Laminate "]=0,
-	["Smooth Leather "]=0,
-	["Overlinked Chain"]=0,
-	["Superior Mana"]=0,
-	["Tapered Greatsword"]=0,
-	["Thick Leather Hat"]=0,
-	["Patch of Fine Fur"]=0,
-	["Twill Shoulderpads"]=0,
-	["Light Plate Belt"]=0,
-	["Sharp Shortsword"]=0,
-	["Thick Spider's"]=0,
-	["Laminated Scale Pants"]=0,
-	["Crushing Maul"]=0,
-	["Smooth Stone Chip"]=0,
-	["Superior Heal"]=0,
-	["Light Plate Helmet"]=0,
-	["Thick Leather Bracers"]=0,
-	["Alterac Swiss"]=0,
-	["Heavy War Staff"]=0,
-	["Thick Leather Shoulderpads"]=0,
-	["Large Bat Fang"]=0,
-	["Dripping Spider"]=0,
-	["Hard Spider"]=0,
-	["Shadow Silk"]=0,
-	["Ironweb Spider"]=0,
-	["Pattern:"]=0,
-	["Brilliant Scale"]=0,
-	["Forked Tongue"]=0,
-	["Powerful Mojo"]=1,
-	["Pristine Raptor Skull"]=0,
-	["Crochet Bracers"]=0,
-	["Deflecting Tower"]=0,
-	["Codex: Prayer of Fortitude"]=0,
-	["Frayed Abomination Stitching"]=0,
-	["Glowing Scorpid Blood"]=0,
-	["Smooth Leather Bracers"]=0,
-	["Nightcrawlers"]=0,
-	["Mystery Meat"]=0,
-	["Overlinked Chain Armor"]=0,
-	["Protective Pavise"]=0,
-	["Scarlet Cannonball"]=0,
-	["Light Plate Boots"]=0,
-	["Smooth Stone Chip"]=0,
-	["Shiny Polished Stone"]=0,
-	["Wicked Claw"]=0,
-	["Elder Raptor Feathers"]=0,
-	["Trophy Raptor Skull"]=0,
-	["Star Ruby"]=0,
-	["Scroll of Strength"]=0,
-	["Scroll of Protection"]=0,
-	["Scroll of Stamina"]=0,
-	["Scroll of Spirit"]=0,
-	["Scroll of Intellect"]=0,
-	["Scroll of Agility"]=0,
-	["Dried King"]=0,
-	["Sentinel Musket"]=0,
-	["Fine Longsword"]=0,
-	["Twilight Cultist Robe"]=6,
-	["Twilight Cultist Cowl"]=6,
-	["Twilight Cultist Mantle"]=6,
-	["Homemade Cherry"]=0,
-	["Roasted Quail"]=0,
-	["Evil Bat Eye"]=0,
-	["Morning Glory Dew"]=1,
-	["Lockbox"]=0,
-	["Sabertooth Fang"]=0,
-	["Spider Silk"]=0,
-	["Idol of the Moon"]=0,
-	["Totem of the Storm"]=0,
-	["Patch of fine fur"]=0,
-	["Aquamarine"]=0,
-	["Tangy Clam"]=0,
-	["Huge Venom Sac"]=0,
-	["Large Scorpid Claw"]=0,
-	["Breath of Wind"]=0,
-	["Mutton Chop"]=0}
-	MB_TheList={}
-	if MB_raidleader=="Eversmile" or MB_raidleader=="Titanator" then
-		MB_TheList={
-		["Runecloth"]=0,
-		["Darkmoon Special"]=0,
-		["Rock Chip"]=0,
-		["Jagged Axe"]=0,
-		["Plans: Thorium"]=0,
-		["Crafted Light Shot"]=0,
-		["Scarlet Cannonball"]=0,
-		["Rough Stone"]=0,
-		["Coarse Blasting"]=0,
-		["Melon "]=0,
-		["Bruiseweed"]=0,
-		["Brocade "]=0,
-		["Blackrock Pauldrons"]=0,
-		["Lesser Healing Potion"]=0,
-		["Gnoll Spittle"]=0,
-		["Rawhide "]=0,
-		["Buzzard "]=0,
-		["Tough Condor "]=0,
-		["Ivory Boar"]=0,
-		["Tiny Fang"]=0,
-		["Linked "]=0,
-		["Wooden Maul"]=0,
-		["Short Cutlass"]=0,
-		["Smooth Pebble"]=0,
-		["Meat Cleaver"]=0,
-		["Decomposed "]=0,
-		["Lifeless Skull"]=0,
-		["Large Slimy"]=0,
-		["Bronze Tube"]=0,
-		["Extinguished Torch"]=0,
-		["Taut Compound"]=0,
-		["Broken Arrow"]=0,
-		["Shadowgem"]=0,
-		["Linen Cloth"]=0,
-		["Minor Mana Potion"]=0,
-		["Broken Boar Tusk"]=0,
-		["Boar Intestines"]=0,
-		["Boar Ribs"]=0,
-		["Ice Cold Milk"]=0,
-		["Rough Vulture Feathers"]=0,
-		["Coarse Stone"]=0,
-		["Goretusk Snout"]=0,
-		["Goretusk Liver"]=0,
-		["Severed Talon"]=0,
-		["Small Egg"]=0,
-		["Light Feather"]=0,
-		["Tigerseye"]=0,
-		["Moss Agate"]=0,
-		["Kobold Mining Shovel"]=0,
-		["Minor Healing Potion"]=0,
-		["Refreshing Spring Water"]=0,
-		["Shiny Red Apple"]=0,
-		["Darnassian Bleu"]=0,
-		["Forest Mushroom Cap"]=0,
-		["Chipped Boar Tusk"]=0,
-		["Khadgar's Whisker"]=0,
-		["Chunk of Boar Meat"]=0,
-		["Stringy Vulture Meat"]=0,
-		["Glowing Wax Stick"]=0,
-		["Large Candle"]=0,
-		["Haunch of Meat"]=0,
-		["Gnoll Paw"]=0,
-		["Gold Dust"]=0,
-		["Heavy Stone"]=0,
-		["Copper Ore"]=0,
-		["Wool Cloth"]=0,
-		["Cracked Bill"]=0,
-		["Tin Ore"]=0,
-		["Vulture Talon"]=0,
-		["Clam Meat"]=0,
-		["Dalaran Sharp"]=0,
-		["Lifeless Stone"]=0,
-		["Burning Pitch"]=0,
-		["Primed Musket"]=0,
-		["Light Plate"]=0,
-		["Bulky Maul"]=0,
-		["Brilliant Chromatic Scale"]=0,
-		["Fiery Gland"]=0,
-		["Wolf Meat"]=0,
-		["Splintering Battle Axe"]=0,
-		["Clout Mace"]=0,
-		["Fine Pointed Dagger"]=0,
-		["Blood Scythe"]=0,
-		["Feathery Wing"]=0,
-		["Ironfeather"]=0,
-		["Undamaged Hip"]=0,
-		["Shimmering Basil"]=0,
-		["Imperfect Draen"]=0,
-		["Vibrant Plume"]=0,
-		["Basilisk Venom"]=0,
-		["Basilisk Brain"]=0,
-		["Thick Furry Mane"]=0,
-		["Coal"]=0,
-		["Stout War"]=0,
-		["Solid Stone"]=0,
-		["Deeprock Stone"]=0,
-		["Ripped Wing"]=0,
-		["Journeyman's"]=0,
-		["Overlinked "]=0,
-		["Heavy Flint Ax"]=0,
-		["Sandworm Meat"]=0,
-		["Slimy Ichor"]=0,
-		["Gelatinous Goo"]=0,
-		["Heavy Silith"]=0,
-		["Armored Chitin"]=0,
-		["Crochet "]=0,
-		["Dripping Spider "]=0,
-		["Thick Leather "]=0,
-		["Spiked "]=0,
-		["Greater Mana"]=0,
-		["Twill "]=0,
-		["Laminated Scale "]=0,
-		["Laminate "]=0,
-		["Smooth Leather "]=0,
-		["Overlinked Chain"]=0,
-		["Superior Mana"]=0,
-		["Tapered Greatsword"]=0,
-		["Thick Leather Hat"]=0,
-		["Patch of Fine Fur"]=0,
-		["Twill Shoulderpads"]=0,
-		["Light Plate Belt"]=0,
-		["Sharp Shortsword"]=0,
-		["Thick Spider's"]=0,
-		["Laminated Scale Pants"]=0,
-		["Crushing Maul"]=0,
-		["Smooth Stone Chip"]=0,
-		["Superior Heal"]=0,
-		["Light Plate Helmet"]=0,
-		["Thick Leather Bracers"]=0,
-		["Alterac Swiss"]=0,
-		["Heavy War Staff"]=0,
-		["Thick Leather Shoulderpads"]=0,
-		["Large Bat Fang"]=0,
-		["Dripping Spider"]=0,
-		["Hard Spider"]=0,
-		["Shadow Silk"]=0,
-		["Ironweb Spider"]=0,
-		["Pattern:"]=0,
-		["Brilliant Scale"]=0,
-		["Forked Tongue"]=0,
-		["Powerful Mojo"]=1,
-		["Pristine Raptor Skull"]=0,
-		["Crochet Bracers"]=0,
-		["Deflecting Tower"]=0,
-		["Frayed Abomination Stitching"]=0,
-		["Glowing Scorpid Blood"]=0,
-		["Smooth Leather Bracers"]=0,
-		["Nightcrawlers"]=0,
-		["Mystery Meat"]=0,
-		["Overlinked Chain Armor"]=0,
-		["Protective Pavise"]=0,
-		["Scarlet Cannonball"]=0,
-		["Light Plate Boots"]=0,
-		["Smooth Stone Chip"]=0,
-		["Shiny Polished Stone"]=0,
-		["Wicked Claw"]=0,
-		["Elder Raptor Feathers"]=0,
-		["Trophy Raptor Skull"]=0,
-		["Star Ruby"]=0,
-		["Scroll of Strength"]=0,
-		["Scroll of Protection"]=0,
-		["Scroll of Stamina"]=0,
-		["Scroll of Spirit"]=0,
-		["Scroll of Intellect"]=0,
-		["Scroll of Agility"]=0,
-		["Dried King"]=0,
-		["Sentinel Musket"]=0,
-		["Fine Longsword"]=0,
-		["Twilight Cultist Robe"]=6,
-		["Twilight Cultist Cowl"]=6,
-		["Twilight Cultist Mantle"]=6,
-		["Homemade Cherry"]=0,
-		["Evil Bat Eye"]=0,
-		["Morning Glory Dew"]=1,
-		["Sabertooth Fang"]=0,
-		["Spider Silk"]=0,
-		["Patch of fine fur"]=0,
-		["Aquamarine"]=0,
-		["Tangy Clam"]=0,
-		["Huge Venom Sac"]=0,
-		["Large Scorpid Claw"]=0,
-		["Breath of Wind"]=0,
-		["Mutton Chop"]=0,
-		["Twill "]=0}
-	end
 	local CrapIGot={}
 	for bag=0,4 do for slot=1,GetContainerNumSlots(bag) do
 		local texture,itemCount,locked,quality,readable,lootable,link=GetContainerItemInfo(bag,slot)
@@ -1299,6 +939,9 @@ FSMB:RegisterEvent("PARTY_MEMBERS_CHANGED")
 FSMB:RegisterEvent("PARTY_INVITE_REQUEST")
 FSMB:RegisterEvent("CHAT_MSG_ADDON")
 FSMB:RegisterEvent("SPELLCAST_START")
+FSMB:RegisterEvent("QUEST_GREETING")
+FSMB:RegisterEvent("QUEST_PROGRESS")
+FSMB:RegisterEvent("QUEST_COMPLETE")
 FSMB:RegisterEvent("CHAT_MSG_SPELL_SELF_BUFF")
 FSMB:RegisterEvent("SPELLCAST_INTERRUPTED")
 FSMB:RegisterEvent("SPELLCAST_FAILED")
@@ -1309,6 +952,7 @@ FSMB:RegisterEvent("SPELLCAST_CHANNEL_UPDATE")
 FSMB:RegisterEvent("SPELLCAST_CHANNEL_STOP")
 FSMB:RegisterEvent("PLAYER_REGEN_ENABLED")
 FSMB:RegisterEvent("PLAYER_REGEN_DISABLED")
+FSMB:RegisterEvent("GOSSIP_SHOW")
 FSMB:RegisterEvent("TRADE_SHOW")
 FSMB:RegisterEvent("TRADE_CLOSED")
 FSMB:RegisterEvent("CONFIRM_SUMMON")
@@ -1328,10 +972,6 @@ FSMB:RegisterEvent("ITEM_LOCK_CHANGED")
 FSMB:RegisterEvent("CHAT_MSG_MONSTER_YELL")
 FSMB:RegisterEvent("UI_ERROR_MESSAGE")
 FSMB:RegisterEvent("AUTOFOLLOW_END")
---*Fs
-FSMB:RegisterEvent("PLAYER_ENTERING_WORLD")
-FSMB:RegisterEvent("BAG_UPDATE")
---*Fs
 FSMB:RegisterEvent("CHAT_MSG_SPELL_HOSTILEPLAYER_DAMAGE")
 FSMB:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE")
 FSMB:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_CREATURE_BUFF")
@@ -1416,7 +1056,132 @@ function IsSoulbound(itemlink)
 		index=index+1
 	end
 end
-function IsUnbound(b,s)
+function OldIsEnchanted(slot)
+	FSMBtooltip:SetOwner(UIParent, "ANCHOR_NONE");
+	FSMBtooltip:ClearLines()
+	FSMBtooltip:SetInventoryItem("player",slot)
+	FSMBtooltip:Show()
+	local index = 1
+	local ltext = getglobal("FSMBtooltipTextLeft"..index):GetText()
+	while index<20 do
+		ltext = getglobal("FSMBtooltipTextLeft"..index):GetText()
+		if ltext ~= nil then
+			Print(ltext)
+			for _,stat in MB_enchantplusstats do
+				if string.find(ltext,stat) then
+				--Print(ltext)
+				--Print(stat)
+					enchanted=true
+					enchant=ltext
+				end
+			end
+			for _,stat in MB_enchantspecial do
+				if string.find(ltext,stat) then
+					enchanted=true
+					enchant=ltext
+				end
+			end
+			if enchanted then return enchant end
+		end
+		index=index+1
+	end
+end
+function PrintEnchants()
+	for i=1,19 do 
+		piece,enchant=IsEnchanted("player",i)
+		if piece then 
+			Print(piece)
+			Print(enchant)
+		end
+	end
+end
+
+function IsEnchanted(unit,slot)
+	local enchanted=nil
+	MB_enchantplusstats ={"Intellect","Strength","Stamina","Spirit","Ajility","Armor"}
+	MB_enchantspecial ={"Fiery Weapon","Lifestealing","Crusader","Healing Spells","Spell Damage"}
+	FSMBtooltip:SetOwner(UIParent, "ANCHOR_NONE");
+	FSMBtooltip:ClearLines()
+	FSMBtooltip:SetInventoryItem(unit,slot);
+	FSMBtooltip:Show()
+	local index = 1
+	local ltext = getglobal("FSMBtooltipTextLeft"..index):GetText()
+	while ltext ~= nil do
+		if index==1 then piece = ltext end
+		ltext = getglobal("FSMBtooltipTextLeft"..index):GetText()
+		if ltext ~= nil then
+			for _,stat in MB_enchantplusstats do
+				if string.find(ltext,stat.." %+") then
+					enchanted=true
+					enchant=ltext
+				end
+			end
+			for _,stat in MB_enchantspecial do
+				if string.find(ltext,stat) then
+					enchanted=true
+					enchant=ltext
+				end
+			end
+		end
+		index=index+1
+	end
+	if enchanted then return piece,enchant end
+end
+function RaidUnenchanted()
+				total=0
+				missing={}
+				for i=1,GetNumRaidMembers() do
+								missingpieces=TableLength(MissingEnchant("raid"..i))
+								total=total + missingpieces
+								missing[UnitName("raid"..i)]=missingpieces
+				end
+				for name,msg in missing do
+								Print(name.." is missing "..msg.." enchants.")
+				end
+				Print("Your raid is missing "..total.." enchants.")
+end
+function MissingEnchant(unit)
+	local enchanted=nil
+	local missing={}
+	MB_enchantplusstats ={"Intellect","Strength","Stamina","Spirit","Ajility","Armor"}
+	MB_enchantspecial ={"Fiery Weapon","Lifestealing","Crusader","Healing Spells","Spell Damage"}
+	local slots={1,3,5,7,8,9,10,15,16,17,18}
+	for _,slot in slots do 
+		FSMBtooltip:SetOwner(UIParent, "ANCHOR_NONE");
+		FSMBtooltip:ClearLines()
+		FSMBtooltip:SetInventoryItem(unit,slot);
+		FSMBtooltip:Show()
+		local index = 1
+		local ltext = getglobal("FSMBtooltipTextLeft"..index):GetText()
+		while ltext ~= nil do
+		  if index==1 then piece = ltext end
+		  ltext = getglobal("FSMBtooltipTextLeft"..index):GetText()
+			if ltext ~= nil then
+				if string.find(ltext,"Held In Off") then enchanted=true end
+				for _,stat in MB_enchantplusstats do
+					if string.find(ltext,stat.." %+") then
+						enchanted=true
+						enchant=ltext
+					end
+				end
+				for _,stat in MB_enchantspecial do
+					if string.find(ltext,stat) then
+						enchanted=true
+						enchant=ltext
+					end
+				end
+			end
+			index=index+1
+		end
+		if not enchanted then 
+			Print(piece.." not enchanted")
+			table.insert(missing,piece) 
+		end
+		enchanted=nil
+	end
+	if TableLength(missing)>0 then return missing end
+end
+function IsUnboundBOE(b,s)
 	local soulbound=nil
 	local boe=nil
 	--local _,_,itemID = string.find(itemlink, "item:(%d+)")
@@ -1439,6 +1204,27 @@ function IsUnbound(b,s)
 		index=index+1
 	end
 	if not soulbound and boe then return true end
+end
+function IsUnbound(b,s)
+	local soulbound=nil
+	--local _,_,itemID = string.find(itemlink, "item:(%d+)")
+	FSMBtooltip:SetOwner(UIParent, "ANCHOR_NONE");
+	FSMBtooltip:ClearLines()
+	--FSMBtooltip:SetInventoryItem(b,s);
+	FSMBtooltip:SetBagItem(b,s);
+	FSMBtooltip:Show()
+	local index = 1
+	local ltext = getglobal("FSMBtooltipTextLeft"..index):GetText()
+	while ltext ~= nil do
+		ltext = getglobal("FSMBtooltipTextLeft"..index):GetText()
+		if ltext ~= nil then
+			if string.find(ltext,"Soulbound") then
+				soulbound=true
+			end
+		end
+		index=index+1
+	end
+	if not soulbound then return true end
 end
 function IsUnique(b,s)
 	local unique=nil
@@ -1561,9 +1347,9 @@ function FSMB:OnEvent()
 			local int_caller=string.gsub(arg2,"^%S- ","")
 			if name==inter then
 				AssistUnit(MBID[int_caller])
-				if inter and UnitInRaid("player") then
+				if MB_raidtargetnames[GetRaidTargetIndex("target")] and inter and UnitInRaid("player") then
 					RunLine("/raid I, "..inter.." will be interrupting "..MB_raidtargetnames[GetRaidTargetIndex("target")])
-				elseif inter then
+				elseif MB_raidtargetnames[GetRaidTargetIndex("target")] and inter then
 					RunLine("/party I, "..inter.." will be interrupting "..MB_raidtargetnames[GetRaidTargetIndex("target")])
 				end
 				MB_My_int_target=GetRaidTargetIndex("target")
@@ -1663,26 +1449,14 @@ function FSMB:OnEvent()
 					RunLine("/party I, "..name.." will be summoning "..MB_default_warlock_pet)
 				end
 			end
-		--*Fs
 		elseif arg1==MB_RAID.."_Materials" then
 			FsR_ReceivingMaterialChatMessage(arg2,arg4)
 		end
-	--*Fs
 	elseif (event == "RAID_ROSTER_UPDATE") then
 		-- this event fires when your raid members change, when somone leaves/joins/gets moved to another group or connects/disconnects
 		InitializeClasslists()
-		--*Fs
-		if IsRaidLeader() == 1 then
-			FsR_RequestMaterialUpdate()
-		end
-		--*Fs
 	elseif (event == "PARTY_MEMBERS_CHANGED") then
 		InitializeClasslists()
-		--*Fs
-		if IsRaidLeader() == 1 then
-	 		FsR_RequestMaterialUpdate()
-		end
- 		--*Fs
 	elseif (event == "PARTY_INVITE_REQUEST") then
 		-- this event fires when you get a group invite
 		AcceptGroup();
@@ -1727,6 +1501,18 @@ function FSMB:OnEvent()
 		-- this event fires when you get a summon request
 		--ConfirmSummon(); -- confirms summon
 		--StaticPopup_Hide("CONFIRM_SUMMON"); -- hides popup frame
+	elseif event=="QUEST_GREETING" then 
+	elseif event=="QUEST_PROGRESS" then 
+	elseif event=="QUEST_COMPLETE" then 
+	elseif event=="GOSSIP_SHOW" then 
+		--check we have quest
+		if UnitName("target")=="Andorgos" then
+			if not GetQuest("Secrets of the Qiraji") then ClickQiraji() end
+			title,_,title2,_,title3=GetGossipActiveQuests()
+			if title=="Secrets of the Qiraji"  then SelectGossipActiveQuest(1) end
+			if title2=="Secrets of the Qiraji" then SelectGossipActiveQuest(2) end
+			if title3=="Secrets of the Qiraji" then SelectGossipActiveQuest(3) end
+		end
 	elseif event=="TRADE_SHOW" then MB_tradeopen=true
 	elseif event=="TRADE_CLOSED" then MB_tradeopen=false
 	elseif ( event=="TRADE_SKILL_SHOW") then
@@ -1744,7 +1530,7 @@ function FSMB:OnEvent()
 		MB_My_fear_target=nil
 		MB_ot_index=1
 		MB_cc_current={Mage=1,Warlock=1,Priest=1,Druid=1}
-		MB_int_current={Rogue=1,Mage=1}
+		MB_int_current={Rogue=1,Mage=1,Shaman=1}
 		MB_fear_current={Warlock=1,Hunter=1}
 		MB_currentraidtarget=1
 	elseif ( event=="PLAYER_REGEN_DISABLED" ) then
@@ -1818,7 +1604,7 @@ function FSMB:OnEvent()
 		end
 	elseif (event == "UI_ERROR_MESSAGE") then
 		--Thanks to Fabian from Germany for the auto-turn code!
-		if (arg1 =="Target needs to be in front of you") and MB_autoturn and MB_raidleader and MB_raidleader~=UnitName("player") and not FindInTable(MB_tankinraid,UnitName("player")) then
+		if (arg1 =="Target needs to be in front of you") and MB_autoturn and MB_raidleader and MB_raidleader~=UnitName("player") and not FindInTable(MB_raidtanks,UnitName("player")) then
 			RunLine("/Follow "..MB_raidleader)
 			--After 10 sec the "2/3" key will be Actionbutton2/3 again (or earlier if AUTOFOLLOW_END is thrown)
 			MB_SavedBinding.Time = GetTime() + 10
@@ -1874,18 +1660,9 @@ function FSMB:OnEvent()
 		MB_SavedBinding.Time = GetTime() + 0.2
 		MB_SavedBinding.Active = true
 		--if you reset the key without delay, the character will keep moving backwards
-	--*Fs
-	elseif (event == "BAG_UPDATE") then
-		FsR_AnnounceMaterials()
-	elseif (event == "PLAYER_ENTERING_WORLD") then
-		FsR_RequestMaterialUpdate()
-		--*Fs
 	end
 end
 FSMB:SetScript("OnUpdate",function()
-	--*Fs
-	if MB_autotrade then FsR_DoTrades() end
-	--*Fs
 	if ( MB_RAIS_shooting == true ) then
 		if ( MB_RAIS_castStart ) then
 			local cposX, cposY = GetPlayerMapPosition("player") -- player position atm
@@ -1919,6 +1696,32 @@ function FSMB:print(msg)
 	if msg then
 	DEFAULT_CHAT_FRAME:AddMessage("|cffFE2E2EF|cffF78181S|cffF6CECEM|cffFBEFEFB|r: "..msg)
 	end
+end
+function ClickQiraji()
+	for bag=-1,11 do for slot=1,GetContainerNumSlots(bag) do
+		local texture,itemCount,locked,quality,readable,lootable,link=GetContainerItemInfo(bag,slot)
+			if texture then
+				local link=GetContainerItemLink(bag,slot)
+				local bsnum=string.gsub(link,".-\124H([^\124]*)\124h.*", "%1")
+				local itemName, itemNo, itemRarity, itemReqLevel, itemType, itemSubType, itemCount, itemEquipLoc, itemIcon = GetItemInfo(bsnum)
+				if itemName=="Ancient Qiraji Artifact" then 
+					Print("I have an artifact!")
+					UseContainerItem(bag,slot)
+					AcceptQuest()
+					return
+				end
+			end
+	end end
+end
+		
+
+function GetQuest(name)
+				for i=1,GetNumQuestLogEntries() do
+								SelectQuestLogEntry(i)
+								if GetQuestLogTitle(i)==name then 
+												return true
+								end
+				end
 end
 function table.invert( tbl )
 	local rv = {}
@@ -1954,7 +1757,7 @@ function clearmacros()
 	end
 end
 function clearsupermacros()
-	MB_macronamestodelete={"tap","shftap","ctltap","altap","levparty"}
+	MB_macronamestodelete={"flaoe","tap","shftap","ctltap","altap","levparty"}
 	for k,macname in pairs(MB_macronamestodelete) do
 		while (GetSuperMacroInfo(macname,"name")) do
 			local index=GetSuperMacroInfo(macname,"name")
@@ -1995,7 +1798,7 @@ function init()
 		if GetAddOnInfo("Decursive") then DisableAddOn("Decursive") end
 		if GetAddOnInfo("QuickHeal") then DisableAddOn("QuickHeal") end
 	end
-	if not FindInTable(MB_tankinraid,myname) then 
+	if not FindInTable(MB_raidtanks,myname) then 
 		if GetAddOnInfo("DPSMate") then DisableAddOn("DPSMate") end
 		if GetAddOnInfo("BananaBar Raid Symbols") then DisableAddOn("BananaBar Raid Symbols") end
 		if GetAddOnInfo("Big Wigs VG") then DisableAddOn("Big Wigs VG") end
@@ -2258,6 +2061,9 @@ function init()
 		PlaceAction(114)
 	end
 	if class=="Priest" or class=="Shaman" or class=="Druid" or class=="Paladin" then
+	        index=CreateSuperMacro("flaoe","Interface\\Icons\\Spell_Holy_Prayerofhealing02","/script FloodAOEHeal()")
+		PickupMacro(index,"flaoe")
+		PlaceAction(65)
 		index=CreateMacro("aoeh",33,"/script AOEHeal()",1,nil)
 		PickupMacro(index)
 		PlaceAction(66)
@@ -2690,7 +2496,7 @@ function clearraidtargs()
 	MB_ot_index=1
 	MB_My_ot_target=nil
 	MB_cc_current={Mage=1,Warlock=1,Priest=1,Druid=1}
-	MB_int_current={Rogue=1,Mage=1}
+	MB_int_current={Rogue=1,Mage=1,Shaman=1}
 	MB_fear_current={Warlock=1,Hunter=1}
 	MB_currentraidtarget=1
 	SetRaidTarget("target", 1)
@@ -2765,7 +2571,7 @@ function MB_Find(item)
 				links=string.lower(link)
 				items=string.lower(item)
 				match = string.find(links, items)
-				if IsUnbound(bag,slot) then
+				if IsUnboundBOE(bag,slot) then
 					MB_msg("Found "..link.." in bag "..bag.." slot "..slot)
 				end
 			end
@@ -2963,8 +2769,8 @@ end
 function buystacks()
 	if not MB_buystacks then return end
 	--Ammo buying needs a lot of work. This function just isn't working right. Stand at vendor with vendor opened and hit 1.
-	local itemlists={["Roasted Quail"]="Hunter",["Jagged Arrow"]="Hunter",["Accurate Slugs"]="Hunter",["Flash Powder"]="Rogue",["Wild Thornroot"]="Druid",["Ironwood Seed"]="Druid",["Sacred Candle"]="Priest",Ankh="Shaman",["Arcane Powder"]="Mage",["Rune of Portals"]="Mage",["Rune of Teleportation"]="Mage"}
-	local limits={["Roasted Quail"]={320,5},["Jagged Arrow"]={16,200},["Accurate Slugs"]={16,200},["Flash Powder"]={400,1},["Wild Thornroot"]={320,1},["Ironwood Seed"]={60,1},["Sacred Candle"]={640,1},Ankh={30,1},["Arcane Powder"]={320,1},["Rune of Portals"]={80,1},["Rune of Teleportation"]={40,1}}
+	local itemlists={["Roasted Quail"]="Hunter",["Jagged Arrow"]="Hunter",["Accurate Slugs"]="Hunter",["Flash Powder"]="Rogue",["Wild Thornroot"]="Druid",["Ironwood Seed"]="Druid",["Sacred Candle"]="Priest",Ankh="Shaman",["Arcane Powder"]="Mage",["Rune of Portals"]="Mage"}
+	local limits={["Roasted Quail"]={320,5},["Jagged Arrow"]={16,200},["Accurate Slugs"]={16,200},["Flash Powder"]={400,1},["Wild Thornroot"]={320,1},["Ironwood Seed"]={60,1},["Sacred Candle"]={640,1},Ankh={30,1},["Arcane Powder"]={320,1},["Rune of Portals"]={80,1}}
 	for item,class in itemlists do
 		if myclass==class then
 			local myitems=HasItem(item)/limits[item][2]
@@ -3088,7 +2894,7 @@ function NthMostHurt(num)
 	--NOTE: HURT PEOPLE >1000 down IN PARTIES WITHOUT PRIEST ARE REPORTED FIRST
 	local i=1
 	--local hurtlist={}
-	--for _,name in MB_tankinraid do
+	--for _,name in MB_raidtanks do
 		--id=MBID[name]
 		--pct=UnitHealth(id)/UnitHealthMax(id)
 		--if IsAlive(id) and HealthDown(id)>1000 then hurtlist[id]=pct end
@@ -3211,16 +3017,19 @@ function Sulfuron()
 	if TankTarget("Sulfuron Harbinger") or TankTarget("Flamewaker Priest") then return true end
 end
 function cyclerand()
-	local n=TableLength(MB_tankinraid)
+	local n=TableLength(MB_raidtanks)
 	if n>0 then
 		r=math.random(n)-1
 		for i=1,n do
 			j=i+r
 			if j>n then j=j-n end
 			Print(j)
-			Print(MB_tankinraid[j])
+			Print(MB_raidtanks[j])
 		end
 	end
+end
+function IsTank()
+	if FindInTable(MB_raidtanks,myname) then return true end
 end
 function Decurse()
 	if 1 then return end
@@ -3236,13 +3045,13 @@ function Decurse()
 	if TableLength(MB_dcrspell[myclass])==0 then return end
 	if MyMana()<220 then return end
 	--Always decurse in random order.
-	local n=TableLength(MB_tankinraid)
+	local n=TableLength(MB_raidtanks)
 	if n>0 then
 		r=math.random(n)-1
 		for i=1,n do
 			j=i+r
 			if j>n then j=j-n end
-			tank=MB_tankinraid[j]
+			tank=MB_raidtanks[j]
 			if not FindKeyInTable(MB_dcrblacklist,tank) and FindKeyInTable(MBID,tank) then if MB_cure(tank,MBID[tank]) then return end end
 		end
 	end
@@ -3267,7 +3076,7 @@ function Decurse()
 		end
 	end
 	for name,id in MBID do
-		if not FindKeyInTable(MB_dcrblacklist,name) and not FindInTable(MB_tankinraid,name) and not FindInTable(MB_healerinraid,name) then MB_cure(name,MBID[name]) end
+		if not FindKeyInTable(MB_dcrblacklist,name) and not FindInTable(MB_raidtanks,name) and not FindInTable(MB_healerinraid,name) then MB_cure(name,MBID[name]) end
 	end
 end
 function MB_cure(name,id)
@@ -3494,11 +3303,11 @@ function PickupPetFood()
 				link=GetContainerItemLink(bag,slot) 
 				--Print(link)
 				if UnitCreatureFamily("pet") == "Bear" then
-					if string.find(link, "Deep Fried Plantains") then Print("Picking Up "..bag..","..slot) ; PickupContainerItem(bag,slot) ; return end
+					if string.find(link, "Deep Fried Plantains") then PickupContainerItem(bag,slot) ; return end
 				elseif UnitCreatureFamily("pet") == "Cat" then
-					if string.find(link, "Roasted Quail") then Print("Picking Up "..bag..","..slot) ; PickupContainerItem(bag,slot) ; return end
+					if string.find(link, "Roasted Quail") then PickupContainerItem(bag,slot) ; return end
 				elseif UnitCreatureFamily("pet") == "Bat" then
-					if string.find(link, "Dried King Bolete") then Print("Picking Up "..bag..","..slot) ; PickupContainerItem(bag,slot) ; return end
+					if string.find(link, "Dried King Bolete") then PickupContainerItem(bag,slot) ; return end
 				end
 			end
 		end end
@@ -3530,10 +3339,27 @@ function HasItem(item)
 		if texture then
 			link=GetContainerItemLink(bag,slot)
 			--Print(link)
+			if string.find(link,item) then count=count+itemCount end
+		end
+	end end
+	if count==0 then
+		--MB_msg("I'm out of "..item)
+	end
+	return count
+end
+function HasUnboundItem(item)
+	--Used to pick up pet food when feeding pet
+	--have to pick food type based on hunter name and pet
+	count=0
+	for bag=0,4 do for slot=1,GetContainerNumSlots(bag) do
+		local texture,itemCount,locked,quality,readable,lootable,link=GetContainerItemInfo(bag,slot)
+		if texture then
+			link=GetContainerItemLink(bag,slot)
+			--Print(link)
 			if item=="BOE" then
-				if IsUnbound(bag,slot) and not IsUnique(bag,slot) then count=count+1 end
+				if IsUnboundBOE(bag,slot) and not IsUnique(bag,slot) then count=count+1 end
 			else
-				if string.find(link,item) then count=count+itemCount end
+				if string.find(link,item) and IsUnbound(bag,slot) and not IsUnique(bag,slot) then count=count+itemCount end
 			end
 		end
 	end end
@@ -3587,7 +3413,7 @@ function FeedPet()
 end
 function TankBuff(spell)
 	--Important spell which allows a player to buff themselves without recasting. Only buffs if you don't have buff
-	for k,tank in pairs(MB_tankinraid) do
+	for k,tank in pairs(MB_raidtanks) do
 		if MBID[tank] then
 			if not buffed(spell,MBID[tank]) then
 				TargetUnit(MBID[tank])
@@ -3808,7 +3634,13 @@ function LockonTarget()
 			TargetNearestEnemy()
 		end
 	end
-	--
+	--Skeram targeting-make sure you MARK starting skeram. 
+	--This will make dps always target clones when present.
+	if TankTarget("Skeram") then
+		if not UnitName("target") or GetRaidTargetIndex("target") or UnitName("target")~="The Prophet Skeram" then
+			TargetNearestEnemy()
+		end
+	end
 	--NORMAL targeting--just assist the tank
 	local focid=MBID[MB_raidleader]
 	if not focid then
@@ -3831,6 +3663,7 @@ function FloodHeal()
 end
 function WarriorSurvive()
 	local class=UnitClass("player")
+	if not InCombat() and FsR_ItemEnchant.TradeStatus == "EnchantSet" then enchant() return end	
 	if class~="Warrior" then FloodHeal() return end
 	--Warrior last stand/shield wall
 	if InCombat() and MyHealthPct()<.12 then RunLine("/use Major Healthstone") end
@@ -3910,40 +3743,9 @@ function CloseDistance()
 	--This function causes unneccessary stance dancing, and needs a rewrite
 	--This is warrior druid charge function
 	--You don't want to charge certain bosses when dpsing
-	if UnitName("target")=="Lava Elemental" or UnitName("target")=="Kurinnaxx" then return end
 	local class=UnitClass("player")
 	if class=="Warrior" and SpellExists("Charge") then
 		if not InCombat() and not InMeleeRange() and not OnCooldown("Charge") and MyRage()<26 then
-			if MyStance() ~= 1 then StanceCast("Battle Stance"); end
-			cast("Charge")
-		elseif (CooldownTime("Charge")==0 or CooldownTime("Charge")>2) and not InMeleeRange() and not OnCooldown("Intercept") then
-			if (MyRage() < 8 and not OnCooldown("Bloodrage") ) or MyRage() >= 8 then
-				if not InMeleeRange() then StanceCast("Berserker Stance"); end
-				if not InMeleeRange() and MyRage() < 8 then cast("Bloodrage") end
-				if not InMeleeRange() then cast("Intercept") ;end
-			end
-		end
-	end
-	if class=="Druid" and SpellExists("Feral Charge") then
-		--Use furor if avail
-		_,_,_,_,talentPoints=GetTalentInfo(3,2)
-		if not InMeleeRange() and not OnCooldown("Feral Charge") and TargetInCombat() then
-			if not InCombat() and talentPoints>0 and MyRage()==0 then CancelAura("Dire Bear Form") end
-			if SpellExists("Dire Bear Form") then
-				StanceCast("Dire Bear Form")
-			else
-				StanceCast("Bear Form")
-			end
-			cast("Feral Charge")
-		end
-	end
-end
-function CloseDistanceRegardless()
-	--This is warrior druid charge function
-	--Do it regardless of target or circumstances
-	local class=UnitClass("player")
-	if class=="Warrior" then
-		if not TargetInCombat() and not InCombat() and not InMeleeRange() and not OnCooldown("Charge") and MyRage()<26 then
 			if MyStance() ~= 1 then StanceCast("Battle Stance"); end
 			cast("Charge")
 		elseif (CooldownTime("Charge")==0 or CooldownTime("Charge")>2) and not InMeleeRange() and not OnCooldown("Intercept") then
@@ -4079,8 +3881,8 @@ function NumInParty(checkclass)
 	return TableLength(MB_classlist[checkclass])
 end
 function ChooseAirTotem()
-	if TankTarget("Hakkar") or TankTarget("Lucifron") or TankTarget("The Prophet Skeram") then return "Grounding Totem" end
-	if TankTarget("Buru the Gorger") or TankTarget("Lord Skwol") or TankTarget("High Priestess Mar'li") or TankTarget("Spawn of Mar'li") or TankTarget("High Priestess Mar'li") or TankTarget("Witherbark Speaker") or TankTarget("High Priest Venoxis") or TankTarget("Razzashi Cobra") or TankTarget("Razzashi Adder") or TankTarget("Razzashi Serpent") then return "Nature Resistance Totem" end
+	if TankTarget("Hakkar") or TankTarget("Lucifron") then return "Grounding Totem" end
+	if TankTarget("The Prophet Skeram") or TankTarget("Buru the Gorger") or TankTarget("Lord Skwol") or TankTarget("High Priestess Mar'li") or TankTarget("Spawn of Mar'li") or TankTarget("High Priestess Mar'li") or TankTarget("Witherbark Speaker") or TankTarget("High Priest Venoxis") or TankTarget("Razzashi Cobra") or TankTarget("Razzashi Adder") or TankTarget("Razzashi Serpent") then return "Nature Resistance Totem" end
 	if MB_DruidTankInParty or (NumInParty("Hunter")>0 and NumInParty("Hunter")>NumInParty("Rogue")) then return "Grace of Air Totem" end
 	if MB_WarriorTankInParty or NumInParty("Rogue")>0 and NumInParty("Rogue")>=NumInParty("Hunter") then return "Windfury Totem" end
 	return "Tranquil Air Totem"
@@ -4205,10 +4007,10 @@ function RaidBuff(spells)
 			if IsAlive("raid"..j) then
 				TargetByName(UnitName("raid"..j),1)
 				tn,_=UnitName("target")
-				local istank=FindInTable(MB_tankinraid,tn)
+				local istank=FindInTable(MB_raidtanks,tn)
 				for _,spell in spells do
 					local skip_this_guy=(string.find(spell,"Salvation") and istank)
-					if SpellExists(spell) and not skip_this_guy and HasPrayerOfSpirit(spell) and not buffed(spell,"raid"..j) and MyMana()>MB_manacost[spell] then cast(spell) return end
+					if SpellExists(spell) and not skip_this_guy and MyMana()>MB_manacost[spell] and HasPrayerOfSpirit(spell) and not buffed(spell,"raid"..j) then cast(spell) return end
 				end
 			end
 		end
@@ -4242,36 +4044,36 @@ function PartyBuff(spells)
 		end
 	end
 end
-function TargetNotOnMe()
-	--If you are holding alt down, any class that has this in his rotation (usually tank) will switch to a target not on the tank
-	--The target WILL be in combat, so no fear of accidentally pulling
-	if not UnitIsUnit("player","targettarget") then return end
-	if not UnitIsEnemy("target","player") and InCombat() then TargetNearestEnemy() return end
-	if IsAltKeyDown() then
-		local name=UnitName("target")
-		local maxhp=UnitHealthMax("target")
-		for i=0,6 do
-			TargetNearestEnemy()
-			if (TargetInCombat() and
-			not FindInTable(MB_tankinraid,UnitName("targettarget")))
-			or (TargetInCombat() and UnitHealthMax("target")==maxhp and UnitName("target")==name) then return end
-		end
-		TargetUnit("playertarget")
-	end
-end
 function TargetNotOnTankNoAlt()
 	--Any class that has this in his rotation (usually tank in close combat) will switch to a target not on the tank
 	--every time the button is pressed.
 	--The target WILL be in combat, so no fear of accidentally pulling
+	if not UnitName("target") then TargetNearestEnemy()
+	elseif not IsAlive("target") then Print("Target Is Dead--Targeting nearest enemy") TargetNearestEnemy()
+	elseif not TargetInCombat() then Print("Target not in combat--Targeting nearest enemy") TargetNearestEnemy()
+	elseif not InMeleeRange() then Print("Target not in melee range--Targeting nearest enemy") TargetNearestEnemy() end
+	if UnitIsEnemy("target","player") and TargetInCombat() and not FindInTable(MB_raidtanks,UnitName("targettarget")) then return end
+	for i=0,8 do
+		if not UnitName("target") then TargetNearestEnemy() end
+		if UnitIsEnemy("target","player") and not FindInTable(MB_raidtanks,UnitName("targettarget")) then return end
+		TargetNearestEnemy()
+	end
+	TargetUnit("playertarget")
+end
+function TargetNotOnTank()
+	--Any class that has this in his rotation (usually tank in close combat) will switch to a target not on the tank
+	--every time the button is pressed.
+	--The target WILL be in combat, so no fear of accidentally pulling
+	if not IsAltKeyDown() then return end
 	if UnitName("target")=="The Prophet Skeram" then return end
 	if not UnitName("target") then TargetNearestEnemy()
 	elseif not IsAlive("target") then Print("Target Is Dead--Targeting nearest enemy") TargetNearestEnemy()
 	elseif not TargetInCombat() then Print("Target not in combat--Targeting nearest enemy") TargetNearestEnemy()
 	elseif not InMeleeRange() then Print("Target not in melee range--Targeting nearest enemy") TargetNearestEnemy() end
-	if UnitIsEnemy("target","player") and TargetInCombat() and not FindInTable(MB_tankinraid,UnitName("targettarget")) then return end
-	for i=0,6 do
+	if UnitIsEnemy("target","player") and TargetInCombat() and not FindInTable(MB_raidtanks,UnitName("targettarget")) then return end
+	for i=0,8 do
 		if not UnitName("target") then TargetNearestEnemy() end
-		if UnitIsEnemy("target","player") and not FindInTable(MB_tankinraid,UnitName("targettarget")) then return end
+		if UnitIsEnemy("target","player") and not FindInTable(MB_raidtanks,UnitName("targettarget")) then return end
 		TargetNearestEnemy()
 	end
 	TargetUnit("playertarget")
@@ -4345,7 +4147,7 @@ end
 function brezemall(tank_ok)
 	--Battle Rez for Druids. if tank_ok is true, druid tanks will be called to rez.
 	if myclass~="Druid" then return end
-	if FindInTable(MB_tankinraid,UnitName("player")) and not tank_ok then MB_msg("I'm a raid tank druid--I won't battlerez unless you hit F8") return end
+	if FindInTable(MB_raidtanks,UnitName("player")) and not tank_ok then MB_msg("I'm a raid tank druid--I won't battlerez unless you hit F8") return end
 	if not UnitInRaid("player") then return brezparty() end
 	AcceptResurrect()
 	if UnitIsDead("player") or UnitIsGhost("player") then return end
@@ -4366,7 +4168,7 @@ function brezemall(tank_ok)
 		if UnitIsConnected("raid"..i) then
 			if class=="Druid" then brezzer=true end
 			if class=="Priest" or class=="Shaman" or class=="Paladin" then healer=true end
-			if FindInTable(MB_tankinraid,UnitName("raid"..i)) then tank=true end
+			if FindInTable(MB_raidtanks,UnitName("raid"..i)) then tank=true end
 			if isdead then
 				if tank then
 					deadlist_tanks[name]=UnitHealthMax("raid"..i)
@@ -4498,7 +4300,7 @@ function brezparty(tank_ok)
 		if UnitIsConnected("party"..i) then
 			if class=="Druid" then brezzer=true end
 			if class=="Priest" or class=="Shaman" or class=="Paladin" then healer=true end
-			if FindInTable(MB_tankinraid,UnitName("party"..i)) then tank=true end
+			if FindInTable(MB_raidtanks,UnitName("party"..i)) then tank=true end
 			if isdead then
 				if tank then
 					deadlist_tanks[name]=UnitHealthMax("party"..i)
@@ -4567,7 +4369,7 @@ function RaiderHealthP(raidid)
 end
 function DHActive(id)
 	--if GetRealZoneText()~="Molten Core" then return nil end
-	if not TankTarget("Anubisath Sentinel") then return end
+	if not DHtarg() then return end
 	local name,realm=UnitName(id)
 	MB_dedicated_targets=table.invert(MB_dedicated_healers)
 	if IsAlive(id) and IsAlive(MBID[MB_dedicated_healers[name]]) then
@@ -4579,7 +4381,7 @@ function DedicatedHealing(name)
 	--ONLY USE DEDICATED HEALING IN MOLTEN CORE
 	--if GetRealZoneText()~="Molten Core" then return nil end
 	MB_dedicated_targets=table.invert(MB_dedicated_healers)
-	if not TankTarget("Anubisath Sentinel") then return end
+	if not DHtarg() then return end
 	if not FindInTable(MB_dedicated_healers,name) then return end
 	if not MBID[MB_dedicated_targets[name]] then return end
 	return true
@@ -4700,37 +4502,47 @@ function smartdrink()
 	--Smartdrink will annoy a lot of people. The mage will just keep the trade window open until he summons more than one stack of water. Then he will trade.
 	local class=UnitClass("player")
 	if class=="Warrior" or class=="Rogue" then return end
-	if class~="Mage" and MB_tradeopen then
-		if GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return end
-	end
-	if class=="Mage" and not MB_autotrade and MB_tradeopen then
-		if MageWater()>20 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then Print("Accepting Trade") AcceptTrade() return end
-		if not MB_autotrade and MageWater()<21 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then Print("Declining Trade--not enough of my own water left") CancelTrade() return end
-	end
-	if class~="Mage" and not MB_autotrade and not MB_tradeopen then
-		local mage=MageInGroup()
-		if mage then
-			if MageWater()<1 and ManaUser() then
-				TargetByName(mage,1)
-				if not buffed("Drink","target") and not MB_tradeopen then InitiateTrade("target") end
+	if MB_autotrade then 
+		local class = UnitClass("player")
+   	if not ManaUser() then return end
+   	if buffed("Evocation","player") then return end
+   	if class == "Mage" and MageWater()<5 and MyManaPct()>.2 then cast("Conjure Water") return end
+   	_,mybest=MageWater()
+    if ManaUser() and ManaDown()>0 and mybest and not buffed("Drink","player") then use(mybest) return end
+    if ManaUser() and ManaDown()>0 and not buffed("Drink","player") then use("Morning Glory Dew") return end
+	else
+		if class~="Mage" and MB_tradeopen then
+			if GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return end
+		end
+		if class=="Mage" and MB_tradeopen then
+			if MageWater()>20 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then Print("Accepting Trade") AcceptTrade() return end
+			if MageWater()<21 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then Print("Declining Trade--not enough of my own water left") CancelTrade() return end
+		end
+		if class~="Mage" and not MB_tradeopen then
+			local mage=MageInGroup()
+			if mage then
+				if MageWater()<1 and ManaUser() then
+					TargetByName(mage,1)
+					if not buffed("Drink","target") and not MB_tradeopen then InitiateTrade("target") end
+				end
 			end
 		end
-	end
-	if class=="Mage" and not MB_autotrade and MB_tradeopen then
-		if MageWater()>20 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then AcceptTrade() end
-		if MageWater()>21 and PickupWater() then
-			Print("Trading Water")
-			ClickTradeButton(1)
-			return
+		if class=="Mage" and not MB_tradeopen then
+			if MageWater()>20 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then AcceptTrade() end
+			if MageWater()>21 and PickupWater() then
+				Print("Trading Water")
+				ClickTradeButton(1)
+				return
+			end
+			if MageWater()<22 and MyManaPct()>.2 then cast("Conjure Water") end
+			--keep 22 water at all times just in case you run out
 		end
-		if MageWater()<22 and MyManaPct()>.2 then cast("Conjure Water") end
-		--keep 22 water at all times just in case you run out
+		if buffed("Evocation","player") then return end
+		_,mybest=MageWater()
+		if ManaUser() and ManaDown()>0 and mybest and not buffed("Drink","player") then use(mybest) end
+		if ManaUser() and ManaDown()>0 and not buffed("Drink","player") then use("Morning Glory Dew") end
+		if class=="Mage" and ManaDown()>0 and not mybest and not buffed("Drink","player") then cast("Conjure Water") end
 	end
-	if buffed("Evocation","player") then return end
-	_,mybest=MageWater()
-	if ManaUser() and ManaDown()>0 and mybest and not buffed("Drink","player") then use(mybest) end
-	if ManaUser() and ManaDown()>0 and not buffed("Drink","player") then use("Morning Glory Dew") end
-	if class=="Mage" and ManaDown()>0 and not mybest and not buffed("Drink","player") then cast("Conjure Water") end
 end
 function PartyHurt(hurt,num_party_hurt)
 	local mygroup=MB_GroupID[myname]
@@ -4807,7 +4619,7 @@ function IsHolyPally()
 	return TalentPointsIn(1)>=TalentPointsIn(2) and TalentPointsIn(1)>=TalentPointsIn(3)
 end
 function IsPallyTank()
-	return FindInTable(MB_tankinraid,UnitName("player"))
+	return FindInTable(MB_raidtanks,UnitName("player"))
 end
 function IsFire()
 	return (TalentPointsIn(2)>TalentPointsIn(1) and TalentPointsIn(2)>TalentPointsIn(3))
@@ -4857,9 +4669,10 @@ end
 	--THESE ARE THE FIRST 5 KEYS ON YOUR BAR 1,2,3,4,5
 function setup()
 	if MB_reportcpu then MB_cpustart=GetTime() end
+	if not IsAltKeyDown() and not IsControlKeyDown() and not InCombat() then MB_autotrade_for30sec=GetTime()+30 end
 	if not MB_raidleader and (TableLength(MBID)>1) then Print("WARNING: You have not chosen a raid leader--hit alt-4") end
 	if IsControlKeyDown() and IsAltKeyDown() then TradeGoldToLeaderAllBut(10) AcceptTrade() return end
-	if UnitLevel("player")==60 and IsControlKeyDown() then buystacks() return end
+	if UnitLevel("player")==60 and IsControlKeyDown() then buystacks() end
 	if myclass=="Mage" then mage_setup() return end
 	if myclass=="Paladin" then paladin_setup() return end
 	if myclass=="Shaman" then shammy_setup() return end
@@ -4901,7 +4714,7 @@ function turbo()
 	if not MB_raidleader and (TableLength(MBID)>1) then Print("WARNING: You have not chosen a raid leader--hit alt-4") end
 	if IsControlKeyDown() then MountUp() return end
 	if not IAmFocus() then SetView(2) end
-	if IsAltKeyDown() then AcceptGroup() end
+	--if IsAltKeyDown() and not IAmFocus() then AcceptGroup() end
 	if IsAltKeyDown() and not IAmFocus() then follow_assist() return end
 	if IsAltKeyDown() then return end
 	if InCombat() then
@@ -4997,6 +4810,8 @@ function TargetManaPct()
 	return UnitMana("target")/UnitManaMax("target")
 end
 function lock_single()
+	if UnitName("target")=="Moam" and TargetManaPct()>.4 and not MB_isChanneling then cast("Drain Mana") end
+	if UnitName("target")=="Obsidian Eradicator" and not MB_isChanneling then cast("Drain Mana") end
 	if (MB_default_warlock_pet=="Voidwalker" or MB_default_warlock_pet=="Succubus") then PetDefensiveMode() else PetPassiveMode() end
 	if MB_My_ot_target then PetPassiveMode() end
 	if not IsAlive("player") then return ReportCPU("Lock Single dead") end
@@ -5004,8 +4819,6 @@ function lock_single()
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	CC()
 	--if not IAmFocus() then BanishManaFiend() end
-	if UnitName("target")=="Moam" and TargetManaPct()>.4 then cast("Drain Mana") end
-	if UnitName("target")=="Obsidian Eradicator" then cast("Drain Mana") end
 	if MB_My_ot_target then
 		OT()
 		SickemTarget()
@@ -5019,7 +4832,7 @@ function lock_single()
 	if TargetInCombat() or IAmFocus() then
 		if not MB_My_ot_target then SickemTarget() end
 		if MyHealthPct()<.1 then cast("Drain Life") end
-		if NumShards()<20 and UnitHealth("target")/UnitHealthMax("target")<.10 then cast("Drain Soul") end
+		if NumShards()<20 and UnitHealth("target")/UnitHealthMax("target")<.10 and UnitLevel("target")>0 then cast("Drain Soul") end
 		if UnitName("target")=="Powerful Healing Ward" then cast("Searing Pain") end
 		if (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel") and buffed("Shadow and Frost Reflect","target") then
 			cast("Searing Pain")
@@ -5121,7 +4934,7 @@ function lock_multi()
 		if Jindo() then
 			cast("Searing Pain")
 		else
-			BuffCast("Corruption")
+			CooldownCast("Corruption",17)
 			cast("Shadow Bolt")
 		end
 		--You are out of mana but not life. Why not life tap and get some mana?
@@ -5159,26 +4972,9 @@ end
 -- WARRIOR
 function warrior_setup()
 	name,realm=UnitName("player")
-	if not FindInTable(MB_tankinraid,name) and not IsControlKeyDown() and not IsAltKeyDown() then Follow() end
+	if not FindInTable(MB_raidtanks,name) and not IsControlKeyDown() and not IsAltKeyDown() then Follow() end
 	if IsControlKeyDown() and IAmFocus() then
-		if UnitName("target") then cast("Bloodrage") end
-		if UnitName("target") and InMeleeRange() then cast("Demoralizing Shout") end
-		if UnitName("target") and InMeleeRange() then cast("Cleave") end
-		if UnitName("target") and InMeleeRange() and MyRage()>14 and not OnCooldown("Thunder Clap") then
-			StanceCast("Battle Stance")
-			cast("Thunder Clap")
-		else
-			StanceCast("Defensive Stance")
-		end
-		if UnitName("target") and InMeleeRange() and MyRage()>24 and not OnCooldown("Whirlwind") then
-			StanceCast("Berserker Stance")
-			cast("Whirlwind")
-		else
-			StanceCast("Defensive Stance")
-		end
-		if UnitName("target") then cast("Shoot Crossbow") end
-		if InMeleeRange() and not IsCurrentAction(72) then UseAction(72) end;
-		return ReportCPU("Warrior setup ctrl")
+		CloseDistance()
 	end
 	if IsAltKeyDown() and not MB_My_ot_target then MB_Assist() end
 	if IsAltKeyDown() then
@@ -5215,27 +5011,31 @@ function AutoAssignCC()
 end
 function AutoAssignOT()
 	if IAmFocus() and UnitName("target")=="The Prophet Skeram" then
-		local mytarg=GetRaidTargetIndex("target")
-		for i=1,5 do
-			if UnitName("target")=="The Prophet Skeram" and not GetRaidTargetIndex("target") and not UnitIsDead("target") then MB_assign_ot() MB_assign_int() return end
+		MB_myraidtarg=GetRaidTargetIndex("target")
+		for i=1,3 do
+			if UnitName("target")=="The Prophet Skeram" and not GetRaidTargetIndex("target") and not UnitIsDead("target") then MB_assign_ot() return end
 			TargetNearestEnemy()
 		end
-		for i=1,5 do
-			if UnitName("target")=="The Prophet Skeram" and GetRaidTargetIndex("target")==mytarg or (GetRaidTargetIndex("target")==mytarg and UnitIsDead("target")) then return end
-			TargetNearestEnemy()
+		if MB_myraidtarg then
+			for i=1,3 do
+				if UnitName("target")=="The Prophet Skeram" and GetRaidTargetIndex("target")==mytarg or (GetRaidTargetIndex("target")==mytarg and UnitIsDead("target")) then return end
+				TargetNearestEnemy()
+			end
 		end
 	end
 end
 function AutoAssignINT()
 	if IAmFocus() and UnitName("target")=="The Prophet Skeram" then
-		local mytarg=GetRaidTargetIndex("target")
-		for i=1,5 do
+		MB_myraidtarg=GetRaidTargetIndex("target")
+		for i=1,3 do
 			if UnitName("target")=="The Prophet Skeram" and not GetRaidTargetIndex("target") and not UnitIsDead("target") then MB_assign_int() return end
 			TargetNearestEnemy()
 		end
-		for i=1,5 do
-			if UnitName("target")=="The Prophet Skeram" and GetRaidTargetIndex("target")==mytarg or (GetRaidTargetIndex("target")==mytarg and UnitIsDead("target")) then return end
-			TargetNearestEnemy()
+		if MB_myraidtarg then
+			for i=1,3 do
+				if UnitName("target")=="The Prophet Skeram" and GetRaidTargetIndex("target")==mytarg or (GetRaidTargetIndex("target")==mytarg and UnitIsDead("target")) then return end
+				TargetNearestEnemy()
+			end
 		end
 	end
 end
@@ -5253,13 +5053,14 @@ function AnubAlert()
 	if UnitName("target")=="Anubisath Sentinel" and buffed("Thorns","target") then RunLine("/say This guy has Thorns") end
 	if UnitName("target")=="Anubisath Sentinel" and buffed("Mortal Strike","target") then RunLine("/say This guy has Mortal Strike") end
 	if UnitName("target")=="Anubisath Sentinel" and buffed("Shadow and Frost Reflect","target") then RunLine("/say This guy has Shadow and Frost Reflect") end
-	if UnitName("target")=="Anubisath Sentinel" and buffed("Arcane and Fire Reflect","target") then RunLine("/say This guy has Arcane and Fire Reflect") end
+	if UnitName("target")=="Anubisath Sentinel" and buffed("Fire and Arcane Reflect","target") then RunLine("/say This guy has Fire and Arcane Reflect") end
 	if UnitName("target")=="Anubisath Sentinel" and buffed("Mending","target") then RunLine("/say This guy has Mending") end
 	if UnitName("target")=="Anubisath Sentinel" and buffed("Periodic Knock Away","target") then RunLine("/say This guy has Knockaway") end
 end
 function warrior_tank_single()
 	AnubAlert()
-	AutoAssignINT()
+	--AutoAssignOT()
+	--AutoAssignINT()
 	AutoAssignCC()
 	if IsControlKeyDown() then WarriorInterrupt() return ReportCPU("Warrior tank single ctrl") end
 	--NEVeR MAKE A MOVE ON SHAZZRAH UNLESS U R Main TANK
@@ -5286,41 +5087,39 @@ function warrior_tank_single()
 			WarriorTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
 		end
 	else
-		if tname and ttname and UnitIsEnemy("player","target") and not FindInTable(MB_tankinraid,ttname) then
+		if tname and ttname and UnitIsEnemy("player","target") and not FindInTable(MB_raidtanks,ttname) then
 			WarriorTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
 		end
 	end
 	--Force taunt on alt-2 if you are main tank, otherwise ctrl-3 if you are bot
-	if IAmFocus() and IsAltKeyDown() and UnitIsEnemy("player","target") and UnitName("targettarget")~=myname then WarriorTaunt("TAUNT--alt-2: "..tname) end
+	if IAmFocus() and IsAltKeyDown() then WarriorTaunt("TAUNT--alt-2: "..tname) end
 	if not IAmFocus() and IsAltKeyDown() and UnitName("target")=="Kurinnaxx" then
 	--stop attacking during kurinnaxx when you are the off tank and the main tank is taunting!
 	if IsCurrentAction(72) then UseAction(72) end
 	return ReportCPU("Warrior tank single swing")
 	end
 	--END TAUNT CODE
-	if not UnitName("target") and not MB_My_ot_target then TargetNotOnTankNoAlt() end
+	if not UnitName("target") and not MB_My_ot_target and not IAmFocus() then TargetNotOnTankNoAlt() end
 	------END OF TARGETING------------DO THAT WARRIOR SHIT------------
 	--Uncomment the following line if you like to charge/intercept always
 	--if IAmFocus() then CloseDistance() end
+	if (not UnitName("target") or not IsAlive("target") or not UnitIsEnemy("target","player")) and IAmFocus() then TargetNotOnTankNoAlt() end
 	if UnitName("target") and ((TargetInCombat() or IAmFocus() or IsAltKeyDown())) then
 		--Only if you are in combat or are the leader! (force OT attacks if alt key down)
 		WarriorSnarePlayer()
 		if InMeleeRange() and InCombat() then StanceCast("Defensive Stance") ; end
 		if InMeleeRange() and InCombat() then cast("Bloodrage") end
 		if (UnitName("target")=="Flamewaker Elite" or UnitName("target")=="Sulfuron Harbinger" or UnitName("target")=="Majordomo Executus" or UnitName("target")=="Gurubashi Axe Thrower" or UnitName("target")=="Deathknight Captain" or UnitName("target")=="Spirestone Reaver") and not OnCooldown("Disarm") and not buffed("Disarm","target") then cast("Disarm") end
+		--save 10 rage for shield bash
+		if TankTarget("The Prophet Skeram") and UnitMana("player")<11 then return end
 		cast("Shield Slam")
-		SelfBuff("Battle Shout")
-		if InMeleeRange() then StanceCast("Defensive Stance") end
-		if SpellExists("Sunder Armor") then StackCast("Sunder Armor",5) end
-		if MyHealthPct()<.8 then cast("Shield Block") end
 		cast("Revenge")
-		--if not IsAltKeyDown() and InMeleeRange() and not buffed("Thunder Clap","target") and MyRage()>15 and not OnCooldown("Thunder Clap") then
-			--StanceCast("Battle Stance")
-			--cast("Thunder Clap")
-		--end
+		if InMeleeRange() then StanceCast("Defensive Stance") end
+		if MyHealthPct()<.8 and MyRage()>30 then cast("shield block") end
+		if MyRage()>30 then cast("Sunder Armor") end
+		SelfBuff("Battle Shout")
 		if not IsAltKeyDown() then BuffCast("Demoralizing Shout") end
 		if MyRage()>50 then cast("Heroic Strike") end
-		if MyRage()>40 then cast("Shield Bash") end
 		if not IsCurrentAction(72) then UseAction(72) end;
 	end
 	ReportCPU("Warrior tank single")
@@ -5365,6 +5164,8 @@ function warrior_tank_multi()
 	--WarriorSurvive()
 	--If you have a target and it's in combat, or if you have a target and you are the tank, do your tank shit.
 	local tname=UnitName("target")
+	--AutoAssignOT()
+	--AutoAssignINT()
 	if not tname then tname="" end
 	if MyHealthPct()<.15 then WarriorSurvive() end
 	--if UnitName("target") and (UnitLevel("target")<UnitLevel("player")-8 and UnitLevel("target")>0) then fury_multi() return end
@@ -5378,21 +5179,21 @@ function warrior_tank_multi()
 			WarriorTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
 		end
 	else
-		if tname and ttname and UnitIsEnemy("player","target") and not FindInTable(MB_tankinraid,ttname) then
+		if tname and ttname and UnitIsEnemy("player","target") and not FindInTable(MB_raidtanks,ttname) then
 			WarriorTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
 		end
 	end
 	--END TAUNT CODE
 	if not IAmFocus() and not MB_My_ot_target then TargetNotOnTankNoAlt() end
 	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
-	--if IAmFocus() and IsAltKeyDown() TableLength(MB_My_ot_target)==0 then TargetNotOnMe() end
-	if not IAmFocus() and not MB_My_ot_target then LockonTarget() end
-	if not UnitName("target") and not MB_My_ot_target then TargetNotOnTankNoAlt() end
+	if IAmFocus() then TargetNotOnTank() end
+	if (not UnitName("target") or not IsAlive("target") or not UnitIsEnemy("target","player")) and IAmFocus() then TargetNotOnTankNoAlt() end
 	if UnitName("target") and (TargetInCombat() or IAmFocus()) then
-		if IAmFocus() and IsAltKeyDown() then TargetNotOnMe() end
+		if IAmFocus() then TargetNotOnTank() end
 		--if IAmFocus() then CloseDistance() end
 		WarriorSnarePlayer()
 		cast("Bloodrage")
+		if TankTarget("The Prophet Skeram") and UnitMana("player")<11 then return end
 		SelfBuff("Battle Shout")
 		if not IsAltKeyDown() then BuffCast("Demoralizing Shout") end
 		if not IsAltKeyDown() and not buffed("Thunder Clap","target") and not OnCooldown("Thunder Clap") then
@@ -5402,9 +5203,10 @@ function warrior_tank_multi()
 		cast("Cleave")
 		if OnCooldown("Cleave") and MyRage()>25 then StanceCast("Berserker Stance") cast("Whirlwind") end
 		cast("shield slam")
+		cast("Revenge")
 		StanceCast("Defensive Stance")
-		if MyRage()>25 then StackCast("Sunder Armor",5) end
 		if MyHealthPct()<.8 and MyRage()>30 then cast("shield block") end
+		if MyRage()>30 then cast("Sunder Armor") end
 		if not IsCurrentAction(72) then UseAction(72) end;
 	end
 	ReportCPU("Warrior tank multi")
@@ -5420,7 +5222,7 @@ function warrior_tank_aoe()
 			WarriorTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
 		end
 	else
-		if tname and ttname and UnitIsEnemy("player","target") and not FindInTable(MB_tankinraid,ttname) then
+		if tname and ttname and UnitIsEnemy("player","target") and not FindInTable(MB_raidtanks,ttname) then
 			WarriorTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
 		end
 	end
@@ -5441,7 +5243,7 @@ function warrior_tank_aoe()
 			if MyHealthPct()<.8 and MyRage()>30 then cast("shield block") end
 			cast("shield slam")
 			if MyRage()>25 then cast("Revenge") end
-			if MyRage()>25 then StackCast("Sunder Armor",5) end
+			if MyRage()>25 then cast("Sunder Armor") end
 		end
 		if not IsCurrentAction(72) then UseAction(72) end;
 	end
@@ -5461,29 +5263,6 @@ function fury_single()
 		--if MyRage("player")<35 then cast("Cleave") 
 		if MyRage("player")>45 then cast("Heroic Strike") end
 		if InMeleeRange() and InCombat() then StanceCast("Berserker Stance") ; end
-		if not IsCurrentAction(72) then UseAction(72) end;
-	else
-		if IsCurrentAction(72) then UseAction(72) end;
-	end
-	ReportCPU("Warrior fury single")
-end
-function fury_single()
-	--if IsAltKeyDown() and not IAmFocus() then if IsCurrentAction(72) then UseAction(72) return end end;
-	if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.2 and UnitHealth("target")>1000 then cast("Execute") ; cast("Bloodrage") ; end
-	if IsControlKeyDown() then WarriorInterrupt() ; end
-	if not IAmFocus() then LockonTarget() end
-	if IAmFocus() or (TargetInCombat() and not IsAltKeyDown()) then
-		WarriorSnarePlayer()
-		cast("Execute")
-		WarriorSnarePlayer()
-		SelfBuff("Bloodrage")
-		SelfBuff("Battle Shout")
-		BuffCast("Thunder Clap")
-		CombatUse(14)
-		CombatUse(13)
-		if InMeleeRange() and InCombat() then StanceCast("Berserker Stance") ; end
-		cast("Bloodthirst")
-		if MyRage("player")>42 then cast("Heroic Strike") end
 		if not IsCurrentAction(72) then UseAction(72) end;
 	else
 		if IsCurrentAction(72) then UseAction(72) end;
@@ -5770,7 +5549,7 @@ function PallyBuff()
 	if not IsHolyPally() then SelfBuff("Righteous Fury") end
 end
 function SancDaTank()
-	for _,tank in MB_tankinraid do
+	for _,tank in MB_raidtanks do
 		TargetUnit(MBID[tank])
 		BuffCast("Blessing of Sanctuary")
 	end
@@ -5822,15 +5601,17 @@ function shammy_heal_single()
 	if TankTarget("Azuregos") and IsAltKeyDown() then return end
 	SaveAndorov(.8)
 	Decurse()
+	if Jindo() then LockonTarget() if UnitName("target")=="Powerful Healing Ward" then cast("Earth Shock(Rank 5)") end end
+	INT()
 	RaidHeal()
 	if buffed("Last Stand","target") or buffed("Shield Wall","target") or buffed("Frenzied Regeneration","target") then
 		CombatUse(13)
 		CombatUse(14)
 	end
-	if Jindo() then LockonTarget() if UnitName("target")=="Powerful Healing Ward" then cast("Earth Shock") end end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if MyManaPct()<.5 and InCombat() then CastTotem("Mana Tide Totem") ; end
+	--if MyManaPct()<.5 then CastTotem("Mana Tide Totem") ; end
 	--SelfBuff("Lightning Shield")
 	CombatUse(13)
 	CombatUse(14)
@@ -5851,7 +5632,7 @@ function preheal_tanks()
 	if myclass~="Priest" then return end
 	myorder=MyClassOrder()
 	i=1
-	for _,tank in MB_tankinraid do
+	for _,tank in MB_raidtanks do
 		if IsAlive(MBID[tank]) then
 			Print(MBID[tank])
 			Print("i is "..i.." and myorder is "..myorder)
@@ -5868,6 +5649,8 @@ function shammy_heal_multi()
 	--if ImBusy() then return ReportCPU("Shammy heal multi busy") end
 	SaveAndorov(.8)
 	Decurse()
+	if Jindo() then LockonTarget() if UnitName("target")=="Powerful Healing Ward" then cast("Earth Shock(Rank 5)") end end
+	INT()
 	RaidHeal()
 	if buffed("Last Stand","target") or buffed("Shield Wall","target") or buffed("Frenzied Regeneration","target") then
 		CombatUse(13)
@@ -6288,7 +6071,7 @@ function hunter_aoe()
 				if IsControlKeyDown() then cast("Concussive Shot") end
 				SelfBuff("Aspect of the Hawk")
 				--stingit()
-				if UnitIsPlayer("targettarget") and not FindInTable(MB_tankinraid,UnitName("targettarget")) then cast("growl") ; end
+				if UnitIsPlayer("targettarget") and not FindInTable(MB_raidtanks,UnitName("targettarget")) then cast("growl") ; end
 				cast("Multi-Shot")
 				cast("Aimed Shot")
 				--PerfectAim()
@@ -6322,10 +6105,8 @@ function dru_setup()
 	if (IsDruidHealer() or IsBoomkin()) and IsAltKeyDown() then RaidHeal() end
 	if MB_tradeopen and GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return ReportCPU("dru setup trade") end
 	if IsAltKeyDown() and not MB_My_ot_target then Decurse() MB_Assist() end
-	if not IsControlKeyDown() and not IsAltKeyDown() and not IsHybridDruid() and not IsDruidHealer() and not IsBoomkin() and not FindInTable(MB_tankinraid,myname) then Follow() end
+	if not IsControlKeyDown() and not IsAltKeyDown() and not IsHybridDruid() and not IsDruidHealer() and not IsBoomkin() and not FindInTable(MB_raidtanks,myname) then Follow() end
 	if IsShiftKeyDown() then return ReportCPU("dru setup shift") end
-	if IsControlKeyDown() then CastSpell(SpellNum("Faerie Fire (Feral)()"),BOOKTYPE_SPELL) return ReportCPU("dru setup ctrl") end
-	--Off tank Taunt logic
 	AutoDelete()
 	if IsAltKeyDown() then
 		if IsCurrentAction(72) then UseAction(72) end;
@@ -6352,7 +6133,7 @@ function dru_turbo()
 end
 function dru_single()
 	local name,realm=UnitName("player")
-	if FindInTable(MB_tankinraid,name) then dru_tank_single() return end
+	if FindInTable(MB_raidtanks,name) then dru_tank_single() return end
 	if IsBoomkin() then boomkin_single() return end
 	if IsHybridDruid() then dru_heal_single() return end
 	if IsDruidHealer() then dru_heal_single() return end
@@ -6360,7 +6141,7 @@ function dru_single()
 end
 function dru_multi()
 	local name,realm=UnitName("player")
-	if FindInTable(MB_tankinraid,name) then dru_tank_multi() return end
+	if FindInTable(MB_raidtanks,name) then dru_tank_multi() return end
 	if IsBoomkin() then boomkin_multi() return end
 	if IsHybridDruid() then dru_heal_multi() return end
 	if IsDruidHealer() then dru_heal_multi() return end
@@ -6368,7 +6149,7 @@ function dru_multi()
 end
 function dru_aoe()
 	local name,realm=UnitName("player")
-	if FindInTable(MB_tankinraid,name) then dru_tank_aoe() return end
+	if FindInTable(MB_raidtanks,name) then dru_tank_aoe() return end
 	if IsBoomkin() then boomkin_multi() return end
 	if IsHybridDruid() then dru_heal_multi() return end
 	if IsDruidHealer() then dru_heal_multi() return end
@@ -6407,7 +6188,7 @@ function dru_heal_single()
 	SaveAndorov(.8)
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
-	if not buffed("Insect Swarm","target") then BuffCast("Insect Swarm(Rank 1)") end
+	if not buffed("Insect Swarm","target") and TargetInCombat() then BuffCast("Insect Swarm(Rank 1)") end
 	RaidHeal()
 	--if ImBusy() then return ReportCPU("Dru heal single busy") end
 	InnervateAHealer()
@@ -6442,6 +6223,8 @@ function dru_heal_multi()
 		CombatUse(13)
 		CombatUse(14)
 	end
+	if not IAmFocus() then LockonTarget() end
+	if not buffed("Insect Swarm","target") and TargetInCombat() then BuffCast("Insect Swarm(Rank 1)") end
 	TargetUnit("player")
 	if (RaidHealth()<.6 ) and InCombat() and not OnCooldown("Tranquility") then
 		cast("Tranquility")
@@ -6475,7 +6258,7 @@ function dru_tank_single()
 			BearTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
 		end
 	else
-		if tname and ttname and UnitIsEnemy("player","target") and not FindInTable(MB_tankinraid,ttname) then
+		if tname and ttname and UnitIsEnemy("player","target") and not FindInTable(MB_raidtanks,ttname) then
 			BearTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
 		end
 	end
@@ -6485,6 +6268,7 @@ function dru_tank_single()
 	if not IAmFocus() and not MB_My_ot_target then LockonTarget() end
 	if not IAmFocus() and not MB_My_ot_target then TargetNotOnTankNoAlt() end
 	if not UnitName("target") and not MB_My_ot_target then TargetNotOnTankNoAlt() end
+	if (not UnitName("target") or not IsAlive("target") or not UnitIsEnemy("target","player")) and IAmFocus() then TargetNotOnTankNoAlt() end
 	--if IAmFocus() then CloseDistance() end
 	if MyRage()>9 and SpellExists("Feral Charge") and (CooldownTime("Feral Charge")>.75 and CooldownTime("Feral Charge")<4) and InMeleeRange() then cast("Demoralizing Roar") end
 	if UnitName("target")~="Kurinnaxx" and InMeleeRange() and TargetInCombat() then cast("Faerie Fire (Feral)()") end
@@ -6527,11 +6311,11 @@ function dru_cat_single()
 	if IsControlKeyDown() then FeralInterrupt() ; end
 	if IAmFocus() or (TargetInCombat() and not IsAltKeyDown()) then
 		if InMeleeRange() then
-			if GetComboPoints()>=5 and not buffed("Rip","target") then cast("Rip") end
+			--if GetComboPoints()>=5 and not buffed("Rip","target") then cast("Rip") end
 			if GetComboPoints()>=5 then cast("Ferocious Bite") end
 			BuffCast("Faerie Fire (Feral)()")
-			SelfBuff("Tiger's Fury")
-			BuffCast("Rake")
+			--SelfBuff("Tiger's Fury")
+			--BuffCast("Rake")
 			if IsUsableAction(71) then
 				cast("Ravage")
 				cast("Shred")
@@ -6564,14 +6348,15 @@ function dru_tank_multi()
 			BearTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
 		end
 	else
-		if tname and ttname and UnitIsEnemy("player","target") and not FindInTable(MB_tankinraid,ttname) then
+		if tname and ttname and UnitIsEnemy("player","target") and not FindInTable(MB_raidtanks,ttname) then
 			BearTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
 		end
 	end
 	--END TAUNT CODE
 	if not IAmFocus() and not MB_My_ot_target then TargetNotOnTankNoAlt() end
-	if IAmFocus() and IsAltKeyDown() then TargetNotOnMe() end
+	if IAmFocus() then TargetNotOnTank() end
 	if not UnitName("target") and not MB_My_ot_target then TargetNotOnTankNoAlt() end
+	if (not UnitName("target") or not IsAlive("target") or not UnitIsEnemy("target","player")) and IAmFocus() then TargetNotOnTankNoAlt() end
 	--Now you have a target. If it's in combat, do your dru shit
 	if UnitName("target") and TargetInCombat() then
 		if not IAmFocus() and IsAltKeyDown() then return ReportCPU("Dru tank multi alt") end
@@ -6603,7 +6388,7 @@ function dru_tank_aoe()
 			BearTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
 		end
 	else
-		if tname and ttname and UnitIsEnemy("player","target") and not FindInTable(MB_tankinraid,ttname) then
+		if tname and ttname and UnitIsEnemy("player","target") and not FindInTable(MB_raidtanks,ttname) then
 			BearTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
 		end
 	end
@@ -6718,21 +6503,21 @@ end
 ----Warrior (arms/fury/prot)
 function warrior_single()
 	local name,realm=UnitName("player")
-	if FindInTable(MB_tankinraid,name) then warrior_tank_single() return end
+	if FindInTable(MB_raidtanks,name) then warrior_tank_single() return end
 	if IsFury() then fury_single() return end
 	if IsArms() then arms_single() return end
 	warrior_tank_single()
 end
 function warrior_multi()
 	local name,realm=UnitName("player")
-	if FindInTable(MB_tankinraid,name) then warrior_tank_multi() return end
+	if FindInTable(MB_raidtanks,name) then warrior_tank_multi() return end
 	if IsFury() then fury_multi() return end
 	if IsArms() then arms_multi() return end
 	warrior_tank_multi()
 end
 function warrior_aoe()
 	local name,realm=UnitName("player")
-	if FindInTable(MB_tankinraid,name) then warrior_tank_aoe() return end
+	if FindInTable(MB_raidtanks,name) then warrior_tank_aoe() return end
 	if IsFury() then fury_multi() return end
 	if IsArms() then arms_multi() return end
 	warrior_tank_aoe()
@@ -6807,7 +6592,6 @@ end
 function priest_heal_aoe()
 	RaidHeal()
 	if ImBusy() then return ReportCPU("Priest heal aoe busy") end
-	if Jindo() then return ReportCPU("Priest heal aoe jindo") end
 	cast("Holy Nova")
 	--if PartyHurt(700,3) then cast("Prayer of Healing") end
 	ReportCPU("Priest heal aoe")
@@ -6822,14 +6606,16 @@ function priest_shadow_single()
 	if not IAmFocus() then LockonTarget() end
 	if UnitName("target")=="Azuregos" and buffed("Magic Shield","target") then SpellStopCasting() return end
 	if IAmFocus() or (not IsAltKeyDown() and TargetInCombat()) then
-		if UnitName("target")=="Shazzrah" and buffed("Deaden Magic","target") then cast("Dispel Magic") end
-		if MyMana()>205 and buffed("Vampiric Embrace","target") or MyMana()>40 and not buffed("Vampiric Embrace","target") then
+		if IsShadowWeaving() then 
 			ShadowStack()
 			BuffCast("Vampiric Embrace")
-			cast("Mind Blast")
-			cast("Mind Flay")
-			if UnitLevel("player")<13 then cast("Smite") end
+		else
+			BuffCast("Vampiric Embrace")
+			BuffCast("Shadow Word: Pain")
 		end
+		cast("Mind Blast")
+		cast("Mind Flay")
+		if UnitLevel("player")<13 then cast("Smite") end
 	end
 	ReportCPU("Priest shadow single")
 end
@@ -6844,13 +6630,16 @@ function priest_shadow_multi()
 		if HealSelf(.2) then return ReportCPU("Priest Shadow multi healself") end
 		if not IAmFocus() and (not UnitName("target") or not TargetInCombat() or not IsAlive("target")) then LockonTarget() end
 		if IAmFocus() or (not IsAltKeyDown() and TargetInCombat()) then
-			if MyMana()>205 and buffed("Vampiric Embrace","target") or MyMana()>40 and not buffed("Vampiric Embrace","target") then
+			if IsShadowWeaving() then 
 				ShadowStack()
 				BuffCast("Vampiric Embrace")
-				cast("Mind Blast")
-				cast("Mind Flay")
-				if UnitLevel("player")<13 then cast("Smite") end
+			else
+				BuffCast("Vampiric Embrace")
+				BuffCast("Shadow Word: Pain")
 			end
+			cast("Mind Blast")
+			cast("Mind Flay")
+			if UnitLevel("player")<13 then cast("Smite") end
 		end
 	end
 	ReportCPU("Priest Shadow multi")
@@ -6858,7 +6647,6 @@ end
 function priest_shadow_aoe()
 	if ImBusy() then return ReportCPU("Priest shadow aoe busy") end
 	HealSelf(.2)
-	if Jindo() then return ReportCPU("Priest shadow aoe jindo") end
 	cast("Holy Nova")
 	--if PartyHurt(700,3) then cast("Prayer of Healing") end
 end
@@ -6914,6 +6702,10 @@ function IsCombustion()
 	n,ic,t,c,EM=GetTalentInfo(2,16)
 	if EM>0 then return true else return nil end
 end
+function IsShadowWeaving()
+	n,ic,t,c,EM=GetTalentInfo(3,11)
+	if EM>0 then return true else return nil end
+end
 function RollingIgnite()
 	-- On Vanilla gaming, the fire mage that gets a crit and starts ignite will score 40% of damage over time of that crit.
 	-- But he will also score the SAME 40% damage for ANY OTHER MAGE CRITS on that same target.
@@ -6954,6 +6746,8 @@ function mage_fire_single()
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	if not IsCombustion() and MB_castingfrost and not MB_stopcasting then SpellStopCasting() MB_stopcasting=true end
 	if ImBusy() then return ReportCPU("Mage fire single busy") end
+	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Ruby") end
+	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Citrine") end
 	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	CC()
@@ -6967,7 +6761,7 @@ function mage_fire_single()
 		if not IsAltKeyDown() then
 			--if UnitName("target")=="Ayamiss the Hunter" and (TargetHealthPct()<.75 and TargetHealthPct()>.69) then return end
 			if UnitName("target")=="Powerful Healing Ward" then cast("Fire Blast") end
-			if (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel") and buffed("Arcane and Fire Reflect","target") then
+			if (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel") and buffed("Fire and Arcane Reflect","target") then
 				cast("Frostbolt")
 			end
 			if UnitName("target")=="Azuregos" then
@@ -6996,6 +6790,8 @@ function mage_fire_multi()
 	if TankTarget("Gehennas") or TankTarget("Magmadar") then SelfBuff("Fire Ward") end
 	if not IsCombustion() and MB_castingfrost and not MB_stopcasting then SpellStopCasting() MB_stopcasting=true end
 	if ImBusy() then return ReportCPU("Mage fire multi busy") end
+	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Ruby") end
+	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Citrine") end
 	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	CC()
@@ -7187,11 +6983,12 @@ function mage_setup()
 	elseif SpellExists("Frost Armor") then
 		SelfBuff("Frost Armor")
 	end
-	if MageWater()>20 and UnitLevel("player")==60 then
+	if UnitLevel("player")==60 then
 		RaidBuff({"Arcane Brilliance"})
-	elseif MageWater()>20 then
-		RaidBuff({"Arcane Intellect"})
 	else
+		RaidBuff({"Arcane Intellect"})
+	end
+	if MageWater()<3 then
 		cast("Conjure Water")
 	end
 	if TankTarget("High Priest Thekal") then RaidBuff({"Amplify Magic"}) end
@@ -7231,9 +7028,11 @@ function rogue_single()
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	INT()
 	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
+	if buffed("Thorns","target") and UnitName("target")=="Anubisath Sentinel" then if IsCurrentAction(72) then UseAction(72) end end
 	if not IAmFocus() then LockonTarget() end
 	if TargetInCombat() or IAmFocus() then
 		if InMeleeRange() then
+			if MB_My_int_target and UnitMana("player")<65 then return end
 			if Stealthed() then cast("Garrote") end
 			if GetComboPoints()>=1 and not buffed("Slice and Dice","player") then cast("Slice and Dice") end
 			if GetComboPoints()>=5 then cast("Eviscerate") end
@@ -7261,8 +7060,10 @@ function rogue_multi()
 	if not TankTarget("The Prophet Skeram") and IsAltKeyDown() then if IsCurrentAction(72) then UseAction(72) return ReportCPU("Rogue single altdpsout") end end
 	if not IAmFocus() then LockonTarget() end
 	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
+	if buffed("Thorns","target") and UnitName("target")=="Anubisath Sentinel" then if IsCurrentAction(72) then UseAction(72) end end
 	if TargetInCombat() or IAmFocus() then
 		if InMeleeRange() then
+			if MB_My_int_target and UnitMana("player")<65 then return end
 			cast("Blade Flurry")
 			if GetComboPoints()>=1 and not buffed("Slice and Dice","player") then cast("Slice and Dice") end
 			if GetComboPoints()>=3 then cast("Eviscerate") end
@@ -7574,10 +7375,12 @@ function MB_assign_int()
 		SetRaidTarget("target",MB_currentraidtarget)
 		if MB_currentraidtarget==8 then MB_currentraidtarget=1 else MB_currentraidtarget=MB_currentraidtarget+1 end
 	end
+	num_shaman=TableLength(MB_classlist["Shaman"])
 	num_rogues=TableLength(MB_classlist["Rogue"])
 	num_mages=TableLength(MB_classlist["Mage"])
 	num_interrupters=TableLength(MB_classlist["Rogue"])
 	num_interrupters=num_interrupters+TableLength(MB_classlist["Mage"])
+	num_interrupters=num_interrupters+TableLength(MB_classlist["Shaman"])
 	if num_interrupters==0 then return end
 	Print("Interrupt that sucka")
 	if num_rogues>0 then
@@ -7602,6 +7405,28 @@ function MB_assign_int()
 			MB_int_current.Mage=1
 		else
 			MB_int_current.Mage=MB_int_current.Mage+1
+		end
+	end
+	if num_shaman>0 then
+		if UnitInRaid("player") then
+			SendAddonMessage(MB_RAID.."_INT",MB_classlist["Shaman"][MB_int_current.Mage].." "..UnitName("player"),"RAID")
+		else
+			SendAddonMessage(MB_RAID.."_INT",MB_classlist["Shaman"][MB_int_current.Mage].." "..UnitName("player"))
+		end
+		if MB_int_current.Shaman==num_shaman then
+			MB_int_current.Shaman=1
+		else
+			MB_int_current.Shaman=MB_int_current.Shaman+1
+		end
+		if UnitInRaid("player") then
+			SendAddonMessage(MB_RAID.."_INT",MB_classlist["Shaman"][MB_int_current.Shaman].." "..UnitName("player"),"RAID")
+		else
+			SendAddonMessage(MB_RAID.."_INT",MB_classlist["Shaman"][MB_int_current.Shaman].." "..UnitName("player"))
+		end
+		if MB_int_current.Shaman==num_shaman then
+			MB_int_current.Shaman=1
+		else
+			MB_int_current.Shaman=MB_int_current.Shaman+1
 		end
 	end
 end
@@ -7965,14 +7790,19 @@ MB_mountnames={"Horn of the ", "Reins of the Swift Stormsaber", "Swift White Ste
 function MountUp()
 	--Print("Mounting Up!")
 	if ImBusy() then return end
+	if GetRealZoneText()=="Ahn'Qiraj" then
+    use(GetLink("Resonating"))
+		return
+	end
 	for _,mount in MB_mountnames do
 		use(GetLink(mount))
 	end
 	cast("Summon Dreadsteed")
+	cast("Summon Felsteed")
 	cast("Summon Charger")
 end
 function Mounted()
-	if buffed("Dreadsteed", "player") or buffed("Charger", "player") then return true end
+	if buffed("Felsteed","player") or buffed("Dreadsteed", "player") or buffed("Charger", "player") then return true end
 	for _,mount in MB_mountnames do
 		if buffed(mount,"player") then return true end
 	end
@@ -8022,9 +7852,13 @@ function Bubble(id)
 	if not id then return end
 	if UnitClass("player")=="Paladin" and (UnitHealth(id)/UnitHealthMax(id))<.10 and not buffed("Forbearance",id) then TargetUnit(id) MB_msg("BUBBLING "..UnitName(id)) cast("Blessing of Protection") end
 end
+function DHtarg()
+	return TankTarget("Anubisath Sentinel") or TankTarget("Sartura")
+end
 function ImDH()
 	MB_dedicated_targets=table.invert(MB_dedicated_healers)
-	if TankTarget("Anubisath Sentinel") and FindInTable(MB_dedicated_healers,myname) and IsAlive(MBID[MB_dedicated_targets[myname]]) then return true end
+	if not DHtarg() then  return end
+	if FindInTable(MB_dedicated_healers,myname) and IsAlive(MBID[MB_dedicated_targets[myname]]) then return true end
 end
 function RaidGroup()
 	--Returns what raid group you are in.
@@ -8044,6 +7878,21 @@ function HotEmUp(hot)
 			return
 		end
 	end
+end
+function FloodAOEHeal()
+	local myorder
+	if myclass=="Priest" then cast("Prayer of Healing(Rank 3)") end
+	--Put TWO shammys per most hurt
+	if myclass=="Shaman" then 
+		myorder=math.floor(MyClassOrder()/2+.5)
+	else
+		myorder=MyClassOrder()
+	end
+	Print("My order = "..myorder)
+	local mytarg=NthMostHurt(myorder)
+	if myclass=="Shaman" and mytarg then MB_msg("Healing "..UnitName(mytarg)) TargetUnit(mytarg) cast("Chain Heal(Rank 3)") end 
+	--if IsHealer() and myclass=="Druid" and mytarg then MB_msg("Hotting "..UnitName(mytarg)) TargetUnit(mytarg) cast("Rejuvenation(Rank 5)") end 
+	if IsHealer() and myclass=="Druid" then HotEmUp("Rejuvenation(Rank 5)") end 
 end
 function AOEHeal()
 	local myorder
@@ -8068,10 +7917,14 @@ function RaidHeal()
 	--if 1 then QuickHeal() return end
 	if Sulfuron() or TankTarget("Shazzrah") or TankTarget("Ragnaros") or not InRaid() then QuickHeal() return end
 	if Jindo() then
-		MB_maxheal={Druid=11,Priest=3,Shaman=5,Paladin=5}
+		MB_maxheal={Druid=2,Priest=1,Shaman=2,Paladin=2}
 	else
 		--MB_maxheal={Druid=11,Priest=11,Shaman=11,Paladin=11}
-		MB_maxheal={Druid=4,Priest=2,Shaman=5,Paladin=4}
+		if ImDH() then 
+			MB_maxheal={Druid=11,Priest=11,Shaman=11,Paladin=11}
+		else
+			MB_maxheal={Druid=4,Priest=2,Shaman=5,Paladin=2}
+		end
 	end
 	--for parties just quickheal
 	if GetNumRaidMembers()<6 then QuickHeal() return end
@@ -8087,6 +7940,7 @@ function RaidHeal()
 	MB_emer_list={}
 	------ A dedicated healer is a toon who will ONLY heal a certain other toon. The other healers won't help. Unless he's out of mana or dead.
 	MB_dedicated_targets=table.invert(MB_dedicated_healers)
+	--if ImDH() then FollowByName(MB_dedicated_targets[myname],1) end
 	if ImDH() then
 		local id=MBID[MB_dedicated_targets[myname]]
 		if IsAlive(id) and (UnitHealth(id)/UnitHealthMax(id))<1 then
@@ -8119,7 +7973,7 @@ function RaidHeal()
 		--If he's alive he goes on the list
 		--If he has a dedicated healer, he does NOT go on the list. His dedicated healer needs to save him.
 		if IsAlive(id) and not DHActive(id) then
-			if hdown>0 and FindInTable(MB_tankinraid,name) and hpct<MB_healtank_threshold then
+			if hdown>0 and FindInTable(MB_raidtanks,name) and hpct<MB_healtank_threshold then
 				MB_tanks_introuble[name]=h
 			elseif hdown>0 and FindInTable(MB_healerinraid,name) and hpct<MB_savechump_threshold then
 				MB_healers_introuble[name]=h
@@ -8305,6 +8159,243 @@ function findSpell(spellName)
 	return nil;
 end
 --Fs*
+FsR_ItemTrade = CreateFrame("FRAME")
+FsR_ItemTrade.State = "Idle"
+FsR_ItemTrade.TradePartner = nil
+FsR_ItemTrade.RequestNextRequest = GetTime()
+FsR_ItemTrade.Alpha = .7
+FsR_ItemTrade.IndexYouLast = 0
+FsR_ItemTrade.IndexPartnerLast = 0
+FsR_ItemTrade.Goldthreshold  = 350000
+FsR_ItemTrade.AcceptTrade = false
+FsR_ItemTrade.AcceptRefreshTimer = GetTime()
+FsR_ItemTrade.IntendedTradeRequest = false
+FsR_ItemTrade.PostedMissingItems = false
+
+FsR_ItemTrade.LastItemUpdate = GetTime()
+FsR_ItemTrade.TradeAcceptUpdate = GetTime()
+FsR_ItemTrade.TradingStarted = GetTime()
+FsR_ItemTrade.Stacked = false
+
+FsR_ItemTrade:RegisterEvent("TRADE_SHOW");
+FsR_ItemTrade:RegisterEvent("TRADE_TARGET_ITEM_CHANGED");
+FsR_ItemTrade:RegisterEvent("TRADE_PLAYER_ITEM_CHANGED");
+FsR_ItemTrade:RegisterEvent("TRADE_ACCEPT_UPDATE");
+FsR_ItemTrade:RegisterEvent("TRADE_MONEY_CHANGED");
+FsR_ItemTrade:RegisterEvent("PLAYER_TRADE_MONEY");
+FsR_ItemTrade:RegisterEvent("TRADE_CLOSED");
+FsR_ItemTrade:RegisterEvent("PLAYER_MONEY");
+FsR_ItemTrade:RegisterEvent("CHAT_MSG_ADDON");
+FsR_ItemTrade:RegisterEvent("BAG_UPDATE")
+FsR_ItemTrade.BagUpdate = false
+
+function FsR_ItemTrade:OnEvent()
+	if (event == "CHAT_MSG_ADDON") then
+		if (arg1 == MB_RAID.."TradeWithMe") then
+			if (arg2 == UnitName("player")) then
+				--if MB_transaction_complete and (FsR_ItemTrade.State == "Idle") and MBID[arg4] and CheckInteractDistance(MBID[arg4],2) and not InCombat()then
+				if (FsR_ItemTrade.State == "Idle") and MBID[arg4] and CheckInteractDistance(MBID[arg4],2) and not InCombat()then
+					--MB_transaction_complete=false
+					--Print("Transaction_complete = false at time "..GetTime()) 
+					FsR_ItemTrade.TradePartner = arg4
+					InitiateTrade(MBID[arg4])
+					if UnitName(MBID[arg4]) ~= arg4 then Print("Something seems to be wrong here!") end
+				else
+					SendAddonMessage(MB_RAID.."DeclineTrade",arg4,"RAID")
+				end
+			end
+		elseif (arg1 == MB_RAID.."DeclineTrade") then
+			if (arg2 == UnitName("player")) then
+				FsR_ItemTrade.RequestPending = false
+				FsR_ItemTrade.RequestNextRequest = GetTime() + 2+ math.random() 
+				FsR_ItemTrade.State = "Idle"
+			end
+		elseif (arg1 == MB_RAID.."CancelRequest") then
+			if (arg2 == UnitName("player")) then
+				SendAddonMessage(MB_RAID.."DeclineTrade",arg4,"RAID")
+			end
+		elseif (arg1 == MB_RAID.."IntendedTrade") then
+			if (arg2 == UnitName("player")) then
+				if arg4 == FsR_ItemTrade.TradePartner then
+					SendAddonMessage(MB_RAID.."IntendedTradeConfirm",FsR_ItemTrade.TradePartner,"RAID")
+				else
+					CancelTrade()
+				end
+			end
+		elseif (arg1 == MB_RAID.."IntendedTradeConfirm") then
+			if (arg2 == UnitName("player")) then
+				FsR_ItemTrade.TradePartner = arg4
+			end
+		end
+	elseif (event == "TRADE_SHOW") then
+		MB_updateevery2=GetTime() + .25
+		FsR_ItemTrade.State = "TradeIsOpen"
+	elseif(event == "TRADE_CLOSED") then
+		FsR_AnnounceMaterials(false)
+		MB_updateevery2=GetTime() + .25
+		--if not MB_transaction_complete and FsR_ItemTrade.State == "TradeIsOpen_Requested" then Print("Transaction_complete = true") MB_transaction_complete=true end
+		FsR_ItemTrade.State = "Idle"
+	elseif(event == "PLAYER_MONEY") then
+		FsR_AnnounceMaterials(false)
+		MB_updateevery2=GetTime() + .25
+	elseif(event == "TRADE_ACCEPT_UPDATE") then
+		if MB_autotrade and (MB_autotrade_for30sec)>GetTime() then
+			if arg2 == 1 then
+				if arg1 == 0 and FsR_ItemTrade.AcceptTrade then
+					AcceptTrade()
+				end
+			end
+		end
+	elseif (event == "BAG_UPDATE") then
+		FsR_ItemTrade.BagUpdate = true
+	end
+end
+MB_updateevery2 = GetTime()
+MB_autotrade_for30sec = GetTime()
+FsR_ItemTrade.GotUpdate = true
+function FsR_ItemTrade:OnUpdate()
+	if (MB_updateevery2+.5) > GetTime() then return end
+	MB_updateevery2=GetTime()
+	if not MB_autotrade or ((MB_autotrade_for30sec)<GetTime()) then 
+		FsR_ItemTrade.PostedMissingItems = false 
+		if FsR_ItemTrade.State=="TradeIsOpen_Requested" then 
+			CancelTrade() 
+			FsR_ItemTrade.State="Idle"
+		end 
+		return 
+	end
+	--Print("Autotrading for "..math.floor((MB_autotrade_for30sec)-GetTime()).." more seconds")
+	if FsR_ItemTrade.State == "Idle" then
+		
+		if FsR_ItemTrade.BagUpdate then
+			FsR_ItemTrade.BagUpdate = false
+			FsR_AnnounceMaterials(false)
+			FsR_ItemTrade.Stacked = false
+		end
+		
+		FsR_ItemTrade.AcceptTrade = false
+		FsR_ItemTrade.IntendedTradeRequest = false
+		if not FsR_ItemTrade.Stacked then
+			if not FsR_ReStackStuff() then
+				FsR_ItemTrade.Stacked = true
+			end
+		end
+		if FsR_ItemTrade.GotUpdate then
+			--Print("TradeUp")
+		FsR_UpdateTradeList()
+			FsR_ItemTrade.GotUpdate = false
+		end
+		if GetTime() > FsR_ItemTrade.RequestNextRequest then
+			for player, items in pairs(FsR_ItemTrade.PlayerToTradeWith) do
+				if not FsR_ItemTrade.TradePartner then
+					if MBID[player] and CheckInteractDistance(MBID[player],2) then
+						FsR_ItemTrade.State = "RequestPending"
+						FsR_ItemTrade.RequestPendingTime = GetTime()
+						FsR_ItemTrade.RequestPending = true	
+						FsR_ItemTrade.TradePartner = player
+						Print("Trade with me "..player.."! I have your")
+						Printt(items)
+						SendAddonMessage(MB_RAID.."TradeWithMe",player,"RAID")
+						return
+					end
+				else
+					if (FsR_ItemTrade.TradePartner == player) then
+						FsR_ItemTrade.TradePartner = nil
+					end
+				end
+			end
+			FsR_ItemTrade.TradePartner = nil
+		end
+	elseif (FsR_ItemTrade.State == "RequestPending") then
+		FsR_ItemTrade.AcceptTrade = false
+		if (FsR_ItemTrade.RequestPendingTime + 3 < GetTime()) then
+			SendAddonMessage(MB_RAID.."CancelRequest",FsR_ItemTrade.TradePartner,"RAID")
+		end
+	elseif (FsR_ItemTrade.State == "TradeIsOpen") then
+		if (UnitName("NPC") == FsR_ItemTrade.TradePartner) then
+			TradeFrame:SetAlpha(FsR_ItemTrade.Alpha)
+			FsR_ItemTrade.TradingStarted = GetTime()
+			FsR_ItemTrade.State = "TradeIsOpen_Requested"
+		else
+			TradeFrame:SetAlpha(1)
+			FsR_ItemTrade.State = "TradeIsOpen_Unrequested"
+		end
+	elseif (FsR_ItemTrade.State == "TradeIsOpen_Requested") then
+		local ItemIndexYou = 0
+		local ItemIndexPartner = 0
+		local RequestTime
+		FsR_UpdateTradeList()
+		if TradeFrame:IsVisible() then
+			for i=1,6 do
+				if GetTradePlayerItemLink(i) then ItemIndexYou = i end
+				if GetTradeTargetItemLink(i) then ItemIndexPartner = i end
+			end
+			local TradingPartner = UnitName("NPC")
+			if TradingPartner then
+				if FsR_ItemTrade.PlayerToTradeWith and FsR_ItemTrade.PlayerToTradeWith[TradingPartner] and (ItemIndexYou < 6) and (ItemIndexYou < (FsR_TrackedMaterial["EmptyBagSlots_slots"][TradingPartner] - 1)) then
+					local item2TradeCounter = ItemIndexYou
+					for item, amount in pairs (FsR_ItemTrade.PlayerToTradeWith[TradingPartner]) do
+						if item == "Gold_gold" then
+							local mymoney=GetMoney()
+							if mymoney > amount then
+								SetTradeMoney(amount)
+							end
+						else
+							while ((FsR_ItemTrade.PlayerToTradeWith[TradingPartner][item] > 0) and (item2TradeCounter+1 < FsR_TrackedMaterial["EmptyBagSlots_slots"][TradingPartner])  ) do
+								local thisAmount = FsR_PutItemInTrade(item, FsR_ItemTrade.PlayerToTradeWith[TradingPartner][item], TradingPartner)
+								item2TradeCounter = item2TradeCounter + 1
+								ItemIndexYou = 0 --Do not accept Trade yet
+								ItemIndexPartner = 0 --Do not accept Trade yet
+								if thisAmount then
+									FsR_ItemTrade.PlayerToTradeWith[TradingPartner][item] = FsR_ItemTrade.PlayerToTradeWith[TradingPartner][item] - thisAmount
+								end
+							end
+							if (item2TradeCounter > 5) or (item2TRadeCounter == FsR_TrackedMaterial["EmptyBagSlots_slots"][TradingPartner]) then
+								break
+							end
+						end
+					end
+				end
+				if FsR_ItemTrade.AcceptTrade then
+					if  FsR_ItemTrade.AcceptRefreshTimer < GetTime() then
+						AcceptTrade()
+						FsR_ItemTrade.AcceptRefreshTimer = GetTime() + 1 + math.random()
+						FsR_ItemTrade.AcceptTrade = false
+					end
+				end
+				if ((ItemIndexYou == FsR_ItemTrade.IndexYouLast) and (ItemIndexPartner == FsR_ItemTrade.IndexPartnerLast) and ((ItemIndexYou > 0) or (ItemIndexPartner > 0) or (GetTime() > FsR_ItemTrade.TradingStarted))) then
+					if FsR_ItemTrade.TradeAcceptUpdate < GetTime() then
+						FsR_ItemTrade.AcceptTrade = true
+						FsR_ItemTrade.TradeAcceptUpdate = GetTime()+.7
+					end
+				else
+					FsR_ItemTrade.TradeAcceptUpdate = GetTime()+ .5
+				end
+				FsR_ItemTrade.IndexPartnerLast = ItemIndexPartner
+				FsR_ItemTrade.IndexYouLast = ItemIndexYou
+			end
+		else
+			Print("Trade was not Visible!")
+			FsR_ItemTrade.State = "Idle"
+		end
+	elseif (FsR_ItemTrade.State == "TradeIsOpen_Unrequested") then
+		if (UnitName("NPC") == FsR_ItemTrade.TradePartner) then
+			TradeFrame:SetAlpha(FsR_ItemTrade.Alpha)
+			FsR_ItemTrade.TradingStarted = GetTime()
+			FsR_ItemTrade.State = "TradeIsOpen_Requested"
+		else
+			if not FsR_ItemTrade.IntendedTradeRequest then
+				FsR_ItemTrade.IntendedTradeRequest = true
+				local TradingPartner = UnitName("NPC")
+				SendAddonMessage(MB_RAID.."IntendedTrade",TradingPartner,"RAID")
+			end
+		end
+	end
+end
+
+FsR_ItemTrade:SetScript("OnEvent", FsR_ItemTrade.OnEvent)
+FsR_ItemTrade:SetScript("OnUpdate", FsR_ItemTrade.OnUpdate)
+
 function FsR_RequestMaterialUpdate()
 	if (not UnitInRaid("player")) and (GetNumPartyMembers() == 0) then return end
 	SendAddonMessage(MB_RAID.."_Materials" , "Update me!" ,"RAID")
@@ -8312,32 +8403,41 @@ end
 function FsR_ReceivingMaterialChatMessage(message, sender)
 	if (message == "Update me!") then
 		--Print("Update me!")
-		FsR_AnnounceMaterials()
+		FsR_AnnounceMaterials(true)
 	else
-		local ItemName = string.sub(message, 1, string.find(message,":") - 1)
-		local ItemCount = tonumber(string.sub(message, string.find(message,":") + 1))
+		--if ItemName then Print("ItemName: " .. ItemName) end
+		--if itemCount then Print("itemCount: " .. itemCount) end
+		--if sender then Print("sender: " .. sender) end
+		--if message then Print("message: " .. message) end
+		local ItemName = string.sub(message, 1, string.find(message,";") - 1)
+		local ItemCount = tonumber(string.sub(message, string.find(message,";") + 1))
 		if not FsR_TrackedMaterial[ItemName] then FsR_TrackedMaterial[ItemName] = {} end
 		FsR_TrackedMaterial[ItemName][sender] = ItemCount
-		FsR_ItemTrade.LastItemUpdate = GetTime()
+		FsR_ItemTrade.GotUpdate = true
  	end
 end
-function FsR_AnnounceMaterials()
+function FsR_AnnounceMaterials(fullUpdate)
 	if (not UnitInRaid("player")) and (GetNumPartyMembers() == 0) then return end
-	local currTime = GetTime()
 	for item, itemInfo in pairs(FsR_Stuff2Track) do
 		if (itemInfo.itemkind == "item") then
-			SendAddonMessage(MB_RAID.."_Materials", item .. ":" .. HasExactItem(item), "RAID")
+			if fullUpdate or not (FsR_TrackedMaterial[item] and FsR_TrackedMaterial[item][UnitName("player")] and  FsR_TrackedMaterial[item][UnitName("player")] == HasExactItem(item)) then
+			SendAddonMessage(MB_RAID.."_Materials", item .. ";" .. HasExactItem(item), "RAID")
+			end
 		elseif (itemInfo.itemkind == "itemGrp") then
-			--Print("announcing "..item.." of count "..HasItem(item))
-			SendAddonMessage(MB_RAID.."_Materials", item .. "_grp:" .. HasItem(item), "RAID")
+			if fullUpdate or not(FsR_TrackedMaterial[item] and FsR_TrackedMaterial[item][UnitName("player")] and  FsR_TrackedMaterial[item][UnitName("player")] == HasUnboundItem(item)) then
+				SendAddonMessage(MB_RAID.."_Materials", item .. "_grp;" .. HasUnboundItem(item), "RAID")
+			end
 		else
 			if (item == "Gold") then
-				SendAddonMessage(MB_RAID.."_Materials", item .. "_gold:" .. GetMoney(), "RAID")
+				if fullUpdate or not (FsR_TrackedMaterial[item.."_gold"] and FsR_TrackedMaterial[item.."_gold"][UnitName("player")] and  FsR_TrackedMaterial[item.."_gold"][UnitName("player")] == GetMoney()) then
+				SendAddonMessage(MB_RAID.."_Materials", item .. "_gold;" .. GetMoney(), "RAID")
+				end
 			elseif (item == "EmptyBagSlots") then
-				--Print("announcing "..FsR_GetAllContainerFreeSlots().." free slots")
-				SendAddonMessage(MB_RAID.."_Materials", item .. "_slots:" .. FsR_GetAllContainerFreeSlots(), "RAID")
+				if fullUpdate or not (FsR_TrackedMaterial[item.. "_slots"] and FsR_TrackedMaterial[item .. "_slots"][UnitName("player")] and  FsR_TrackedMaterial[item .. "_slots"][UnitName("player")] == FsR_GetAllContainerFreeSlots()) then
+				SendAddonMessage(MB_RAID.."_Materials", item .. "_slots;" .. FsR_GetAllContainerFreeSlots(), "RAID")
 			end
 		end
+	end
 	end
 end
 function FsR_GetItemsFromStuff2Track()
@@ -8360,6 +8460,7 @@ function FsR_GetAllContainerFreeSlots()
 end
 function FsR_UpdateTradeList()
 	if not TradeFrame:IsVisible() then
+		--CancelTrade()
 		FsR_ItemTrade.PlayerToTradeWith = {}
 		for item,playerlist in pairs(FsR_TrackedMaterial) do
 			if FsR_TrackedMaterial[item] then
@@ -8368,17 +8469,27 @@ function FsR_UpdateTradeList()
 				local TotalSharesOfIt = 0
 				local itemNameINStuff2Track = item
 				local myAmmount = 0
+				local playerClass = UnitClass("player")
 				if string.find(item, "_") then
 					itemNameINStuff2Track = string.sub(item, 1, string.find(item, "_") - 1)
 				end
 				--How much do i have
 				myAmmount = FsR_TrackedMaterial[item][UnitName("player")]
-				if not myAmmount then FsR_RequestMaterialUpdate() FsR_AnnounceMaterials() return end -- List not ready yet
+				if myAmmount == nil then FsR_RequestMaterialUpdate() return end -- List not ready yet
+				if FsR_Stuff2Track[itemNameINStuff2Track] and FsR_Stuff2Track[itemNameINStuff2Track].class and FsR_Stuff2Track[itemNameINStuff2Track].class[playerClass] and FsR_Stuff2Track[itemNameINStuff2Track].class[playerClass].AnnounceValue and myAmmount <= FsR_Stuff2Track[itemNameINStuff2Track].class[playerClass].AnnounceValue then
+					if not FsR_ItemTrade.PostedMissingItems then
+						Print("Running low on "..itemNameINStuff2Track.." "..myAmmount.."/"..FsR_Stuff2Track[itemNameINStuff2Track].class[playerClass].AnnounceValue)
+					end
+					if not InCombat() then
+						IndicatorFrame.FlashTime = GetTime() + 0.1
+						IndicatorFrame.FlashColor = {red = 0, green = 0, blue = 1, alpha = .4}
+					end
+				end
 				--myshare is the relative ammount i should have for example 3 hunter 2 warrior will trade arrows so for every 10 arrows a hunter got the warrior has 1
 				if FsR_Stuff2Track[itemNameINStuff2Track] and FsR_Stuff2Track[itemNameINStuff2Track].class then
-					if FsR_Stuff2Track[itemNameINStuff2Track].class[UnitClass("player")] then
-						if FsR_Stuff2Track[itemNameINStuff2Track].class[UnitClass("player")].Ratio then
-							myShareOfit = FsR_Stuff2Track[itemNameINStuff2Track].class[UnitClass("player")].Ratio
+					if FsR_Stuff2Track[itemNameINStuff2Track].class[playerClass] then
+						if FsR_Stuff2Track[itemNameINStuff2Track].class[playerClass].Ratio then
+							myShareOfit = FsR_Stuff2Track[itemNameINStuff2Track].class[playerClass].Ratio
 						else
 							myShareOfit = 1
 						end
@@ -8387,14 +8498,19 @@ function FsR_UpdateTradeList()
 					--collectors must not see other collectors of the same kind
 					for i, collector in ipairs(FsR_Stuff2Track[itemNameINStuff2Track].collector) do
 						if FindInTable(FsR_Stuff2Track[itemNameINStuff2Track].collector,myname) then myShareOfit = 1 break end
-						if MBID[collector] and CheckInteractDistance(MBID[collector], 2) and FsR_TrackedMaterial["EmptyBagSlots_slots"][collector] and FsR_TrackedMaterial["EmptyBagSlots_slots"][collector] > 1 then
+						if MBID[collector] and CheckInteractDistance(MBID[collector], 2) and FsR_TrackedMaterial["EmptyBagSlots_slots"] and FsR_TrackedMaterial["EmptyBagSlots_slots"][collector] and FsR_TrackedMaterial["EmptyBagSlots_slots"][collector] > 1 then
 							break
 						end
 					end
 				end
 				--count how many resources are available
 				for player, amount in pairs(FsR_TrackedMaterial[item]) do
-					if MBID[player] and CheckInteractDistance(MBID[player], 2) and FsR_TrackedMaterial["EmptyBagSlots_slots"][player]	and FsR_TrackedMaterial["EmptyBagSlots_slots"][player] > 1 then
+					if ((MBID[player] and (not FsR_TrackedMaterial["EmptyBagSlots_slots"] or not FsR_TrackedMaterial[item])) or (MBID[player] and not FsR_TrackedMaterial["EmptyBagSlots_slots"][player]  or not FsR_TrackedMaterial[item][player])) then
+						--Uncomplete FsR_TrackedMaterial
+						FsR_RequestMaterialUpdate()
+						return
+					end
+					if MBID[player] and CheckInteractDistance(MBID[player], 2) and FsR_TrackedMaterial["EmptyBagSlots_slots"] and FsR_TrackedMaterial["EmptyBagSlots_slots"][player] and FsR_TrackedMaterial["EmptyBagSlots_slots"][player] > 1 then
 						if FsR_Stuff2Track[itemNameINStuff2Track].class then
 							if FsR_Stuff2Track[itemNameINStuff2Track].class[UnitClass(MBID[player])] then
 								if FsR_Stuff2Track[itemNameINStuff2Track].class[UnitClass(MBID[player])].Ratio then
@@ -8414,125 +8530,90 @@ function FsR_UpdateTradeList()
 						SumInRaid = SumInRaid + tonumber(amount)
 					end
 				end
-		--something anyone is interested in?
-		if TotalSharesOfIt > 0 then
-			FsR_TrackedMaterial[item].AmmountForMe = math.floor(SumInRaid * myShareOfit / TotalSharesOfIt)
-			FsR_TrackedMaterial[item].AmmountToSpare = myAmmount - FsR_TrackedMaterial[item].AmmountForMe
-			if (FsR_TrackedMaterial[item][UnitName("player")] > (FsR_TrackedMaterial[item].AmmountForMe)) then
-				for player, amount in pairs(FsR_TrackedMaterial[item]) do
-					if MBID[player] and CheckInteractDistance(MBID[player], 2) and FsR_TrackedMaterial["EmptyBagSlots_slots"][player] and FsR_TrackedMaterial["EmptyBagSlots_slots"][player] > 1 then
-						local HisShare = 0
-							if FsR_Stuff2Track[itemNameINStuff2Track].class then
-								if FsR_Stuff2Track[itemNameINStuff2Track].class[UnitClass(MBID[player])] then
-									if FsR_Stuff2Track[itemNameINStuff2Track].class[UnitClass(MBID[player])].Ratio then
-										HisShare = FsR_Stuff2Track[itemNameINStuff2Track].class[UnitClass(MBID[player])].Ratio
-									else
-										HisShare = 1
-									end
-								end
-							elseif FsR_Stuff2Track[itemNameINStuff2Track].collector then
+			--something anyone is interested in?
+			if TotalSharesOfIt > 0 then
+				if item == "Gold_gold" then
+					if myShareOfit == 0 then
+						FsR_TrackedMaterial[item].AmmountForMe = FsR_ItemTrade.Goldthreshold
+					else
+						SumInRaid = SumInRaid - GetNumRaidMembers() * FsR_ItemTrade.Goldthreshold
+						if SumInRaid < FsR_ItemTrade.Goldthreshold then
+							FsR_TrackedMaterial[item].AmmountForMe = myAmmount
+						else
+							FsR_TrackedMaterial[item].AmmountForMe = SumInRaid
+						end
+					end
+				else
+					FsR_TrackedMaterial[item].AmmountForMe = math.floor(SumInRaid * (1.0 * myShareOfit) / (1.0 * TotalSharesOfIt))
+				end
+				FsR_TrackedMaterial[item].AmmountToSpare = myAmmount - FsR_TrackedMaterial[item].AmmountForMe
+				if (FsR_TrackedMaterial[item][UnitName("player")] > (FsR_TrackedMaterial[item].AmmountForMe)) then
+					if item == "Gold_gold" then
+						if myShareOfit == 0 then
+							if FsR_Stuff2Track[itemNameINStuff2Track].collector then
 								for i, collector in ipairs(FsR_Stuff2Track[itemNameINStuff2Track].collector) do
-									if MBID[collector] and CheckInteractDistance(MBID[collector], 2) and FsR_TrackedMaterial["EmptyBagSlots_slots"][collector] > 1 then
-										if player == collector then
-											HisShare = 1
-										end
+									if MBID[collector] and CheckInteractDistance(MBID[collector], 2) and FsR_TrackedMaterial["EmptyBagSlots_slots"][collector] and FsR_TrackedMaterial["EmptyBagSlots_slots"][collector] > 1 then --Bagslot wouldn't be necessary but will f..up the other trading otherwise
+ 										if not FsR_ItemTrade.PlayerToTradeWith[collector] then FsR_ItemTrade.PlayerToTradeWith[collector] = {} end
+										FsR_ItemTrade.PlayerToTradeWith[collector][item] = FsR_TrackedMaterial[item].AmmountToSpare
 										break
 									end
 								end
+							end						
+						else
+							for player, amount in pairs(FsR_TrackedMaterial[item]) do
+								if MBID[player] and CheckInteractDistance(MBID[player], 2) and FsR_TrackedMaterial[item][player] and FsR_TrackedMaterial["EmptyBagSlots_slots"][player] and FsR_TrackedMaterial["EmptyBagSlots_slots"][player] > 1 then --Bagslot wouldn't be necessary but will f..up the other trading otherwise
+									if FsR_TrackedMaterial[item][player] < FsR_ItemTrade.Goldthreshold then
+										if not FsR_ItemTrade.PlayerToTradeWith[player] then FsR_ItemTrade.PlayerToTradeWith[player] = {} end
+										FsR_ItemTrade.PlayerToTradeWith[player][item] = FsR_ItemTrade.Goldthreshold - FsR_TrackedMaterial[item][player]
+									end
+								end
 							end
-							if ((myShareOfit > 0) and (amount + 1 < (HisShare * SumInRaid / TotalSharesOfIt))) or ((myShareOfit == 0) and (HisShare > 0)) then
-								if not FsR_ItemTrade.PlayerToTradeWith[player] then FsR_ItemTrade.PlayerToTradeWith[player] = {} end
-								local ammountHeNeeds = math.floor((HisShare * SumInRaid / TotalSharesOfIt) - amount)
-								if ammountHeNeeds == 0 then ammountHeNeeds = 1 end
-								if (ammountHeNeeds > FsR_TrackedMaterial[item].AmmountToSpare) then
-									FsR_ItemTrade.PlayerToTradeWith[player][item] = FsR_TrackedMaterial[item].AmmountToSpare
-								else
-									FsR_ItemTrade.PlayerToTradeWith[player][item] = ammountHeNeeds
+						end
+					else
+						for player, amount in pairs(FsR_TrackedMaterial[item]) do
+							if MBID[player] and CheckInteractDistance(MBID[player], 2) and FsR_TrackedMaterial["EmptyBagSlots_slots"][player] and FsR_TrackedMaterial["EmptyBagSlots_slots"][player] > 1 then
+								local HisShare = 0
+									if FsR_Stuff2Track[itemNameINStuff2Track].class then
+										if FsR_Stuff2Track[itemNameINStuff2Track].class[UnitClass(MBID[player])] then
+											if FsR_Stuff2Track[itemNameINStuff2Track].class[UnitClass(MBID[player])].Ratio then
+												HisShare = FsR_Stuff2Track[itemNameINStuff2Track].class[UnitClass(MBID[player])].Ratio
+											else
+												HisShare = 1
+											end
+										end
+									elseif FsR_Stuff2Track[itemNameINStuff2Track].collector then
+										for i, collector in ipairs(FsR_Stuff2Track[itemNameINStuff2Track].collector) do
+											if MBID[collector] and CheckInteractDistance(MBID[collector], 2) and FsR_TrackedMaterial["EmptyBagSlots_slots"][collector] > 1 then
+												if player == collector then
+													HisShare = 1
+												end
+												break
+											end
+										end
+									end
+																		
+									if ((myShareOfit > 0) and (amount + 1 < (HisShare * SumInRaid / TotalSharesOfIt))) or ((myShareOfit == 0) and (HisShare > 0)) and FsR_TrackedMaterial[item].AmmountToSpare > 0 then
+										if not FsR_ItemTrade.PlayerToTradeWith[player] then FsR_ItemTrade.PlayerToTradeWith[player] = {} end
+										local ammountHeNeeds = math.floor((HisShare * SumInRaid / TotalSharesOfIt) - amount)
+										if ammountHeNeeds == 0 then ammountHeNeeds = 1 end
+										if (ammountHeNeeds > FsR_TrackedMaterial[item].AmmountToSpare) then
+											FsR_ItemTrade.PlayerToTradeWith[player][item] = FsR_TrackedMaterial[item].AmmountToSpare
+										else
+											FsR_ItemTrade.PlayerToTradeWith[player][item] = ammountHeNeeds
+										end
+									end
 								end
 							end
 						end
 					end
 				end
-			end
 			end
 			--Printt(FsR_ItemTrade.PlayerToTradeWith)
 		end
+		FsR_ItemTrade.PostedMissingItems = true
 	end
 end
-function FsR_StartTradingPeriod()
-	FsR_ItemTrade.TradingWindowCloseTime = GetTime() + 30
-end
-function FsR_DoTrades()
-	if FsR_ItemTrade.TradingWindowCloseTime < GetTime() and (GetTime() > FsR_ItemTrade.LastItemUpdate + .1 ) then
-		local ItemIndexYou = 0
-		local ItemIndexPartner = 0
-		local RequestTime
-		if TradeFrame:IsVisible() then
-			for i=1,6 do
-				if GetTradePlayerItemLink(i) then ItemIndexYou = i end
-				if GetTradeTargetItemLink(i) then ItemIndexPartner = i end
-			end
-			local TradingPartner = TradeFrameRecipientNameText:GetText()
-			if TradingPartner then
-				if FsR_ItemTrade.PlayerToTradeWith[TradingPartner] and (ItemIndexYou < 6) and (ItemIndexYou < (FsR_TrackedMaterial["EmptyBagSlots_slots"][TradingPartner] - 1)) then
-					local item2TradeCounter = ItemIndexYou
-					for item, amount in pairs (FsR_ItemTrade.PlayerToTradeWith[TradingPartner]) do
-						while ((FsR_ItemTrade.PlayerToTradeWith[TradingPartner][item] > 0) and (item2TradeCounter+1 < FsR_TrackedMaterial["EmptyBagSlots_slots"][TradingPartner])  ) do
-							local thisAmount = FsR_PutItemInTrade(item, FsR_ItemTrade.PlayerToTradeWith[TradingPartner][item], TradingPartner)
-							item2TradeCounter = item2TradeCounter + 1
-							ItemIndexYou = 0 --Do not accept Trade yet
-							ItemIndexPartner = 0 --Do not accept Trade yet
-							if thisAmount then
-								FsR_ItemTrade.PlayerToTradeWith[TradingPartner][item] = FsR_ItemTrade.PlayerToTradeWith[TradingPartner][item] - thisAmount
-								if (item2TradeCounter > 5) or (item2TRadeCounter == FsR_TrackedMaterial["EmptyBagSlots_slots"][TradingPartner]) then
-									break
-								end
-							else
-								break
-							end
-						end
-						if (item2TradeCounter > 5) or (item2TRadeCounter == FsR_TrackedMaterial["EmptyBagSlots_slots"][TradingPartner]) then
-							break
-						end
-					end
-				end
-				if (TradeHighlightRecipient:IsVisible()) or (ItemIndexYou == FsR_ItemTrade.IndexYouLast) and (ItemIndexPartner == FsR_ItemTrade.IndexPartnerLast) and ((ItemIndexYou > 0) or (ItemIndexPartner > 0)) or (GetTime() > FsR_ItemTrade.TradingStarted) then
-					if FsR_ItemTrade.TradeAcceptUpdate < GetTime() then
-						AcceptTrade()
-						FsR_ItemTrade.TradeAcceptUpdate = GetTime()+ 0.5
-					end
-				else
-					FsR_ItemTrade.TradeAcceptUpdate = GetTime()+ 0.5
-				end
-				FsR_ItemTrade.IndexPartnerLast = ItemIndexPartner
-				FsR_ItemTrade.IndexYouLast = ItemIndexYou
-			end
-		else
-			FsR_ItemTrade.TradingStarted = GetTime() + 3
-			FsR_UpdateTradeList()
-			if GetTime() > FsR_ItemTrade.NextRequestTime then
-				local AskNow = not FsR_ItemTrade.LastRequestTarget
-				for player, items in pairs(FsR_ItemTrade.PlayerToTradeWith) do
-					if AskNow then
-						if MBID[player] and CheckInteractDistance(MBID[player],2) then
-							InitiateTrade(MBID[player])
-							FsR_ItemTrade.NextRequestTime = GetTime() + 1
-							FsR_ItemTrade.LastRequestTarget = player
-							return
-						end
-					else
-						if player == FsR_ItemTrade.LastRequestTarget then
-							AskNow = true
-						end
-					end
-				end
-				FsR_ItemTrade.LastRequestTarget = nil
-			else
-				FsR_ReStackStuff()
-			end
-		end
-	end
-end
+
 function FsR_ReStackStuff()
 	for i1 = 0,4 do
 		for j1=1, GetContainerNumSlots(i1) do
@@ -8548,7 +8629,7 @@ function FsR_ReStackStuff()
 								local bsnum=string.gsub(itemLink,".-\124H([^\124]*)\124h.*", "%1")
 								local itemName, itemNo, itemRarity, itemReqLevel, itemType, itemSubType, itemCount, itemEquipLoc, itemIcon = GetItemInfo(bsnum)
 								if count1 < itemCount then
-									Print(itemName .. i2 .. "/" .. j2 .. " to " .. i1 .. "/" .. j1)
+									--Print(itemName .. i2 .. "/" .. j2 .. " to " .. i1 .. "/" .. j1)
 									ClearCursor()
 									PickupContainerItem(i2, j2)
 									PickupContainerItem(i1, j1)
@@ -8575,17 +8656,18 @@ function FsR_PutItemInTrade(itemIn, amount, partner)
 				local item = itemIn
 				if string.find(item, "_grp") then
 					item = string.gsub(item, "_grp", "")
-					if item=="BOE" then
-						if IsUnbound(bag,slot) and not IsUnique(bag,slot) then found = true end
-					else
-						found = string.find(itemName,item)
-					end
+						if IsUnboundBOE(bag,slot) and not IsUnique(bag,slot) and item=="BOE" then
+							found = true
+						else
+							if IsUnbound(bag,slot) and not IsUnique(bag,slot) then found = string.find(itemName,item) end
+						end
+					--end
 				else
 					found = (item == itemName)
 				end
 				if found then
 					ClearCursor()
-					Print (amount.."=>"..itemCount)
+					--Print (amount.."=>"..itemCount)
 					if amount >= itemCount then
 						PickupContainerItem(bag,slot)
 						DropItemOnUnit(MBID[partner])
@@ -8636,3 +8718,544 @@ function RezzersInGroup()
 		return(rezzers[math.random(TableLength(rezzers))])
 	end
 end
+--Add this to the function Setup (or any other function, the enchanting needs to be done with a user action so not 100% automatical possible:
+
+--function setup()
+	--if FsR_ItemEnchant.TradeStatus == "EnchantSet" then
+		--ClearCursor()
+		--DoCraft(FsR_ItemEnchant.SkillId)
+		--local tradeItemButton = getglobal("TradeRecipientItem7ItemButton");
+		--tradeItemButton:Click()
+		--FsR_ItemEnchant.TradeStatus = "Enchanting"
+		--return
+	--end
+--....
+
+
+
+
+
+
+
+
+
+FsR_ItemEnchant = CreateFrame("FRAME")
+
+FsR_ItemEnchant.RequestNextRequest = GetTime()
+FsR_ItemEnchant.TradeStatus = "Closed"
+FsR_ItemEnchant.TimeOut = GetTime()
+FsR_ItemEnchant.Autoenchant = false
+FsR_ItemEnchant.ReshowItemEnchantStopPopUp = false
+FsR_ItemEnchant.CurrentSlot = nil
+FsR_ItemEnchant.CurrentSpell = nil
+FsR_ItemEnchant.CurrentTradePartner = nil
+FsR_ItemEnchant.NextEnchant = ""
+
+FsR_ItemEnchant:RegisterEvent("TRADE_SHOW");
+FsR_ItemEnchant:RegisterEvent("TRADE_CLOSED");
+FsR_ItemEnchant:RegisterEvent("TRADE_REQUEST");
+FsR_ItemEnchant:RegisterEvent("TRADE_REQUEST_CANCEL");
+FsR_ItemEnchant:RegisterEvent("TRADE_TARGET_ITEM_CHANGED");
+
+FsR_ItemEnchant:RegisterEvent("CHAT_MSG_ADDON");
+FsR_ItemEnchant:RegisterEvent("CRAFT_SHOW")
+FsR_ItemEnchant:RegisterEvent("CRAFT_CLOSED")
+
+FsR_ItemEnchant.MissingEnchantList = {}
+FsR_ItemEnchant.DoAbleEnchantList = {}
+FsR_ItemEnchant.MissingAndDoableList = {}
+
+function GetEnchantedWith(slot)
+				local ItemLink = GetInventoryItemLink("raid"..playerId,slot)
+				if ItemLink then
+					local _, _, _, _, _, EnchantId = string.find(ItemLink,
+					"|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*):?(%-?%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?")
+				end
+				return GetEnchantText(EnchantID)
+end
+function GetEnchantText(number)
+	for slot in FsR_ItemEnchant.EnchantTextToEnchant do
+		for spellid in FsR_ItemEnchant.EnchantTextToEnchant[slot] do
+			if FsR_ItemEnchant.EnchantTextToEnchant[slot][spellid]["Spell"] == number then
+				return  FsR_ItemEnchant.EnchantTextToEnchant[slot][spellid]["Name"]
+			end
+		end
+	end
+end
+FsR_ItemEnchant.EnchantTextToEnchant = {
+	--INVSLOT_HEAD = 1
+	[1] = {
+		["2544"] = {Name = "Arcanum of Focus", Spell = "22844"},
+		["2543"] = {Name = "Arcanum of Rapidity", Spell = "22840"},
+		["2545"] = {Name = "Arcanum of Protection", Spell = "22846"},
+		["2589"] = {Name = "Hoodoo Hex", Spell = "24165"}, --Warlock
+		["2588"] = {Name = "Prescence of Sight", Spell = "24164"}, --Mage
+		["2587"] = {Name = "Vodouisant's Vigilant Embrace", Spell = "24163"}, -- Shaman
+		["2590"] = {Name = "Prophetic Aura", Spell = "24167"}, -- Priest
+		["2585"] = {Name = "Death's Embrace", Spell = "24161"}, --Rogue
+		["2591"] = {Name = "Animist's Caress", Spell = "24168"}, -- Druide
+
+	},
+	--INVSLOT_CHEST = 5
+	[5] = {
+		["1891"] = {Name = "Greater Stats", Spell = "20025"},
+		["1892"] = {Name = "Major Health", Spell = "20026"},
+	},
+	--INVSLOT_FEET = 8
+	[8] = {
+		["911"] = {Name = "Minor Speed", Spell = "13890"},
+		["851"] = {Name = "Spirit", Spell = "20024"},
+		["929"] = {Name = "Grater Stamina", Spell = "20020"},
+		["1887"] = {Name = "Greater Agility", Spell = "20023"},
+	},
+	--INVSLOT_WRIST = 9
+	[9] = {
+		["1883"] = {Name = "Greater Intellect", Spell = "20065"},
+		["2566"] = {Name = "Healing Power", Spell = "23802"},
+		["929"] = {Name = "Greater Stamina", Spell = "13945"},
+		["1885"] = {Name = "Superior Strength", Spell = "20010"},
+		
+	},
+	--INVSLOT_HAND = 10
+	[10] = {
+		["2244"] = {Name = "Frost Power", Spell = "25089"},
+		["2617"] = {Name = "Healing Power", Spell = "25079"},
+		["2614"] = {Name = "Shadow Power", Spell = "25073"},
+		["2564"] = {Name = "Superior Agility", Spell = "25080"},
+	},
+	--INVSLOT_BACK = 15
+	[15] = {
+		["2621"] = {Name = "Subtlety", Spell = "25084"},
+		["2619"] = {Name = "Greater Fire Resistance", Spell = "25081"},
+		["2622"] = {Name = "Dodge", Spell = "25086"},
+		["849"] = {Name = "Lesser Agility", Spell = "13882"},
+	},
+	--INVSLOT_MAINHAND = 16
+	[16] = {
+		["2332"] = {Name = "Spell Power", Spell = "22753"},
+		["2505"] = {Name = "Healing Power", Spell = "22750"},	
+		["1900"] = {Name = "Crusader", Spell = "20034"},
+		["2564"] = {Name = "Agility", Spell = "23800"},
+		["2646"] = {Name = "2H Agility", Spell = "27837"},
+	},
+	--INVSLOT_OFFHAND = 17
+	[17] = {
+		["929"] = {Name = "Greater Stamina", Spell = "20017"},
+		["863"] = {Name = "Lesser Block", Spell = "13689"},
+		["2564"] = {Name = "Agility", Spell = "23800"},
+		["1900"] = {Name = "Crusader", Spell = "20034"},
+	},
+	--INVSLOT_RANGED = 18
+	[18] = {
+		["2523"] = {Name = "Biznicks 247x128 Accurascope", Spell = "22779"},
+	},
+}
+FsR_ItemEnchant.EnchantList = {
+	["Mage_DPS"] = {[1] = "2588", [3] = "2605", [7] = "2588", [5] = "1891", [8] = "929", [9] = "1883", [10] = "2244", [15] = "2621", [16] = "2332", [17] = "0", [18] = "0"},
+	["Priest_Heal"] = {[1] = "2590", [3] = "2604", [7] = "2590", [5] = "1891", [8] = "851", [9] = "2566", [10] = "2617", [15] = "2619", [16] = "2505", [17] = "0", [18] = "0"},
+	["Priest_DPS"] = {[1] = "2544", [3] = "2605", [7] = "2544", [5] = "1891", [8] = "851", [9] = "1883", [10] = "2614", [15] = "2621", [16] = "2332", [17] = "0", [18] = "0"},
+	["Warlock_DPS"] = {[1] = "2589", [3] = "2605", [7] = "2589", [5] = "1891", [8] = "929", [9] = "1883", [10] = "2614", [15] = "2621", [16] = "2505", [17] = "0", [18] = "0"},
+	["Shaman_Heal"]= {[1] = "2587", [3] = "2604", [7] = "2587", [5] = "1891", [8] = "929", [9] = "2566", [10] = "2617", [15] = "2621", [16] = "2505", [17] = "929", [18] = "0"},
+	["Shaman_DPS"]= {[1] = "2587", [3] = "2605", [7] = "2587", [5] = "1891", [8] = "929", [9] = "1883", [10] = "0", [15] = "2621", [16] = "2332", [17] = "929", [18] = "0"},
+	["Warrior_Tank"] = {[1] = "2583", [3] = "2716", [7] = "2583", [5] = "1891", [8] = "1887", [9] = "929", [10] = "2564", [15] = "2622", [16] = "1900", [17] = "863", [18] = "2523"},
+	["Rogue_DPS"] = {[1] = "2585", [3] = "2606", [7] = "2585", [5] = "1891", [8] = "1887", [9] = "1885", [10] = "2564", [15] = "849", [16] = "1900", [17] = "2564", [18] = "2523"},
+	["Hunter_DPS"]= {[1] = "2586", [3] = "2606", [7] = "2586", [5] = "1891", [8] = "1887", [9] = "929", [10] = "2564", [15] = "849", [16] = "2646", [17] = "2564", [18] = "2523"},
+	["Warrior_DPS"] = {[1] = "2543", [3] = "2606", [7] = "2543", [5] = "1891", [8] = "1887", [9] = "1885", [10] = "2564", [15] = "2621", [16] = "1900", [17] = "1900", [18] = "2523"},
+	["Druid_Tank"]= {[1] = "2545", [3] = "2716", [7] = "2545", [5] = "1891", [8] = "929", [9] = "929", [10] = "2564", [15] = "2622", [16] = "2646", [17] = "0", [18] = "0"},
+	["Druid_DPS"]= {[1] = "0", [3] = "0", [7] = "0", [5] = "0", [8] = "0", [9] = "0", [10] = "0", [15] = "0", [16] = "0", [17] = "0", [18] = "0"},
+	["Druid_Heal"]= {[1] = "2591", [3] = "2604", [7] = "2591", [5] = "1891", [8] = "929", [9] = "2566", [10] = "2617", [15] = "2621", [16] = "2505", [17] = "929", [18] = "0"},
+}
+
+FsR_ItemEnchant.SlotNames = {
+	["INVTYPE_HEAD"] = {1},
+	["INVTYPE_SHOULDER"] = {3},
+	["INVTYPE_CHEST"] = {5},
+	["INVTYPE_ROBE"] = {5},
+	["INVTYPE_LEGS"] = {7},
+	["INVTYPE_FEET"] = {8},
+	["INVTYPE_WRIST"] = {9},
+	["INVTYPE_HAND"] = {10},
+	["INVTYPE_CLOAK"] = {15},
+	["INVTYPE_WEAPON"] = {16,17},
+	["INVTYPE_SHIELD"] = {17},
+	["INVTYPE_2HWEAPON"] = {16},
+	["INVTYPE_WEAPONMAINHAND"] = {16},
+	["INVTYPE_WEAPONOFFHAND"] = {17},
+	["INVTYPE_HOLDABLE"] = {17},
+	["INVTYPE_RANGED"] = {18},
+	["INVTYPE_THROWN"] = {18},
+	["INVTYPE_RANGEDRIGHT"] = {18},
+	["INVTYPE_RELIC"] = {18},
+}
+
+
+function FsR_ItemEnchant:OnEvent()
+	if (event == "CHAT_MSG_ADDON") then
+		if (arg1 == MB_RAID.."EnchantItem") then
+			local TradingPartner = string.sub(arg2, 1, string.find(arg2,":") - 1)
+			local ItemSlot = tonumber(string.sub(arg2, string.find(arg2,":") + 1))
+			if (TradingPartner == UnitName("player")) then
+				ClearCursor()
+				PickupInventoryItem(ItemSlot)
+				DropItemOnUnit("NPC")
+			end
+		end
+	elseif (event == "TRADE_SHOW") then
+		FsR_ItemEnchant.TradeStatus = "Opened"
+	elseif(event == "TRADE_CLOSED") then
+		FsR_ItemEnchant.TimeOut = GetTime() + 1
+		if FsR_ItemEnchant.MissingAndDoableListCurrentIndex then
+			FsR_ItemEnchant.MissingAndDoableListCurrentIndex = FsR_ItemEnchant.MissingAndDoableListCurrentIndex + 1
+			if FsR_ItemEnchant.MissingAndDoableListCurrentIndex > FsR_ItemEnchant.MissingAndDoableListIndexMax then
+				FsR_ItemEnchant.MissingAndDoableListCurrentIndex = 1
+			end
+		end
+		FsR_ItemEnchant.TradeStatus = "Closed"
+	elseif(event == "CRAFT_SHOW") then
+		FsR_ItemEnchant:UpdateLists()
+		if TableLength(FsR_ItemEnchant.MissingAndDoableList) > 0 then
+			StaticPopup_Show ("FsR_ItemEnchantStartPopUp")
+		end
+	elseif(event == "CRAFT_CLOSED") then
+		Print("CRAFT_CLOSED")
+		FsR_ItemEnchant.Autoenchant = false
+	elseif(event == "TRADE_REQUEST_CANCEL") then
+		FsR_ItemEnchant.TradeStatus = "Closed"
+	elseif(event == "TRADE_TARGET_ITEM_CHANGED") then
+		if (arg1 == 7) and GetTradeTargetItemLink(7) then
+			FsR_ItemEnchant.TradeStatus = "ItemPlaced"
+			StaticPopup_Show("FsR_ItemEnchantTradePopUp")
+			Print("WOULD YOU LIKE TO PUT "..GetEnchantText(FsR_ItemEnchant.CurrentSpell).." ON THIS?")
+		end
+	end
+end
+
+function FsR_ItemEnchant:OnUpdate()
+	if FsR_ItemEnchant.Autoenchant then
+		if FsR_ItemEnchant.TradeStatus == "Closed" then
+			if FsR_ItemEnchant.TimeOut > GetTime() then
+				return
+			end
+			if FsR_ItemEnchant.RequestNextRequest < GetTime() then
+				FsR_ItemEnchant.CurrentSlot = nil
+				FsR_ItemEnchant.CurrentSpell = nil
+				FsR_ItemEnchant.CurrentTradePartner = nil
+				for index, EnchantData in ipairs(FsR_ItemEnchant.MissingAndDoableList) do
+					if index ==  FsR_ItemEnchant.MissingAndDoableListCurrentIndex then
+						local player = EnchantData["Player"]
+						local slotID = EnchantData["SlotID"]
+						local spellID = EnchantData["SpellID"]
+						if FsR_ItemEnchant:CheckReagentCount(spellID)  and player ~= UnitName("player") and not EnchantData["Declined"] and not InCombat() and MBID[player] and CheckInteractDistance(MBID[player],2) then
+							FsR_ItemEnchant.CurrentSlot = slotID
+							FsR_ItemEnchant.CurrentSpell = spellID
+							FsR_ItemEnchant.CurrentTradePartner = player
+						FsR_ItemEnchant.TradeStatus = "Requested"
+						InitiateTrade(MBID[player])
+						return
+						else
+							FsR_ItemEnchant.MissingAndDoableListCurrentIndex = FsR_ItemEnchant.MissingAndDoableListCurrentIndex + 1
+					end
+				end
+			end
+				FsR_ItemEnchant.Autoenchant = false
+			end
+		elseif FsR_ItemEnchant.TradeStatus == "Opened" then
+			if UnitName("NPC") == FsR_ItemEnchant.CurrentTradePartner then
+				SendAddonMessage(MB_RAID.."EnchantItem",FsR_ItemEnchant.CurrentTradePartner..":"..FsR_ItemEnchant.CurrentSlot,"RAID")
+			end
+		elseif FsR_ItemEnchant.TradeStatus == "ItemPlaced" then
+			local itemToEnchant = GetTradeTargetItemLink(7)
+			if itemToEnchant then
+				local bsnum=string.gsub(itemToEnchant,".-\124H([^\124]*)\124h.*", "%1")
+				local itemName, itemNo, itemRarity, itemReqLevel, itemType, itemSubType, itemCount, itemEquipLoc, itemIcon = GetItemInfo(bsnum)
+				if FindInTable(FsR_ItemEnchant.SlotNames[itemEquipLoc], FsR_ItemEnchant.CurrentSlot) then
+					--Printt(FsR_ItemEnchant.SlotNames[itemEquipLoc])
+					--Print(FsR_ItemEnchant.CurrentSlot)
+					local SkillId = FsR_ItemEnchant:Enchant(FsR_ItemEnchant.CurrentSpell)
+					if SkillId then
+						FsR_ItemEnchant.TradeStatus = "EnchantSet"
+						FsR_ItemEnchant.SkillId = SkillId	
+						FsR_ItemEnchant.NextEnchant = GetCraftItemLink(FsR_ItemEnchant.SkillId)
+					end
+				end
+			else
+				FsR_ItemEnchant.TradeStatus = "Opened"
+			end
+		elseif FsR_ItemEnchant.TradeStatus == "Enchanting" then
+			Print("Enchanting!")
+		else
+			FsR_ItemEnchant.RequestNextRequest = GetTime() + .5
+		end
+	end
+end
+
+FsR_ItemEnchant:SetScript("OnEvent", FsR_ItemEnchant.OnEvent)
+FsR_ItemEnchant:SetScript("OnUpdate", FsR_ItemEnchant.OnUpdate)
+
+StaticPopupDialogs["FsR_ItemEnchantStartPopUp"] = {
+  text = "Autoenchant Toons",
+  button1 = "Yes",
+  button2 = "No",
+  OnAccept = function()
+      FsR_ItemEnchant:PopUpStartAutoEnchant()
+  end,
+  sound = "levelup2",
+  timeout = 30,
+  whileDead = false,
+  hideOnEscape = true,
+}
+
+StaticPopupDialogs["FsR_ItemEnchantTradePopUp"] = {
+	text = "Enchant item?",
+  button1 = "Yes",
+  button2 = "No",
+  OnAccept = function()
+		FsR_ItemEnchant:CastEnchant()
+		FsR_ItemEnchant.MissingAndDoableList[FsR_ItemEnchant.MissingAndDoableListCurrentIndex]["Declined"] = true
+		FsR_ItemEnchant.MissingAndDoableListCurrentIndex = FsR_ItemEnchant.MissingAndDoableListCurrentIndex + 1		
+  end,
+	OnCancel = function()
+		FsR_ItemEnchant.MissingAndDoableList[FsR_ItemEnchant.MissingAndDoableListCurrentIndex]["Declined"] = true
+		CancelTrade()
+  end,
+  sound = "levelup2",
+  timeout = 0,
+  whileDead = false,
+  hideOnEscape = true,
+}
+
+function FsR_ItemEnchant:PopUpStartAutoEnchant()
+	FsR_ItemEnchant.Autoenchant = true
+end
+
+function FsR_ItemEnchant:UpdateLists()
+	FsR_ItemEnchant:UpdateEnchantList()
+	FsR_ItemEnchant:CheckItemsForMissingEnchants()
+	FsR_ItemEnchant:GetDoableEnchants()
+end
+
+function FsR_ItemEnchant:CheckItemsForMissingEnchants()
+	FsR_ItemEnchant.MissingEnchantList = {}
+	if not UnitInRaid("player") then return end
+	for playerId = 1, GetNumRaidMembers() do
+		if CheckInteractDistance("raid"..playerId,2) then
+			Print("--------------------"..UnitName("raid"..playerId) .."--------------------")
+			playerEnchantList = {}
+			if FindInTable(MB_raidtanks,UnitName("raid"..playerId)) then
+				playerEnchantList = FsR_ItemEnchant.EnchantList[UnitClass("raid"..playerId).."_Tank"]
+			elseif FindInTable(MB_healer_list,UnitName("raid"..playerId)) then
+				playerEnchantList = FsR_ItemEnchant.EnchantList[UnitClass("raid"..playerId).."_Heal"]
+			else
+				playerEnchantList = FsR_ItemEnchant.EnchantList[UnitClass("raid"..playerId).."_DPS"]
+			end
+			--Special(Two Hand agi change to 1 hand agi!
+			if (slotId == 16) and (playerEnchantList[16] == "2646") and not IsTwoHandEq("raid"..playerId) then
+				playerEnchantList[16] = "2564"
+			end
+			for _,slotId in pairs({1,3,5,7,8,9,10, 15,16,17,18}) do
+				local ItemLink = GetInventoryItemLink("raid"..playerId,slotId)
+				if ItemLink then
+					local _, _, _, _, _, EnchantId = string.find(ItemLink,
+					"|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*):?(%-?%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?")
+					if (slotId == 1) or (slotId == 7) then
+						if playerEnchantList[slotId] ~= EnchantId then
+							if EnchantId == "0" then
+								Print(ItemLink .. "missing ZG-Head/Leg-Enchant!")
+							else
+								Print(ItemLink .. " wrong Enchant! ".. EnchantId .. "/" .. playerEnchantList[slotId])
+							end
+						end
+					elseif (slotId == 3) then
+						if playerEnchantList[slotId] ~= EnchantId then
+							if EnchantId == "0" then
+								Print(ItemLink .. "missing ZG-Shoulder-Enchant!")
+							else
+								Print(ItemLink .. " wrong Enchant! ".. EnchantId .. "/" .. playerEnchantList[slotId])
+							end
+						end
+					else
+						if playerEnchantList[slotId] ~= EnchantId then
+							if not FsR_ItemEnchant.MissingEnchantList[UnitName("raid"..playerId)] then
+								FsR_ItemEnchant.MissingEnchantList[UnitName("raid"..playerId)] = {}
+							end
+							FsR_ItemEnchant.MissingEnchantList[UnitName("raid"..playerId)][slotId] = FsR_ItemEnchant.EnchantTextToEnchant[slotId][playerEnchantList[slotId]].Spell
+							if EnchantId == "0" then
+								if FsR_ItemEnchant.EnchantTextToEnchant[slotId] and FsR_ItemEnchant.EnchantTextToEnchant[slotId][playerEnchantList[slotId]] and FsR_ItemEnchant.EnchantTextToEnchant[slotId][playerEnchantList[slotId]].Name then
+									Print(ItemLink .. "missing Enchant: " .. FsR_ItemEnchant.EnchantTextToEnchant[slotId][playerEnchantList[slotId]].Name)
+									FsR_ItemEnchant:GetReagentsFromEnchantID(FsR_ItemEnchant.EnchantTextToEnchant[slotId][playerEnchantList[slotId]].Spell)
+								else
+									Print(ItemLink .. "missing Enchant!")
+									FsR_ItemEnchant:GetReagentsFromEnchantID(FsR_ItemEnchant.EnchantTextToEnchant[slotId][playerEnchantList[slotId]].Spell)
+								end
+							else
+								Print(ItemLink .. " wrong Enchant! ".. EnchantId .. "/" .. playerEnchantList[slotId])
+								FsR_ItemEnchant:GetReagentsFromEnchantID(FsR_ItemEnchant.EnchantTextToEnchant[slotId][playerEnchantList[slotId]].Spell)
+							end
+						end
+					end
+				else
+					if (slotId ~= 17) or not IsTwoHandEq("raid"..playerId) then
+						Print("Missing item in slot: "..slotId)
+					end
+				end
+			end
+		end
+	end
+end
+
+function IsTwoHandEq(player)
+	local _,_,mainID = string.find(GetInventoryItemLink(player,16) or "","item:(%d+)");
+	if(mainID==nil)then else 
+		local _,_,_,_,_,sMainType= GetItemInfo(mainID);
+		if(sMainType=="Two-Handed Maces" or sMainType=="Two-Handed Swords" or sMainType=="Two-Handed Axes" or sMainType=="Polearms" or sMainType=="Staves")then 
+			return true;
+		end 
+	end
+	return false;
+end
+
+function FsR_ItemEnchant:UpdateEnchantList()
+	FsR_ItemEnchant.DoAbleEnchantList = {}	
+    local numEnchants, CraftIdx, craftName, craftSubSpellName, craftType;
+    local eeb_CraftData = {};
+
+    numEnchants = GetNumCrafts();
+    if (numEnchants < 1) then Print("can't find any enchants, please make sure enchant window is open"); return; end
+    --craft_db = {};
+    for CraftIdx = 1, numEnchants, 1 do
+            craftName,craftSubSpellName ,craftType, numAvailable = GetCraftInfo(CraftIdx);
+            craftDescription = GetCraftDescription(CraftIdx);
+            craftLink = GetCraftItemLink(CraftIdx);
+            if (craftType == "header")then 
+                    return;
+            else
+				if (numAvailable > 0) then
+                    --craft_db[CraftIdx] = {craftName, craftDescription, craftLink};
+					local found, _, enchantID = string.find(craftLink, "^|%x+|Henchant:(.+)|h%[.+%]")
+					table.insert(FsR_ItemEnchant.DoAbleEnchantList, enchantID)
+				end
+            end
+            
+    end        
+    --Printt(craft_db)
+	--Printt(FsR_ItemEnchant.DoAbleEnchantList)
+    return;
+end
+
+function FsR_ItemEnchant:Enchant(enchantID_In)
+	local numEnchants, CraftIdx, craftName, craftSubSpellName, craftType;
+    local eeb_CraftData = {};
+	numEnchants = GetNumCrafts();
+    if (numEnchants < 1) then return; end
+	for CraftIdx = 1, numEnchants, 1 do
+		craftName,craftSubSpellName ,craftType, numAvailable = GetCraftInfo(CraftIdx);
+        craftDescription = GetCraftDescription(CraftIdx);
+        craftLink = GetCraftItemLink(CraftIdx);
+		if (craftType == "header")then 
+			return;
+        else
+			if (numAvailable > 0) then
+                --craft_db[CraftIdx] = {craftName, craftDescription, craftLink};
+				local found, _, enchantID = string.find(craftLink, "^|%x+|Henchant:(.+)|h%[.+%]")
+				if (enchantID_In == enchantID) then
+					return CraftIdx
+				end
+			end
+        end
+	end
+end
+
+function FsR_ItemEnchant:GetDoableEnchants()
+	FsR_ItemEnchant.MissingAndDoableList = {}
+	FsR_ItemEnchant.MissingAndDoableListCurrentIndex = 1
+	FsR_ItemEnchant.MissingAndDoableListIndexMax = 1			
+	local countingIndex = 1
+	for player,MissingEnchants in pairs(FsR_ItemEnchant.MissingEnchantList) do
+		for slotId, SpellID in pairs(MissingEnchants) do
+			if FindInTable(FsR_ItemEnchant.DoAbleEnchantList,SpellID) then
+				--if not FsR_ItemEnchant.MissingAndDoableList[player] then
+				--	FsR_ItemEnchant.MissingAndDoableList[player] = {}
+				--end
+				--FsR_ItemEnchant.MissingAndDoableList[player][slotId] = SpellId
+				FsR_ItemEnchant.MissingAndDoableList[countingIndex] = {["Player"] = player, ["SlotID"] = slotId, ["SpellID"] = SpellID, ["Declined"] = false}
+				countingIndex = countingIndex + 1				
+			end
+		end
+	end
+	FsR_ItemEnchant.MissingAndDoableListIndexMax = countingIndex - 1
+end
+
+function FsR_ItemEnchant:GetReagentsFromEnchantID(enchantIDSearch)
+	local TextToReturn = " "
+	local numEnchants = GetNumCrafts();
+	if numEnchants > 0 then
+		for CraftIdx = 1, numEnchants, 1 do
+			craftName,craftSubSpellName ,craftType, numAvailable = GetCraftInfo(CraftIdx);
+			craftLink = GetCraftItemLink(CraftIdx);
+			if (craftType ~= "header")then 
+				local found, _, enchantID = string.find(craftLink, "^|%x+|Henchant:(.+)|h%[.+%]")
+				if enchantID == enchantIDSearch then
+					numRequiredReagents = GetCraftNumReagents(CraftIdx)
+					if numRequiredReagents > 0 then
+						local HasReagents = true
+						for ReagentIdx = 1, numRequiredReagents do
+							name, _, numRequired, _ = GetCraftReagentInfo(CraftIdx, ReagentIdx);
+							if HasExactItem(name) < numRequired then
+								Print ("   " .. name .. " |cffff0000(" .. HasExactItem(name) .. "/" .. numRequired .. ")|cffffffff")
+								HasReagents = false
+							else
+								Print ("   " .. name .. " |cff00ff00(" .. HasExactItem(name) .. "/" .. numRequired .. ")|cffffffff")
+							end
+							
+				end
+			end
+					return TextToReturn, HasReagents
+		end
+	end
+		end        
+	end
+	return " can't do that spell!", false
+end
+
+function FsR_ItemEnchant:CheckReagentCount(enchantIDSearch)
+	local numEnchants = GetNumCrafts();
+	if numEnchants > 0 then
+		for CraftIdx = 1, numEnchants, 1 do
+			craftName,craftSubSpellName ,craftType, numAvailable = GetCraftInfo(CraftIdx);
+			craftLink = GetCraftItemLink(CraftIdx);
+			if (craftType ~= "header")then 
+				local found, _, enchantID = string.find(craftLink, "^|%x+|Henchant:(.+)|h%[.+%]")
+				if enchantID == enchantIDSearch then
+					numRequiredReagents = GetCraftNumReagents(CraftIdx)
+					if numRequiredReagents > 0 then
+						HasReagents = true
+						for ReagentIdx = 1, numRequiredReagents do
+							name, _, numRequired, _ = GetCraftReagentInfo(CraftIdx, ReagentIdx);
+							if HasExactItem(name) < numRequired then
+								return false
+							end
+						end
+					end
+					return true
+				end
+			end
+		end        
+	end
+	return false
+end
+
+
+function FsR_ItemEnchant:CastEnchant()
+	if FsR_ItemEnchant.TradeStatus == "EnchantSet" then
+		ClearCursor()
+		DoCraft(FsR_ItemEnchant.SkillId)
+		local tradeItemButton = getglobal("TradeRecipientItem7ItemButton");
+		tradeItemButton:Click()
+		FsR_ItemEnchant.TradeStatus = "Enchanting"
+	end
+end
+
+
+
+
+

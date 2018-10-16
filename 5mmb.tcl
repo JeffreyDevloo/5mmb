@@ -3,8 +3,8 @@ array unset autodelete
 array unset raidorder10
 array unset raidorder20
 array unset raidorder40
-array unset itemto
 set dontsoulstone ""
+set dontflashframe ""
 set dontautotrade ""
 set dontautodelete ""
 set dontbuystacks ""
@@ -21,7 +21,6 @@ set gazefollow ""
 set dedicated_healers ""
 set goldto ""
 set boeto ""
-set itemto ""
 set monitor 4k
 set oem oem3
 set HKN 5mmb_HKN.txt
@@ -152,6 +151,9 @@ while { [gets $tL line] >= 0 } {
     } elseif { [string tolower [lindex $line 0]] == "dontsoulstone" } {
  		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set dontsoulstone true
+    } elseif { [string tolower [lindex $line 0]] == "dontflashframe" } {
+ 		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
+				set dontflashframe true
     } elseif { [string tolower [lindex $line 0]] == "dontautotrade" } {
  		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set dontautotrade true
@@ -320,7 +322,7 @@ if { ! $nohotkeyoverwrite } {
 		set raidhash(5) "1920 1440 960 720 960 720 0 720 960 720 960 0 960 720 1920 0 960 720 2880 720"
 		set raidhash(10) "1280 1020 0 960 1280 1020 1280 960 1280 1020 2560 960 640 480 640 0 640 480 0 0 640 480 0 480 640 480 1280 0 640 480 640 480 640 480 1280 480 640 480 1920 480"
 	  set raidhash(20) "640 480 0 0 960 720 0 1440 960 720 960 1440 640 480 640 0 640 480 0 960 640 480 640 960 960 720 1920 1440 640 480 1280 960 640 480 1920 960  640 480 2560 960 640 480 3200 480 640 480 1280 0 640 480 1920 0 640 480 2560 0 640 480 3200 0 640 480 0 480 640 480 640 480 640 480 1280 480 640 480 1920 480 640 480 2560 480"
-	  set raidhash(40) "480 360 0 0 960 720 960 1440 960 720 0 1440 960 720 1920 1440 960 720 2880 1440 480 360 240 0 480 360 480 0 480 360 720 0 480 360 960 0 480 360 1200 0 480 360 1440 0 480 360 1680 0 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 0 360 480 360 480 360 480 360 960 360 480 360 1440 360 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 0 720 480 360 480 720 480 360 960 720 480 360 1440 720 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 480 360 0 1080 480 360 480 1080 480 360 960 1080 480 360 1440 1080 480 360 1920 1080 480 360 2400 1080 480 360 2880 1080 480 360 3360 1080"
+	  set raidhash(40) " 480 360 0 0 1440 1080 960 1080 480 360 480 0 480 360 960 0 480 360 1440 0 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 0 360 480 360 480 360 480 360 960 360 480 360 1440 360 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 0 720 480 360 480 720 480 360 960 720 480 360 1440 720 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 480 360 0 1080 480 360 480 1080 480 360 2400 1080 480 360 2880 1080 480 360 3360 1080 480 360 0 1440 480 360 480 1440 480 360 2400 1440 480 360 2880 1440 480 360 3360 1440 480 360 0 1800 480 360 480 1800 480 360 2400 1800 480 360 2880 1800 480 360 3360 1800"
 	} else {
 	  #1080p
 		set raidhash(5) "960 720 480 360 480 360 0 360 480 360 480 0 480 360 960 0 480 360 1440 360"
@@ -814,6 +816,10 @@ if { ! $nosmoverwrite } {
 	    puts $sMN "MB_soulstone_rezzers=false"
 		} elseif { [regexp "^MB_soulstone_rezzers" $line ] && $dontsoulstone == "" } {
 	    puts $sMN "MB_soulstone_rezzers=true"
+		} elseif { [regexp "^MB_frameflash" $line ] && $dontflashrames == "true" } {
+	    puts $sMN "MB_frameflash=false"
+		} elseif { [regexp "^MB_frameflash" $line ] && $dontflashframes == "" } {
+	    puts $sMN "MB_frameflash=true"
 		} elseif { [regexp "^MB_autotrade=" $line ] && $dontautotrade == "true" } {
 	    puts $sMN "MB_autotrade=false"
 		} elseif { [regexp "^MB_autotrade=" $line ] && $dontautotrade == "" } {
@@ -872,6 +878,9 @@ if { ! $nosmoverwrite } {
 	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5}}},
  	["Symbol of Kings"] = {itemkind = "item" , class = {Paladin = {AnnounceValue = 5}}},
  	["Wild Thornroot"] = {itemkind = "item" , class = {Druid = {AnnounceValue = 5}}},
+	["Instant Poison VI"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
+ 	["Wound Poison IV"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
+ 	["Mind Numbing Poison"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
  	["Major Healing Potion"] = {itemkind = "item", class = {Druid = {},Rogue = {},Warrior = {},Hunter = {},Warlock = {},Mage = {}, Priest = {}, Shaman = {}, Paladin = {}}},
 	["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {}, Priest = {}, Shaman = {}, Paladin = {}}},
 	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},}

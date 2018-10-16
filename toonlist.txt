@@ -1,0 +1,287 @@
+# Keyboard choices us (default) / uk / de
+keyboard us
+# monitor choices 4k / 1k
+monitor 4k
+
+#box acctname2 passwd shamantres healer m z n q
+#box acctname passwd cuppycake tank m n q
+#box acctname passwd eversmile tank m z f e n q r
+#box acctname passwd brutalic caster m2 n q r
+#box acctname1 passwd shamanuno healer m1 z f n q
+#box acctname3 passwd brutalio caster m2 n q
+#box acctname13 passwd jenjja caster m z n
+#box acctname2 passwd brutaliar caster m2 n
+#box acctname4 passwd monterey hunter m n q
+#box acctname1 passwd brutalium caster m2 z n q r
+#box acctname9 passwd furyswipes tank m z n
+#box acctname passwd cashme healer m z n q r
+#box acctname4 passwd stabsya melee m2 z n
+#box acctname1 passwd komal tank m n
+#box acctname0 passwd punchingbear healer m2 z n q
+#box acctname passwd enticer tank m  n
+#box acctname7 passwd silza caster m z n q
+#box acctname3 passwd shamanquatro healer m2 n
+#box acctname5 passwd avindra healer m n q
+#box acctname4 passwd shamancinco healer m2 n
+#box acctname4 passwd brutalia caster m z f n r
+#box acctname7 passwd shamansiete healer m2 n
+#box acctnameb passwd icefloes caster  m f n q
+#box acctname8 passwd shamanocho healer m2 z n q
+#box acctname1 passwd crookshanks melee m f n q
+#box acctname4 passwd orinoco healer m2 n q
+#box acctnamee passwd refill healer m z n
+#box acctname5 passwd kimboslicer melee m2 n
+#box acctnamed passwd bubbling healer m n
+#box acctname passwd olympic hunter m2 z n q
+#box acctname17 passwd zumwalt healer m z n
+#box acctname2 passwd everglades hunter m2 z n
+#box acctname6 passwd shamanseis caster m z n q
+#box acctname1 passwd yellowstone hunter m2 z n
+#box acctname2 passwd toshredsusay melee m n q
+#box acctname3 passwd badlands hunter m2 z n
+#box acctname10 passwd merazza caster m2 n
+#box acctnamec passwd flameshocked caster m2 z n q
+#box acctname11 passwd calypsa caster m2 n
+#box acctname9 passwd zillazee caster m2 n
+#
+#
+#computer 2 192.168.0.233
+#
+#raidname toddsraid
+#
+#bombfollow enticer
+#
+#gazefollow toshredsusay
+#
+#dedicated_healers cuppycake cashme
+#dedicated_healers cuppycake avindra enticer zumwalt komal cashme furyswipes refill
+#
+#goldto eversmile
+#
+#boeto crookshanks cashme 
+#
+#itemto Lockbox toshredsusay
+#itemto Bijou Cuppycake Zumwalt
+#itemto Coin "Cuppycake" "Zumwalt"
+#itemto "Illusion Dust" "Shamanuno" "Shamanseis"
+#itemto "Golden Pearl" "shamanuno"
+#itemto "Dream Dust" "shamanuno"
+#itemto "Heart of Fire" "shamanuno"
+#itemto "Core of Earth" "shamanuno"
+#itemto "Globe of Water" "shamanuno"
+#itemto "Breath of Wind" "shamanuno"
+#itemto "Ichor of Undeath" "shamanuno"
+#itemto "Radiant Shard" "shamanuno"
+#itemto "Greater Eternal" "shamanuno"
+#itemto "Large Brill" "Shamanuno" "Shamanseis"
+#itemto "Living Ess" shamanuno
+#itemto "Essence of Water" shamanuno
+#itemto "Essence of Air" shamanuno
+#itemto "Small Brill" shamanuno
+#itemto "Righteous Orb" shamanuno
+#itemto "Nexus Crystal" shamanuno
+#itemto "Essence of Undeath" shamanuno
+#itemto "Lava Core" "Jenjja" "Zumwalt"
+#itemto "Fiery Core" "Jenjja" "Zumwalt"
+#itemto "Core of Earth" "Avindra"
+#itemto "Elemental Earth" "Avindra"
+#itemto "Elemental Fire" "Avindra"
+#itemto "Elemental Air" "Avindra"
+#itemto "Travel" "Cuppycake" 
+#itemto "Obsidian Shard" "Cuppycake" 
+#itemto "Dark Iron" "Cuppycake" 
+#itemto " Scarab" "Enticer" 
+#itemto "Idol of " "Enticer" 
+#itemto " Idol" "Enticer" 
+#itemto "Essence of Fire" "Avindra"
+#itemto "Elemental Water" "Avindra"
+#itemto "Essence of Earth" "Avindra"
+#
+#raidorder40 Shamanocho Komal Eversmile Olympic Brutalio Shamancinco Cuppycake Brutaliar Monterey Furyswipes Shamanseis Crookshanks Kimboslicer Zumwalt Everglades Shamanquatro Brutalia Yellowstone Mootalia Refill Shamanuno Flameshocked Brutalium Jenjja Cashme Shamantres Avindra Barie Orinoco Brutalic Zillazee Bubbling Calypsa Punchingbear Icefloes Shamansiete Silza Stabsya Toshredsusay Badlands
+#raidorder20 Shamanquatro Eversmile Brutalic Bubbling Monterey Shamancinco Cuppycake Crookshanks Kimboslicer Cashme Shamanseis Silza Badlands Brutalium Brutaliar Shamanuno Zillazee Punchingbear Icefloes Flameshocked
+#raidorder20 Shamanocho Komal Yellowstone Brutalia Avindra Shamansiete
+#Eversmile Toshredsusay Stabsya Refill Calypsa Merazza Jenjja Zumwalt Barie Shamantres Everglades Orinoco Olympic Brutalio
+#
+#autodelete "Runecloth" 0 "Darkmoon Special" 0 "Rock Chip" 0 
+#autodelete "Jagged Axe" 0
+#autodelete "Plans: Thorium" 0
+#autodelete "Crafted Light Shot" 0
+#autodelete "Scarlet Cannonball" 0
+#autodelete "Rough Stone" 0
+#autodelete "Coarse Blasting" 0
+#autodelete "Melon " 0
+#autodelete "Bruiseweed" 0
+#autodelete "Brocade " 0
+#autodelete "Blackrock Pauldrons" 0
+#autodelete "Lesser Healing Potion" 0
+#autodelete "Gnoll Spittle" 0
+#autodelete "Rawhide " 0
+#autodelete "Buzzard " 0
+#autodelete "Tough Condor " 0
+#autodelete "Ivory Boar" 0
+#autodelete "Tiny Fang" 0
+#autodelete "Linked " 0
+#autodelete "Wooden Maul" 0
+#autodelete "Short Cutlass" 0
+#autodelete "Smooth Pebble" 0
+#autodelete "Meat Cleaver" 0
+#autodelete "Decomposed " 0
+#autodelete "Lifeless Skull" 0
+#autodelete "Large Slimy" 0
+#autodelete "Bronze Tube" 0
+#autodelete "Extinguished Torch" 0
+#autodelete "Taut Compound" 0
+#autodelete "Broken Arrow" 0
+#autodelete "Shadowgem" 0
+#autodelete "Linen Cloth" 0
+#autodelete "Minor Mana Potion" 0
+#autodelete "Broken Boar Tusk" 0
+#autodelete "Boar Intestines" 0
+#autodelete "Boar Ribs" 0
+#autodelete "Ice Cold Milk" 0
+#autodelete "Rough Vulture Feathers" 0
+#autodelete "Coarse Stone" 0
+#autodelete "Goretusk Snout" 0
+#autodelete "Goretusk Liver" 0
+#autodelete "Severed Talon" 0
+#autodelete "Small Egg" 0
+#autodelete "Light Feather" 0
+#autodelete "Tigerseye" 0
+#autodelete "Moss Agate" 0
+#autodelete "Kobold Mining Shovel" 0
+#autodelete "Minor Healing Potion" 0
+#autodelete "Refreshing Spring Water" 0
+#autodelete "Shiny Red Apple" 0
+#autodelete "Darnassian Bleu" 0
+#autodelete "Forest Mushroom Cap" 0
+#autodelete "Chipped Boar Tusk" 0
+#autodelete "Khadgar's Whisker" 0
+#autodelete "Chunk of Boar Meat" 0
+#autodelete "Stringy Vulture Meat" 0
+#autodelete "Glowing Wax Stick" 0
+#autodelete "Large Candle" 0
+#autodelete "Haunch of Meat" 0
+#autodelete "Gnoll Paw" 0
+#autodelete "Gold Dust" 0
+#autodelete "Heavy Stone" 0
+#autodelete "Copper Ore" 0
+#autodelete "Wool Cloth" 0
+#autodelete "Cracked Bill" 0
+#autodelete "Tin Ore" 0
+#autodelete "Vulture Talon" 0
+#autodelete "Clam Meat" 0
+#autodelete "Dalaran Sharp" 0
+#autodelete "Lifeless Stone" 0
+#autodelete "Burning Pitch" 0
+#autodelete "Primed Musket" 0
+#autodelete "Light Plate" 0
+#autodelete "Bulky Maul" 0
+#autodelete "Brilliant Chromatic Scale" 0
+#autodelete "Fiery Gland" 0
+#autodelete "Wolf Meat" 0
+#autodelete "Splintering Battle Axe" 0
+#autodelete "Clout Mace" 0
+#autodelete "Fine Pointed Dagger" 0
+#autodelete "Blood Scythe" 0
+#autodelete "Feathery Wing" 0
+#autodelete "Ironfeather" 0
+#autodelete "Undamaged Hip" 0
+#autodelete "Shimmering Basil" 0
+#autodelete "Imperfect Draen" 0
+#autodelete "Vibrant Plume" 0
+#autodelete "Basilisk Venom" 0
+#autodelete "Basilisk Brain" 0
+#autodelete "Thick Furry Mane" 0
+#autodelete "Coal" 0
+#autodelete "Stout War" 0
+#autodelete "Solid Stone" 0
+#autodelete "Deeprock Stone" 0
+#autodelete "Ripped Wing" 0
+#autodelete "Journeyman's" 0
+#autodelete "Overlinked " 0
+#autodelete "Heavy Flint Ax" 0
+#autodelete "Sandworm Meat" 0
+#autodelete "Slimy Ichor" 0
+#autodelete "Gelatinous Goo" 0
+#autodelete "Heavy Silith" 0
+#autodelete "Armored Chitin" 0
+#autodelete "Crochet " 0
+#autodelete "Dripping Spider " 0
+#autodelete "Thick Leather " 0
+#autodelete "Spiked " 0
+#autodelete "Greater Mana" 0
+#autodelete "Twill " 0
+#autodelete "Laminated Scale " 0
+#autodelete "Laminate " 0
+#autodelete "Smooth Leather " 0
+#autodelete "Overlinked Chain" 0
+#autodelete "Superior Mana" 0
+#autodelete "Tapered Greatsword" 0
+#autodelete "Thick Leather Hat" 0
+#autodelete "Patch of Fine Fur" 0
+#autodelete "Twill Shoulderpads" 0
+#autodelete "Light Plate Belt" 0
+#autodelete "Sharp Shortsword" 0
+#autodelete "Thick Spider's" 0
+#autodelete "Laminated Scale Pants" 0
+#autodelete "Crushing Maul" 0
+#autodelete "Smooth Stone Chip" 0
+#autodelete "Superior Heal" 0
+#autodelete "Light Plate Helmet" 0
+#autodelete "Thick Leather Bracers" 0
+#autodelete "Alterac Swiss" 0
+#autodelete "Heavy War Staff" 0
+#autodelete "Thick Leather Shoulderpads" 0
+#autodelete "Large Bat Fang" 0
+#autodelete "Dripping Spider" 0
+#autodelete "Hard Spider" 0
+#autodelete "Shadow Silk" 0
+#autodelete "Ironweb Spider" 0
+#autodelete "Pattern:" 0
+#autodelete "Brilliant Scale" 0
+#autodelete "Forked Tongue" 0
+#autodelete "Powerful Mojo" 1
+#autodelete "Pristine Raptor Skull" 0
+#autodelete "Crochet Bracers" 0
+#autodelete "Deflecting Tower" 0
+#autodelete "Frayed Abomination Stitching" 0
+#autodelete "Glowing Scorpid Blood" 0
+#autodelete "Smooth Leather Bracers" 0
+#autodelete "Nightcrawlers" 0
+#autodelete "Mystery Meat" 0
+#autodelete "Overlinked Chain Armor" 0
+#autodelete "Protective Pavise" 0
+#autodelete "Scarlet Cannonball" 0
+#autodelete "Light Plate Boots" 0
+#autodelete "Smooth Stone Chip" 0
+#autodelete "Shiny Polished Stone" 0
+#autodelete "Wicked Claw" 0
+#autodelete "Elder Raptor Feathers" 0
+#autodelete "Trophy Raptor Skull" 0
+#autodelete "Star Ruby" 0
+#autodelete "Scroll of Strength" 0
+#autodelete "Scroll of Protection" 0
+#autodelete "Scroll of Stamina" 0
+#autodelete "Scroll of Spirit" 0
+#autodelete "Scroll of Intellect" 0
+#autodelete "Scroll of Agility" 0
+#autodelete "Dried King" 0
+#autodelete "Sentinel Musket" 0
+#autodelete "Fine Longsword" 0
+#autodelete "Twilight Cultist Robe" 6
+#autodelete "Twilight Cultist Cowl" 6
+#autodelete "Twilight Cultist Mantle" 6
+#autodelete "Homemade Cherry" 0
+#autodelete "Evil Bat Eye" 0
+#autodelete "Morning Glory Dew" 1
+#autodelete "Sabertooth Fang" 0
+#autodelete "Spider Silk" 0
+#autodelete "Patch of fine fur" 0
+#autodelete "Aquamarine" 0
+#autodelete "Tangy Clam" 0
+#autodelete "Huge Venom Sac" 0
+#autodelete "Large Scorpid Claw" 0
+#autodelete "Breath of Wind" 0
+#autodelete "Mutton Chop" 0
+#autodelete "Twill " 0
+#autodelete "Ancient Qiraji Artifact" 0

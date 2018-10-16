@@ -137,6 +137,13 @@
 # example maxheal 4 2 5 4  (this is also default)
 #
 #############
+# dontflashframe
+##############
+#
+# if you put this command in, you won't get the flashing borders around your
+# screen
+#
+#############
 # dontsoulstone
 ##############
 #

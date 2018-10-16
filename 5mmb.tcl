@@ -816,9 +816,9 @@ if { ! $nosmoverwrite } {
 	    puts $sMN "MB_soulstone_rezzers=false"
 		} elseif { [regexp "^MB_soulstone_rezzers" $line ] && $dontsoulstone == "" } {
 	    puts $sMN "MB_soulstone_rezzers=true"
-		} elseif { [regexp "^MB_frameflash" $line ] && $dontflashrames == "true" } {
+		} elseif { [regexp "^MB_frameflash" $line ] && $dontflashframe == "true" } {
 	    puts $sMN "MB_frameflash=false"
-		} elseif { [regexp "^MB_frameflash" $line ] && $dontflashframes == "" } {
+		} elseif { [regexp "^MB_frameflash" $line ] && $dontflashframe == "" } {
 	    puts $sMN "MB_frameflash=true"
 		} elseif { [regexp "^MB_autotrade=" $line ] && $dontautotrade == "true" } {
 	    puts $sMN "MB_autotrade=false"

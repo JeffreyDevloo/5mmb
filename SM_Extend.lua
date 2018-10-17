@@ -7912,10 +7912,10 @@ function AOEHeal()
 	if IsHealer() and myclass=="Druid" then HotEmUp("Rejuvenation(Rank 5)") end 
 end
 function RaidHeal()
+	if Sulfuron() or TankTarget("Shazzrah") or TankTarget("Ragnaros") or not InRaid() then QuickHeal() return end
 	if MB_debugAOEHeal or TankTarget("The Prophet Skeram") or RaidHealth()<.6 then AOEHeal() return end
 	if not IsHealer() then return end
 	--if 1 then QuickHeal() return end
-	if Sulfuron() or TankTarget("Shazzrah") or TankTarget("Ragnaros") or not InRaid() then QuickHeal() return end
 	if Jindo() then
 		MB_maxheal={Druid=2,Priest=1,Shaman=2,Paladin=2}
 	else

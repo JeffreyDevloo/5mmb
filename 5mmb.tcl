@@ -143,7 +143,7 @@ while { [gets $tL line] >= 0 } {
  		  	if { [llength $line] < 3 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set itemto([lindex $line 1]) [lrange $line 2 end]
     } elseif { [string tolower [lindex $line 0]] == "maxheal" } {
- 		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
+ 		  	if { [llength $line] != 5 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set maxheal [lrange $line 1 end]
     } elseif { [string tolower [lindex $line 0]] == "dontautodelete" } {
  		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }

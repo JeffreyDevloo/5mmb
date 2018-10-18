@@ -1,7 +1,7 @@
---Version 101718a
+-- Version 101818a
 Printd("SM_extend.lua loaded OK!")
 --IF YOU ARE COMBINING RAIDS WITH SOMEONE ELSE, MAKE SURE YOU CHOOSE A UNIQUE RAID NAME IN THIS VARIABLE
-MB_RAID = "MULTIBOX_MyName1"
+MB_RAID = "MULTIBOX_MyRaid"
 --------------------------------------------User edited values--------------------------------------
 --Warlocks will soulstone rezzers during setup
 MB_soulstone_rezzers=true
@@ -27,11 +27,11 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={"Cuppycake","Eversmile","Furyswipes","Komal","Enticer"}
+MB_tanklist={"Zulderone","Zulderfour","Zuldertwo","Zulderthree","Zuldertwnone"}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list={"Shamantres","Shamanuno","Cashme","Punchingbear","Shamanquatro","Avindra","Shamancinco","Shamansiete","Shamanocho","Orinoco","Refill","Bubbling","Zumwalt"}
+MB_healer_list={"Zulder","Zulderfive","Zuldertwnine","Zuldertryone","Zuldertrytwo","Zulderninetn","Zuldertwnate","Zuldertryfor","Zulderthirty","Zuldereleven","Zuldertwelve","Zulderthirtn","Zuldertryate","Zuldertwenty"}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist={"Shamantres","Cuppycake","Eversmile","Brutalic","Shamanuno","Brutalio","Jenjja","Brutaliar","Monterey","Brutalium","Furyswipes","Cashme","Stabsya","Komal","Punchingbear","Enticer","Silza","Shamanquatro","Avindra","Shamancinco","Brutalia","Shamansiete","Icefloes","Shamanocho","Crookshanks","Orinoco","Refill","Kimboslicer","Bubbling","Olympic","Zumwalt","Everglades","Shamanseis","Yellowstone","Toshredsusay","Badlands","Merazza","Flameshocked","Calypsa","Zillazee"}
+MB_toonlist={"Zulder","Zulderseven","Zulderone","Zuldertryfiv","Zulderfour","Zuldertrysvn","Zuldertwo","Zuldertrynin","Zulderfive","Zuldereight","Zuldertwnine","Zuldernine","Zuldertryone","Zulderten","Zuldertrytwo","Zulderninetn","Zuldertwnate","Zuldertryfor","Zuldertwnsvn","Zuldertwntre","Zulderthirty","Zuldertwnfor","Zuldereleven","Zuldertwnfiv","Zuldertwelve","Zuldertwnsix","Zulderthirtn","Zuldereightn","Zuldertryate","Zuldertrysix","Zulderfourtn","Zulderfiftn","Zuldertwntwo","Zuldersixtn","Zuldersix","Zuldersevent","Zulderthree","Zuldertrytre","Zuldertwnone","Zuldertwenty"}
 --This is the powerleveler your lowbies will follow when powerleveling
 MB_powerleveler="Titanator"
 --This is your set of lowbie leveling parties. You can run 4 at a time. The first toon name on the left of = is the squad leader.
@@ -44,7 +44,7 @@ MB_levelingparties= {
 --This is who people will run to when they have the bomb on Baron.
 MB_bombfollow="Enticer"
 --This is who people will run to when they have threatening gaze on Mandokir (raptor boss)
-MB_gazefollow="Toshredsusay"
+MB_gazefollow="Zuldereightn"
 --LEAVE DEDICATED HEALERS BLANK. THIS IS AN ADVANCED FEATURE THAT PROBABLY DOESN'T DO WHAT YOU THINK.
 --MB_dedicated_healers={}
 MB_dedicated_healers={Cuppycake="Avindra",Enticer="Zumwalt",Komal="Cashme",Furyswipes="Refill"}
@@ -54,24 +54,62 @@ FsR_AutoRepairAllItems = true
 ---------------------------------------------End of user edited values--------------------------------
 MB_debuffslotlist={"Viper Sting","Detect Magic","Curse of Shadow","Curse of the Elements","Curse of Agony","Curse of Agony","Curse of Agony","Demoralizing Shout","Thunder Clap","Insect Swarm(Rank 1)","Vampiric Embrace","Hunter's Mark","Fairy Fire","Placeholder for Nightfall","Placeholder for Shadow Weaving","Placeholder for Mindflay","Placeholder for Winters Chill","Scorpid Sting","Placeholder for improved Shadowbolt","Polymorph","Shackle Undead","Banish","Hibernate","Fear","Scare Beast"}
 FsR_Stuff2Track={
-	["Gold"] = {itemkind = "special", collector = {"Eversmile"}},
+	["Gold"] = {itemkind = "special", collector = {"Zulderone"}},
 	["EmptyBagSlots"] = {itemkind = "special"},
  	["Soul Shard"] = {itemkind = "item"},
 	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5}}},
  	["Symbol of Kings"] = {itemkind = "item" , class = {Paladin = {AnnounceValue = 5}}},
- 	["Instant Poison VI"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
- 	["Wound Poison IV"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
  	["Wild Thornroot"] = {itemkind = "item" , class = {Druid = {AnnounceValue = 5}}},
+	["Instant Poison VI"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
+ 	["Wound Poison IV"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
+ 	["Mind Numbing Poison"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
  	["Major Healing Potion"] = {itemkind = "item", class = {Druid = {},Rogue = {},Warrior = {},Hunter = {},Warlock = {},Mage = {}, Priest = {}, Shaman = {}, Paladin = {}}},
 	["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {}, Priest = {}, Shaman = {}, Paladin = {}}},
+	["Major Healthstone"] = {itemkind = "item", class = {Druid = {TradeIfLessThan = 1},Rogue = {TradeIfLessThan = 1},Warrior = {TradeIfLessThan = 1},Hunter = {TradeIfLessThan = 1},Mage = {TradeIfLessThan = 1}, Priest = {TradeIfLessThan = 1}, Shaman = {TradeIfLessThan = 1}, Paladin = {TradeIfLessThan = 1}}},
 	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
+	["BOE"] = {itemkind = "itemGrp", collector = {"Zulder","Zulderthirtn"}},
+	["Fiery Core"] = {itemkind = "itemGrp", collector = {"Jenjja","Zumwalt"}},
+	["Large Brill"] = {itemkind = "itemGrp", collector = {"Shamanuno","Shamanseis"}},
+	["Dream Dust"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Globe of Water"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Core of Earth"] = {itemkind = "itemGrp", collector = {"Avindra"}},
+	["Obsidian Shard"] = {itemkind = "itemGrp", collector = {"Cuppycake"}},
+	["Elemental Earth"] = {itemkind = "itemGrp", collector = {"Avindra"}},
+	[" Scarab"] = {itemkind = "itemGrp", collector = {"Enticer"}},
+	["Elemental Fire"] = {itemkind = "itemGrp", collector = {"Avindra"}},
+	["Lava Core"] = {itemkind = "itemGrp", collector = {"Jenjja","Zumwalt"}},
+	["Nexus Crystal"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Righteous Orb"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Golden Pearl"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Radiant Shard"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Small Brill"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Essence of Earth"] = {itemkind = "itemGrp", collector = {"Avindra"}},
+	["Illusion Dust"] = {itemkind = "itemGrp", collector = {"Shamanuno","Shamanseis"}},
+	["Heart of Fire"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	[" Idol"] = {itemkind = "itemGrp", collector = {"Enticer"}},
+	["Essence of Fire"] = {itemkind = "itemGrp", collector = {"Avindra"}},
+	["Bijou"] = {itemkind = "itemGrp", collector = {"Cuppycake","Zuldereleven"}},
+	["Coin"] = {itemkind = "itemGrp", collector = {"Cuppycake","Zuldereleven"}},
+	["Elemental Water"] = {itemkind = "itemGrp", collector = {"Avindra"}},
+	["Dark Iron"] = {itemkind = "itemGrp", collector = {"Cuppycake"}},
+	["Lockbox"] = {itemkind = "itemGrp", collector = {"Zuldereightn"}},
+	["Elemental Air"] = {itemkind = "itemGrp", collector = {"Avindra"}},
+	["Ichor of Undeath"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Essence of Undeath"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Living Ess"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Idol of "] = {itemkind = "itemGrp", collector = {"Enticer"}},
+	["Greater Eternal"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Breath of Wind"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Travel"] = {itemkind = "itemGrp", collector = {"Cuppycake"}},
+	["Essence of Water"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Essence of Air"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
 	["Conjured Sparkling Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}}
 }
 FsR_TrackedMaterial = {}
 FsR_SummoningLastCast = GetTime()
 --*Fs
 MB_spellsToInt={"Arcane Explosion","Greater Heal","Holy Fire","Drain Life"}
-MB_maxheal={Druid=5,Priest=2,Shaman=6,Paladin=2}
+MB_maxheal={Druid=11,Priest=11,Shaman=11,Paladin=11}
 MB_reportcpu=false
 MB_reportzerotime=false
 MB_reportbusy=false
@@ -1530,6 +1568,7 @@ function FSMB:OnEvent()
 		MB_My_ot_target=nil
 		MB_My_fear_target=nil
 		MB_ot_index=1
+		MB_do_an_interrupt=nil
 		MB_cc_current={Mage=1,Warlock=1,Priest=1,Druid=1}
 		MB_int_current={Rogue=1,Mage=1,Shaman=1}
 		MB_fear_current={Warlock=1,Hunter=1}
@@ -1758,7 +1797,7 @@ function clearmacros()
 	end
 end
 function clearsupermacros()
-	MB_macronamestodelete={"flaoe","tap","shftap","ctltap","altap","levparty"}
+	MB_macronamestodelete={"HS","flaoe","tap","shftap","ctltap","altap","levparty"}
 	for k,macname in pairs(MB_macronamestodelete) do
 		while (GetSuperMacroInfo(macname,"name")) do
 			local index=GetSuperMacroInfo(macname,"name")
@@ -2060,6 +2099,20 @@ function init()
 		PlaceAction(103)
 		PickupMacro(index)
 		PlaceAction(114)
+	end
+	if class=="Warlock" then
+	        index=CreateSuperMacro("HS","Interface\\Icons\\INV_stone_04","/run createhs()")
+		PickupMacro(index,"HS")
+		PlaceAction(68)
+	elseif class=="Priest" then
+		PickupSpell(findSpell("Resurrection"),BOOKTYPE_SPELL)
+		PlaceAction(68)
+	elseif class=="Shaman" then
+		PickupSpell(findSpell("Ancestral Spirit"),BOOKTYPE_SPELL)
+		PlaceAction(68)
+	elseif class=="Paladin" then
+		PickupSpell(findSpell("Redemption"),BOOKTYPE_SPELL)
+		PlaceAction(68)
 	end
 	if class=="Priest" or class=="Shaman" or class=="Druid" or class=="Paladin" then
 	        index=CreateSuperMacro("flaoe","Interface\\Icons\\Spell_Holy_Prayerofhealing02","/script FloodAOEHeal()")
@@ -2657,6 +2710,9 @@ function MB_Find(item)
 			end
 		end
 	end
+end
+function createhs()
+  CastSpell(SpellNum("Create Healthstone.*Major"),BOOKTYPE_SPELL)
 end
 function SetLockPet(lockpet)
 	--This function is called when you press the right buttons on the warlock bar.
@@ -3360,9 +3416,11 @@ function HasUnboundItem(item)
 			link=GetContainerItemLink(bag,slot)
 			--Print(link)
 			if item=="BOE" then
-				if IsUnboundBOE(bag,slot) and not IsUnique(bag,slot) then count=count+1 end
+				if IsUnboundBOE(bag,slot) then count=count+1 end
+				--if IsUnboundBOE(bag,slot) and not IsUnique(bag,slot) then count=count+1 end
 			else
-				if string.find(link,item) and IsUnbound(bag,slot) and not IsUnique(bag,slot) then count=count+itemCount end
+				if string.find(link,item) and IsUnbound(bag,slot) then count=count+itemCount end
+			--	if string.find(link,item) and IsUnbound(bag,slot) and not IsUnique(bag,slot) then count=count+itemCount end
 			end
 		end
 	end end
@@ -3669,8 +3727,6 @@ function WarriorSurvive()
 	if not InCombat() and FsR_ItemEnchant.TradeStatus == "EnchantSet" then enchant() return end	
 	if class~="Warrior" then FloodHeal() return end
 	--Warrior last stand/shield wall
-	if InCombat() and MyHealthPct()<.12 then RunLine("/use Major Healthstone") end
-	if InCombat() and MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if IAmFocus() and InCombat() then
 		cast("Shield Wall")
 		cast("Last Stand")
@@ -3881,13 +3937,30 @@ function StanceCast(stance)
 	if stanceno~=currstance then cast(stance) end
 end
 function NumInParty(checkclass)
-	return TableLength(MB_classlist[checkclass])
+	local i=0
+	local MyGroup=MB_GroupID[myname]
+	for _,name in MB_ToonsInGroup[MyGroup] do
+			if UnitClass(MBID[name])==checkclass then i=i+1 end
+	end
+	return i
+end
+function IsNatureBoss()
+	return TankTarget("The Prophet Skeram") or TankTarget("Buru the Gorger") or TankTarget("Lord Skwol") or TankTarget("High Priestess Mar'li") or TankTarget("Spawn of Mar'li") or TankTarget("High Priestess Mar'li") or TankTarget("Witherbark Speaker") or TankTarget("High Priest Venoxis") or TankTarget("Razzashi Cobra") or TankTarget("Razzashi Adder") or TankTarget("Razzashi Serpent")
+end
+function IsGroundingBoss()
+	return TankTarget("Hakkar") or TankTarget("Lucifron")
+end
+function IsPoisonBoss()
+	return TankTarget("Lord Skwol") or TankTarget("High Priestess Mar'li") or TankTarget("Spawn of Mar'li") or TankTarget("High Priestess Mar'li") or TankTarget("Witherbark Speaker") or TankTarget("High Priest Venoxis") or TankTarget("Razzashi Cobra") or TankTarget("Razzashi Serpent") or TankTarget("Razzashi Adder")
+end
+function IsFireBoss()
+	return TankTarget("Firesworn") or TankTarget("Garr") or TankTarget("Flame") or TankTarget("Drak") or TankTarget("Chromatic") or TankTarget("Blackhand Incarcerator") or TankTarget("Dragon") or TankTarget("Majordomo Executus") or TankTarget("Ragnaros") or TankTarget("Baron Geddon") or TankTarget("Lava Elemental") or TankTarget("Gehennas") or TankTarget("Firewalker") or TankTarget("Magmadar") or TankTarget("Sulfuron Harbinger") or TankTarget("Firelord") or TankTarget("Lava Spawn") or TankTarget("Ancient Core Hound")
 end
 function ChooseAirTotem()
-	if TankTarget("Hakkar") or TankTarget("Lucifron") then return "Grounding Totem" end
-	if TankTarget("The Prophet Skeram") or TankTarget("Buru the Gorger") or TankTarget("Lord Skwol") or TankTarget("High Priestess Mar'li") or TankTarget("Spawn of Mar'li") or TankTarget("High Priestess Mar'li") or TankTarget("Witherbark Speaker") or TankTarget("High Priest Venoxis") or TankTarget("Razzashi Cobra") or TankTarget("Razzashi Adder") or TankTarget("Razzashi Serpent") then return "Nature Resistance Totem" end
+	if IsGroundingBoss() then return "Grounding Totem" end
+	if IsNatureBoss() then return "Nature Resistance Totem" end
 	if MB_DruidTankInParty or (NumInParty("Hunter")>0 and NumInParty("Hunter")>NumInParty("Rogue")) then return "Grace of Air Totem" end
-	if MB_WarriorTankInParty or NumInParty("Rogue")>0 and NumInParty("Rogue")>=NumInParty("Hunter") then return "Windfury Totem" end
+	if MB_WarriorTankInParty or NumInParty("Rogue")>0 then return "Windfury Totem" end
 	return "Tranquil Air Totem"
 end
 function ChooseEarthTotem()
@@ -3896,8 +3969,8 @@ function ChooseEarthTotem()
 	return "Stoneskin Totem"
 end
 function ChooseWaterTotem()
-	if TankTarget("Lord Skwol") or TankTarget("High Priestess Mar'li") or TankTarget("Spawn of Mar'li") or TankTarget("High Priestess Mar'li") or TankTarget("Witherbark Speaker") or TankTarget("High Priest Venoxis") or TankTarget("Razzashi Cobra") or TankTarget("Razzashi Serpent") or TankTarget("Razzashi Adder") then return "Poison Cleansing Totem" end
-	if TankTarget("Firesworn") or TankTarget("Garr") or TankTarget("Flame") or TankTarget("Drak") or TankTarget("Chromatic") or TankTarget("Blackhand Incarcerator") or TankTarget("Dragon") or TankTarget("Majordomo Executus") or TankTarget("Ragnaros") or TankTarget("Baron Geddon") or TankTarget("Lava Elemental") or TankTarget("Gehennas") or TankTarget("Firewalker") or TankTarget("Magmadar") or TankTarget("Sulfuron Harbinger") or TankTarget("Firelord") or TankTarget("Lava Spawn") or TankTarget("Ancient Core Hound") then Print("Tank Targeting fire guy") return "Fire Resistance Totem" end
+	if IsPoisonBoss() then return "Poison Cleansing Totem" end
+	if IsFireBoss() then return "Fire Resistance Totem" end
 	return "Mana Spring Totem"
 end
 function party_totems()
@@ -4689,6 +4762,8 @@ end
 function single()
 	if MB_reportcpu then MB_cpustart=GetTime() end
 	if not MB_raidleader and (TableLength(MBID)>1) then Print("WARNING: You have not chosen a raid leader--hit alt-4") end
+	if MyHealthPct()<.2 then RunLine("/use Major Healing Potion") end
+	if MyHealthPct()<.2 then RunLine("/use Major Healthstone") end
 	if myclass=="Mage" then mage_single() return end
 	if myclass=="Paladin" then paladin_single() return end
 	if myclass=="Shaman" then shammy_single() return end
@@ -4702,6 +4777,8 @@ end
 function multi()
 	if MB_reportcpu then MB_cpustart=GetTime() end
 	if not MB_raidleader and (TableLength(MBID)>1) then Print("WARNING: You have not chosen a raid leader--hit alt-4") end
+	if MyHealthPct()<.2 then RunLine("/use Major Healing Potion") end
+	if MyHealthPct()<.2 then RunLine("/use Major Healthstone") end
 	if myclass=="Mage" then mage_multi() return end
 	if myclass=="Paladin" then paladin_multi() return end
 	if myclass=="Shaman" then shammy_multi() return end
@@ -4739,6 +4816,8 @@ function aoe()
 	if MB_reportcpu then MB_cpustart=GetTime() end
 	if not MB_raidleader and (TableLength(MBID)>1) then Print("WARNING: You have not chosen a raid leader--hit alt-4") end
 	if not IAmFocus() and IsAltKeyDown() and FindInTable(MB_tanklist,myname) then Follow() return end
+	if MyHealthPct()<.2 then RunLine("/use Major Healing Potion") end
+	if MyHealthPct()<.2 then RunLine("/use Major Healthstone") end
 	if Jindo() and (myclass~="Mage" and myclass~="Warlock") then return end
 	if myclass=="Mage" then mage_aoe() return end
 	if myclass=="Paladin" then paladin_aoe() return end
@@ -4804,10 +4883,6 @@ function lock_setup()
 			use("Major Soulstone")
 		end
 	end
-	--***This is working healthstone code that I don't use.Too many shards for how much I wipe
-	--if not HasMajorHealthstone() and NumShards()>0 then CastSpell(SpellNum("Create Healthstone (Major)"),BOOKTYPE_SPELL) end
-	--if not HasGreaterHealthstone() and NumShards()>0 then CastSpell(SpellNum("Create Healthstone (Greater)"),BOOKTYPE_SPELL) end
-	--if not HasHealthstone() and NumShards()>0 then cast("Create Healthstone") end
 end
 function TargetManaPct()
 	return UnitMana("target")/UnitManaMax("target")
@@ -4831,7 +4906,6 @@ function lock_single()
 	if not IAmFocus() then LockonTarget() end
 	if buffed("Hellfire","player") then RunLine("/cast Life Tap(Rank 1)") end
 	if ImBusy() then return ReportCPU("Lock Single busy") end
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if TargetInCombat() or IAmFocus() then
 		if not MB_My_ot_target then SickemTarget() end
 		if MyHealthPct()<.1 then cast("Drain Life") end
@@ -4901,7 +4975,6 @@ function lock_multi()
 	if buffed("Drain Life","player") then return ReportCPU("Lock multi drain life") end
 	if buffed("Drain Soul","player") then return ReportCPU("Lock multi drain soul") end
 	--You are dying. Use a pot
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	--If the alt-key is down, tank wants more aggro, stop dpsing
 	--You are not a tank. Do not shoot at anything unless it is already in combat. Or you are by yourself and have no focus.
 	if TargetInCombat() or IAmFocus() then
@@ -4953,7 +5026,6 @@ function lock_aoe()
 	if MB_My_ot_target then PetPassiveMode() end
 	if buffed("Hellfire","player") and MyHealthPct()<.1 then RunLine("/cast Life Tap(Rank 1)") end
 	if ImBusy() then return ReportCPU("Lock aoe busy") end
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if MB_My_ot_target then
 		--Select my off-tank target if I've lost it
 		OT()
@@ -5611,8 +5683,7 @@ function shammy_heal_single()
 		CombatUse(13)
 		CombatUse(14)
 	end
-	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
+	if MyManaPct()<.15 then RunLine("/use Major Mana Potion") end
 	if MyManaPct()<.5 and InCombat() then CastTotem("Mana Tide Totem") ; end
 	--if MyManaPct()<.5 then CastTotem("Mana Tide Totem") ; end
 	--SelfBuff("Lightning Shield")
@@ -5660,7 +5731,6 @@ function shammy_heal_multi()
 		CombatUse(14)
 	end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	--Stoneclaw()
 	if MyManaPct()<.5 and InCombat() then CastTotem("Mana Tide Totem") ; end
 	if not buffed("Mana Tide","player") then
@@ -5688,7 +5758,6 @@ function shammy_enh_single()
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	--if TankTarget("Lord Kazzak") and MyMana()<1000 then return end
 	if TargetInCombat() or IAmFocus() then
 		if not IsAltKeyDown() then
@@ -5710,7 +5779,6 @@ function shammy_enh_multi()
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	if ImBusy() then return ReportCPU("Shammy enh multi busy") end
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
@@ -5732,7 +5800,6 @@ function shammy_enh_multi()
 end
 function shammy_enh_aoe()
 	if ImBusy() then return ReportCPU("Shammy enh aoe busy") end
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	--Stoneclaw()
 	if not IAmFocus() then LockonTarget() end
@@ -5767,7 +5834,6 @@ function shammy_ele_single()
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	if ImBusy() then return ReportCPU("Shammy ele single busy") end
 	if HealSelf(.3) then return ReportCPU("Shammy ele single healself") end
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	if TankTarget("The Prophet Skerem") then AOEHeal() return end
 	Decurse()
@@ -5804,7 +5870,6 @@ end
 function shammy_ele_multi()
 	if ImBusy() then return ReportCPU("Shammy ele multi busy") end
 	if HealSelf(.3) then return ReportCPU("Shammy ele multi healself") end
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	if TankTarget("The Prophet Skerem") then AOEHeal() return end
 	Decurse()
@@ -5836,7 +5901,6 @@ end
 function shammy_ele_aoe()
 	if ImBusy() then return ReportCPU("Shammy ele aoe busy") end
 	if HealSelf(.3) then return ReportCPU("Shammy ele aoe healself") end
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	--Stoneclaw()
 	Decurse()
@@ -5863,7 +5927,6 @@ function shammy_ele_aoe()
 end
 function shammy_heal_aoe()
 	--if ImBusy() then return ReportCPU("Shammy heal aoe busy") end
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	--Stoneclaw()
 	--SelfBuff("Lightning Shield")
@@ -6199,7 +6262,6 @@ function dru_heal_single()
 		CombatUse(13)
 		CombatUse(14)
 	end
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	--if UnitHealth("player")/UnitHealthMax("player")<.6 then cast ("Barkskin") end
 	--TargetUnit("player")
 	--if (RaidHealth()<.6 ) and InCombat() and not OnCooldown("Tranquility") then
@@ -6220,7 +6282,6 @@ function dru_heal_multi()
 	RaidHeal()
 	--if ImBusy() then return ReportCPU("Dru heal multi busy") end
 	InnervateAHealer()
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if UnitHealth("player")/UnitHealthMax("player")<.6 then cast ("Barkskin") end
 	if buffed("Last Stand","target") or buffed("Shield Wall","target") or buffed("Frenzied Regeneration","target") then
 		CombatUse(13)
@@ -6294,7 +6355,6 @@ function dru_tank_single()
 	ReportCPU("Dru tank single")
 end
 function dru_cat_single()
-	if not buffed("Frenzied Regeneration","player") and MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if MyHealthPct()<.2 and SpellExists("Dire Bear Form") and SpellExists("Frenzied Regeneration") then SelfBuff("Dire Bear Form") cast("Frenzied Regeneration") end
 	--if IAmFocus() then CloseDistance() end
 	if not buffed("Frenzied Regeneration","player") then SelfBuff("Cat Form") end
@@ -6751,7 +6811,6 @@ function mage_fire_single()
 	if ImBusy() then return ReportCPU("Mage fire single busy") end
 	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Ruby") end
 	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Citrine") end
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	CC()
 	Decurse()
@@ -6795,7 +6854,6 @@ function mage_fire_multi()
 	if ImBusy() then return ReportCPU("Mage fire multi busy") end
 	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Ruby") end
 	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Citrine") end
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	CC()
 	Decurse()
@@ -6839,7 +6897,6 @@ end
 function mage_fire_aoe()
 	if ImBusy() then return ReportCPU("Mage fire aoe busy") end
 	--if buffed("Threatening Gaze","player") then return end
-	if MyHealthPct()<.1 then RunLine("/use Major Healing Potion") end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
@@ -6877,7 +6934,6 @@ function mage_frost_single()
 	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Ruby") end
 	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Citrine") end
 	if MyManaPct()<.1 and InCombat() then RunLine("/use Major Mana Potion") end
-	if MyHealthPct()<.1 and InCombat() then RunLine("/use Major Healing Potion") end
 	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
 	CC()
 	Decurse()
@@ -6922,7 +6978,6 @@ function mage_frost_multi()
 	if MyManaPct()<.1 and InCombat() then RunLine("/use Mana Ruby") end
 	if MyManaPct()<.1 and InCombat() then RunLine("/use Mana Citrine") end
 	if MyManaPct()<.1 and InCombat() then RunLine("/use Major Mana Potion") end
-	if MyHealthPct()<.1 and InCombat() then RunLine("/use Major Healing Potion") end
 	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
 	CC()
 	Decurse()
@@ -7929,6 +7984,10 @@ function RaidHeal()
 			MB_maxheal={Druid=4,Priest=2,Shaman=5,Paladin=2}
 		end
 	end
+	--physician heal thyself
+	local h_max=UnitHealthMax("player") ; h=UnitHealth("player")
+	local hdown=h_max-h ; hpct=h/h_max
+	if hpct<MB_healself_threshold then RunLine("/yell Saving myself! At "..round((hpct*100),0)) NS("player") Shield("player") QuickHeal("player") return end
 	--for parties just quickheal
 	if GetNumRaidMembers()<6 then QuickHeal() return end
 	if not buffed("Sprit of Redemption","player") and (UnitIsDead("player") or UnitIsGhost("player")) then return end
@@ -7964,7 +8023,6 @@ function RaidHeal()
 	for name,id in MBID do
 		local h_max=UnitHealthMax(id) ; h=UnitHealth(id)
 		local hdown=h_max-h ; hpct=h/h_max
-		if name==UnitName("player") and hpct<MB_healself_threshold then NS("player") Shield("player") QuickHeal("player") return end
 		-- Make a healer list.
 		-- If the healer is a dedicated healer, leave him out.
 		-- If the healer has less than 500 mana leave him out. He can just do emergency healing
@@ -8026,6 +8084,7 @@ function RaidHeal()
 	if num_hurt==0 then return end
 	local healer_idx=1 ; num_healers=TableLength(MB_healer_mana)
 	local num_damaged=TableLength(MB_hurt_list)
+	second_pass=nil
 	for name,mana in spairs(MB_healer_mana, function(t,a,b) return t[b] < t[a] end) do
 	--Print("Checking healer "..healer_idx.." . "..name.." "..mana)
 	--Print("On hurt list --hurt_idx")
@@ -8040,11 +8099,11 @@ function RaidHeal()
 			QuickHeal(id)
 			return
 		end
-		--circle around to the top of the hurt list when every hurt has a heal.
-		if healer_idx==num_healers then healer_idx=1 else healer_idx=healer_idx+1 end
-		--if not second_pass and hurt_idx==num_hurt then hurt_idx=1 second_pass=true else hurt_idx=hurt_idx+1 end
-		if hurt_idx==num_hurt then hurt_idx=1 else hurt_idx=hurt_idx+1 end
-		--if hurt_idx==num_hurt then break end
+		--circle around to the top of the hurt list ONCE when every hurt has a heal.
+		--if healer_idx==num_healers then healer_idx=1 else healer_idx=healer_idx+1 end
+		if not second_pass and hurt_idx==num_hurt then hurt_idx=1 second_pass=true else hurt_idx=hurt_idx+1 end
+		--if hurt_idx==num_hurt then hurt_idx=1 else hurt_idx=hurt_idx+1 end
+		if hurt_idx==num_hurt then break end
 	end
 end
 function ReportCPU(mystring)
@@ -8099,7 +8158,11 @@ function SummonOutOfRange()
 						end
 					else
 						local manaleft=UnitMana(id)
-						if not buffed("Drink",id) and (UnitClass(id)=="Warlock" and UnitMana(id)>300 and FsR_TrackedMaterial["Soul Shard"] and FsR_TrackedMaterial["Soul Shard"][name] and FsR_TrackedMaterial["Soul Shard"][name]> 0 ) or name==myname then table.insert(summonerlist,name) end
+						if not FsR_TrackedMaterial["Soul Shard"] or not FsR_TrackedMaterial["Soul Shard"][name]  then
+ 							FsR_RequestMaterialUpdate()
+ 							return
+						end
+						if not buffed("Drink",id) and (UnitClass(id)=="Warlock" and UnitMana(id)>300 and FsR_TrackedMaterial["Soul Shard"][name]> 0 ) or name==myname then table.insert(summonerlist,name) end
 					end
 				end
 			end
@@ -8478,7 +8541,7 @@ function FsR_UpdateTradeList()
 				end
 				--How much do i have
 				myAmmount = FsR_TrackedMaterial[item][UnitName("player")]
-				if myAmmount == nil then FsR_RequestMaterialUpdate() return end -- List not ready yet
+				if not myAmmount then FsR_RequestMaterialUpdate() return end -- List not ready yet
 				if FsR_Stuff2Track[itemNameINStuff2Track] and FsR_Stuff2Track[itemNameINStuff2Track].class and FsR_Stuff2Track[itemNameINStuff2Track].class[playerClass] and FsR_Stuff2Track[itemNameINStuff2Track].class[playerClass].AnnounceValue and myAmmount <= FsR_Stuff2Track[itemNameINStuff2Track].class[playerClass].AnnounceValue then
 					if not FsR_ItemTrade.PostedMissingItems then
 						Print("Running low on "..itemNameINStuff2Track.." "..myAmmount.."/"..FsR_Stuff2Track[itemNameINStuff2Track].class[playerClass].AnnounceValue)
@@ -8581,7 +8644,9 @@ function FsR_UpdateTradeList()
 											if FsR_Stuff2Track[itemNameINStuff2Track].class[UnitClass(MBID[player])].Ratio then
 												HisShare = FsR_Stuff2Track[itemNameINStuff2Track].class[UnitClass(MBID[player])].Ratio
 											else
-												HisShare = 1
+												if not FsR_Stuff2Track[itemNameINStuff2Track].class[UnitClass(MBID[player])].TradeIfLessThan or FsR_Stuff2Track[itemNameINStuff2Track].class[UnitClass(MBID[player])].TradeIfLessThan <= amount then
+													HisShare = 1
+												end
 											end
 										end
 									elseif FsR_Stuff2Track[itemNameINStuff2Track].collector then
@@ -8616,7 +8681,6 @@ function FsR_UpdateTradeList()
 		FsR_ItemTrade.PostedMissingItems = true
 	end
 end
-
 function FsR_ReStackStuff()
 	for i1 = 0,4 do
 		for j1=1, GetContainerNumSlots(i1) do
@@ -8795,6 +8859,7 @@ FsR_ItemEnchant.EnchantTextToEnchant = {
 		["2588"] = {Name = "Prescence of Sight", Spell = "24164"}, --Mage
 		["2587"] = {Name = "Vodouisant's Vigilant Embrace", Spell = "24163"}, -- Shaman
 		["2590"] = {Name = "Prophetic Aura", Spell = "24167"}, -- Priest
+		["2584"] = {Name = "Syncretist's Sigil", Spell = "24160"}, -- Pally
 		["2585"] = {Name = "Death's Embrace", Spell = "24161"}, --Rogue
 		["2591"] = {Name = "Animist's Caress", Spell = "24168"}, -- Druide
 
@@ -8856,14 +8921,17 @@ FsR_ItemEnchant.EnchantTextToEnchant = {
 FsR_ItemEnchant.EnchantList = {
 	["Mage_DPS"] = {[1] = "2588", [3] = "2605", [7] = "2588", [5] = "1891", [8] = "929", [9] = "1883", [10] = "2244", [15] = "2621", [16] = "2332", [17] = "0", [18] = "0"},
 	["Priest_Heal"] = {[1] = "2590", [3] = "2604", [7] = "2590", [5] = "1891", [8] = "851", [9] = "2566", [10] = "2617", [15] = "2619", [16] = "2505", [17] = "0", [18] = "0"},
+	["Paladin_Heal"] = {[1] = "2584", [3] = "2604", [7] = "2590", [5] = "1891", [8] = "851", [9] = "2566", [10] = "2617", [15] = "2619", [16] = "2505", [17] = "0", [18] = "0"},
 	["Priest_DPS"] = {[1] = "2544", [3] = "2605", [7] = "2544", [5] = "1891", [8] = "851", [9] = "1883", [10] = "2614", [15] = "2621", [16] = "2332", [17] = "0", [18] = "0"},
 	["Warlock_DPS"] = {[1] = "2589", [3] = "2605", [7] = "2589", [5] = "1891", [8] = "929", [9] = "1883", [10] = "2614", [15] = "2621", [16] = "2505", [17] = "0", [18] = "0"},
 	["Shaman_Heal"]= {[1] = "2587", [3] = "2604", [7] = "2587", [5] = "1891", [8] = "929", [9] = "2566", [10] = "2617", [15] = "2621", [16] = "2505", [17] = "929", [18] = "0"},
 	["Shaman_DPS"]= {[1] = "2587", [3] = "2605", [7] = "2587", [5] = "1891", [8] = "929", [9] = "1883", [10] = "0", [15] = "2621", [16] = "2332", [17] = "929", [18] = "0"},
 	["Warrior_Tank"] = {[1] = "2583", [3] = "2716", [7] = "2583", [5] = "1891", [8] = "1887", [9] = "929", [10] = "2564", [15] = "2622", [16] = "1900", [17] = "863", [18] = "2523"},
+	["Paladin_Tank"] = {[1] = "2584", [3] = "2716", [7] = "2583", [5] = "1891", [8] = "1887", [9] = "929", [10] = "2564", [15] = "2622", [16] = "1900", [17] = "863", [18] = "2523"},
 	["Rogue_DPS"] = {[1] = "2585", [3] = "2606", [7] = "2585", [5] = "1891", [8] = "1887", [9] = "1885", [10] = "2564", [15] = "849", [16] = "1900", [17] = "2564", [18] = "2523"},
 	["Hunter_DPS"]= {[1] = "2586", [3] = "2606", [7] = "2586", [5] = "1891", [8] = "1887", [9] = "929", [10] = "2564", [15] = "849", [16] = "2646", [17] = "2564", [18] = "2523"},
 	["Warrior_DPS"] = {[1] = "2543", [3] = "2606", [7] = "2543", [5] = "1891", [8] = "1887", [9] = "1885", [10] = "2564", [15] = "2621", [16] = "1900", [17] = "1900", [18] = "2523"},
+	["Paladin_DPS"] = {[1] = "2584", [3] = "2606", [7] = "2543", [5] = "1891", [8] = "1887", [9] = "1885", [10] = "2564", [15] = "2621", [16] = "1900", [17] = "1900", [18] = "2523"},
 	["Druid_Tank"]= {[1] = "2545", [3] = "2716", [7] = "2545", [5] = "1891", [8] = "929", [9] = "929", [10] = "2564", [15] = "2622", [16] = "2646", [17] = "0", [18] = "0"},
 	["Druid_DPS"]= {[1] = "0", [3] = "0", [7] = "0", [5] = "0", [8] = "0", [9] = "0", [10] = "0", [15] = "0", [16] = "0", [17] = "0", [18] = "0"},
 	["Druid_Heal"]= {[1] = "2591", [3] = "2604", [7] = "2591", [5] = "1891", [8] = "929", [9] = "2566", [10] = "2617", [15] = "2621", [16] = "2505", [17] = "929", [18] = "0"},
@@ -9055,6 +9123,7 @@ function FsR_ItemEnchant:CheckItemsForMissingEnchants()
 			if (slotId == 16) and (playerEnchantList[16] == "2646") and not IsTwoHandEq("raid"..playerId) then
 				playerEnchantList[16] = "2564"
 			end
+			Printt(playerEnchantList)
 			for _,slotId in pairs({1,3,5,7,8,9,10, 15,16,17,18}) do
 				local ItemLink = GetInventoryItemLink("raid"..playerId,slotId)
 				if ItemLink then

@@ -15,7 +15,7 @@ set healhellfireat ""
 set healtankat ""
 set healchumpat ""
 set healselfat ""
-set maxheal "5 2 6 2"
+set maxheal "8 4 8 4"
 set raidname "myraid1"
 set gazefollow ""
 set dedicated_healers ""
@@ -202,9 +202,6 @@ while { [gets $tL line] >= 0 } {
  		  	if { [llength [lindex $line 1]] >41 } { puts "ERROR: second arg must 40 or less names $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set index [expr [array size raidorder40] + 1]
 				set raidorder40($index) [lrange $line 1 end]
-    } else {
-      puts "ERROR: Unknown synatax in toonlist.txt: $line"
-      puts "hit any key to return" ; gets stdin char ; return
     }
   }
 }

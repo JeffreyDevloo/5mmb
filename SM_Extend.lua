@@ -1,4 +1,4 @@
--- Version 102018a
+-- Version 102118a
 Printd("SM_extend.lua loaded OK!")
 --IF YOU ARE COMBINING RAIDS WITH SOMEONE ELSE, MAKE SURE YOU CHOOSE A UNIQUE RAID NAME IN THIS VARIABLE
 MB_RAID = "MULTIBOX_toddsraid"
@@ -56,7 +56,7 @@ MB_debuffslotlist={"Viper Sting","Detect Magic","Curse of Shadow","Curse of the 
 FsR_Stuff2Track={
 	["Gold"] = {itemkind = "special", collector = {"Eversmile"}},
 	["EmptyBagSlots"] = {itemkind = "special"},
- 	["Soul Shard"] = {itemkind = "item"},
+ 	["Soul Shard"] = {itemkind = "special"},
 	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5}}},
  	["Symbol of Kings"] = {itemkind = "item" , class = {Paladin = {AnnounceValue = 5}}},
  	["Wild Thornroot"] = {itemkind = "item" , class = {Druid = {AnnounceValue = 5}}},
@@ -929,6 +929,7 @@ local pa15manraid1 = {
 	end
 end
 MB_TheList={
+
 }
 function AutoDelete()
 	if not MB_autodelete then return end
@@ -8121,10 +8122,10 @@ function RaidHeal()
 			return
 		end
 		--circle around to the top of the hurt list ONCE when every hurt has a heal.
-		--if healer_idx==num_healers then healer_idx=1 else healer_idx=healer_idx+1 end
-		if not second_pass and hurt_idx==num_hurt then hurt_idx=1 second_pass=true else hurt_idx=hurt_idx+1 end
-		--if hurt_idx==num_hurt then hurt_idx=1 else hurt_idx=hurt_idx+1 end
-		if hurt_idx==num_hurt then break end
+		if healer_idx==num_healers then healer_idx=1 else healer_idx=healer_idx+1 end
+		--if not second_pass and hurt_idx==num_hurt then hurt_idx=1 second_pass=true else hurt_idx=hurt_idx+1 end
+		if hurt_idx==num_hurt then hurt_idx=1 else hurt_idx=hurt_idx+1 end
+		--if hurt_idx==num_hurt then break end
 	end
 end
 function ReportCPU(mystring)
@@ -8519,6 +8520,10 @@ function FsR_AnnounceMaterials(fullUpdate)
 				if fullUpdate or not (FsR_TrackedMaterial[item.."_gold"] and FsR_TrackedMaterial[item.."_gold"][UnitName("player")] and  FsR_TrackedMaterial[item.."_gold"][UnitName("player")] == GetMoney()) then
 				SendAddonMessage(MB_RAID.."_Materials", item .. "_gold;" .. GetMoney(), "RAID")
 				end
+				elseif (item == "Soul Shard") then
+					if fullUpdate or not (FsR_TrackedMaterial[item] and FsR_TrackedMaterial[item][UnitName("player")] and  FsR_TrackedMaterial[item][UnitName("player")] == NumShards()) then
+						SendAddonMessage(MB_RAID.."_Materials", item .. ";" .. NumShards(), "RAID")
+					aend
 			elseif (item == "EmptyBagSlots") then
 				if fullUpdate or not (FsR_TrackedMaterial[item.. "_slots"] and FsR_TrackedMaterial[item .. "_slots"][UnitName("player")] and  FsR_TrackedMaterial[item .. "_slots"][UnitName("player")] == FsR_GetAllContainerFreeSlots()) then
 				SendAddonMessage(MB_RAID.."_Materials", item .. "_slots;" .. FsR_GetAllContainerFreeSlots(), "RAID")

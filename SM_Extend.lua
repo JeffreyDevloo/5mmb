@@ -1,7 +1,7 @@
--- Version 101818a
+-- Version 102018a
 Printd("SM_extend.lua loaded OK!")
 --IF YOU ARE COMBINING RAIDS WITH SOMEONE ELSE, MAKE SURE YOU CHOOSE A UNIQUE RAID NAME IN THIS VARIABLE
-MB_RAID = "MULTIBOX_MyRaid"
+MB_RAID = "MULTIBOX_toddsraid"
 --------------------------------------------User edited values--------------------------------------
 --Warlocks will soulstone rezzers during setup
 MB_soulstone_rezzers=true
@@ -27,11 +27,11 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={"Zulderone","Zulderfour","Zuldertwo","Zulderthree","Zuldertwnone"}
+MB_tanklist={"Cuppycake","Eversmile","Enticer","Komal","Furyswipes"}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list={"Zulder","Zulderfive","Zuldertwnine","Zuldertryone","Zuldertrytwo","Zulderninetn","Zuldertwnate","Zuldertryfor","Zulderthirty","Zuldereleven","Zuldertwelve","Zulderthirtn","Zuldertryate","Zuldertwenty"}
+MB_healer_list={"Shamanquatro","Punchingbear","Shamancinco","Orinoco","Shamansiete","Shamanocho","Cashme","Refill","Bubbling","Avindra","Zumwalt"}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist={"Zulder","Zulderseven","Zulderone","Zuldertryfiv","Zulderfour","Zuldertrysvn","Zuldertwo","Zuldertrynin","Zulderfive","Zuldereight","Zuldertwnine","Zuldernine","Zuldertryone","Zulderten","Zuldertrytwo","Zulderninetn","Zuldertwnate","Zuldertryfor","Zuldertwnsvn","Zuldertwntre","Zulderthirty","Zuldertwnfor","Zuldereleven","Zuldertwnfiv","Zuldertwelve","Zuldertwnsix","Zulderthirtn","Zuldereightn","Zuldertryate","Zuldertrysix","Zulderfourtn","Zulderfiftn","Zuldertwntwo","Zuldersixtn","Zuldersix","Zuldersevent","Zulderthree","Zuldertrytre","Zuldertwnone","Zuldertwenty"}
+MB_toonlist={"Shamantres","Brutalic","Toshredsusay","Cuppycake","Stabsya","Kimboslicer","Eversmile","Brutalium","Enticer","Brutaliar","Shamanuno","Brutalio","Shamanquatro","Punchingbear","Shamancinco","Orinoco","Shamansiete","Flameshocked","Shamanocho","Calypsa","Cashme","Zillazee","Refill","Merazza","Bubbling","Jenjja","Avindra","Silza","Zumwalt","Olympic","Icefloes","Everglades","Brutalia","Yellowstone","Monterey","Badlands","Shamanseis","Crookshanks","Komal","Furyswipes"}
 --This is the powerleveler your lowbies will follow when powerleveling
 MB_powerleveler="Titanator"
 --This is your set of lowbie leveling parties. You can run 4 at a time. The first toon name on the left of = is the squad leader.
@@ -44,7 +44,7 @@ MB_levelingparties= {
 --This is who people will run to when they have the bomb on Baron.
 MB_bombfollow="Enticer"
 --This is who people will run to when they have threatening gaze on Mandokir (raptor boss)
-MB_gazefollow="Zuldereightn"
+MB_gazefollow="Toshredsusay"
 --LEAVE DEDICATED HEALERS BLANK. THIS IS AN ADVANCED FEATURE THAT PROBABLY DOESN'T DO WHAT YOU THINK.
 --MB_dedicated_healers={}
 MB_dedicated_healers={Cuppycake="Avindra",Enticer="Zumwalt",Komal="Cashme",Furyswipes="Refill"}
@@ -54,7 +54,7 @@ FsR_AutoRepairAllItems = true
 ---------------------------------------------End of user edited values--------------------------------
 MB_debuffslotlist={"Viper Sting","Detect Magic","Curse of Shadow","Curse of the Elements","Curse of Agony","Curse of Agony","Curse of Agony","Demoralizing Shout","Thunder Clap","Insect Swarm(Rank 1)","Vampiric Embrace","Hunter's Mark","Fairy Fire","Placeholder for Nightfall","Placeholder for Shadow Weaving","Placeholder for Mindflay","Placeholder for Winters Chill","Scorpid Sting","Placeholder for improved Shadowbolt","Polymorph","Shackle Undead","Banish","Hibernate","Fear","Scare Beast"}
 FsR_Stuff2Track={
-	["Gold"] = {itemkind = "special", collector = {"Zulderone"}},
+	["Gold"] = {itemkind = "special", collector = {"Eversmile"}},
 	["EmptyBagSlots"] = {itemkind = "special"},
  	["Soul Shard"] = {itemkind = "item"},
 	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5}}},
@@ -67,7 +67,7 @@ FsR_Stuff2Track={
 	["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {}, Priest = {}, Shaman = {}, Paladin = {}}},
 	["Major Healthstone"] = {itemkind = "item", class = {Druid = {TradeIfLessThan = 1},Rogue = {TradeIfLessThan = 1},Warrior = {TradeIfLessThan = 1},Hunter = {TradeIfLessThan = 1},Mage = {TradeIfLessThan = 1}, Priest = {TradeIfLessThan = 1}, Shaman = {TradeIfLessThan = 1}, Paladin = {TradeIfLessThan = 1}}},
 	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
-	["BOE"] = {itemkind = "itemGrp", collector = {"Zulder","Zulderthirtn"}},
+	["BOE"] = {itemkind = "itemGrp", collector = {"Crookshanks","Cashme"}},
 	["Fiery Core"] = {itemkind = "itemGrp", collector = {"Jenjja","Zumwalt"}},
 	["Large Brill"] = {itemkind = "itemGrp", collector = {"Shamanuno","Shamanseis"}},
 	["Dream Dust"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
@@ -88,11 +88,11 @@ FsR_Stuff2Track={
 	["Heart of Fire"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
 	[" Idol"] = {itemkind = "itemGrp", collector = {"Enticer"}},
 	["Essence of Fire"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	["Bijou"] = {itemkind = "itemGrp", collector = {"Cuppycake","Zuldereleven"}},
-	["Coin"] = {itemkind = "itemGrp", collector = {"Cuppycake","Zuldereleven"}},
+	["Bijou"] = {itemkind = "itemGrp", collector = {"Cuppycake","Zumwalt"}},
+	["Coin"] = {itemkind = "itemGrp", collector = {"Cuppycake","Zumwalt"}},
 	["Elemental Water"] = {itemkind = "itemGrp", collector = {"Avindra"}},
 	["Dark Iron"] = {itemkind = "itemGrp", collector = {"Cuppycake"}},
-	["Lockbox"] = {itemkind = "itemGrp", collector = {"Zuldereightn"}},
+	["Lockbox"] = {itemkind = "itemGrp", collector = {"Toshredsusay"}},
 	["Elemental Air"] = {itemkind = "itemGrp", collector = {"Avindra"}},
 	["Ichor of Undeath"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
 	["Essence of Undeath"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
@@ -108,8 +108,10 @@ FsR_Stuff2Track={
 FsR_TrackedMaterial = {}
 FsR_SummoningLastCast = GetTime()
 --*Fs
+raid_state=1
+party_size=1
 MB_spellsToInt={"Arcane Explosion","Greater Heal","Holy Fire","Drain Life"}
-MB_maxheal={Druid=11,Priest=11,Shaman=11,Paladin=11}
+MB_maxheal={Druid=8,Priest=4,Shaman=8,Paladin=4}
 MB_reportcpu=false
 MB_reportzerotime=false
 MB_reportbusy=false
@@ -591,6 +593,10 @@ end
 ---------------END OF ALL GLOBALS----------------------------------------------------------
 --THERE IS ADDITIONAL EDITING NEEDED FOR THE FOLLOWING FUNCTIONS:
 --Also see below: MB_maxheal to set the max ranks of heal spells you want to use.
+function partyup_experimental()
+				MB_raidleader=myname
+				if TableLength(MBID)==5 then ConvertToRaid(); end;
+end
 function partyup()
 	if MB_reportcpu then MB_cpustart=GetTime() end
 	if IsControlKeyDown() then GetMoneyFromLeader(25) return ReportCPU("Partyup getmoney") end
@@ -1296,6 +1302,7 @@ function focusme()
 	else
 		SendAddonMessage(MB_RAID,"focusme")
 	end
+	if not InCombat() and not MB_initial_update then FsR_RequestMaterialUpdate() MB_initial_update=true end
 end
 function set_min_settings()
 	ConsoleExec("anisotropic 1")
@@ -1367,6 +1374,8 @@ function FSMB:OnEvent()
 		if arg1==MB_RAID and arg2=="focusme" and arg4~=UnitName("player") then
 			--Printd(MB_RAID.." Focusing " .. arg4)
 			MB_raidleader=arg4
+		elseif arg1 == "INVITE_ME" then
+						if MB_raidleader==myname and myname~=arg4 and not MBID[arg4] then InviteByName(arg4) end
 		elseif arg1==MB_RAID.."_CC" then
 			local name,realm=UnitName("player")
 			local ccer=string.gsub(arg2," .*","")
@@ -3416,11 +3425,11 @@ function HasUnboundItem(item)
 			link=GetContainerItemLink(bag,slot)
 			--Print(link)
 			if item=="BOE" then
-				if IsUnboundBOE(bag,slot) then count=count+1 end
-				--if IsUnboundBOE(bag,slot) and not IsUnique(bag,slot) then count=count+1 end
+				--if IsUnboundBOE(bag,slot) then count=count+1 end
+				if IsUnboundBOE(bag,slot) and not IsUnique(bag,slot) then count=count+1 end
 			else
-				if string.find(link,item) and IsUnbound(bag,slot) then count=count+itemCount end
-			--	if string.find(link,item) and IsUnbound(bag,slot) and not IsUnique(bag,slot) then count=count+itemCount end
+				--if string.find(link,item) and IsUnbound(bag,slot) then count=count+itemCount end
+				if string.find(link,item) and IsUnbound(bag,slot) and not IsUnique(bag,slot) then count=count+itemCount end
 			end
 		end
 	end end
@@ -4745,7 +4754,7 @@ end
 	--THESE ARE THE FIRST 5 KEYS ON YOUR BAR 1,2,3,4,5
 function setup()
 	if MB_reportcpu then MB_cpustart=GetTime() end
-	if not IsAltKeyDown() and not IsControlKeyDown() and not InCombat() then MB_autotrade_for30sec=GetTime()+30 end
+	if IsAlive("player") and not IsAltKeyDown() and not IsControlKeyDown() and not InCombat() then MB_autotrade_for30sec=GetTime()+30 end
 	if not MB_raidleader and (TableLength(MBID)>1) then Print("WARNING: You have not chosen a raid leader--hit alt-4") end
 	if IsControlKeyDown() and IsAltKeyDown() then TradeGoldToLeaderAllBut(10) AcceptTrade() return end
 	if UnitLevel("player")==60 and IsControlKeyDown() then buystacks() end
@@ -4794,7 +4803,7 @@ function turbo()
 	if not MB_raidleader and (TableLength(MBID)>1) then Print("WARNING: You have not chosen a raid leader--hit alt-4") end
 	if IsControlKeyDown() then MountUp() return end
 	if not IAmFocus() then SetView(2) end
-	--if IsAltKeyDown() and not IAmFocus() then AcceptGroup() end
+	--if IsAltKeyDown() and not UnitInParty("player") and not UnitInRaid("player") then Print("Invite me!") SendAddonMessage("INVITE_ME",_,"GUILD") end
 	if IsAltKeyDown() and not IAmFocus() then follow_assist() return end
 	if IsAltKeyDown() then return end
 	if InCombat() then
@@ -4888,8 +4897,20 @@ function TargetManaPct()
 	return UnitMana("target")/UnitManaMax("target")
 end
 function lock_single()
-	if UnitName("target")=="Moam" and TargetManaPct()>.4 and not MB_isChanneling then cast("Drain Mana") end
-	if UnitName("target")=="Obsidian Eradicator" and not MB_isChanneling then cast("Drain Mana") end
+	if UnitName("target")=="Moam" and TargetManaPct()>.4 then 
+		if not MB_isChanneling then 
+			cast("Drain Mana")
+		else
+			return
+		end
+	end
+	if UnitName("target")=="Obsidian Eradicator" then 
+		if not MB_isChanneling then 
+			cast("Drain Mana")
+		else
+			return
+		end
+	end
 	if (MB_default_warlock_pet=="Voidwalker" or MB_default_warlock_pet=="Succubus") then PetDefensiveMode() else PetPassiveMode() end
 	if MB_My_ot_target then PetPassiveMode() end
 	if not IsAlive("player") then return ReportCPU("Lock Single dead") end
@@ -4939,12 +4960,8 @@ function lock_single()
 				end
 			end
 		end
-		if Jindo() then
-			cast("Searing Pain")
-		else
-			CooldownCast("Corruption",17)
-			cast("Shadow Bolt")
-		end
+		if not Jindo() then CooldownCast("Corruption",17) end
+		cast("Shadow Bolt")
 	end
 	if MyManaPct()<.1 and MyHealthPct()>.4 then cast("Life Tap") end
 	ReportCPU("Lock Single")
@@ -5007,12 +5024,8 @@ function lock_multi()
 				end
 			end
 		end
-		if Jindo() then
-			cast("Searing Pain")
-		else
-			CooldownCast("Corruption",17)
-			cast("Shadow Bolt")
-		end
+		if not Jindo() then CooldownCast("Corruption",17) end
+		cast("Shadow Bolt")
 		--You are out of mana but not life. Why not life tap and get some mana?
 		if MyManaPct()<.1 and MyHealthPct()>.4 then cast("Life Tap") end
 	end
@@ -6834,7 +6847,8 @@ function mage_fire_single()
 			if FireResistant() then
 				cast("Frostbolt")
 			end
-			if Jindo() then
+			if Jindo() and UnitName("target")~="Jin'do the Hexxer" then
+				cast("Fire Blast")
 				cast("Scorch")
 			else
 				if UnitLevel("player")<60 then
@@ -6871,7 +6885,8 @@ function mage_fire_multi()
 			if FireResistant() then
 				cast("Frostbolt")
 			end
-			if Jindo() then
+			if Jindo() and UnitName("target")~="Jin'do the Hexxer" then
+				cast("Fire Blast")
 				cast("Scorch")
 			else
 				if UnitLevel("player")<60 then
@@ -6949,7 +6964,10 @@ function mage_frost_single()
 		if not IsAltKeyDown() and (TargetInCombat() or IAmFocus()) then
 			--if UnitName("target")=="Ayamiss the Hunter" and (TargetHealthPct()<.75 and TargetHealthPct()>.69) then return end
 			--if UnitName("target")=="Magmadar" then BuffCast("Detect Magic") end
-			if Jindo() then cast("Scorch") end
+			if Jindo() and UnitName("target")~="Jin'do the Hexxer" then
+				cast("Fire Blast")
+				cast("Scorch")
+			end
 			if (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel") and buffed("Shadow and Frost Reflect","target") then
 				cast("Fireball")
 			end
@@ -6987,7 +7005,10 @@ function mage_frost_multi()
 	if TargetInCombat() or IAmFocus() then
 		if IsAltKeyDown() then SpellStopCasting() end
 		if not IsAltKeyDown() and TargetInCombat() then
-			if Jindo() then cast("Scorch") end
+			if Jindo() and UnitName("target")~="Jin'do the Hexxer" then
+				cast("Fire Blast")
+				cast("Scorch")
+			end
 			if MB_clearcastAM and buffed("Clearcasting") and not MB_blastarcane and not MB_isChanneling then SpellStopCasting() MB_blastarcane=true end
 			cast("Frostbolt")
 			if MB_blastarcane then
@@ -7975,13 +7996,13 @@ function RaidHeal()
 	if not IsHealer() then return end
 	--if 1 then QuickHeal() return end
 	if Jindo() then
-		MB_maxheal={Druid=2,Priest=1,Shaman=2,Paladin=2}
+		MB_maxheal={Druid=2,Priest=2,Shaman=2,Paladin=2}
 	else
 		--MB_maxheal={Druid=11,Priest=11,Shaman=11,Paladin=11}
 		if ImDH() then 
 			MB_maxheal={Druid=11,Priest=11,Shaman=11,Paladin=11}
 		else
-			MB_maxheal={Druid=4,Priest=2,Shaman=5,Paladin=2}
+			MB_maxheal={Druid=8,Priest=4,Shaman=8,Paladin=4}
 		end
 	end
 	--physician heal thyself
@@ -8486,8 +8507,8 @@ function FsR_AnnounceMaterials(fullUpdate)
 	if (not UnitInRaid("player")) and (GetNumPartyMembers() == 0) then return end
 	for item, itemInfo in pairs(FsR_Stuff2Track) do
 		if (itemInfo.itemkind == "item") then
-			if fullUpdate or not (FsR_TrackedMaterial[item] and FsR_TrackedMaterial[item][UnitName("player")] and  FsR_TrackedMaterial[item][UnitName("player")] == HasExactItem(item)) then
-			SendAddonMessage(MB_RAID.."_Materials", item .. ";" .. HasExactItem(item), "RAID")
+			if fullUpdate or not (FsR_TrackedMaterial[item] and FsR_TrackedMaterial[item][UnitName("player")] and  FsR_TrackedMaterial[item][UnitName("player")] == HasUnboundItem(item)) then
+			SendAddonMessage(MB_RAID.."_Materials", item .. ";" .. HasUnboundItem(item), "RAID")
 			end
 		elseif (itemInfo.itemkind == "itemGrp") then
 			if fullUpdate or not(FsR_TrackedMaterial[item] and FsR_TrackedMaterial[item][UnitName("player")] and  FsR_TrackedMaterial[item][UnitName("player")] == HasUnboundItem(item)) then
@@ -9272,11 +9293,11 @@ function FsR_ItemEnchant:GetReagentsFromEnchantID(enchantIDSearch)
 						local HasReagents = true
 						for ReagentIdx = 1, numRequiredReagents do
 							name, _, numRequired, _ = GetCraftReagentInfo(CraftIdx, ReagentIdx);
-							if HasExactItem(name) < numRequired then
-								Print ("   " .. name .. " |cffff0000(" .. HasExactItem(name) .. "/" .. numRequired .. ")|cffffffff")
+							if HasUnboundItem(name) < numRequired then
+								Print ("   " .. name .. " |cffff0000(" .. HasUnboundItem(name) .. "/" .. numRequired .. ")|cffffffff")
 								HasReagents = false
 							else
-								Print ("   " .. name .. " |cff00ff00(" .. HasExactItem(name) .. "/" .. numRequired .. ")|cffffffff")
+								Print ("   " .. name .. " |cff00ff00(" .. HasUnboundItem(name) .. "/" .. numRequired .. ")|cffffffff")
 							end
 							
 				end
@@ -9303,7 +9324,7 @@ function FsR_ItemEnchant:CheckReagentCount(enchantIDSearch)
 						HasReagents = true
 						for ReagentIdx = 1, numRequiredReagents do
 							name, _, numRequired, _ = GetCraftReagentInfo(CraftIdx, ReagentIdx);
-							if HasExactItem(name) < numRequired then
+							if HasUnboundItem(name) < numRequired then
 								return false
 							end
 						end

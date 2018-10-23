@@ -1,3 +1,4 @@
+set version 102318a
 array unset toons
 array unset autodelete
 array unset raidorder10
@@ -659,7 +660,7 @@ if { ! $nohotkeyoverwrite } {
 	}
 	set meleelabels "${meleelabels}>"
 	puts $hK $meleelabels
-	puts $hK "  <Key Up>"
+	puts $hK "  <Key Down>"
 	puts $hK ""
 	puts $hK {//Melee forward}
 	puts $hK {<MovementHotkey ScrollLockOn F>}

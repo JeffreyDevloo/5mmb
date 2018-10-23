@@ -1,4 +1,4 @@
--- Version 102218b
+MB_version="102318c"
 Printd("SM_extend.lua loaded OK!")
 --IF YOU ARE COMBINING RAIDS WITH SOMEONE ELSE, MAKE SURE YOU CHOOSE A UNIQUE RAID NAME IN THIS VARIABLE
 MB_RAID = "MULTIBOX_toddsraid"
@@ -419,6 +419,10 @@ SLASH_RAIDSPAWN1 = '/spawn'
 		end
 	end
 end
+SLASH_VERSION1 = '/version'
+	SlashCmdList['VERSION'] = function(arg)
+	Print("5mmb version is "..MB_version)
+end
 
 IndicatorFrame = CreateFrame("Frame",nil,UIParent)
 IndicatorFrame.FlashTime = GetTime()
@@ -444,7 +448,25 @@ IndicatorFrame.PulseAlphaValue = 0
 	t4:SetPoint("RIGHT", 0, 0)
 	IndicatorFrame:SetPoint("CENTER",0,0)
 --IndicatorFrame:Hide()
-
+function IsQuestItem(b,s)
+	local questItem=nil
+	FSMBtooltip:SetOwner(UIParent, "ANCHOR_NONE");
+	FSMBtooltip:ClearLines()
+	FSMBtooltip:SetBagItem(b,s);
+	FSMBtooltip:Show()
+	local index = 1
+	local ltext = getglobal("FSMBtooltipTextLeft"..index):GetText()
+	while ltext ~= nil do
+		ltext = getglobal("FSMBtooltipTextLeft"..index):GetText()
+		if ltext ~= nil then
+			if string.find(ltext,"Quest Item") then
+				questItem=true
+			end
+		end
+		index=index+1
+	end
+	if not questItem then return true end
+end
 function FlashHandler()
 	--Special indicator active
 	if IndicatorFrame.FlashTime > GetTime() then
@@ -4587,23 +4609,21 @@ function smartdrink()
 	--Smartdrink will annoy a lot of people. The mage will just keep the trade window open until he summons more than one stack of water. Then he will trade.
 	local class=UnitClass("player")
 	if class=="Warrior" or class=="Rogue" then return end
-	if MB_autotrade then 
 		local class = UnitClass("player")
-   	if not ManaUser() then return end
-   	if buffed("Evocation","player") then return end
-   	if class == "Mage" and MageWater()<5 and MyManaPct()>.2 then cast("Conjure Water") return end
-   	_,mybest=MageWater()
-    if ManaUser() and ManaDown()>0 and mybest and not buffed("Drink","player") then use(mybest) return end
-    if ManaUser() and ManaDown()>0 and not buffed("Drink","player") then use("Morning Glory Dew") return end
-	else
-		if class~="Mage" and MB_tradeopen then
+		if not ManaUser() then return end
+		if buffed("Evocation","player") then return end
+		if class == "Mage" and MageWater()<5 and MyManaPct()>.2 then cast("Conjure Water") return end
+		_,mybest=MageWater()
+		if ManaUser() and ManaDown()>0 and mybest and not buffed("Drink","player") then use(mybest) return end
+		if ManaUser() and ManaDown()>0 and not buffed("Drink","player") then use("Morning Glory Dew") return end
+		if not MB_autotrade and class~="Mage" and MB_tradeopen then
 			if GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return end
 		end
-		if class=="Mage" and MB_tradeopen then
+		if not MB_autotrade and class=="Mage" and MB_tradeopen then
 			if MageWater()>20 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then Print("Accepting Trade") AcceptTrade() return end
 			if MageWater()<21 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then Print("Declining Trade--not enough of my own water left") CancelTrade() return end
 		end
-		if class~="Mage" and not MB_tradeopen then
+		if not MB_autotrade and class~="Mage" and not MB_tradeopen then
 			local mage=MageInGroup()
 			if mage then
 				if MageWater()<1 and ManaUser() then
@@ -4612,7 +4632,7 @@ function smartdrink()
 				end
 			end
 		end
-		if class=="Mage" and not MB_tradeopen then
+		if not MB_autotrade and class=="Mage" and not MB_tradeopen then
 			if MageWater()>20 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then AcceptTrade() end
 			if MageWater()>21 and PickupWater() then
 				Print("Trading Water")
@@ -4627,7 +4647,6 @@ function smartdrink()
 		if ManaUser() and ManaDown()>0 and mybest and not buffed("Drink","player") then use(mybest) end
 		if ManaUser() and ManaDown()>0 and not buffed("Drink","player") then use("Morning Glory Dew") end
 		if class=="Mage" and ManaDown()>0 and not mybest and not buffed("Drink","player") then cast("Conjure Water") end
-	end
 end
 function PartyHurt(hurt,num_party_hurt)
 	local mygroup=MB_GroupID[myname]

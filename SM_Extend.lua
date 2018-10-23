@@ -1,4 +1,4 @@
--- Version 102118a
+-- Version 102218b
 Printd("SM_extend.lua loaded OK!")
 --IF YOU ARE COMBINING RAIDS WITH SOMEONE ELSE, MAKE SURE YOU CHOOSE A UNIQUE RAID NAME IN THIS VARIABLE
 MB_RAID = "MULTIBOX_toddsraid"
@@ -929,188 +929,6 @@ local pa15manraid1 = {
 	end
 end
 MB_TheList={
-	["Scroll of Intellect"]=0,
-	["Shiny Red Apple"]=0,
-	["Jagged Axe"]=0,
-	["Dried King"]=0,
-	["Trophy Raptor Skull"]=0,
-	["Heavy Silith"]=0,
-	["Journeyman's"]=0,
-	["Boar Intestines"]=0,
-	["Melon "]=0,
-	["Minor Mana Potion"]=0,
-	["Runecloth"]=0,
-	["Burning Pitch"]=0,
-	["Superior Mana"]=0,
-	["Morning Glory Dew"]=1,
-	["Scroll of Agility"]=0,
-	["Basilisk Venom"]=0,
-	["Wolf Meat"]=0,
-	["Bronze Tube"]=0,
-	["Mutton Chop"]=0,
-	["Frayed Abomination Stitching"]=0,
-	["Pristine Raptor Skull"]=0,
-	["Brilliant Scale"]=0,
-	["Shadow Silk"]=0,
-	["Dalaran Sharp"]=0,
-	["Evil Bat Eye"]=0,
-	["Thick Leather Bracers"]=0,
-	["Crushing Maul"]=0,
-	["Primed Musket"]=0,
-	["Buzzard "]=0,
-	["Glowing Scorpid Blood"]=0,
-	["Wool Cloth"]=0,
-	["Refreshing Spring Water"]=0,
-	["Twilight Cultist Robe"]=6,
-	["Star Ruby"]=0,
-	["Clam Meat"]=0,
-	["Gnoll Paw"]=0,
-	["Darkmoon Special"]=0,
-	["Boar Ribs"]=0,
-	["Twilight Cultist Mantle"]=6,
-	["Fiery Gland"]=0,
-	["Glowing Wax Stick"]=0,
-	["Deflecting Tower"]=0,
-	["Bulky Maul"]=0,
-	["Scroll of Spirit"]=0,
-	["Overlinked Chain Armor"]=0,
-	["Tapered Greatsword"]=0,
-	["Copper Ore"]=0,
-	["Short Cutlass"]=0,
-	["Shadowgem"]=0,
-	["Ancient Qiraji Artifact"]=0,
-	["Thick Leather "]=0,
-	["Tiny Fang"]=0,
-	["Scroll of Stamina"]=0,
-	["Forest Mushroom Cap"]=0,
-	["Large Slimy"]=0,
-	["Crochet Bracers"]=0,
-	["Haunch of Meat"]=0,
-	["Rock Chip"]=0,
-	["Forked Tongue"]=0,
-	["Alterac Swiss"]=0,
-	["Sharp Shortsword"]=0,
-	["Large Bat Fang"]=0,
-	["Thick Leather Shoulderpads"]=0,
-	["Shimmering Basil"]=0,
-	["Undamaged Hip"]=0,
-	["Linked "]=0,
-	["Tangy Clam"]=0,
-	["Crochet "]=0,
-	["Gelatinous Goo"]=0,
-	["Cracked Bill"]=0,
-	["Brocade "]=0,
-	["Plans: Thorium"]=0,
-	["Twilight Cultist Cowl"]=6,
-	["Fine Longsword"]=0,
-	["Stout War"]=0,
-	["Tin Ore"]=0,
-	["Coarse Blasting"]=0,
-	["Scroll of Protection"]=0,
-	["Laminate "]=0,
-	["Slimy Ichor"]=0,
-	["Decomposed "]=0,
-	["Thick Furry Mane"]=0,
-	["Blackrock Pauldrons"]=0,
-	["Rawhide "]=0,
-	["Small Egg"]=0,
-	["Breath of Wind"]=0,
-	["Laminated Scale Pants"]=0,
-	["Light Plate Belt"]=0,
-	["Feathery Wing"]=0,
-	["Vulture Talon"]=0,
-	["Stringy Vulture Meat"]=0,
-	["Smooth Stone Chip"]=0,
-	["Bruiseweed"]=0,
-	["Lesser Healing Potion"]=0,
-	["Chipped Boar Tusk"]=0,
-	["Linen Cloth"]=0,
-	["Powerful Mojo"]=1,
-	["Armored Chitin"]=0,
-	["Chunk of Boar Meat"]=0,
-	["Tigerseye"]=0,
-	["Spider Silk"]=0,
-	["Scroll of Strength"]=0,
-	["Superior Heal"]=0,
-	["Overlinked "]=0,
-	["Twill "]=0,
-	["Solid Stone"]=0,
-	["Tough Condor "]=0,
-	["Huge Venom Sac"]=0,
-	["Light Plate Boots"]=0,
-	["Goretusk Snout"]=0,
-	["Hard Spider"]=0,
-	["Basilisk Brain"]=0,
-	["Light Plate"]=0,
-	["Kobold Mining Shovel"]=0,
-	["Goretusk Liver"]=0,
-	["Laminated Scale "]=0,
-	["Crafted Light Shot"]=0,
-	["Spiked "]=0,
-	["Ice Cold Milk"]=0,
-	["Vibrant Plume"]=0,
-	["Splintering Battle Axe"]=0,
-	["Meat Cleaver"]=0,
-	["Twill Shoulderpads"]=0,
-	["Sandworm Meat"]=0,
-	["Brilliant Chromatic Scale"]=0,
-	["Aquamarine"]=0,
-	["Homemade Cherry"]=0,
-	["Protective Pavise"]=0,
-	["Ironweb Spider"]=0,
-	["Light Plate Helmet"]=0,
-	["Clout Mace"]=0,
-	["Elder Raptor Feathers"]=0,
-	["Heavy Stone"]=0,
-	["Minor Healing Potion"]=0,
-	["Rough Stone"]=0,
-	["Rough Vulture Feathers"]=0,
-	["Greater Mana"]=0,
-	["Light Feather"]=0,
-	["Pattern:"]=0,
-	["Gnoll Spittle"]=0,
-	["Extinguished Torch"]=0,
-	["Large Candle"]=0,
-	["Lifeless Skull"]=0,
-	["Heavy Flint Ax"]=0,
-	["Wooden Maul"]=0,
-	["Taut Compound"]=0,
-	["Shiny Polished Stone"]=0,
-	["Mystery Meat"]=0,
-	["Thick Spider's"]=0,
-	["Smooth Pebble"]=0,
-	["Broken Arrow"]=0,
-	["Severed Talon"]=0,
-	["Nightcrawlers"]=0,
-	["Thick Leather Hat"]=0,
-	["Overlinked Chain"]=0,
-	["Deeprock Stone"]=0,
-	["Gold Dust"]=0,
-	["Scarlet Cannonball"]=0,
-	["Smooth Leather "]=0,
-	["Ironfeather"]=0,
-	["Fine Pointed Dagger"]=0,
-	["Blood Scythe"]=0,
-	["Lifeless Stone"]=0,
-	["Smooth Leather Bracers"]=0,
-	["Ripped Wing"]=0,
-	["Imperfect Draen"]=0,
-	["Khadgar's Whisker"]=0,
-	["Sentinel Musket"]=0,
-	["Heavy War Staff"]=0,
-	["Patch of fine fur"]=0,
-	["Dripping Spider"]=0,
-	["Patch of Fine Fur"]=0,
-	["Dripping Spider "]=0,
-	["Darnassian Bleu"]=0,
-	["Broken Boar Tusk"]=0,
-	["Moss Agate"]=0,
-	["Ivory Boar"]=0,
-	["Large Scorpid Claw"]=0,
-	["Wicked Claw"]=0,
-	["Coarse Stone"]=0,
-	["Sabertooth Fang"]=0,
-	["Coal"]=0
 }
 function AutoDelete()
 	if not MB_autodelete then return end
@@ -5520,6 +5338,8 @@ function warrior_tank_aoe()
 	ReportCPU("Warrior tank aoe")
 end
 function fury_single()
+    	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
+    	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.2 and UnitHealth("target")>1000 then cast("Execute") end
 	--if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.25 and UnitHealth("target")>1000 then cast("Recklessness") end
 	if IsControlKeyDown() then WarriorInterrupt() ; end
@@ -5560,6 +5380,12 @@ function fury_multi()
 	ReportCPU("Warrior fury multi")
 end
 function arms_single()
+    	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
+    	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
+	if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.2 and UnitHealth("target")>1000 then cast("Execute") end
+	--if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.25 and UnitHealth("target")>1000 then cast("Recklessness") end
+	if IsControlKeyDown() then WarriorInterrupt() ; end
+	if not IAmFocus() then LockonTarget() end
 	if IAmFocus() or (TargetInCombat() and not IsAltKeyDown()) then
 		LockonTarget()
 		if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.2 then cast("Execute") ; cast("Bloodrage") ; end
@@ -5586,6 +5412,12 @@ function arms_single()
 	ReportCPU("Warrior arms single")
 end
 function arms_multi()
+    	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
+    	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
+	if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.2 and UnitHealth("target")>1000 then cast("Execute") end
+	--if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.25 and UnitHealth("target")>1000 then cast("Recklessness") end
+	if IsControlKeyDown() then WarriorInterrupt() ; end
+	if not IAmFocus() then LockonTarget() end
 	if IAmFocus() or (TargetInCombat() and not IsAltKeyDown()) then
 		LockonTarget()
 		if IsControlKeyDown() then cast("Challenging Shout") ; end
@@ -5649,6 +5481,8 @@ function PallySurvive()
 	if health<200 then TargetUnit("player") cast ("Lay on Hands") TargetUnit("playertarget") end
 end
 function pally_heal_single()
+    	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
+    	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	if IsControlKeyDown() then PallyInterrupt() ; end
 	PallySurvive()
 	--if ImBusy() then return ReportCPU("Pally Heal Single busy") end
@@ -6855,6 +6689,8 @@ function priest_heal_aoe()
 	ReportCPU("Priest heal aoe")
 end
 function priest_shadow_single()
+	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
+    	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	if ImBusy() then return ReportCPU("Priest shadow single busy") end
 	Fade()
 	if TankTarget("The Prophet Skeram") then AOEHeal() end

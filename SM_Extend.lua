@@ -1,4 +1,4 @@
-MB_version="102318c"
+MB_version="102518a"
 Printd("SM_extend.lua loaded OK!")
 --IF YOU ARE COMBINING RAIDS WITH SOMEONE ELSE, MAKE SURE YOU CHOOSE A UNIQUE RAID NAME IN THIS VARIABLE
 MB_RAID = "MULTIBOX_toddsraid"
@@ -27,7 +27,7 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={"Cuppycake","Eversmile","Enticer","Komal","Furyswipes"}
+MB_tanklist={"Eversmile","Enticer","Komal","Furyswipes"}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
 MB_healer_list={"Shamanquatro","Punchingbear","Shamancinco","Orinoco","Shamansiete","Shamanocho","Cashme","Refill","Bubbling","Avindra","Zumwalt"}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
@@ -56,17 +56,17 @@ MB_debuffslotlist={"Viper Sting","Detect Magic","Curse of Shadow","Curse of the 
 FsR_Stuff2Track={
 	["Gold"] = {itemkind = "special", collector = {"Eversmile"}},
 	["EmptyBagSlots"] = {itemkind = "special"},
- 	["Soul Shard"] = {itemkind = "item"},
-	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5}}},
- 	["Symbol of Kings"] = {itemkind = "item" , class = {Paladin = {AnnounceValue = 5}}},
+ 	["Soul Shard"] = {itemkind = "special"},
+	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5, TradeIfLessThan = 6}}},
+ 	["Symbol of Kings"] = {itemkind = "item" , class = {Paladin = {AnnounceValue = 5, TradeIfLessThan = 6}}},
  	["Wild Thornroot"] = {itemkind = "item" , class = {Druid = {AnnounceValue = 5}}},
-	["Instant Poison VI"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
- 	["Wound Poison IV"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
- 	["Mind Numbing Poison"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
+	["Instant Poison VI"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5, TradeIfLessThan = 6}}},
+ 	["Wound Poison IV"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5, TradeIfLessThan = 6}}},
+ 	["Mind Numbing Poison"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5, TradeIfLessThan = 6}}},
  	["Major Healing Potion"] = {itemkind = "item", class = {Druid = {},Rogue = {},Warrior = {},Hunter = {},Warlock = {},Mage = {}, Priest = {}, Shaman = {}, Paladin = {}}},
 	["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {}, Priest = {}, Shaman = {}, Paladin = {}}},
 	["Major Healthstone"] = {itemkind = "item", class = {Druid = {TradeIfLessThan = 1},Rogue = {TradeIfLessThan = 1},Warrior = {TradeIfLessThan = 1},Hunter = {TradeIfLessThan = 1},Mage = {TradeIfLessThan = 1}, Priest = {TradeIfLessThan = 1}, Shaman = {TradeIfLessThan = 1}, Paladin = {TradeIfLessThan = 1}}},
-	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
+	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={Ratio=2, TradeIfLessThan = 5},Hunter = {Ratio=1, TradeIfLessThan = 5}, Warlock = {Ratio=1, TradeIfLessThan = 5},Druid = {Ratio=1, TradeIfLessThan = 5}, Priest = {Ratio=1, TradeIfLessThan = 5}, Shaman = {Ratio=1, TradeIfLessThan = 5}, Paladin = {Ratio=1, TradeIfLessThan = 5}}},
 	["BOE"] = {itemkind = "itemGrp", collector = {"Crookshanks","Cashme"}},
 	["Fiery Core"] = {itemkind = "itemGrp", collector = {"Jenjja","Zumwalt"}},
 	["Large Brill"] = {itemkind = "itemGrp", collector = {"Shamanuno","Shamanseis"}},
@@ -4107,21 +4107,70 @@ function RaidBuff(spells)
 	--Randomize someone in raid and start checking raid there. Go through raid and buff them if they don't have it.
 	local n=TableLength(MBID)
 	r=math.random(n)-1
-	for i=1,n do
-		j=i+r
-		if j>n then j=j-n end
-		if UnitName("raid"..j) then
-			if IsAlive("raid"..j) then
-				TargetByName(UnitName("raid"..j),1)
-				tn,_=UnitName("target")
-				local istank=FindInTable(MB_raidtanks,tn)
-				for _,spell in spells do
-					local skip_this_guy=(string.find(spell,"Salvation") and istank)
-					if SpellExists(spell) and not skip_this_guy and MyMana()>MB_manacost[spell] and HasPrayerOfSpirit(spell) and not buffed(spell,"raid"..j) then cast(spell) return end
+	
+	for _,spell in spells do
+		if SpellExists(spell) and MyMana()>MB_manacost[spell] and HasPrayerOfSpirit(spell) then
+			local skip_tanks=(string.find(spell,"Salvation"))
+			for i=1,n do
+				j=i+r
+				if j>n then j=j-n end			
+				if UnitName("raid"..j) and IsAlive("raid"..j) and not buffedTest(spell,"raid"..j) and (not skip_tanks or not FindInTable(MB_raidtanks,UnitName("raid"..j))) then
+					Print(UnitName("raid"..j).. " is missing " .. spell)
+					TargetUnit("raid"..j)
+					cast(spell)
+					return 
 				end
 			end
 		end
 	end
+end
+
+function buffedTest(spell, target)
+	if spell == "Prayer of Fortitude" then
+		return buffCheck("Interface\\Icons\\Spell_Holy_PrayerOfFortitude", target)
+	--elseif spell == "Power Word: Fortitude" then
+		
+	elseif spell == "Prayer of Spirit" then	
+		return buffCheck("Interface\\Icons\\Spell_Holy_PrayerofSpirit", target)
+	elseif spell == "Prayer of Shadow Protection" then
+		return buffCheck("Interface\\Icons\\Spell_Holy_PrayerofShadowProtection", target)
+	elseif spell == "Gift of the Wild" then
+		return buffCheck("Interface\\Icons\\Spell_Nature_Regeneration", target)
+	--elseif spell == "Mark of the Wild" then
+	elseif spell == "Arcane Brilliance" then
+		return buffCheck("Interface\\Icons\\Spell_Holy_ArcaneIntellect", target)
+	--elseif spell == "Arcane Intellect" then
+	--elseif spell == "Dampen Magic" then
+	--elseif spell == "Amplify Magic" then
+	
+	--elseif spell == "Greater Blessing of Light" then	
+	--elseif spell == "Blessing of Light" then
+	--elseif spell == "Greater Blessing of Salvation" then
+	--elseif spell == "Blessing of Kings" then
+	--elseif spell == "Greater Blessing of Sanctuary" then
+	--elseif spell == "Blessing of Sanctuary" then
+	--elseif spell == "Greater Blessing of Kings" then
+	--elseif spell == "Blessing of Wisdom" then
+	--elseif spell == "Greater Blessing of Wisdom" then
+	--elseif spell == "Blessing of Might" then
+		
+	else
+		return buffed(spell, target)
+	end
+end
+
+function buffCheck(text, target)
+    local i = 1
+    local buff = UnitBuff(target, i)
+
+    while buff do
+        if buff == text then
+            return true
+        end
+        i = i + 1
+        buff = UnitBuff(target, i)
+    end
+	return
 end
 function PartyBuff(spells)
 	--party version

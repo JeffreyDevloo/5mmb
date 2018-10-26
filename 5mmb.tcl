@@ -872,7 +872,7 @@ if { ! $nosmoverwrite } {
 	    		puts $sMN "\t\[\"Gold\"\] = \{itemkind = \"special\", collector = \{\"\"\}\},"
 				}
 				puts $sMN  	{	["EmptyBagSlots"] = {itemkind = "special"},
- 	["Soul Shard"] = {itemkind = "item"},
+ 	["Soul Shard"] = {itemkind = "special"},
 	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5}}},
  	["Symbol of Kings"] = {itemkind = "item" , class = {Paladin = {AnnounceValue = 5}}},
  	["Wild Thornroot"] = {itemkind = "item" , class = {Druid = {AnnounceValue = 5}}},

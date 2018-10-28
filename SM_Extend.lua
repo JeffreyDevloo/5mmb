@@ -1,4 +1,4 @@
-MB_version="102518a"
+MB_version="102818a"
 Printd("SM_extend.lua loaded OK!")
 --IF YOU ARE COMBINING RAIDS WITH SOMEONE ELSE, MAKE SURE YOU CHOOSE A UNIQUE RAID NAME IN THIS VARIABLE
 MB_RAID = "MULTIBOX_toddsraid"
@@ -27,11 +27,11 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={"Eversmile","Enticer","Komal","Furyswipes"}
+MB_tanklist={"Spernkle"}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list={"Shamanquatro","Punchingbear","Shamancinco","Orinoco","Shamansiete","Shamanocho","Cashme","Refill","Bubbling","Avindra","Zumwalt"}
+MB_healer_list={"Furyhype"}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist={"Shamantres","Brutalic","Toshredsusay","Cuppycake","Stabsya","Kimboslicer","Eversmile","Brutalium","Enticer","Brutaliar","Shamanuno","Brutalio","Shamanquatro","Punchingbear","Shamancinco","Orinoco","Shamansiete","Flameshocked","Shamanocho","Calypsa","Cashme","Zillazee","Refill","Merazza","Bubbling","Jenjja","Avindra","Silza","Zumwalt","Olympic","Icefloes","Everglades","Brutalia","Yellowstone","Monterey","Badlands","Shamanseis","Crookshanks","Komal","Furyswipes"}
+MB_toonlist={"Spernkle","Glamorous","Vaporic","Teenie","Furyhype"}
 --This is the powerleveler your lowbies will follow when powerleveling
 MB_powerleveler="Titanator"
 --This is your set of lowbie leveling parties. You can run 4 at a time. The first toon name on the left of = is the squad leader.
@@ -44,7 +44,7 @@ MB_levelingparties= {
 --This is who people will run to when they have the bomb on Baron.
 MB_bombfollow="Enticer"
 --This is who people will run to when they have threatening gaze on Mandokir (raptor boss)
-MB_gazefollow="Toshredsusay"
+MB_gazefollow="Vaporic"
 --LEAVE DEDICATED HEALERS BLANK. THIS IS AN ADVANCED FEATURE THAT PROBABLY DOESN'T DO WHAT YOU THINK.
 --MB_dedicated_healers={}
 MB_dedicated_healers={Cuppycake="Avindra",Enticer="Zumwalt",Komal="Cashme",Furyswipes="Refill"}
@@ -52,57 +52,28 @@ MB_dedicated_healers={Cuppycake="Avindra",Enticer="Zumwalt",Komal="Cashme",Furys
 --*Fs
 FsR_AutoRepairAllItems = true
 ---------------------------------------------End of user edited values--------------------------------
-MB_debuffslotlist={"Viper Sting","Detect Magic","Curse of Shadow","Curse of the Elements","Curse of Agony","Curse of Agony","Curse of Agony","Demoralizing Shout","Thunder Clap","Insect Swarm(Rank 1)","Vampiric Embrace","Hunter's Mark","Fairy Fire","Placeholder for Nightfall","Placeholder for Shadow Weaving","Placeholder for Mindflay","Placeholder for Winters Chill","Scorpid Sting","Placeholder for improved Shadowbolt","Polymorph","Shackle Undead","Banish","Hibernate","Fear","Scare Beast"}
+MB_debuffslotlist={"Viper Sting","Detect Magic","Curse of Recklessness","Curse of Shadow","Curse of the Elements","Curse of Agony","Curse of Agony","Curse of Agony","Demoralizing Shout","Thunder Clap","Insect Swarm(Rank 1)","Vampiric Embrace","Hunter's Mark","Fairy Fire","Placeholder for Nightfall","Placeholder for Shadow Weaving","Placeholder for Mindflay","Placeholder for Winters Chill","Scorpid Sting","Placeholder for improved Shadowbolt","Polymorph","Shackle Undead","Banish","Hibernate","Fear","Scare Beast"}
 FsR_Stuff2Track={
-	["Gold"] = {itemkind = "special", collector = {"Eversmile"}},
+	["Gold"] = {itemkind = "special", collector = {"Spernkle"}},
 	["EmptyBagSlots"] = {itemkind = "special"},
  	["Soul Shard"] = {itemkind = "special"},
-	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5, TradeIfLessThan = 6}}},
- 	["Symbol of Kings"] = {itemkind = "item" , class = {Paladin = {AnnounceValue = 5, TradeIfLessThan = 6}}},
+	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5}}},
+ 	["Symbol of Kings"] = {itemkind = "item" , class = {Paladin = {AnnounceValue = 5}}},
  	["Wild Thornroot"] = {itemkind = "item" , class = {Druid = {AnnounceValue = 5}}},
-	["Instant Poison VI"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5, TradeIfLessThan = 6}}},
- 	["Wound Poison IV"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5, TradeIfLessThan = 6}}},
- 	["Mind Numbing Poison"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5, TradeIfLessThan = 6}}},
+	["Instant Poison VI"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
+ 	["Wound Poison IV"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
+ 	["Mind Numbing Poison"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
  	["Major Healing Potion"] = {itemkind = "item", class = {Druid = {},Rogue = {},Warrior = {},Hunter = {},Warlock = {},Mage = {}, Priest = {}, Shaman = {}, Paladin = {}}},
 	["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {}, Priest = {}, Shaman = {}, Paladin = {}}},
 	["Major Healthstone"] = {itemkind = "item", class = {Druid = {TradeIfLessThan = 1},Rogue = {TradeIfLessThan = 1},Warrior = {TradeIfLessThan = 1},Hunter = {TradeIfLessThan = 1},Mage = {TradeIfLessThan = 1}, Priest = {TradeIfLessThan = 1}, Shaman = {TradeIfLessThan = 1}, Paladin = {TradeIfLessThan = 1}}},
-	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={Ratio=2, TradeIfLessThan = 5},Hunter = {Ratio=1, TradeIfLessThan = 5}, Warlock = {Ratio=1, TradeIfLessThan = 5},Druid = {Ratio=1, TradeIfLessThan = 5}, Priest = {Ratio=1, TradeIfLessThan = 5}, Shaman = {Ratio=1, TradeIfLessThan = 5}, Paladin = {Ratio=1, TradeIfLessThan = 5}}},
-	["BOE"] = {itemkind = "itemGrp", collector = {"Crookshanks","Cashme"}},
-	["Fiery Core"] = {itemkind = "itemGrp", collector = {"Jenjja","Zumwalt"}},
-	["Large Brill"] = {itemkind = "itemGrp", collector = {"Shamanuno","Shamanseis"}},
-	["Dream Dust"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Globe of Water"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Core of Earth"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	["Obsidian Shard"] = {itemkind = "itemGrp", collector = {"Cuppycake"}},
-	["Elemental Earth"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	[" Scarab"] = {itemkind = "itemGrp", collector = {"Enticer"}},
-	["Elemental Fire"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	["Lava Core"] = {itemkind = "itemGrp", collector = {"Jenjja","Zumwalt"}},
-	["Nexus Crystal"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Righteous Orb"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Golden Pearl"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Radiant Shard"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Small Brill"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Essence of Earth"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	["Illusion Dust"] = {itemkind = "itemGrp", collector = {"Shamanuno","Shamanseis"}},
-	["Heart of Fire"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	[" Idol"] = {itemkind = "itemGrp", collector = {"Enticer"}},
-	["Essence of Fire"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	["Bijou"] = {itemkind = "itemGrp", collector = {"Cuppycake","Zumwalt"}},
-	["Coin"] = {itemkind = "itemGrp", collector = {"Cuppycake","Zumwalt"}},
-	["Elemental Water"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	["Dark Iron"] = {itemkind = "itemGrp", collector = {"Cuppycake"}},
-	["Lockbox"] = {itemkind = "itemGrp", collector = {"Toshredsusay"}},
-	["Elemental Air"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	["Ichor of Undeath"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Essence of Undeath"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Living Ess"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Idol of "] = {itemkind = "itemGrp", collector = {"Enticer"}},
-	["Greater Eternal"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Breath of Wind"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Travel"] = {itemkind = "itemGrp", collector = {"Cuppycake"}},
-	["Essence of Water"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Essence of Air"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
+	["BOE"] = {itemkind = "itemGrp", collector = {"Teenie"}},
+	["Lockbox"] = {itemkind = "itemGrp", collector = {""}},
+	["Conjured Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
+	["Conjured Fresh Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
+	["Conjured Purified Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
+	["Conjured Spring Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
+	["Conjured Mineral Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
 	["Conjured Sparkling Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}}
 }
 FsR_TrackedMaterial = {}
@@ -951,6 +922,7 @@ local pa15manraid1 = {
 	end
 end
 MB_TheList={
+
 }
 function AutoDelete()
 	if not MB_autodelete then return end
@@ -1884,7 +1856,7 @@ function init()
 	SHOW_MULTI_ACTIONBAR_4=1
 	ALWAYS_SHOW_MULTI_ACTIONBAR=1
 	MultiActionBar_Update()
-	if class=="Mage" and SpellNum("Conjure Water") then
+	if class=="Mage" and SpellExists("Conjure Water") then
 		PickupSpell(SpellNum("Conjure Water"),BOOKTYPE_SPELL)
 		PlaceAction(12)
 	else
@@ -2096,15 +2068,15 @@ function init()
 		PickupMacro(index)
 		PlaceAction(61)
 	end
-	if class=="Warrior" and SpellExists("Shoot") then
+	if class=="Warrior" and SpellExists("Shoot "..RangedWeaponType()) then
 		PickupSpell(SpellNum("Shoot "..RangedWeaponType()),BOOKTYPE_SPELL)
 		PlaceAction(61)
 	end
-	if class=="Druid" then
+	if class=="Druid" and SpellExists("Wrath") then
 		PickupSpell(findSpell("Wrath"),BOOKTYPE_SPELL)
 		PlaceAction(61)
 	end
-	if class=="Warlock" then
+	if class=="Warlock" and SpellExists("Drain Soul") then
 		PickupSpell(findSpell("Drain Soul"),BOOKTYPE_SPELL)
 		PlaceAction(67)
 	end
@@ -2135,13 +2107,13 @@ function init()
 	        index=CreateSuperMacro("HS","Interface\\Icons\\INV_stone_04","/run createhs()")
 		PickupMacro(index,"HS")
 		PlaceAction(68)
-	elseif class=="Priest" then
+	elseif class=="Priest" and SpellExists("Resurrection") then
 		PickupSpell(findSpell("Resurrection"),BOOKTYPE_SPELL)
 		PlaceAction(68)
-	elseif class=="Shaman" then
+	elseif class=="Shaman" and SpellExists("Ancestral Spirit") then
 		PickupSpell(findSpell("Ancestral Spirit"),BOOKTYPE_SPELL)
 		PlaceAction(68)
-	elseif class=="Paladin" then
+	elseif class=="Paladin" and SpellExists("Redemption") then
 		PickupSpell(findSpell("Redemption"),BOOKTYPE_SPELL)
 		PlaceAction(68)
 	end
@@ -2164,12 +2136,12 @@ function init()
 		PickupSpell(SpellNum("Attack"),BOOKTYPE_SPELL)
 		PlaceAction(71)
 	elseif class=="Rogue" then
-		if SpellNum("Backstab") then PickupSpell(SpellNum("Backstab"),BOOKTYPE_SPELL) end
+		if SpellExists("Backstab") then PickupSpell(SpellNum("Backstab"),BOOKTYPE_SPELL) end
 		PlaceAction(71)
 		PickupSpell(SpellNum("Attack"),BOOKTYPE_SPELL)
 		PlaceAction(72)
 	elseif class=="Druid" then
-		if SpellNum("Ravage") then PickupSpell(SpellNum("Ravage"),BOOKTYPE_SPELL) end
+		if SpellExists("Ravage") then PickupSpell(SpellNum("Ravage"),BOOKTYPE_SPELL) end
 		PlaceAction(71)
 		PickupSpell(SpellNum("Attack"),BOOKTYPE_SPELL)
 		PlaceAction(72)
@@ -2178,8 +2150,10 @@ function init()
 		PlaceAction(72)
 		PickupSpell(SpellNum("Attack"),BOOKTYPE_SPELL)
 		PlaceAction(71)
-		PickupSpell(SpellNum("Freezing Trap"),BOOKTYPE_SPELL)
-		PlaceAction(64)
+		if SpellExists("Freezing Trap") then
+			PickupSpell(SpellNum("Freezing Trap"),BOOKTYPE_SPELL)
+			PlaceAction(64)
+		end
 	else
 		PickupSpell(SpellNum("Attack"),BOOKTYPE_SPELL)
 		PlaceAction(72)
@@ -2246,333 +2220,6 @@ function init()
 	ReloadUI()
 end
 function norm()
---Run this function with /norm to go back to non-multiboxing mode (needs editing)
---MAAAAAGIC!!!!
-	clearmacros()
-	clearsupermacros()
-	local class=UnitClass("player")
-	SetActionBarToggles(1,1,1,1,1)
-	SHOW_MULTI_ACTIONBAR_1=1
-	SHOW_MULTI_ACTIONBAR_2=1
-	SHOW_MULTI_ACTIONBAR_3=1
-	SHOW_MULTI_ACTIONBAR_4=1
-	ALWAYS_SHOW_MULTI_ACTIONBAR=1
-	MultiActionBar_Update()
-	if class=="Mage" then
-		PickupSpell(SpellNum("Conjure Water"),BOOKTYPE_SPELL)
-		PlaceAction(12)
-	else
-		PickupAction(12)
-		ClearCursor()
-	end
-	PickupMacro(index)
-	PlaceAction(84)
-	PickupMacro(index)
-	PlaceAction(96)
-	PickupMacro(index)
-	PlaceAction(108)
-	PickupMacro(index)
-	PlaceAction(120)
-	local index=CreateMacro("buff",327,"/script setup()",1,1)
-	PickupMacro(index)
-	PlaceAction(1)
-	PickupMacro(index)
-	PlaceAction(73)
-	PickupMacro(index)
-	PlaceAction(85)
-	PickupMacro(index)
-	PlaceAction(97)
-	PickupMacro(index)
-	PlaceAction(109)
-	index=CreateMacro("single",134,"/script single()",1,1)
-	PickupMacro(index)
-	PlaceAction(2)
-	PickupMacro(index)
-	PlaceAction(74)
-	PickupMacro(index)
-	PlaceAction(86)
-	PickupMacro(index)
-	PlaceAction(98)
-	PickupMacro(index)
-	PlaceAction(110)
-	index=CreateMacro("multi",149,"/script multi()",1,1)
-	PickupMacro(index)
-	PlaceAction(3)
-	PickupMacro(index)
-	PlaceAction(75)
-	PickupMacro(index)
-	PlaceAction(87)
-	PickupMacro(index)
-	PlaceAction(99)
-	PickupMacro(index)
-	PlaceAction(111)
-	index=CreateMacro("turbo",291,"/script turbo()",1,1)
-	PickupMacro(index)
-	PlaceAction(4)
-	PickupMacro(index)
-	PlaceAction(76)
-	PickupMacro(index)
-	PlaceAction(88)
-	PickupMacro(index)
-	PlaceAction(100)
-	PickupMacro(index)
-	PlaceAction(112)
-	index=CreateMacro("aoe",210,"/script aoe()",1,1)
-	PickupMacro(index)
-	PlaceAction(5)
-	PickupMacro(index)
-	PlaceAction(77)
-	PickupMacro(index)
-	PlaceAction(89)
-	PickupMacro(index)
-	PlaceAction(101)
-	PickupMacro(index)
-	PlaceAction(113)
-	index=CreateMacro("reload",239,"/script ReloadUI()",1,nil)
-	PickupMacro(index)
-	PlaceAction(36)
-	index=CreateMacro("resetinst",482,"/script ResetInstances()",1,nil)
-	PickupMacro(index)
-	PlaceAction(35)
-	index=CreateMacro("hearth",352,"/use hearthstone\r/script Stuck()",1,nil)
-	PickupMacro(index)
-	PlaceAction(34)
-	index=CreateMacro("leave",398,"/script LeaveParty()",1,nil)
-	PickupMacro(index)
-	PlaceAction(48)
-	index=CreateMacro("foc",9,"/script TargetByName(MB_raidleader,1)",1,nil)
-	PickupMacro(index)
-	PlaceAction(47)
-	index=CreateMacro("dance",24,"/dance",1,nil)
-	PickupMacro(index)
-	PlaceAction(46)
-	index=CreateMacro("void",510,"/script SetLockPet(\"Voidwalker\")",1,nil)
-	PickupMacro(index)
-	PlaceAction(45)
-	index=CreateMacro("imp",507,"/script SetLockPet(\"Imp\")",1,nil)
-	PickupMacro(index)
-	PlaceAction(44)
-	index=CreateMacro("succ",509,"/script SetLockPet(\"Succubus\")",1,nil)
-	PickupMacro(index)
-	PlaceAction(43)
-	index=CreateMacro("felhunt",506,"/script SetLockPet(\"Felhunter\")",1,1)
-	PickupMacro(index)
-	PlaceAction(42)
-	index=CreateMacro("tos",486,"/script SetLockPet(nil)",1,1)
-	PickupMacro(index)
-	PlaceAction(41)
-	index=CreateMacro("fearbreak",489,"/script fearbreak()",1,1)
-	PickupMacro(index)
-	PlaceAction(62)
-	index=CreateMacro("int",25,"/script interrupt_boss()",1,1)
-	PickupMacro(index)
-	PlaceAction(63)
-	PickupAction(51)
-	ClearCursor()
-	index=CreateSuperMacro("tap","Interface\\Icons\\Ability_ShootWand","/script tap()")
-	index=CreateSuperMacro("shftap","Interface\\Icons\\Ability_ShootWand","/script tap(\"Shift\")")
-	index=CreateSuperMacro("ctltap","Interface\\Icons\\Ability_ShootWand","/script tap(\"Control\")")
-	index=CreateSuperMacro("altap","Interface\\Icons\\Ability_ShootWand","/script tap(\"Alt\")")
-	if class=="Warlock" or class=="Mage" or class=="Priest" or class=="Druid" then
-		index=CreateMacro("sheep",394,"/script CC()",1,1)
-		PickupMacro(index)
-		PlaceAction(51)
-	end
-	PickupAction(8)
-	ClearCursor()
-	PickupAction(80)
-	ClearCursor()
-	PickupAction(92)
-	ClearCursor()
-	PickupAction(104)
-	ClearCursor()
-	PickupAction(116)
-	ClearCursor()
-	index=CreateMacro("rezemall",303,"/script rezemall()",1,1)
-	PickupMacro(index)
-	PlaceAction(8)
-	PickupMacro(index)
-	PlaceAction(80)
-	PickupMacro(index)
-	PlaceAction(92)
-	PickupMacro(index)
-	PlaceAction(104)
-	PickupMacro(index)
-	PlaceAction(116)
-	if class=="Priest" or class=="Druid" then
-		index=CreateMacro("preheal",292,"/script preheal_tanks()",1,1)
-		PickupAction(50)
-		ClearCursor()
-		PickupMacro(index)
-		PlaceAction(50)
-	end
-	index=CreateMacro("cc",395,"/script MB_assign_cc()",1,1)
-	PickupAction(49)
-	ClearCursor()
-	PickupMacro(index)
-	PlaceAction(49)
-	index=CreateMacro("ot",98,"/script MB_assign_ot()",1,nil)
-	PickupMacro(index)
-	PlaceAction(52)
-	index=CreateMacro("smartdrink",339,"/script smartdrink()",1,1)
-	PickupMacro(index)
-	PlaceAction(53)
-	index=CreateMacro("line",294,"/script MakeALine()",1,nil)
-	PickupMacro(index)
-	PlaceAction(60)
-	PickupAction(59)
-	ClearCursor()
-	index=CreateMacro("pent",366,"/script Pentagram()",1,nil)
-	PickupMacro(index)
-	PlaceAction(59)
-	index=CreateMacro("clearot",133,"/script MB_clearraidtarget()",1,nil)
-	PickupMacro(index)
-	PlaceAction(54)
-	index=CreateMacro("cleartargs",138,"/script clearraidtargs()",1,nil)
-	PickupMacro(index)
-	PlaceAction(55)
-	index=CreateMacro("tankbrez",303,"/script rezemall(true)",1,1)
-	PickupMacro(index)
-	PlaceAction(56)
-	index=CreateMacro("focus",1,"/script focusme()",1,1)
-	PickupMacro(index)
-	PlaceAction(58)
-	index=CreateMacro("sortraid",63,"/script SortRaid()",1,1)
-	PickupMacro(index)
-	PlaceAction(11)
-	PickupMacro(index)
-	PlaceAction(83)
-	PickupMacro(index)
-	PlaceAction(95)
-	PickupMacro(index)
-	PlaceAction(107)
-	PickupMacro(index)
-	PlaceAction(119)
-	index=CreateSuperMacro("levparty","Interface\\Icons\\Spell_Nature_EnchantArmor","/script leveling_parties()")
-	index=CreateMacro("party",320,"/script partyup()",1,nil)
-	PickupMacro(index)
-	PlaceAction(10)
-	PickupMacro(index)
-	PlaceAction(82)
-	PickupMacro(index)
-	PlaceAction(94)
-	PickupMacro(index)
-	PlaceAction(107)
-	PickupMacro(index)
-	PlaceAction(118)
-	PickupAction(61)
-	ClearCursor()
-	if class=="Hunter" then
-		index=CreateMacro("feign",124,"/script fd()",1,1)
-		PickupMacro(index)
-		PlaceAction(61)
-	end
-	if class=="Warrior" then
-		PickupSpell(SpellNum("Shoot "..RangedWeaponType()),BOOKTYPE_SPELL)
-		PlaceAction(61)
-	end
-	if class=="Druid" then
-		PickupSpell(findSpell("Wrath"),BOOKTYPE_SPELL)
-		PlaceAction(61)
-	end
-	PickupAction(6)
-	ClearCursor()
-	PickupAction(78)
-	ClearCursor()
-	PickupAction(90)
-	ClearCursor()
-	PickupAction(103)
-	ClearCursor()
-	PickupAction(114)
-	ClearCursor()
-	if class=="Warrior" or class=="Priest" or class=="Shaman" or class=="Druid" or class=="Paladin" then
-		index=CreateMacro("wall",165,"/script WarriorSurvive()",1,1)
-		PickupMacro(index)
-		PlaceAction(6)
-		PickupMacro(index)
-		PlaceAction(78)
-		PickupMacro(index)
-		PlaceAction(90)
-		PickupMacro(index)
-		PlaceAction(103)
-		PickupMacro(index)
-		PlaceAction(114)
-	end
-	if class=="Priest" or class=="Mage" or class=="Warlock" then
-		PickupSpell(SpellNum("Shoot"),BOOKTYPE_SPELL)
-		PlaceAction(72)
-		PickupSpell(SpellNum("Attack"),BOOKTYPE_SPELL)
-		PlaceAction(71)
-	elseif class=="Hunter" then
-		PickupSpell(SpellNum("Auto Shot"),BOOKTYPE_SPELL)
-		PlaceAction(72)
-		PickupSpell(SpellNum("Attack"),BOOKTYPE_SPELL)
-		PlaceAction(71)
-		PickupSpell(SpellNum("Freezing Trap"),BOOKTYPE_SPELL)
-		PlaceAction(64)
-	else
-		PickupSpell(SpellNum("Attack"),BOOKTYPE_SPELL)
-		PlaceAction(72)
-	end
-	LoadBindings(1)
-	SetBinding("SHIFT-1","MULTIACTIONBAR1BUTTON1")
-	SetBinding("SHIFT-2","MULTIACTIONBAR1BUTTON2")
-	SetBinding("SHIFT-3","MULTIACTIONBAR1BUTTON3")
-	SetBinding("SHIFT-4","MULTIACTIONBAR1BUTTON4")
-	SetBinding("SHIFT-5","MULTIACTIONBAR1BUTTON5")
-	SetBinding("SHIFT-6","MULTIACTIONBAR1BUTTON6")
-	SetBinding("SHIFT-7","MULTIACTIONBAR1BUTTON7")
-	SetBinding("SHIFT-8","MULTIACTIONBAR1BUTTON8")
-	SetBinding("SHIFT-9","MULTIACTIONBAR1BUTTON9")
-	SetBinding("SHIFT-0","MULTIACTIONBAR1BUTTON10")
-	SetBinding("SHIFT--","MULTIACTIONBAR1BUTTON11")
-	SetBinding("SHIFT-=","MULTIACTIONBAR1BUTTON12")
-	SetBinding("F1","MULTIACTIONBAR2BUTTON1")
-	SetBinding("F2","MULTIACTIONBAR2BUTTON2")
-	SetBinding("F3","MULTIACTIONBAR2BUTTON3")
-	SetBinding("F4","MULTIACTIONBAR2BUTTON4")
-	SetBinding("F5","MULTIACTIONBAR2BUTTON5")
-	SetBinding("F6","MULTIACTIONBAR2BUTTON6")
-	SetBinding("F7","MULTIACTIONBAR2BUTTON7")
-	SetBinding("F8","MULTIACTIONBAR2BUTTON8")
-	SetBinding("F9","MULTIACTIONBAR2BUTTON9")
-	SetBinding("F10","MULTIACTIONBAR2BUTTON10")
-	SetBinding("F11","MULTIACTIONBAR2BUTTON11")
-	SetBinding("F12","MULTIACTIONBAR2BUTTON12")
-	SetBinding("SHIFT-F1","MULTIACTIONBAR2BUTTON1")
-	SetBinding("SHIFT-F2","MULTIACTIONBAR2BUTTON2")
-	SetBinding("SHIFT-F3","MULTIACTIONBAR2BUTTON3")
-	SetBinding("SHIFT-F4","MULTIACTIONBAR2BUTTON4")
-	SetBinding("SHIFT-F5","MULTIACTIONBAR2BUTTON5")
-	SetBinding("SHIFT-F6","MULTIACTIONBAR2BUTTON6")
-	SetBinding("SHIFT-F7","MULTIACTIONBAR2BUTTON7")
-	SetBinding("SHIFT-F8","MULTIACTIONBAR2BUTTON8")
-	SetBinding("SHIFT-F9","MULTIACTIONBAR2BUTTON9")
-	SetBinding("SHIFT-F0","MULTIACTIONBAR2BUTTON10")
-	SetBinding("SHIFT-F11","MULTIACTIONBAR2BUTTON11")
-	SetBinding("SHIFT-F12","MULTIACTIONBAR2BUTTON12")
-	SetBinding("BUTTON3","MOVEBACKWARD")
-	SetBinding("CTRL-1")
-	SetBinding("CTRL-2")
-	SetBinding("CTRL-3")
-	SetBinding("CTRL-4")
-	SetBinding("CTRL-5")
-	SetBinding("CTRL-6")
-	SetBinding("CTRL-7")
-	SetBinding("CTRL-8")
-	SetBinding("CTRL-9")
-	SetBinding("CTRL-0")
-	SetBinding("CTRL--")
-	SetBinding("CTRL-=")
-	SetBinding("SHIFT-UP")
-	SetBinding("SHIFT-DOWN")
-	SetBinding("SHIFT-MOUSEWHEELUP")
-	SetBinding("SHIFT-MOUSEWHEELDOWN")
-	SetBinding("B","OPENALLBAGS")
-	SetBinding("G","DCRCLEAN")
-	SaveBindings(1)
-	ClearTutorials()
-	ReloadUI()
 end
 function clearraidtargs()
 	MB_cooldowns={}
@@ -3520,7 +3167,7 @@ function CombatUse(item)
 end
 function SummonDemon()
 	if not UnitCreatureFamily("pet") and NumShards()==0 then cast("Summon Imp") return end
-	if UnitCreatureFamily("pet")~=MB_default_warlock_pet then cast("Summon "..MB_default_warlock_pet) end
+	if UnitCreatureFamily("pet")~=MB_default_warlock_pet then if SpellExists("Summon "..MB_default_warlock_pet) then cast("Summon "..MB_default_warlock_pet) end end
 end
 function SpellNum(spell)
 	--In the wonderful world of 1.12 programming, sometimes just using a spell name isn't enough.
@@ -3537,7 +3184,7 @@ function SpellNum(spell)
 		i = i + 1
 	end
 	--Fs* returned the spellid of the last spell in the spellbook if the spell is not in the spellbook
-	if highestSpellNum==0 then Printd("Error! Spell " .. spell .. " does not exist in spellbook! " ); return end
+	if highestSpellNum==0 then return end
 	--Fs*
 	return highestSpellNum
 end
@@ -3826,7 +3473,7 @@ function TargetInCombat()
 	--Below level 13 ignore this. Return True
 	--NOTE: In Jindo fight, all targets are considered in combat. This is to work around a bug where some totems are sometimes NOT in combat!
 	--All non 60s always shoot at everything. I assume you are power-leveling. Comment out the next line if not.
-	if UnitLevel("player")<59 then return true end
+	if UnitLevel("target")<10 then return true end
 	return (UnitAffectingCombat("target") or PVP() or Jindo()) and not TargetSheeped()
 end
 function CloseDistance()
@@ -4200,28 +3847,10 @@ function PartyBuff(spells)
 		end
 	end
 end
-function TargetNotOnTankNoAlt()
-	--Any class that has this in his rotation (usually tank in close combat) will switch to a target not on the tank
-	--every time the button is pressed.
-	--The target WILL be in combat, so no fear of accidentally pulling
-	if not UnitName("target") then TargetNearestEnemy()
-	elseif not IsAlive("target") then Print("Target Is Dead--Targeting nearest enemy") TargetNearestEnemy()
-	elseif not TargetInCombat() then Print("Target not in combat--Targeting nearest enemy") TargetNearestEnemy()
-	elseif not InMeleeRange() then Print("Target not in melee range--Targeting nearest enemy") TargetNearestEnemy() end
-	if UnitIsEnemy("target","player") and TargetInCombat() and not FindInTable(MB_raidtanks,UnitName("targettarget")) then return end
-	for i=0,8 do
-		if not UnitName("target") then TargetNearestEnemy() end
-		if UnitIsEnemy("target","player") and not FindInTable(MB_raidtanks,UnitName("targettarget")) then return end
-		TargetNearestEnemy()
-	end
-	TargetUnit("playertarget")
-end
 function TargetNotOnTank()
 	--Any class that has this in his rotation (usually tank in close combat) will switch to a target not on the tank
 	--every time the button is pressed.
 	--The target WILL be in combat, so no fear of accidentally pulling
-	if not IsAltKeyDown() then return end
-	if UnitName("target")=="The Prophet Skeram" then return end
 	if not UnitName("target") then TargetNearestEnemy()
 	elseif not IsAlive("target") then Print("Target Is Dead--Targeting nearest enemy") TargetNearestEnemy()
 	elseif not TargetInCombat() then Print("Target not in combat--Targeting nearest enemy") TargetNearestEnemy()
@@ -4237,7 +3866,7 @@ end
 function RaidIdx(qname)
 	return string.gsub(MBID[qname],"raid", "")
 end
-function rezemall()
+function rezemall(tankrez)
 	--One of my favorites! Put this function in slot 8 of everyone's bar.
 	--When you have at least one rezzer up and a bunch of dead people, start spamming 8
 	--You will rez OTHER REZZERS FIRST. Then, they will start rezzing, and so on!
@@ -4248,7 +3877,7 @@ function rezemall()
 	AcceptResurrect()
 	if not UnitInRaid("player") and InCombat() then return brezparty() end
 	if not UnitInRaid("player") then return rezparty() end
-	if InCombat() then return brezemall() end
+	if InCombat() then return brezemall(tankrez) end
 	if UnitIsDead("player") or UnitIsGhost("player") then return end
 	if ManaDown()>0 and buffed("Drink","player") then return end
 	--Fs* Alt + 6 will start a toon Trading phase.
@@ -4775,7 +4404,10 @@ function IsPallyTank()
 	return FindInTable(MB_raidtanks,UnitName("player"))
 end
 function IsFire()
-	return (TalentPointsIn(2)>TalentPointsIn(1) and TalentPointsIn(2)>TalentPointsIn(3))
+	return (TalentPointsIn(2)>=TalentPointsIn(1) and TalentPointsIn(2)>=TalentPointsIn(3))
+end
+function IsFrost()
+	return (TalentPointsIn(3)>TalentPointsIn(1) and TalentPointsIn(3)>TalentPointsIn(2))
 end
 function IsBoomkin()
 	return not IsHybridDruid() and (TalentPointsIn(1)>=TalentPointsIn(2) and TalentPointsIn(1)>=TalentPointsIn(3))
@@ -4934,9 +4566,9 @@ function lock_setup()
 	if InCombat() then CancelTrade() end
 	if ManaDown()>0 and buffed("Drink","player") then return end
 	if buffed("Food","player") then return end
-	if MyLevel()>19 then
+	if SpellExists("Demon Armor") then 
 		SelfBuff("Demon Armor")
-	else
+	elseif SpellExists("Demon Skin") then
 		SelfBuff("Demon Skin")
 	end
 	--if you hold the alt key down, you will buff without summoning
@@ -4955,7 +4587,7 @@ function lock_setup()
 	if MB_soulstone_rezzers then 
 		local random_rezzer=RezzersInGroup()
 		if random_rezzer and not buffed("Soulstone","player") then
-			if HasItem("Major Soulstone")==0 and NumShards()>0 then CastSpell(SpellNum("Create Soulstone.*Major"),BOOKTYPE_SPELL) end
+			if SpellNum("Create Soulstone.*Major") and HasItem("Major Soulstone")==0 and NumShards()>0 then CastSpell(SpellNum("Create Soulstone.*Major"),BOOKTYPE_SPELL) end
 			TargetByName(random_rezzer)
 			use("Major Soulstone")
 		end
@@ -5224,15 +4856,10 @@ function warrior_tank_single()
 	local tname=UnitName("target")
 	if not tname then tname="" end
 	if MyHealthPct()<.15 then WarriorSurvive() end
-	--Charge and Thunderclap
-	--if IAmFocus() then CloseDistance() end
 	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
 	if IAmFocus() and UnitName("target")=="Shazzrah" then CloseDistance() end
-	--if UnitName("target") and (UnitLevel("target")<UnitLevel("player")-8 and UnitLevel("target")>0) then fury_single() return ReportCPU("Warrior tank single lowlev fury") end
 	if SpellExists("Charge") then
 		if IAmFocus() and (CooldownTime("Charge")>.85 and CooldownTime("Charge")<4) and not OnCooldown("Thunder Clap") and InMeleeRange() then cast("Thunder Clap") end
-	end
-	if SpellExists("Charge") then
 		if CooldownTime("Charge")>0 and CooldownTime("Charge")<1.5 then return ReportCPU("Warrior tank single charge") end
 	end
 	--TAUNT CODE
@@ -5250,18 +4877,15 @@ function warrior_tank_single()
 	--Force taunt on alt-2 if you are main tank, otherwise ctrl-3 if you are bot
 	if IAmFocus() and IsAltKeyDown() then WarriorTaunt("TAUNT--alt-2: "..tname) end
 	if not IAmFocus() and IsAltKeyDown() and UnitName("target")=="Kurinnaxx" then
-	--stop attacking during kurinnaxx when you are the off tank and the main tank is taunting!
-	if IsCurrentAction(72) then UseAction(72) end
-	return ReportCPU("Warrior tank single swing")
+		--stop attacking during kurinnaxx when you are the off tank and the main tank is taunting!
+		if IsCurrentAction(72) then UseAction(72) end
+		return ReportCPU("Warrior tank single swing")
 	end
 	--END TAUNT CODE
-	if not UnitName("target") and not MB_My_ot_target and not IAmFocus() then TargetNotOnTankNoAlt() end
+	if not UnitName("target") and not MB_My_ot_target and not IAmFocus() then TargetNotOnTank() end
 	------END OF TARGETING------------DO THAT WARRIOR SHIT------------
-	--Uncomment the following line if you like to charge/intercept always
-	--if IAmFocus() then CloseDistance() end
-	if (not UnitName("target") or not IsAlive("target") or not UnitIsEnemy("target","player")) and IAmFocus() then TargetNotOnTankNoAlt() end
+	if (not UnitName("target") or not IsAlive("target") or (not UnitIsEnemy("target","player") and UnitLevel("target")>9)) and IAmFocus() then TargetNotOnTank() end
 	if UnitName("target") and ((TargetInCombat() or IAmFocus() or IsAltKeyDown())) then
-		--Only if you are in combat or are the leader! (force OT attacks if alt key down)
 		WarriorSnarePlayer()
 		if InMeleeRange() and InCombat() then StanceCast("Defensive Stance") ; end
 		if InMeleeRange() and InCombat() then cast("Bloodrage") end
@@ -5315,19 +4939,18 @@ function BearTaunt(msg)
 end
 function warrior_tank_multi()
 	AnubAlert()
-	if IsControlKeyDown() then cast("Challenging Shout") return ReportCPU("Warrior tank multi ctrl") ; end
-	--Don't Do anything unless you are tank or you are a bot in combat
-	--WarriorSurvive()
-	--If you have a target and it's in combat, or if you have a target and you are the tank, do your tank shit.
-	local tname=UnitName("target")
 	--AutoAssignOT()
 	--AutoAssignINT()
+	AutoAssignCC()
+	if IsControlKeyDown() then cast("Challenging Shout") return ReportCPU("Warrior tank multi ctrl") ; end
+	--NEVeR MAKE A MOVE ON SHAZZRAH UNLESS U R Main TANK
+	if TankTarget("Shazzrah") and not IAmFocus() then return ReportCPU("Warrior tank single shazzrah") end
+	local tname=UnitName("target")
 	if not tname then tname="" end
 	if MyHealthPct()<.15 then WarriorSurvive() end
-	--if UnitName("target") and (UnitLevel("target")<UnitLevel("player")-8 and UnitLevel("target")>0) then fury_multi() return end
-	--If you are a bot and have a target in combat, do shit. If you are the tank, do shit anyway.
-	--TAUNT CODE
 	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
+	if IAmFocus() and UnitName("target")=="Shazzrah" then CloseDistance() end
+	--TAUNT CODE
 	OT()
 	ttname=UnitName("targettarget")
 	if MB_My_ot_target then
@@ -5340,12 +4963,11 @@ function warrior_tank_multi()
 		end
 	end
 	--END TAUNT CODE
-	if not IAmFocus() and not MB_My_ot_target then TargetNotOnTankNoAlt() end
-	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
-	if IAmFocus() then TargetNotOnTank() end
-	if (not UnitName("target") or not IsAlive("target") or not UnitIsEnemy("target","player")) and IAmFocus() then TargetNotOnTankNoAlt() end
+	if not IAmFocus() and not MB_My_ot_target and IsAltKeyDown() then TargetNotOnTank() end
+	if IAmFocus() and IsAltKeyDown() then TargetNotOnTank() end
+	if (not UnitName("target") or not IsAlive("target") or not UnitIsEnemy("target","player")) and IAmFocus() then TargetNotOnTank() end
 	if UnitName("target") and (TargetInCombat() or IAmFocus()) then
-		if IAmFocus() then TargetNotOnTank() end
+		if IAmFocus() and IsAltKeyDown() then TargetNotOnTank() end
 		--if IAmFocus() then CloseDistance() end
 		WarriorSnarePlayer()
 		cast("Bloodrage")
@@ -5382,9 +5004,9 @@ function warrior_tank_aoe()
 			WarriorTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
 		end
 	end
-	if not UnitName("target") and not MB_My_ot_target then TargetNotOnTankNoAlt() end
+	if not UnitName("target") and not MB_My_ot_target then TargetNotOnTank() end
 	if UnitName("target") and (TargetInCombat() or IAmFocus()) then
-		if not MB_My_ot_target then TargetNotOnTankNoAlt() end
+		if not MB_My_ot_target then TargetNotOnTank() end
 		cast("Bloodrage")
 		SelfBuff("Battle Shout")
 		BuffCast("Demoralizing Shout")
@@ -5530,30 +5152,29 @@ function paladin_turbo()
 	ReportCPU("Paladin turbo")
 end
 function paladin_single()
-	if IsHolyPally() then pally_heal_single() return end
-	pally_tank_single()
+	if IsTank() then pally_tank_single() return end
+	pally_heal_single()
 end
 function paladin_multi()
-	if IsHolyPally() then pally_heal_multi() return end
-	pally_tank_multi()
+	if IsTank() then pally_tank_multi() return end
+	pally_heal_multi()
 end
 function paladin_aoe()
-	if IsHolyPally() then pally_heal_aoe() return end
-	pally_tank_aoe()
+	if IsTank() then pally_tank_aoe() return end
+	pally_heal_aoe()
 end
 function PallySurvive()
 	if not InCombat() then return end
-	local health=UnitHealth("player")
-	if health<200 and not buffed("Forbearance","player") then SpellStopCasting() cast("Divine Protection") TargetUnit("player") cast("Blessing of Protection") TargetUnit("playertarget") end
-	if health<UnitHealthMax("player") and (buffed("Divine Protection","player") or buffed("Blessing of Protection","player")) then RunLine("/qh player") return end
-	if health<200 then TargetUnit("player") cast ("Lay on Hands") TargetUnit("playertarget") end
+	local healthpct=UnitHealth("player")/UnitHealthMax("player")
+	if healthpct<.1 and not buffed("Forbearance","player") then SpellStopCasting() cast("Divine Protection") TargetUnit("player") cast("Blessing of Protection") TargetUnit("playertarget") end
+	if healthpct<1 and (buffed("Divine Protection","player") or buffed("Blessing of Protection","player")) then RunLine("/qh player") return end
+	if healthpct<.1 then TargetUnit("player") cast ("Lay on Hands") TargetUnit("playertarget") end
 end
 function pally_heal_single()
-    	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
-    	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
+	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
+ 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	if IsControlKeyDown() then PallyInterrupt() ; end
 	PallySurvive()
-	--if ImBusy() then return ReportCPU("Pally Heal Single busy") end
 	if TankTarget("Azuregos") and IsAltKeyDown() then return end
 	SaveAndorov(.8)
 	Decurse()
@@ -5680,6 +5301,17 @@ function paladin_setup()
 	smartdrink()
 	ReportCPU("Paladin Setup")
 end
+function BlessParty()
+	for _,gname in MB_ToonsInGroup[MB_GroupID[myname]] do
+		tclass=UnitClass(MBID[gname])
+		if tclass=="Warrior" or tclass=="Rogue" or tclass=="Hunter" or FindInTable(MB_raidtanks,gname) then
+			TargetUnit(MBID[gname]) BuffCast("Blessing of Might")
+		else
+			TargetUnit(MBID[gname]) BuffCast("Blessing of Wisdom")
+		end
+	end
+end
+
 function PallyBuff()
 	Print("My pally class order is "..MyClassOrder())
 	if InCombat() then return end
@@ -5699,24 +5331,25 @@ function PallyBuff()
 		if MyGroupClassOrder()==8 then SelfBuff("Retribution Aura") end
 		if MyGroupClassOrder()==9 then SelfBuff("Concentration Aura") end
 	else
-		if MyGroupClassOrder()==1 then SelfBuff("Devotion Aura") end
-		if MyClassOrder()==1 then RaidBuff({"Blessing of Kings"}) end
-		if MyGroupClassOrder()==2 then SelfBuff("Frost Resistance Aura") end
-		if MyClassOrder()==2 then RaidBuff({"Blessing of Might"}) end
-		if MyGroupClassOrder()==3 then SelfBuff("Concentration Aura") end
-		if MyClassOrder()==3 then SancDaTank() end
-		if MyGroupClassOrder()==4 then SelfBuff("Devotion Aura") end
-		if MyClassOrder()==4 then RaidBuff({"Blessing of Kings"}) end
-		if MyGroupClassOrder()==5 then SelfBuff("Retribution Aura") end
-		if MyClassOrder()==5 then RaidBuff({"Blessing of Might"}) end
-		if MyGroupClassOrder()==6 then SelfBuff("Concentration Aura") end
-		if MyClassOrder()==6 then RaidBuff({"Blessing of Wisdom"}) end
-		if MyGroupClassOrder()==7 then SelfBuff("Devotion Aura") end
-		if MyClassOrder()==7 then RaidBuff({"Blessing of Kings"}) end
-		if MyGroupClassOrder()==8 then SelfBuff("Retribution Aura") end
-		if MyClassOrder()==8 then RaidBuff({"Blessing of Might"}) end
-		if MyGroupClassOrder()==9 then SelfBuff("Concentration Aura") end
-		if MyClassOrder()==9 then RaidBuff({"Blessing of Wisdom"}) end
+		BlessParty()
+		--if MyGroupClassOrder()==1 then SelfBuff("Devotion Aura") end
+		--if MyClassOrder()==1 then RaidBuff({"Blessing of Kings"}) end
+		--if MyGroupClassOrder()==2 then SelfBuff("Frost Resistance Aura") end
+		--if MyClassOrder()==2 then RaidBuff({"Blessing of Might"}) end
+		--if MyGroupClassOrder()==3 then SelfBuff("Concentration Aura") end
+		--if MyClassOrder()==3 then SancDaTank() end
+		--if MyGroupClassOrder()==4 then SelfBuff("Devotion Aura") end
+		--if MyClassOrder()==4 then RaidBuff({"Blessing of Kings"}) end
+		--if MyGroupClassOrder()==5 then SelfBuff("Retribution Aura") end
+		--if MyClassOrder()==5 then RaidBuff({"Blessing of Might"}) end
+		--if MyGroupClassOrder()==6 then SelfBuff("Concentration Aura") end
+		--if MyClassOrder()==6 then RaidBuff({"Blessing of Wisdom"}) end
+		--if MyGroupClassOrder()==7 then SelfBuff("Devotion Aura") end
+		--if MyClassOrder()==7 then RaidBuff({"Blessing of Kings"}) end
+		--if MyGroupClassOrder()==8 then SelfBuff("Retribution Aura") end
+		--if MyClassOrder()==8 then RaidBuff({"Blessing of Might"}) end
+		--if MyGroupClassOrder()==9 then SelfBuff("Concentration Aura") end
+		--if MyClassOrder()==9 then RaidBuff({"Blessing of Wisdom"}) end
 	end
 	if not IsHolyPally() then SelfBuff("Righteous Fury") end
 end
@@ -6427,15 +6060,15 @@ function dru_tank_single()
 	if IAmFocus() and IsAltKeyDown() and UnitIsEnemy("player","target") and UnitName("targettarget")~=myname then BearTaunt("TAUNT:alt-2 "..tname) end
 	--END TAUNT CODE
 	if not IAmFocus() and not MB_My_ot_target then LockonTarget() end
-	if not IAmFocus() and not MB_My_ot_target then TargetNotOnTankNoAlt() end
-	if not UnitName("target") and not MB_My_ot_target then TargetNotOnTankNoAlt() end
-	if (not UnitName("target") or not IsAlive("target") or not UnitIsEnemy("target","player")) and IAmFocus() then TargetNotOnTankNoAlt() end
+	if not IAmFocus() and not MB_My_ot_target then TargetNotOnTank() end
+	if not UnitName("target") and not MB_My_ot_target then TargetNotOnTank() end
+	if (not UnitName("target") or not IsAlive("target") or not UnitIsEnemy("target","player")) and IAmFocus() then TargetNotOnTank() end
 	--if IAmFocus() then CloseDistance() end
 	if MyRage()>9 and SpellExists("Feral Charge") and (CooldownTime("Feral Charge")>.75 and CooldownTime("Feral Charge")<4) and InMeleeRange() then cast("Demoralizing Roar") end
 	if UnitName("target")~="Kurinnaxx" and InMeleeRange() and TargetInCombat() then cast("Faerie Fire (Feral)()") end
 	if UnitName("target")=="High Priestess Arlokk" then cast("Swipe") end
 	--During panther boss fight, if you are not main tank, pick up all panthers not on you
-	if not IAmFocus() and TankTarget("High Priestess Arlokk") then TargetNotOnTankNoAlt() cast("Swipe") end
+	if not IAmFocus() and TankTarget("High Priestess Arlokk") then TargetNotOnTank() cast("Swipe") end
 	--Don't do anything if someone else is tanking and alt key down.
 	--if not IAmFocus() and IsAltKeyDown() then return end
 	--if not IsAltKeyDown() or IAmFocus() and TableLength(MB_My_ot_target)==0 then
@@ -6513,10 +6146,10 @@ function dru_tank_multi()
 		end
 	end
 	--END TAUNT CODE
-	if not IAmFocus() and not MB_My_ot_target then TargetNotOnTankNoAlt() end
-	if IAmFocus() then TargetNotOnTank() end
-	if not UnitName("target") and not MB_My_ot_target then TargetNotOnTankNoAlt() end
-	if (not UnitName("target") or not IsAlive("target") or not UnitIsEnemy("target","player")) and IAmFocus() then TargetNotOnTankNoAlt() end
+	if not IAmFocus() and not MB_My_ot_target then TargetNotOnTank() end
+	if IAmFocus() and IsAltKeyDown() then TargetNotOnTank() end
+	if not UnitName("target") and not MB_My_ot_target then TargetNotOnTank() end
+	if (not UnitName("target") or not IsAlive("target") or not UnitIsEnemy("target","player")) and IAmFocus() then TargetNotOnTank() end
 	--Now you have a target. If it's in combat, do your dru shit
 	if UnitName("target") and TargetInCombat() then
 		if not IAmFocus() and IsAltKeyDown() then return ReportCPU("Dru tank multi alt") end
@@ -6554,8 +6187,8 @@ function dru_tank_aoe()
 	end
 	--END TAUNT CODE
 	--This is CC, bot or not, you should be finding a target not on you unless you have an ot assignment
-	if not MB_My_ot_target then TargetNotOnTankNoAlt() end
-	if not UnitName("target") and not MB_My_ot_target then TargetNotOnTankNoAlt() end
+	if not MB_My_ot_target then TargetNotOnTank() end
+	if not UnitName("target") and not MB_My_ot_target then TargetNotOnTank() end
 	if not TargetInCombat() then if IsCurrentAction(72) then UseAction(72) end end
 	if TargetInCombat() then
 		if UnitIsDead("target") and MB_My_ot_target then
@@ -6848,17 +6481,17 @@ end
 ---
 ----MAGE
 function mage_single()
-	if IsFire() then mage_fire_single() return end
-	mage_frost_single()
+	if IsFrost() then mage_frost_single() return end
+	mage_fire_single()
 end
 function mage_multi()
-	if IsFire() then mage_fire_multi() return end
-	mage_frost_multi()
+	if IsFrost() then mage_frost_multi() return end
+	mage_fire_multi()
 end
 function mage_aoe()
 	if IsAltKeyDown() then return end
-	if IsFire() then mage_fire_aoe() return end
-	mage_frost_aoe()
+	if IsFrost() then mage_frost_aoe() return end
+	mage_fire_aoe()
 end
 function IsCombustion()
 	n,ic,t,c,EM=GetTalentInfo(2,16)
@@ -6938,7 +6571,7 @@ function mage_fire_single()
 				cast("Scorch")
 			else
 				if UnitLevel("player")<60 then
-					StackCast("Scorch",5)
+					if SpellExists("Scorch") then StackCast("Scorch",5) end
 					cast("Fireball")
 				else
 					RollingIgnite()
@@ -6977,7 +6610,7 @@ function mage_fire_multi()
 			else
 				if UnitLevel("player")<60 then
 					--Use the following lines if you are not on vanilla gaming
-					StackCast("Scorch",5)
+					if SpellExists("Scorch") then StackCast("Scorch",5) end
 					cast("Fireball")
 				else
 					RollingIgnite()

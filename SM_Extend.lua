@@ -1,4 +1,4 @@
-MB_version="102818a"
+MB_version="102818b"
 Printd("SM_extend.lua loaded OK!")
 --IF YOU ARE COMBINING RAIDS WITH SOMEONE ELSE, MAKE SURE YOU CHOOSE A UNIQUE RAID NAME IN THIS VARIABLE
 MB_RAID = "MULTIBOX_toddsraid"
@@ -5331,6 +5331,9 @@ function PallyBuff()
 		if MyGroupClassOrder()==8 then SelfBuff("Retribution Aura") end
 		if MyGroupClassOrder()==9 then SelfBuff("Concentration Aura") end
 	else
+		if MyGroupClassOrder()==1 then SelfBuff("Devotion Aura") end
+		if MyGroupClassOrder()==2 then SelfBuff("Retribution Aura") end
+		if MyGroupClassOrder()==3 then SelfBuff("Concentration Aura") end
 		BlessParty()
 		--if MyGroupClassOrder()==1 then SelfBuff("Devotion Aura") end
 		--if MyClassOrder()==1 then RaidBuff({"Blessing of Kings"}) end
@@ -7710,7 +7713,13 @@ function AOEHeal()
 	if IsHealer() and myclass=="Druid" then HotEmUp("Rejuvenation(Rank 5)") end 
 end
 function RaidHeal()
-	if Sulfuron() or TankTarget("Shazzrah") or TankTarget("Ragnaros") or not InRaid() then QuickHeal() return end
+	if Sulfuron() or TankTarget("Shazzrah") or TankTarget("Ragnaros") or not InRaid() then 
+		NS(id)
+		Shield(id)
+		Bubble(id)
+		QuickHeal() 
+		return 
+	end
 	if MB_debugAOEHeal or TankTarget("The Prophet Skeram") or RaidHealth()<.6 then AOEHeal() return end
 	if not IsHealer() then return end
 	--if 1 then QuickHeal() return end

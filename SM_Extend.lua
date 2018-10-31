@@ -1,4 +1,7 @@
-MB_version="102818b"
+MB_version="103018a"
+--IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
+--THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
+--
 Printd("SM_extend.lua loaded OK!")
 --IF YOU ARE COMBINING RAIDS WITH SOMEONE ELSE, MAKE SURE YOU CHOOSE A UNIQUE RAID NAME IN THIS VARIABLE
 MB_RAID = "MULTIBOX_toddsraid"
@@ -27,34 +30,34 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={"Spernkle"}
+MB_tanklist={"Titanator","Bubblescum"}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list={"Furyhype"}
+MB_healer_list={"Bubblyboo","Bubblebrave","Bubblesong","Bubblefame","Bubbleup","Bubblemad","Bubbleplanet","Bubblewin","Bubblemama","Feelinghordy"}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist={"Spernkle","Glamorous","Vaporic","Teenie","Furyhype"}
+MB_toonlist={"Fromtheblue","Titanator","Flamestroke","Scour","Scorchery","Puffery","Snorkle","Skew","Myhammy","Pleasant","Windblown","Bubblyboo","Bubblebrave","Bubblesong","Bubblefame","Bubbleup","Bubblemad","Bubbleplanet","Bubblewin","Bubblemama","Bubblescum","Zombiewife","Hotwand","Feelinghordy","Ovendodger"}
+--When in raid with group loot, always pass on loot unless this is set to false
+MB_autopass=false
 --This is the powerleveler your lowbies will follow when powerleveling
 MB_powerleveler="Titanator"
 --This is your set of lowbie leveling parties. You can run 4 at a time. The first toon name on the left of = is the squad leader.
-MB_levelingparties= {
-	Buy={"Skankia", "Healuraz","Jyssyj","Bubblebootie" },
-	Kneearrow={ "Drainsoulia","Holybabe","Bubblenator","Kilimanjaro"},
-	Heartstrike={ "Feelinghordy", "Dwarftoss", "Slamminsam", "Iiliililiil"},
-	Hotwand={"Bridesmage","Zombiewife","Desdemonia","Bubblydoom"}
+MB_levelingparties={
+	Bubblyboo={"Bubblebrave","Bubblesong","Bubblefame","Bubbleup"},
+	Fromtheblue={"Flamestroke","Scour","Scorchery","Puffery"},
+	Bubblemad={"Bubbleplanet","Bubblewin","Bubblemama","Bubblescum"},
+	Snorkle={"Skew","Myhammy","Pleasant","Windblown"}
 }
 --This is who people will run to when they have the bomb on Baron.
 MB_bombfollow="Enticer"
 --This is who people will run to when they have threatening gaze on Mandokir (raptor boss)
 MB_gazefollow="Vaporic"
 --LEAVE DEDICATED HEALERS BLANK. THIS IS AN ADVANCED FEATURE THAT PROBABLY DOESN'T DO WHAT YOU THINK.
---MB_dedicated_healers={}
-MB_dedicated_healers={Cuppycake="Avindra",Enticer="Zumwalt",Komal="Cashme",Furyswipes="Refill"}
 MB_dedicated_healers={Cuppycake="Avindra",Enticer="Zumwalt",Komal="Cashme",Furyswipes="Refill"}
 --*Fs
 FsR_AutoRepairAllItems = true
 ---------------------------------------------End of user edited values--------------------------------
 MB_debuffslotlist={"Viper Sting","Detect Magic","Curse of Recklessness","Curse of Shadow","Curse of the Elements","Curse of Agony","Curse of Agony","Curse of Agony","Demoralizing Shout","Thunder Clap","Insect Swarm(Rank 1)","Vampiric Embrace","Hunter's Mark","Fairy Fire","Placeholder for Nightfall","Placeholder for Shadow Weaving","Placeholder for Mindflay","Placeholder for Winters Chill","Scorpid Sting","Placeholder for improved Shadowbolt","Polymorph","Shackle Undead","Banish","Hibernate","Fear","Scare Beast"}
 FsR_Stuff2Track={
-	["Gold"] = {itemkind = "special", collector = {"Spernkle"}},
+	["Gold"] = {itemkind = "special", collector = {"Glarnk"}},
 	["EmptyBagSlots"] = {itemkind = "special"},
  	["Soul Shard"] = {itemkind = "special"},
 	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5}}},
@@ -66,14 +69,14 @@ FsR_Stuff2Track={
  	["Major Healing Potion"] = {itemkind = "item", class = {Druid = {},Rogue = {},Warrior = {},Hunter = {},Warlock = {},Mage = {}, Priest = {}, Shaman = {}, Paladin = {}}},
 	["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {}, Priest = {}, Shaman = {}, Paladin = {}}},
 	["Major Healthstone"] = {itemkind = "item", class = {Druid = {TradeIfLessThan = 1},Rogue = {TradeIfLessThan = 1},Warrior = {TradeIfLessThan = 1},Hunter = {TradeIfLessThan = 1},Mage = {TradeIfLessThan = 1}, Priest = {TradeIfLessThan = 1}, Shaman = {TradeIfLessThan = 1}, Paladin = {TradeIfLessThan = 1}}},
-	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
-	["BOE"] = {itemkind = "itemGrp", collector = {"Teenie"}},
-	["Lockbox"] = {itemkind = "itemGrp", collector = {""}},
 	["Conjured Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
 	["Conjured Fresh Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
 	["Conjured Purified Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
 	["Conjured Spring Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
 	["Conjured Mineral Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
+	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
+	["BOE"] = {itemkind = "itemGrp", collector = {"Broink"}},
+	["Lockbox"] = {itemkind = "itemGrp", collector = {""}},
 	["Conjured Sparkling Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}}
 }
 FsR_TrackedMaterial = {}
@@ -590,13 +593,19 @@ function partyup_experimental()
 				MB_raidleader=myname
 				if TableLength(MBID)==5 then ConvertToRaid(); end;
 end
+function Leveler(name)
+	for sql in MB_levelingparties do
+		if name==sql then return true end
+		if FindInTable(MB_levelingparties[sql],name) then return true end
+	end
+end
 function partyup()
 	if MB_reportcpu then MB_cpustart=GetTime() end
 	if IsControlKeyDown() then GetMoneyFromLeader(25) return ReportCPU("Partyup getmoney") end
 	if UnitInRaid("player") and (not IsRaidLeader() or not IsRaidOfficer()) then Print("MAKE ME RAID LEADER OR ASSIST AND I'D BE GLAD TO INVITE MORE, OR PROMOTE, OR CHANGE LOOT.") return ReportCPU("Partyup notinraid") end
   MB_raidleader=myname
 	for k,toon in pairs(MB_toonlist) do
-		if UnitName("player")~=toon then
+		if UnitName("player")~=toon and not Leveler(toon) then
 			ClearTarget()
 			TargetByName(toon,1)
 			if UnitName("target")==toon and not MBID[toon] then 
@@ -1538,7 +1547,9 @@ function FSMB:OnEvent()
 	elseif event == "START_LOOT_ROLL" then
 		rollid=arg1
 		--if not IAmFocus() then RollOnLoot(rollid,0) end
-		RollOnLoot(rollid,0)
+		if MB_autopass then 
+			RollOnLoot(rollid,0)
+		end
 	elseif event == "CONFIRM_SUMMON" then
 		-- this event fires when you get a summon request
 		--ConfirmSummon(); -- confirms summon
@@ -1871,6 +1882,21 @@ function init()
 	PlaceAction(108)
 	PickupAction(120)
 	PlaceAction(120)
+	PickupAction(61)
+	ClearCursor()
+	if class=="Hunter" then
+		index=CreateMacro("feign",124,"/script fd()",1,1)
+		PickupMacro(index)
+		PlaceAction(61)
+	end
+	if class=="Warrior" and SpellExists("Shoot "..RangedWeaponType()) then
+		PickupSpell(SpellNum("Shoot "..RangedWeaponType()),BOOKTYPE_SPELL)
+		PlaceAction(61)
+	end
+	if class=="Druid" and SpellExists("Wrath") then
+		PickupSpell(findSpell("Wrath"),BOOKTYPE_SPELL)
+		PlaceAction(61)
+	end
 	local index=CreateMacro("buff",327,"/script setup()",1,1)
 	PickupMacro(index)
 	PlaceAction(1)
@@ -1882,6 +1908,25 @@ function init()
 	PlaceAction(97)
 	PickupMacro(index)
 	PlaceAction(109)
+	--Support leveling parties by putting the tap macro in place in slot 1
+	levidx=1
+	tapmap={}
+	tapmap[1]={"tap","Open"}
+	tapmap[2]={"shftap","Shift"}
+	tapmap[3]={"ctltap","Control"}
+	tapmap[4]={"altap","Alt"}
+	for sql,sqmem in MB_levelingparties do 
+		if myname==sql or FindInTable(sqmem,myname) then 
+			index=CreateSuperMacro(tapmap[levidx][1],"Interface\\Icons\\Ability_ShootWand","/script ".."tap(\""..tapmap[levidx][2].."\")")
+			PickupMacro(index,tapmap[levidx][1])
+			PlaceAction(1)
+			if levidx==2 then 
+				PickupMacro(index,tapmap[levidx][1])
+				PlaceAction(61)
+			end
+		end
+		levidx=levidx+1
+	end
 	index=CreateMacro("single",134,"/script single()",1,1)
 	PickupMacro(index)
 	PlaceAction(2)
@@ -1967,10 +2012,6 @@ function init()
 	PlaceAction(63)
 	PickupAction(51)
 	ClearCursor()
-	index=CreateSuperMacro("tap","Interface\\Icons\\Ability_ShootWand","/script tap()")
-	index=CreateSuperMacro("shftap","Interface\\Icons\\Ability_ShootWand","/script tap(\"Shift\")")
-	index=CreateSuperMacro("ctltap","Interface\\Icons\\Ability_ShootWand","/script tap(\"Control\")")
-	index=CreateSuperMacro("altap","Interface\\Icons\\Ability_ShootWand","/script tap(\"Alt\")")
 	index=CreateMacro("summ",511,"/run SummonOutOfRange()",1,nil)
 	PickupMacro(index)
 	PlaceAction(37)
@@ -2061,21 +2102,6 @@ function init()
 	PlaceAction(106)
 	PickupMacro(index)
 	PlaceAction(118)
-	PickupAction(61)
-	ClearCursor()
-	if class=="Hunter" then
-		index=CreateMacro("feign",124,"/script fd()",1,1)
-		PickupMacro(index)
-		PlaceAction(61)
-	end
-	if class=="Warrior" and SpellExists("Shoot "..RangedWeaponType()) then
-		PickupSpell(SpellNum("Shoot "..RangedWeaponType()),BOOKTYPE_SPELL)
-		PlaceAction(61)
-	end
-	if class=="Druid" and SpellExists("Wrath") then
-		PickupSpell(findSpell("Wrath"),BOOKTYPE_SPELL)
-		PlaceAction(61)
-	end
 	if class=="Warlock" and SpellExists("Drain Soul") then
 		PickupSpell(findSpell("Drain Soul"),BOOKTYPE_SPELL)
 		PlaceAction(67)
@@ -4327,6 +4353,7 @@ function smartdrink()
 		if class=="Mage" and ManaDown()>0 and not mybest and not buffed("Drink","player") then cast("Conjure Water") end
 end
 function PartyHurt(hurt,num_party_hurt)
+	if Ungrouped() then return end
 	local mygroup=MB_GroupID[myname]
 	local numhurt=0
 	local guyshurt=0
@@ -4348,6 +4375,27 @@ function NS(id)
 			cast("Swiftmend")
 		elseif buffed("Nature's Swiftness","player") then
 			cast("regrowth")
+		end
+	end
+end
+function Ungrouped()
+	if  GetNumPartyMembers()==0 and not UnitInRaid("player") then return true end
+end
+function NS_Party()
+	if Ungrouped() then return end
+	for _,gname in MB_ToonsInGroup[MB_GroupID[myname]] do
+		id=MBID[gname]
+		if not InCombat() or UnitHealth(id)/UnitHealthMax(id)>.3 then return end
+		if IsHybridDruid() or IsDruidHealer() or (UnitClass("player")=="Shaman" and (not IsEnhancementShammy() and not IsElementalShammy())) then
+			if OnCooldown("Nature's Swiftness") then return end
+			cast("Nature's Swiftness")
+		end
+		if (not UnitIsEnemy(id,"player")) and (IsDruidHealer() or IsHybridDruid()) then
+			if buffed("Regrowth","target") then
+				cast("Swiftmend")
+			elseif buffed("Nature's Swiftness","player") then
+				cast("regrowth")
+			end
 		end
 	end
 end
@@ -4423,7 +4471,7 @@ function IsHybridDruid()
 	return TalentPointsIn(3)>17 and TalentPointsIn(2)==0 and TalentPointsIn(1)>15
 end
 function IsShadow()
-	return TalentPointsIn(3)>=TalentPointsIn(2) and TalentPointsIn(3)>=TalentPointsIn(1)
+	return TalentPointsIn(3)>TalentPointsIn(2) and TalentPointsIn(3)>TalentPointsIn(1)
 end
 function IsFury()
 	return TalentPointsIn(2)>TalentPointsIn(1) and TalentPointsIn(2)>TalentPointsIn(3)
@@ -4441,6 +4489,15 @@ function TalentPointsIn(tab)
 end
 function IsEnhancementShammy()
 	return TalentPointsIn(2)>TalentPointsIn(1) and TalentPointsIn(2)>TalentPointsIn(3)
+end
+function LevelingPartyup()
+	for sql in MB_levelingparties do
+		if myname==sql then 
+			for _,partymember in MB_levelingparties[sql] do
+				if not MBID[partymember] then InviteByName(partymember) end
+			end
+		end
+	end
 end
 	-- CHARACTER ROTATION FUNCTIONS--THIS IS WHERE YOU TAME YOUR BOTS
 	-- Every TOON has 5 slots on the action bar-- [prep/melee_support][single target][multi target][turbo cooldowns][closecombat multi-target]
@@ -4504,6 +4561,7 @@ function turbo()
 	if IsControlKeyDown() then MountUp() return end
 	if not IAmFocus() then SetView(2) end
 	--if IsAltKeyDown() and not UnitInParty("player") and not UnitInRaid("player") then Print("Invite me!") SendAddonMessage("INVITE_ME",_,"GUILD") end
+	if IsAltKeyDown() and Leveler(myname) then LevelingPartyup() end
 	if IsAltKeyDown() and not IAmFocus() then follow_assist() return end
 	if IsAltKeyDown() then return end
 	if InCombat() then
@@ -5302,6 +5360,7 @@ function paladin_setup()
 	ReportCPU("Paladin Setup")
 end
 function BlessParty()
+	if Ungrouped() then return end
 	for _,gname in MB_ToonsInGroup[MB_GroupID[myname]] do
 		tclass=UnitClass(MBID[gname])
 		if tclass=="Warrior" or tclass=="Rogue" or tclass=="Hunter" or FindInTable(MB_raidtanks,gname) then
@@ -6413,7 +6472,7 @@ function priest_shadow_single()
 		end
 		cast("Mind Blast")
 		cast("Mind Flay")
-		if UnitLevel("player")<13 then cast("Smite") end
+		if UnitLevel("player")<5 then cast("Smite") end
 	end
 	ReportCPU("Priest shadow single")
 end
@@ -7417,7 +7476,7 @@ function HasGreaterHealthstone()
 	return nil
 end
 function RequestedTap(modifier)
-	if not modifier then return not IsShiftKeyDown() and not IsControlKeyDown() and not IsAltKeyDown() end
+	if modifier=="Open" then return not IsShiftKeyDown() and not IsControlKeyDown() and not IsAltKeyDown() end
 	if modifier=="Alt" then return IsAltKeyDown() end
 	if modifier=="Control" then return IsControlKeyDown() end
 	if modifier=="Shift" then return IsShiftKeyDown() end
@@ -7486,6 +7545,7 @@ function mage_tap(modifier)
 	local name,realm=UnitName("player")
 	Print(name.." is casting Fire Blast")
 	cast("Fire Blast(Rank 1)")
+	cast("Fireball(Rank 1)")
 	if not UnitIsDead("target") and UnitIsEnemy("target","player") and InMeleeRange() then cast("Frost Nova(Rank 1)") end
 	if not UnitIsDead("target") and UnitIsEnemy("target","player") and InMeleeRange() then cast("Cone of Cold(Rank 1)") end
 	if not UnitIsDead("target") and UnitIsEnemy("target","player") and InMeleeRange() then cast("Blast Wave(Rank 1)") end
@@ -7649,9 +7709,24 @@ function Shield(id)
 	if not id then return end
 	if UnitClass("player")=="Priest" and (UnitHealth(id)/UnitHealthMax(id))<.55 and not buffed("Weakened Soul",id) then TargetUnit(id) Print("Shielding "..UnitName(id)) cast("Power Word: Shield") end
 end
+function Shield_Party()
+	if Ungrouped() then return end
+	for _,gname in MB_ToonsInGroup[MB_GroupID[myname]] do
+		id=MBID[gname]
+		if UnitClass("player")=="Priest" and (UnitHealth(id)/UnitHealthMax(id))<.55 and not buffed("Weakened Soul",id) then TargetUnit(id) Print("Shielding "..UnitName(id)) cast("Power Word: Shield") end
+	end
+end
 function Bubble(id)
 	if not id then return end
 	if UnitClass("player")=="Paladin" and (UnitHealth(id)/UnitHealthMax(id))<.10 and not buffed("Forbearance",id) then TargetUnit(id) MB_msg("BUBBLING "..UnitName(id)) cast("Blessing of Protection") end
+end
+function Bubble_Party()
+	if Ungrouped() then return end
+	if not UnitInParty("player") and not UnitInRaid("player") then return end
+	for _,gname in MB_ToonsInGroup[MB_GroupID[myname]] do
+		id=MBID[gname]
+		if UnitClass("player")=="Paladin" and (UnitHealth(id)/UnitHealthMax(id))<.10 and not buffed("Forbearance",id) then TargetUnit(id) MB_msg("BUBBLING "..UnitName(id)) cast("Blessing of Protection") end
+	end
 end
 function DHtarg()
 	return TankTarget("Anubisath Sentinel") or TankTarget("Sartura")
@@ -7714,9 +7789,9 @@ function AOEHeal()
 end
 function RaidHeal()
 	if Sulfuron() or TankTarget("Shazzrah") or TankTarget("Ragnaros") or not InRaid() then 
-		NS(id)
-		Shield(id)
-		Bubble(id)
+		NS_Party()
+		Shield_Party()
+		Bubble_Party()
 		QuickHeal() 
 		return 
 	end

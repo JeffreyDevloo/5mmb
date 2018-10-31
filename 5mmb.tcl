@@ -1,14 +1,16 @@
-set version 102718a
+set version 103018a
 array unset toons
 array unset autodelete
 array unset raidorder10
 array unset raidorder20
 array unset raidorder40
+array unset levelingparty
 set dontsoulstone ""
 set dontflashframe ""
 set dontautotrade ""
 set dontautodelete ""
 set dontbuystacks ""
+set dontautopass ""
 set autoturn ""
 set clearcastmissiles ""
 set warlockpet ""
@@ -20,6 +22,10 @@ set maxheal "8 4 8 4"
 set raidname "myraid1"
 set gazefollow ""
 set dedicated_healers ""
+set powerleveler ""
+set openlevelers ""
+set shiftlevelers ""
+set ctrllevelers ""
 set goldto ""
 set boeto ""
 set monitor 4k
@@ -122,6 +128,10 @@ while { [gets $tL line] >= 0 } {
  		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
  		  	if { [llength [lindex $line 1]] > 1 } { puts "ERROR: arg must be one name $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set raidname [lindex $line 1]
+    } elseif { [string tolower [lindex $line 0]] == "powerleveler" } {
+ 		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
+ 		  	if { [llength [lindex $line 1]] > 1 } { puts "ERROR: arg must be one name $line" ; puts "hit any key to return" ; gets stdin char ; return }
+				set powerleveler [lindex $line 1]
     } elseif { [string tolower [lindex $line 0]] == "bombfollow" } {
  		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
  		  	if { [llength [lindex $line 1]] > 1 } { puts "ERROR: arg must be one name $line" ; puts "hit any key to return" ; gets stdin char ; return }
@@ -161,6 +171,9 @@ while { [gets $tL line] >= 0 } {
     } elseif { [string tolower [lindex $line 0]] == "dontbuystacks" } {
  		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set dontbuystacks true
+    } elseif { [string tolower [lindex $line 0]] == "dontautopass" } {
+ 		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
+				set dontautopass true
     } elseif { [string tolower [lindex $line 0]] == "autoturn" } {
  		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set autoturn true
@@ -191,6 +204,11 @@ while { [gets $tL line] >= 0 } {
 				foreach {item stack} [lrange $line 1 end] {
 					set autodelete($item) $stack
 				}
+    } elseif { [string tolower [lindex $line 0]] == "levelingparty" } {
+ 		  	if { [llength $line] < 2 || [llength $line] > 6  } { puts "ERROR: incorrect number of elements line $line. Must be between one and 5 toon names" ; puts "hit any key to return" ; gets stdin char ; return }
+	      set sql [string totitle [ string tolower [lindex $line 1]]]
+				set sqmem [lrange $line 2 end]
+				set levelingparties($sql) $sqmem
     } elseif { [string tolower [lindex $line 0]] == "raidorder10" } {
  		  	if { [llength [lindex $line 1]] >11 } { puts "ERROR: second arg must 10 or less names $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set index [expr [array size raidorder10] + 1]
@@ -320,6 +338,7 @@ if { ! $nohotkeyoverwrite } {
 		set raidhash(5) "1920 1440 960 720 960 720 0 720 960 720 960 0 960 720 1920 0 960 720 2880 720"
 		set raidhash(10) "1280 1020 0 960 1280 1020 1280 960 1280 1020 2560 960 640 480 640 0 640 480 0 0 640 480 0 480 640 480 1280 0 640 480 640 480 640 480 1280 480 640 480 1920 480"
 	  set raidhash(20) "640 480 0 0 960 720 0 1440 960 720 960 1440 960 720 1920 1440 640 480 640 0 640 480 1280 0 640 480 1920 0 640 480 2560 0 640 480 3200 0 640 480 0 480 640 480 640 480 640 480 1280 480 640 480 1920 480 640 480 2560 480 640 480 3200 480 640 480 0 960 640 480 640 960 640 480 1280 960 640 480 1920 960  640 480 2560 960" 
+	  set raidhash(25) "533 430 1548 0 1548 1290 0 860 533 430 1548 430 533 430 1548 860 533 430 1548 1290 533 430 1548 1720 533 430 2081 0 533 430 2081 430 533 430 2081 860 533 430 2081 1290 533 430 2081 1720 533 430 2614 0 533 430 2614 430 533 430 2614 860 533 430 2614 1290 533 430 2614 1720 533 430 3147 0 533 430 3147 430 533 430 3147 860 533 430 3147 1290 533 430 3147 1720 533 430 482 0 533 430 1015 0 533 430 482 430 533 430 1015 430"
 	  set raidhash(40) " 480 360 0 0 1440 1080 960 1080 480 360 480 0 480 360 960 0 480 360 1440 0 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 0 360 480 360 480 360 480 360 960 360 480 360 1440 360 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 0 720 480 360 480 720 480 360 960 720 480 360 1440 720 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 480 360 0 1080 480 360 480 1080 480 360 2400 1080 480 360 2880 1080 480 360 3360 1080 480 360 0 1440 480 360 480 1440 480 360 2400 1440 480 360 2880 1440 480 360 3360 1440 480 360 0 1800 480 360 480 1800 480 360 2400 1800 480 360 2880 1800 480 360 3360 1800"
 	} else {
 	  #1080p
@@ -327,6 +346,9 @@ if { ! $nohotkeyoverwrite } {
 		set raidhash(10) "640 510 0 480 640 510 640 480 640 510 1280 480 320 240 320 0 320 240 0 0 320 240
 	 0 240 320 240 640 0 320 240 320 240 320 240 640 240 320 240 960 240"
 	  set raidhash(20) "320 240 320 0 480 360 0 480 680 480 360 480 320 240 0 0 320 240 640 0 320 240 960 0 320 240 1280 0 320 240 1600 0 320 240 0 240 320 240 320 240 320 240 640 240 320 240 960 240 320 240 960 480 320 240 1600 240 320 240 1280 240 320 240 1280 480 320 240  1600 480 320 240 960 720 320 240 1280 720 320 240 1600 720"
+	  set raidhash(25) "320 240 320 0 480 360 0 480 680 480 360 480 320 240 0 0 320 240 640 0 320 240 960 0 320 240 1280 0 320 240 1600 0 320 240 0 240 320 240 320 240 320 240 640 240 320 240 960 240 320 240 960 480 320 240 1600 240 320 240 1280 240 320 240 1280 480 320 240  1600 480 320 240 960 720 320 240 1280 720 320 240 1600 720"
+	  set raidhash(25) "533 430 1548 0 1548 1290 0 860 533 430 1548 430 533 430 1548 860 533 430 1548 1290 533 430 1548 1720 533 430 2081 0 533 430 2081 430 533 430 2081 860 533 430 2081 1290 533 430 2081 1720 533 430 2614 0 533 430 2614 430 533 430 2614 860 533 430 2614 1290 533 430 2614 1720 533 430 3147 0 533 430 3147 430 533 430 3147 860 533 430 3147 1290 533 430 3147 1720 533 430 482 0 533 430 1015 0 533 430 482 430 533 430 1015 430"
+	  set raidhash(25) "266 215 774 0 774 645 0 430 266 215 774 215 266 215 774 430 266 215 774 645 266 215 774 860 266 215 1040 0 266 215 1040 215 266 215 1040 430 266 215 1040 645 266 215 1040 860 266 215 1307 0 266 215 1307 215 266 215 1307 430 266 215 1307 645 266 215 1307 860 266 215 1573 0 266 215 1573 215 266 215 1573 430 266 215 1573 645 266 215 1573 860 266 215 241 0 266 215 507 0 266 215 241 215 266 215 507 215"
 		set raidhash(40) "240 180 0 0 480 360 480 720 480 360 0 720 480 360 960 720 480 360 1440 720 240 180 120 0 240 180 240 0 240 180 360 0 240 180 480 0 240 180 600 0 240 180 720 0 240 180 840 0 240 180 960 0 240 180 1200 0 240 180 1440 0 240 180 1680 0 240 180 0 180 240 180 240 180 240 180 480 180 240 180 720 180 240 180 960 180 240 180 1200 180 240 180 1440 180 240 180 1680 180 240 180 0 360 240 180 240 360 240 180 480 360 240 180 720 360 240 180 960 360 240 180 1200 360 240 180 1440 360 240 180 1680 360 240 180 0 540 240 180 240 540 240 180 480 540 240 180 720 540 240 180 960 540 240 180 1200 540 240 180 1440 540 240 180 1680 540"
 	}
 	array unset raidlist
@@ -367,7 +389,8 @@ if { ! $nohotkeyoverwrite } {
 	}
 	foreach raid [array names windowcount] { 
 	  #Set window count in each raid to something I actually have a hash for
-		if {$windowcount($raid) > 20} { set windowcount($raid) 40
+		if {$windowcount($raid) > 25} { set windowcount($raid) 40
+		} elseif {$windowcount($raid) > 20 } { set windowcount($raid) 25  
 		} elseif {$windowcount($raid) > 10 } { set windowcount($raid) 20  
 		} elseif {$windowcount($raid) > 5 } { set windowcount($raid) 10  
 		} else { set windowcount($raid) 5 } 
@@ -739,6 +762,7 @@ if { ! $nosmoverwrite } {
 	set INSTUFF2TRACK false
 	set INAUTODELETE false
 	set INTHELIST false
+	set INLEVPART false
 	set sM [open $SME r]
 	set sMN [open tmp w+]
 	while { [gets $sM line] >= 0 } {
@@ -787,6 +811,9 @@ if { ! $nosmoverwrite } {
 	    puts $sMN "\}"
 		} elseif { [regexp "^MB_RAID" $line ] && $raidname!="" } {
 	    puts $sMN "MB_RAID = \"MULTIBOX_$raidname\""
+		} elseif { [regexp "^MB_powerleveler" $line ] && $powerleveler!="" } {
+	    set powerleveler [string totitle [ string tolower $powerleveler]]
+	    puts $sMN "MB_powerleveler=\"$powerleveler\""
 		} elseif { [regexp "^MB_bomfollow" $line ] && $bombfollow!="" } {
 	    set bombfollow [string totitle [ string tolower $bombfollow]]
 	    puts $sMN "MB_bombfollow=\"$bombfollow\""
@@ -830,6 +857,10 @@ if { ! $nosmoverwrite } {
 	    puts $sMN "MB_buystacks=false"
 		} elseif { [regexp "^MB_buystacks" $line ] && $dontbuystacks == "" } {
 	    puts $sMN "MB_buystacks=true"
+		} elseif { [regexp "^MB_autopass" $line ] && $dontautopass == "true" } {
+	    puts $sMN "MB_autopass=false"
+		} elseif { [regexp "^MB_autopass" $line ] && $dontautopass == "" } {
+	    puts $sMN "MB_autopass=true"
 		} elseif { [regexp "^MB_autoturn" $line ] && $autoturn == "true" } {
 	    puts $sMN "MB_autoturn=true"
 		} elseif { [regexp "^MB_autoturn" $line ] && $autoturn == "" } {
@@ -939,6 +970,38 @@ if { ! $nosmoverwrite } {
 				} else {
 					puts -nonewline $sMN ",\n\t\[\"$item\"\]=$autodelete($item)"
 			  }
+			}
+			puts $sMN ""
+			puts $sMN $line
+		} elseif { [regexp "^MB_levelingparties" $line ] } {
+			set INLEVPART true
+		} elseif {$INLEVPART && ![regexp "^\}" $line] } {
+		} elseif {$INLEVPART && [regexp "^\}" $line] } {
+			set INLEVPART false
+			set firstparty false
+	   	puts $sMN "MB_levelingparties=\{"
+			set firstsq true
+		  foreach sql [array names levelingparties] { 
+	      set sql [string totitle [ string tolower $sql]]
+				set sq $levelingparties($sql) 
+				if { !$firstsq } { 
+				  puts -nonewline $sMN ",\n\t${sql}=\{"
+				} else { 
+					puts -nonewline $sMN "\t${sql}=\{"
+					set firstsq false
+				}
+				set firstmem true
+				foreach sqmem $sq {
+	        set sqmem [string totitle [ string tolower $sqmem]]
+					if { !$firstmem } { 
+						puts -nonewline $sMN ","
+						puts -nonewline $sMN "\"$sqmem\""
+					} else {
+						set firstmem false
+						puts -nonewline $sMN "\"$sqmem\""
+					}
+				}
+				puts -nonewline $sMN "\}"
 			}
 			puts $sMN ""
 			puts $sMN $line

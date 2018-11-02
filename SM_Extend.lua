@@ -1,4 +1,4 @@
-MB_version="103018a"
+MB_version="110118b"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -30,34 +30,31 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={"Titanator","Bubblescum"}
+MB_tanklist={"Cuppycake","Eversmile","Enticer","Komal","Furyswipes"}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list={"Bubblyboo","Bubblebrave","Bubblesong","Bubblefame","Bubbleup","Bubblemad","Bubbleplanet","Bubblewin","Bubblemama","Feelinghordy"}
+MB_healer_list={"Shamanquatro","Punchingbear","Shamancinco","Orinoco","Shamansiete","Shamanocho","Cashme","Refill","Bubbling","Avindra","Zumwalt"}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist={"Fromtheblue","Titanator","Flamestroke","Scour","Scorchery","Puffery","Snorkle","Skew","Myhammy","Pleasant","Windblown","Bubblyboo","Bubblebrave","Bubblesong","Bubblefame","Bubbleup","Bubblemad","Bubbleplanet","Bubblewin","Bubblemama","Bubblescum","Zombiewife","Hotwand","Feelinghordy","Ovendodger"}
+MB_toonlist={"Shamantres","Brutalic","Toshredsusay","Cuppycake","Stabsya","Kimboslicer","Eversmile","Brutalium","Enticer","Brutaliar","Shamanuno","Brutalio","Shamanquatro","Punchingbear","Shamancinco","Orinoco","Shamansiete","Flameshocked","Shamanocho","Calypsa","Cashme","Zillazee","Refill","Merazza","Bubbling","Jenjja","Avindra","Silza","Zumwalt","Olympic","Icefloes","Everglades","Brutalia","Yellowstone","Monterey","Badlands","Shamanseis","Crookshanks","Komal","Furyswipes"}
 --When in raid with group loot, always pass on loot unless this is set to false
-MB_autopass=false
+MB_autopass=true
 --This is the powerleveler your lowbies will follow when powerleveling
 MB_powerleveler="Titanator"
 --This is your set of lowbie leveling parties. You can run 4 at a time. The first toon name on the left of = is the squad leader.
 MB_levelingparties={
-	Bubblyboo={"Bubblebrave","Bubblesong","Bubblefame","Bubbleup"},
-	Fromtheblue={"Flamestroke","Scour","Scorchery","Puffery"},
-	Bubblemad={"Bubbleplanet","Bubblewin","Bubblemama","Bubblescum"},
-	Snorkle={"Skew","Myhammy","Pleasant","Windblown"}
+
 }
 --This is who people will run to when they have the bomb on Baron.
 MB_bombfollow="Enticer"
 --This is who people will run to when they have threatening gaze on Mandokir (raptor boss)
-MB_gazefollow="Vaporic"
+MB_gazefollow="Toshredsusay"
 --LEAVE DEDICATED HEALERS BLANK. THIS IS AN ADVANCED FEATURE THAT PROBABLY DOESN'T DO WHAT YOU THINK.
-MB_dedicated_healers={Cuppycake="Avindra",Enticer="Zumwalt",Komal="Cashme",Furyswipes="Refill"}
+MB_dedicated_healers={}
 --*Fs
 FsR_AutoRepairAllItems = true
 ---------------------------------------------End of user edited values--------------------------------
 MB_debuffslotlist={"Viper Sting","Detect Magic","Curse of Recklessness","Curse of Shadow","Curse of the Elements","Curse of Agony","Curse of Agony","Curse of Agony","Demoralizing Shout","Thunder Clap","Insect Swarm(Rank 1)","Vampiric Embrace","Hunter's Mark","Fairy Fire","Placeholder for Nightfall","Placeholder for Shadow Weaving","Placeholder for Mindflay","Placeholder for Winters Chill","Scorpid Sting","Placeholder for improved Shadowbolt","Polymorph","Shackle Undead","Banish","Hibernate","Fear","Scare Beast"}
 FsR_Stuff2Track={
-	["Gold"] = {itemkind = "special", collector = {"Glarnk"}},
+	["Gold"] = {itemkind = "special", collector = {"Eversmile"}},
 	["EmptyBagSlots"] = {itemkind = "special"},
  	["Soul Shard"] = {itemkind = "special"},
 	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5}}},
@@ -75,8 +72,42 @@ FsR_Stuff2Track={
 	["Conjured Spring Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
 	["Conjured Mineral Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
 	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
-	["BOE"] = {itemkind = "itemGrp", collector = {"Broink"}},
-	["Lockbox"] = {itemkind = "itemGrp", collector = {""}},
+	["BOE"] = {itemkind = "itemGrp", collector = {"Crookshanks","Cashme"}},
+	["Fiery Core"] = {itemkind = "itemGrp", collector = {"Jenjja","Zumwalt"}},
+	["Large Brill"] = {itemkind = "itemGrp", collector = {"Shamanuno","Shamanseis"}},
+	["Dream Dust"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Globe of Water"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Core of Earth"] = {itemkind = "itemGrp", collector = {"Avindra"}},
+	["Obsidian Shard"] = {itemkind = "itemGrp", collector = {"Cuppycake"}},
+	["Elemental Earth"] = {itemkind = "itemGrp", collector = {"Avindra"}},
+	[" Scarab"] = {itemkind = "itemGrp", collector = {"Enticer"}},
+	["Elemental Fire"] = {itemkind = "itemGrp", collector = {"Avindra"}},
+	["Lava Core"] = {itemkind = "itemGrp", collector = {"Jenjja","Zumwalt"}},
+	["Nexus Crystal"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Righteous Orb"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Golden Pearl"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Radiant Shard"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Small Brill"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Essence of Earth"] = {itemkind = "itemGrp", collector = {"Avindra"}},
+	["Illusion Dust"] = {itemkind = "itemGrp", collector = {"Shamanuno","Shamanseis"}},
+	["Heart of Fire"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	[" Idol"] = {itemkind = "itemGrp", collector = {"Enticer"}},
+	["Essence of Fire"] = {itemkind = "itemGrp", collector = {"Avindra"}},
+	["Bijou"] = {itemkind = "itemGrp", collector = {"Cuppycake","Zumwalt"}},
+	["Coin"] = {itemkind = "itemGrp", collector = {"Cuppycake","Zumwalt"}},
+	["Elemental Water"] = {itemkind = "itemGrp", collector = {"Avindra"}},
+	["Dark Iron"] = {itemkind = "itemGrp", collector = {"Cuppycake"}},
+	["Lockbox"] = {itemkind = "itemGrp", collector = {"Toshredsusay"}},
+	["Elemental Air"] = {itemkind = "itemGrp", collector = {"Avindra"}},
+	["Ichor of Undeath"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Essence of Undeath"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Living Ess"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Idol of "] = {itemkind = "itemGrp", collector = {"Enticer"}},
+	["Greater Eternal"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Breath of Wind"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Travel"] = {itemkind = "itemGrp", collector = {"Cuppycake"}},
+	["Essence of Water"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["Essence of Air"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
 	["Conjured Sparkling Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}}
 }
 FsR_TrackedMaterial = {}
@@ -85,7 +116,7 @@ FsR_SummoningLastCast = GetTime()
 raid_state=1
 party_size=1
 MB_spellsToInt={"Arcane Explosion","Greater Heal","Holy Fire","Drain Life"}
-MB_maxheal={Druid=8,Priest=4,Shaman=8,Paladin=4}
+MB_maxheal={Druid=6,Priest=6,Shaman=6,Paladin=6}
 MB_reportcpu=false
 MB_reportzerotime=false
 MB_reportbusy=false
@@ -931,7 +962,188 @@ local pa15manraid1 = {
 	end
 end
 MB_TheList={
-
+	["Scroll of Intellect"]=0,
+	["Shiny Red Apple"]=0,
+	["Jagged Axe"]=0,
+	["Dried King"]=0,
+	["Trophy Raptor Skull"]=0,
+	["Heavy Silith"]=0,
+	["Journeyman's"]=0,
+	["Boar Intestines"]=0,
+	["Melon "]=0,
+	["Minor Mana Potion"]=0,
+	["Runecloth"]=0,
+	["Burning Pitch"]=0,
+	["Superior Mana"]=0,
+	["Morning Glory Dew"]=1,
+	["Scroll of Agility"]=0,
+	["Basilisk Venom"]=0,
+	["Wolf Meat"]=0,
+	["Bronze Tube"]=0,
+	["Mutton Chop"]=0,
+	["Frayed Abomination Stitching"]=0,
+	["Pristine Raptor Skull"]=0,
+	["Brilliant Scale"]=0,
+	["Shadow Silk"]=0,
+	["Dalaran Sharp"]=0,
+	["Evil Bat Eye"]=0,
+	["Thick Leather Bracers"]=0,
+	["Crushing Maul"]=0,
+	["Primed Musket"]=0,
+	["Buzzard "]=0,
+	["Glowing Scorpid Blood"]=0,
+	["Wool Cloth"]=0,
+	["Refreshing Spring Water"]=0,
+	["Twilight Cultist Robe"]=6,
+	["Star Ruby"]=0,
+	["Clam Meat"]=0,
+	["Gnoll Paw"]=0,
+	["Darkmoon Special"]=0,
+	["Boar Ribs"]=0,
+	["Twilight Cultist Mantle"]=6,
+	["Fiery Gland"]=0,
+	["Glowing Wax Stick"]=0,
+	["Deflecting Tower"]=0,
+	["Bulky Maul"]=0,
+	["Scroll of Spirit"]=0,
+	["Overlinked Chain Armor"]=0,
+	["Tapered Greatsword"]=0,
+	["Copper Ore"]=0,
+	["Short Cutlass"]=0,
+	["Shadowgem"]=0,
+	["Ancient Qiraji Artifact"]=0,
+	["Thick Leather "]=0,
+	["Tiny Fang"]=0,
+	["Scroll of Stamina"]=0,
+	["Forest Mushroom Cap"]=0,
+	["Large Slimy"]=0,
+	["Crochet Bracers"]=0,
+	["Haunch of Meat"]=0,
+	["Rock Chip"]=0,
+	["Forked Tongue"]=0,
+	["Alterac Swiss"]=0,
+	["Sharp Shortsword"]=0,
+	["Large Bat Fang"]=0,
+	["Thick Leather Shoulderpads"]=0,
+	["Shimmering Basil"]=0,
+	["Undamaged Hip"]=0,
+	["Linked "]=0,
+	["Tangy Clam"]=0,
+	["Crochet "]=0,
+	["Gelatinous Goo"]=0,
+	["Cracked Bill"]=0,
+	["Brocade "]=0,
+	["Plans: Thorium"]=0,
+	["Twilight Cultist Cowl"]=6,
+	["Fine Longsword"]=0,
+	["Stout War"]=0,
+	["Tin Ore"]=0,
+	["Coarse Blasting"]=0,
+	["Scroll of Protection"]=0,
+	["Laminate "]=0,
+	["Slimy Ichor"]=0,
+	["Decomposed "]=0,
+	["Thick Furry Mane"]=0,
+	["Blackrock Pauldrons"]=0,
+	["Rawhide "]=0,
+	["Small Egg"]=0,
+	["Breath of Wind"]=0,
+	["Laminated Scale Pants"]=0,
+	["Light Plate Belt"]=0,
+	["Feathery Wing"]=0,
+	["Vulture Talon"]=0,
+	["Stringy Vulture Meat"]=0,
+	["Smooth Stone Chip"]=0,
+	["Bruiseweed"]=0,
+	["Lesser Healing Potion"]=0,
+	["Chipped Boar Tusk"]=0,
+	["Linen Cloth"]=0,
+	["Powerful Mojo"]=1,
+	["Armored Chitin"]=0,
+	["Chunk of Boar Meat"]=0,
+	["Tigerseye"]=0,
+	["Spider Silk"]=0,
+	["Scroll of Strength"]=0,
+	["Superior Heal"]=0,
+	["Overlinked "]=0,
+	["Twill "]=0,
+	["Solid Stone"]=0,
+	["Tough Condor "]=0,
+	["Huge Venom Sac"]=0,
+	["Light Plate Boots"]=0,
+	["Goretusk Snout"]=0,
+	["Hard Spider"]=0,
+	["Basilisk Brain"]=0,
+	["Light Plate"]=0,
+	["Kobold Mining Shovel"]=0,
+	["Goretusk Liver"]=0,
+	["Laminated Scale "]=0,
+	["Crafted Light Shot"]=0,
+	["Spiked "]=0,
+	["Ice Cold Milk"]=0,
+	["Vibrant Plume"]=0,
+	["Splintering Battle Axe"]=0,
+	["Meat Cleaver"]=0,
+	["Twill Shoulderpads"]=0,
+	["Sandworm Meat"]=0,
+	["Brilliant Chromatic Scale"]=0,
+	["Aquamarine"]=0,
+	["Homemade Cherry"]=0,
+	["Protective Pavise"]=0,
+	["Ironweb Spider"]=0,
+	["Light Plate Helmet"]=0,
+	["Clout Mace"]=0,
+	["Elder Raptor Feathers"]=0,
+	["Heavy Stone"]=0,
+	["Minor Healing Potion"]=0,
+	["Rough Stone"]=0,
+	["Rough Vulture Feathers"]=0,
+	["Greater Mana"]=0,
+	["Light Feather"]=0,
+	["Pattern:"]=0,
+	["Gnoll Spittle"]=0,
+	["Extinguished Torch"]=0,
+	["Large Candle"]=0,
+	["Lifeless Skull"]=0,
+	["Heavy Flint Ax"]=0,
+	["Wooden Maul"]=0,
+	["Taut Compound"]=0,
+	["Shiny Polished Stone"]=0,
+	["Mystery Meat"]=0,
+	["Thick Spider's"]=0,
+	["Smooth Pebble"]=0,
+	["Broken Arrow"]=0,
+	["Severed Talon"]=0,
+	["Nightcrawlers"]=0,
+	["Thick Leather Hat"]=0,
+	["Overlinked Chain"]=0,
+	["Deeprock Stone"]=0,
+	["Gold Dust"]=0,
+	["Scarlet Cannonball"]=0,
+	["Smooth Leather "]=0,
+	["Ironfeather"]=0,
+	["Fine Pointed Dagger"]=0,
+	["Blood Scythe"]=0,
+	["Lifeless Stone"]=0,
+	["Smooth Leather Bracers"]=0,
+	["Ripped Wing"]=0,
+	["Imperfect Draen"]=0,
+	["Khadgar's Whisker"]=0,
+	["Sentinel Musket"]=0,
+	["Heavy War Staff"]=0,
+	["Patch of fine fur"]=0,
+	["Dripping Spider"]=0,
+	["Patch of Fine Fur"]=0,
+	["Dripping Spider "]=0,
+	["Darnassian Bleu"]=0,
+	["Broken Boar Tusk"]=0,
+	["Moss Agate"]=0,
+	["Ivory Boar"]=0,
+	["Large Scorpid Claw"]=0,
+	["Wicked Claw"]=0,
+	["Coarse Stone"]=0,
+	["Sabertooth Fang"]=0,
+	["Coal"]=0
 }
 function AutoDelete()
 	if not MB_autodelete then return end
@@ -2663,7 +2875,7 @@ function NthMostHurt(num)
 	--Printt(hurtlist)
 	--if TableLength(hurtlist)>0 then 
 		--for id,pct in spairs(hurtlist, function(t,a,b) return t[b] > t[a] end) do
-		        --Print(UnitName(id).." is "..i.."most hurt tank")
+		        --Print(UnitName(id).." is "..i.." most hurt tank")
 			--if i==num then return id end
 			--i=i+1
 		--end
@@ -2676,7 +2888,7 @@ function NthMostHurt(num)
 	--Printt(hurtlist)
 	if TableLength(hurtlist)>0 then 
 		for id,pct in spairs(hurtlist, function(t,a,b) return t[b] > t[a] end) do
-		        Print(UnitName(id).." is "..i.."most hurt without priest")
+		        --Print(UnitName(id).." is "..i.." most hurt without priest")
 			if i==num then return id end
 			i=i+1
 		end
@@ -2687,7 +2899,7 @@ function NthMostHurt(num)
 	end
 	if TableLength(hurtlist)>0 then 
 		for id,pct in spairs(hurtlist, function(t,a,b) return t[b] > t[a] end) do
-		        Print(UnitName(id).." is "..i.."most hurt")
+		        --Print(UnitName(id).." is "..i.." most hurt")
 			if i==num then return id end
 			i=i+1
 		end
@@ -3644,7 +3856,7 @@ function NumInParty(checkclass)
 	local i=0
 	local MyGroup=MB_GroupID[myname]
 	for _,name in MB_ToonsInGroup[MyGroup] do
-			if UnitClass(MBID[name])==checkclass then i=i+1 end
+			if MBID[name] and UnitClass(MBID[name])==checkclass then i=i+1 end
 	end
 	return i
 end
@@ -4386,11 +4598,11 @@ function NS_Party()
 	for _,gname in MB_ToonsInGroup[MB_GroupID[myname]] do
 		id=MBID[gname]
 		if not InCombat() or UnitHealth(id)/UnitHealthMax(id)>.3 then return end
-		if IsHybridDruid() or IsDruidHealer() or (UnitClass("player")=="Shaman" and (not IsEnhancementShammy() and not IsElementalShammy())) then
+		if id and IsHybridDruid() or IsDruidHealer() or (UnitClass("player")=="Shaman" and (not IsEnhancementShammy() and not IsElementalShammy())) then
 			if OnCooldown("Nature's Swiftness") then return end
 			cast("Nature's Swiftness")
 		end
-		if (not UnitIsEnemy(id,"player")) and (IsDruidHealer() or IsHybridDruid()) then
+		if id and (not UnitIsEnemy(id,"player")) and (IsDruidHealer() or IsHybridDruid()) then
 			if buffed("Regrowth","target") then
 				cast("Swiftmend")
 			elseif buffed("Nature's Swiftness","player") then
@@ -5236,7 +5448,16 @@ function pally_heal_single()
 	if TankTarget("Azuregos") and IsAltKeyDown() then return end
 	SaveAndorov(.8)
 	Decurse()
+	--SelfBuff("Seal of Righteousness")
+	if not IAmFocus() then LockonTarget() end
+	if not IsAltKeyDown() and TargetInCombat() and UnitIsEnemy("target","player") then 
+		--cast("Judgement")
+		if not IsCurrentAction(72) then UseAction(72) end;
+	else
+		if IsCurrentAction(72) then UseAction(72) end;
+	end
 	RaidHeal()
+	BlessParty()
 	ReportCPU("Pally Heal Single")
 end
 function pally_heal_multi()
@@ -5245,17 +5466,34 @@ function pally_heal_multi()
 	--if ImBusy() then return ReportCPU("Pally heal multi busy") end
 	SaveAndorov(.8)
 	Decurse()
+	--SelfBuff("Seal of Righteousness")
+	if not IAmFocus() then LockonTarget() end
+	if not IsAltKeyDown() and TargetInCombat() and UnitIsEnemy("target","player") then 
+		--cast("Judgement")
+		if not IsCurrentAction(72) then UseAction(72) end;
+	else
+		if IsCurrentAction(72) then UseAction(72) end;
+	end
 	RaidHeal()
+	BlessParty()
 	ReportCPU("Pally heal multi")
 end
 function pally_heal_aoe()
 	if IsControlKeyDown() then PallyInterrupt() ; end
 	PallySurvive()
 	--if ImBusy() then return ReportCPU("Pally heal aoe busy") end
-	if not IAmFocus() then LockonTarget() end
 	if InMeleeRange() then cast("Consecration") end
 	Decurse()
+	--SelfBuff("Seal of Righteousness")
+	if not IAmFocus() then LockonTarget() end
+	if not IsAltKeyDown() and TargetInCombat() and UnitIsEnemy("target","player") then 
+		--cast("Judgement")
+		if not IsCurrentAction(72) then UseAction(72) end;
+	else
+		if IsCurrentAction(72) then UseAction(72) end;
+	end
 	RaidHeal()
+	BlessParty()
 	ReportCPU("Pally heal aoe")
 end
 function pally_tank_single()
@@ -5351,6 +5589,7 @@ function GetMoneyFromLeader(amt)
 	end
 end
 function paladin_setup()
+	if IsAltKeyDown() then MB_Assist() end
 	if IsAltKeyDown() then RaidHeal() return end
 	if MB_tradeopen and GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return ReportCPU("Paladin Setup trade") end
 	if IsControlKeyDown() then cast("Judgement") cast("Seal of the Crusader") return ReportCPU("Paladin Setup ctrl") end
@@ -5362,11 +5601,12 @@ end
 function BlessParty()
 	if Ungrouped() then return end
 	for _,gname in MB_ToonsInGroup[MB_GroupID[myname]] do
+		if not MBID[gname] then return end
 		tclass=UnitClass(MBID[gname])
 		if tclass=="Warrior" or tclass=="Rogue" or tclass=="Hunter" or FindInTable(MB_raidtanks,gname) then
-			TargetUnit(MBID[gname]) BuffCast("Blessing of Might")
+			if not buffed("Blessing of Might",MBID[gname]) then TargetUnit(MBID[gname]) cast("Blessing of Might") end
 		else
-			TargetUnit(MBID[gname]) BuffCast("Blessing of Wisdom")
+			if not buffed("Blessing of Wisdom",MBID[gname]) then TargetUnit(MBID[gname]) cast("Blessing of Wisdom") end
 		end
 	end
 end
@@ -7713,7 +7953,7 @@ function Shield_Party()
 	if Ungrouped() then return end
 	for _,gname in MB_ToonsInGroup[MB_GroupID[myname]] do
 		id=MBID[gname]
-		if UnitClass("player")=="Priest" and (UnitHealth(id)/UnitHealthMax(id))<.55 and not buffed("Weakened Soul",id) then TargetUnit(id) Print("Shielding "..UnitName(id)) cast("Power Word: Shield") end
+		if id and UnitClass("player")=="Priest" and (UnitHealth(id)/UnitHealthMax(id))<.55 and not buffed("Weakened Soul",id) then TargetUnit(id) Print("Shielding "..UnitName(id)) cast("Power Word: Shield") end
 	end
 end
 function Bubble(id)
@@ -7725,7 +7965,7 @@ function Bubble_Party()
 	if not UnitInParty("player") and not UnitInRaid("player") then return end
 	for _,gname in MB_ToonsInGroup[MB_GroupID[myname]] do
 		id=MBID[gname]
-		if UnitClass("player")=="Paladin" and (UnitHealth(id)/UnitHealthMax(id))<.10 and not buffed("Forbearance",id) then TargetUnit(id) MB_msg("BUBBLING "..UnitName(id)) cast("Blessing of Protection") end
+		if id and UnitClass("player")=="Paladin" and (UnitHealth(id)/UnitHealthMax(id))<.10 and not buffed("Forbearance",id) then TargetUnit(id) MB_msg("BUBBLING "..UnitName(id)) cast("Blessing of Protection") end
 	end
 end
 function DHtarg()
@@ -7756,6 +7996,7 @@ function HotEmUp(hot)
 	end
 end
 function FloodAOEHeal()
+	Print("Flood AOE HEAL!")
 	local myorder
 	if myclass=="Priest" then cast("Prayer of Healing(Rank 3)") end
 	--Put TWO shammys per most hurt
@@ -7771,10 +8012,12 @@ function FloodAOEHeal()
 	if IsHealer() and myclass=="Druid" then HotEmUp("Rejuvenation(Rank 5)") end 
 end
 function AOEHeal()
+	Print("AOE heal!")
 	local myorder
 	if myclass=="Priest" and PartyHurt(800,3) then cast("Prayer of Healing(Rank 3)") end
 	if myclass=="Priest" and PartyHurt(500,3) then cast("Prayer of Healing(Rank 2)") end
 	if myclass=="Priest" and PartyHurt(300,3) then cast("Prayer of Healing(Rank 1)") end
+	if myclass=="Priest" then QuickHeal() end
 	--Put TWO shammys per most hurt
 	if myclass=="Shaman" then 
 		myorder=math.floor(MyClassOrder()/2+.5)
@@ -7799,13 +8042,12 @@ function RaidHeal()
 	if not IsHealer() then return end
 	--if 1 then QuickHeal() return end
 	if Jindo() then
+		if not MB_maxheal_orig then MB_maxheal_orig=MB_maxheal end
 		MB_maxheal={Druid=2,Priest=2,Shaman=2,Paladin=2}
 	else
-		--MB_maxheal={Druid=11,Priest=11,Shaman=11,Paladin=11}
+		if MB_maxheal_orig then MB_maxheal=MB_maxheal_orig MB_maxheal_orig=nil end
 		if ImDH() then 
 			MB_maxheal={Druid=11,Priest=11,Shaman=11,Paladin=11}
-		else
-			MB_maxheal={Druid=8,Priest=4,Shaman=8,Paladin=4}
 		end
 	end
 	--physician heal thyself

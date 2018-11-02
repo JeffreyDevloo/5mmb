@@ -1,4 +1,4 @@
-set version 103018a
+set version 110118a
 array unset toons
 array unset autodelete
 array unset raidorder10
@@ -820,7 +820,7 @@ if { ! $nosmoverwrite } {
 		} elseif { [regexp "^MB_gazefollow" $line ] && $gazefollow!="" } {
 	    set gazefollow [string totitle [ string tolower $gazefollow]]
 	    puts $sMN "MB_gazefollow=\"$gazefollow\""
-	  } elseif { [regexp "^MB_dedicated_healers" $line ] && $dedicated_healers!="" } {
+	  } elseif { [regexp "^MB_dedicated_healers" $line ] } {
 	    puts -nonewline $sMN "MB_dedicated_healers=\{"
 	    set first true
 	    foreach { tank healer } $dedicated_healers {

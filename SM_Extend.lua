@@ -1,4 +1,4 @@
-MB_version="110118b"
+MB_version="110218a"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -8017,7 +8017,6 @@ function AOEHeal()
 	if myclass=="Priest" and PartyHurt(800,3) then cast("Prayer of Healing(Rank 3)") end
 	if myclass=="Priest" and PartyHurt(500,3) then cast("Prayer of Healing(Rank 2)") end
 	if myclass=="Priest" and PartyHurt(300,3) then cast("Prayer of Healing(Rank 1)") end
-	if myclass=="Priest" then QuickHeal() end
 	--Put TWO shammys per most hurt
 	if myclass=="Shaman" then 
 		myorder=math.floor(MyClassOrder()/2+.5)
@@ -8026,6 +8025,7 @@ function AOEHeal()
 	end
 	Print("My order = "..myorder)
 	local mytarg=NthMostHurt(myorder)
+	if myclass=="Priest" and mytarg and HealthDown(mytarg)>1000 then MB_msg("Healing "..UnitName(mytarg)) TargetUnit(mytarg) cast("Lesser Heal(Rank 3)") end 
 	if myclass=="Shaman" and mytarg and HealthDown(mytarg)>1000 then MB_msg("Healing "..UnitName(mytarg)) TargetUnit(mytarg) cast("Chain Heal(Rank 3)") end 
 	--if IsHealer() and myclass=="Druid" and mytarg then MB_msg("Hotting "..UnitName(mytarg)) TargetUnit(mytarg) cast("Rejuvenation(Rank 5)") end 
 	if IsHealer() and myclass=="Druid" then HotEmUp("Rejuvenation(Rank 5)") end 
@@ -9399,5 +9399,52 @@ end
 
 
 
+function nomod()
+	return not IsAltKeyDown() and not IsControlKeyDown() and not IsShiftKeyDown()
+end
+function nostealth()
+	return not buffed("Stealth","player")
+end
+function stealth()
+	return buffed("Stealth","player")
+end
+function combat()
+	return UnitAffectingCombat("player")
+end
+function nocombat()
+	return not UnitAffectingCombat("player")
+end
+function modalt()
+	return IsAltKeyDown()
+end
+function startattack()
+	if not IsCurrentAction(72) then UseAction(72) end
+end
+function pull()
+	if nostealth() then cast("Shoot Bow") end
+	if stealth() then cast("Sap") end
 
+end
+function gouge()
+	if nomod() and nostealth() then cast("Gouge") end
+	if nomod() and stealth() then cast("Pick Pocket") end
+	if nomod() and stealth() then cast("Garrote") end
+	if modalt() and combat() then cast("Slice and Dice") end
+end
+function ss()
+	if nomod() and stealth() then cast("Ambush") end
+	if nostealth() and nomod() then cast("Sinister Strike") end
+	if modalt() and nostealth() then cast("Eviscerate") end
+	if nocombat() and nostealth() then cast("Stealth") end
+	if nostealth() and nomod() then startattack() end
+end
+function bs()
+	if nomod() and nostealth() then cast("Backstab") end
+	if modalt() and nostealth() then cast("Expose Armor") end
+	if nostealth() and nomod() then startattack() end
+
+end
+function lowturb()
+	if combat() then cast("Berserking") end
+end
 

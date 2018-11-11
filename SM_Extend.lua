@@ -1,4 +1,4 @@
-MB_version="110218a"
+MB_version="111018a"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -48,7 +48,7 @@ MB_bombfollow="Enticer"
 --This is who people will run to when they have threatening gaze on Mandokir (raptor boss)
 MB_gazefollow="Toshredsusay"
 --LEAVE DEDICATED HEALERS BLANK. THIS IS AN ADVANCED FEATURE THAT PROBABLY DOESN'T DO WHAT YOU THINK.
-MB_dedicated_healers={}
+MB_dedicated_healers={Cuppycake="Avindra",Enticer="Zumwalt",Komal="Cashme",Furyswipes="Refill"}
 --*Fs
 FsR_AutoRepairAllItems = true
 ---------------------------------------------End of user edited values--------------------------------
@@ -116,7 +116,7 @@ FsR_SummoningLastCast = GetTime()
 raid_state=1
 party_size=1
 MB_spellsToInt={"Arcane Explosion","Greater Heal","Holy Fire","Drain Life"}
-MB_maxheal={Druid=6,Priest=6,Shaman=6,Paladin=6}
+MB_maxheal={Druid=8,Priest=4,Shaman=8,Paladin=4}
 MB_reportcpu=false
 MB_reportzerotime=false
 MB_reportbusy=false
@@ -1232,6 +1232,7 @@ FSMB:RegisterEvent("ITEM_LOCK_CHANGED")
 FSMB:RegisterEvent("CHAT_MSG_MONSTER_YELL")
 FSMB:RegisterEvent("UI_ERROR_MESSAGE")
 FSMB:RegisterEvent("AUTOFOLLOW_END")
+FSMB:RegisterEvent("CHAT_MSG_SPELL_HOSTILEPLAYER_BUFF")
 FSMB:RegisterEvent("CHAT_MSG_SPELL_HOSTILEPLAYER_DAMAGE")
 FSMB:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE")
 FSMB:RegisterEvent("CHAT_MSG_SPELL_CREATURE_VS_CREATURE_BUFF")
@@ -1713,6 +1714,7 @@ function FSMB:OnEvent()
 				end
 			end
 		elseif arg1==MB_RAID.."_Materials" then
+			--if string.find(arg2,"BOE") then Print(arg2) Print(arg4) end
 			FsR_ReceivingMaterialChatMessage(arg2,arg4)
 		end
 	elseif (event == "RAID_ROSTER_UPDATE") then
@@ -1894,15 +1896,27 @@ function FSMB:OnEvent()
 				MB_dcrreq=nil
 			end
 		end
+	elseif (event == "CHAT_MSG_SPELL_HOSTILEPLAYER_BUFF") then
+		if myclass~="Rogue" and myclass~="Shaman" and myclass~="Warrior" and myclass~="Mage" then return end
+		local mytarg=UnitName("target")
+		local _,_,caster=string.find(arg1,"(%a+) begins to cast")
+        	if string.find(arg1,"begins to cast") and mytarg==caster then
+			MB_do_an_interrupt=true
+			--cast("MB_INT_spell[myclass]")
+		end
 	elseif (event == "CHAT_MSG_SPELL_HOSTILEPLAYER_DAMAGE") then
 		if myclass~="Rogue" and myclass~="Shaman" and myclass~="Warrior" and myclass~="Mage" then return end
-		if (string.find(arg1,"begins to cast")) then
+		local mytarg=UnitName("target")
+		local _,_,caster=string.find(arg1,"(%a+) begins to cast")
+        	if string.find(arg1,"begins to cast") and mytarg==caster then
 			MB_do_an_interrupt=true
 			--cast("MB_INT_spell[myclass]")
 		end
 	elseif (event == "CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE") then
 		if myclass~="Rogue" and myclass~="Shaman" and myclass~="Warrior" and myclass~="Mage" then return end
-		if (string.find(arg1,"begins to cast")) then
+		local mytarg=UnitName("target")
+		local _,_,caster=string.find(arg1,"(%a+) begins to cast")
+        	if string.find(arg1,"begins to cast") and mytarg==caster then
 			for _,badspell in MB_spellsToInt do
 				if (string.find(arg1,badspell)) then
 					if UnitIsEnemy("target","player") then RunLine("/yell Interrupting "..UnitName("target").." "..badspell) end
@@ -1913,7 +1927,11 @@ function FSMB:OnEvent()
 		end
 	elseif (event == "CHAT_MSG_SPELL_CREATURE_VS_CREATURE_BUFF") then
 		if myclass~="Rogue" and myclass~="Shaman" and myclass~="Warrior" and myclass~="Mage" then return end
-		if (string.find(arg1,"begins to cast")) then
+		local mytarg=UnitName("target")
+		local _,_,caster=string.find(arg1,"(%a+) begins to cast")
+		Print(caster)
+		Print("DEBUG: "..arg1)
+        	if string.find(arg1,"begins to cast") and mytarg==caster then
 			for _,badspell in MB_spellsToInt do
 				if (string.find(arg1,badspell)) then
 					if UnitIsEnemy("target","player") then RunLine("/yell Interrupting "..UnitName("target").." "..badspell) end
@@ -3323,8 +3341,6 @@ function HasItem(item)
 	return count
 end
 function HasUnboundItem(item)
-	--Used to pick up pet food when feeding pet
-	--have to pick food type based on hunter name and pet
 	count=0
 	for bag=0,4 do for slot=1,GetContainerNumSlots(bag) do
 		local texture,itemCount,locked,quality,readable,lootable,link=GetContainerItemInfo(bag,slot)
@@ -5479,6 +5495,7 @@ function pally_heal_multi()
 	ReportCPU("Pally heal multi")
 end
 function pally_heal_aoe()
+	if IsAltKeyDown() then return end
 	if IsControlKeyDown() then PallyInterrupt() ; end
 	PallySurvive()
 	--if ImBusy() then return ReportCPU("Pally heal aoe busy") end
@@ -5599,7 +5616,7 @@ function paladin_setup()
 	ReportCPU("Paladin Setup")
 end
 function BlessParty()
-	if Ungrouped() then return end
+	if Ungrouped() or UnitInRaid("player") then return end
 	for _,gname in MB_ToonsInGroup[MB_GroupID[myname]] do
 		if not MBID[gname] then return end
 		tclass=UnitClass(MBID[gname])
@@ -5620,9 +5637,9 @@ function PallyBuff()
 		if MyGroupClassOrder()==2 then SelfBuff("Retribution Aura") end
 		if MyClassOrder()==2 then RaidBuff({"Greater Blessing of Salvation"}) end
 		if MyGroupClassOrder()==3 then SelfBuff("Concentration Aura") end
-		if MyClassOrder()==3 then SancDaTank() end
+		if MyClassOrder()==3 then RaidBuff({"Greater Blessing of Wisdom"}) end
 		if MyGroupClassOrder()==4 then SelfBuff("Devotion Aura") end
-		if MyClassOrder()==4 then RaidBuff({"Greater Blessing of Wisdom"}) end
+		if MyClassOrder()==4 then SancDaTank() end
 		if MyGroupClassOrder()==5 then SelfBuff("Retribution Aura") end
 		if MyClassOrder()==5 then RaidBuff({"Greater Blessing of Light"}) end
 		if MyGroupClassOrder()==6 then SelfBuff("Concentration Aura") end
@@ -7901,6 +7918,7 @@ function MountUp()
 	cast("Summon Dreadsteed")
 	cast("Summon Felsteed")
 	cast("Summon Charger")
+	cast("Summon Warhorse")
 end
 function Mounted()
 	if buffed("Felsteed","player") or buffed("Dreadsteed", "player") or buffed("Charger", "player") then return true end
@@ -8544,6 +8562,7 @@ function FsR_ReceivingMaterialChatMessage(message, sender)
 		local ItemName = string.sub(message, 1, string.find(message,";") - 1)
 		local ItemCount = tonumber(string.sub(message, string.find(message,";") + 1))
 		if not FsR_TrackedMaterial[ItemName] then FsR_TrackedMaterial[ItemName] = {} end
+		--if ItemName=="BOE_grp" then Print(sender.." has "..ItemCount.." BOEs") end
 		FsR_TrackedMaterial[ItemName][sender] = ItemCount
 		FsR_ItemTrade.GotUpdate = true
  	end
@@ -8634,6 +8653,7 @@ function FsR_UpdateTradeList()
 					--collectors must not see other collectors of the same kind
 					for i, collector in ipairs(FsR_Stuff2Track[itemNameINStuff2Track].collector) do
 						if FindInTable(FsR_Stuff2Track[itemNameINStuff2Track].collector,myname) then myShareOfit = 1 break end
+						if MBID[collector] and FsR_TrackedMaterial["EmptyBagSlots_slots"][collector]==0 then Print("I want to trade with "..collector.." but their bags are FULL!!!") end
 						if MBID[collector] and CheckInteractDistance(MBID[collector], 2) and FsR_TrackedMaterial["EmptyBagSlots_slots"] and FsR_TrackedMaterial["EmptyBagSlots_slots"][collector] and FsR_TrackedMaterial["EmptyBagSlots_slots"][collector] > 1 then
 							break
 						end
@@ -9193,7 +9213,7 @@ function FsR_ItemEnchant:CheckItemsForMissingEnchants()
 			if (slotId == 16) and (playerEnchantList[16] == "2646") and not IsTwoHandEq("raid"..playerId) then
 				playerEnchantList[16] = "2564"
 			end
-			Printt(playerEnchantList)
+			--Printt(playerEnchantList)
 			for _,slotId in pairs({1,3,5,7,8,9,10, 15,16,17,18}) do
 				local ItemLink = GetInventoryItemLink("raid"..playerId,slotId)
 				if ItemLink then
@@ -9220,6 +9240,8 @@ function FsR_ItemEnchant:CheckItemsForMissingEnchants()
 							if not FsR_ItemEnchant.MissingEnchantList[UnitName("raid"..playerId)] then
 								FsR_ItemEnchant.MissingEnchantList[UnitName("raid"..playerId)] = {}
 							end
+							--Print(UnitName("raid"..playerId))
+							--Print(slotId)
 							FsR_ItemEnchant.MissingEnchantList[UnitName("raid"..playerId)][slotId] = FsR_ItemEnchant.EnchantTextToEnchant[slotId][playerEnchantList[slotId]].Spell
 							if EnchantId == "0" then
 								if FsR_ItemEnchant.EnchantTextToEnchant[slotId] and FsR_ItemEnchant.EnchantTextToEnchant[slotId][playerEnchantList[slotId]] and FsR_ItemEnchant.EnchantTextToEnchant[slotId][playerEnchantList[slotId]].Name then

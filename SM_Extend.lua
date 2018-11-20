@@ -1,4 +1,4 @@
-MB_version="111018a"
+MB_version="111918a"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -642,13 +642,15 @@ function partyup()
 			if UnitName("target")==toon and not MBID[toon] then 
 				Print("Found "..toon.." near me. Inviting.")
 		  	if UnitIsConnected("target") then Print("Inviting "..toon) InviteByName(toon) end
-	    	PromoteToAssistant(toon)
 			end
 		end
 	end
 	SetLootMethod("freeforall",UnitName("player"))
 	--AutoPromote people you trust
-	if GetNumPartyMembers()==4 then ConvertToRaid(); end
+	if GetNumPartyMembers()==4 and not UnitInRaid("player") then ConvertToRaid(); end
+	for toon,id in MBID do
+		PromoteToAssistant(toon)
+	end
 	--if GetNumPartyMembers()==4 and UnitLevel("player")==60 then ConvertToRaid(); end
 	ReportCPU("Partyup")
 end
@@ -1899,38 +1901,43 @@ function FSMB:OnEvent()
 	elseif (event == "CHAT_MSG_SPELL_HOSTILEPLAYER_BUFF") then
 		if myclass~="Rogue" and myclass~="Shaman" and myclass~="Warrior" and myclass~="Mage" then return end
 		local mytarg=UnitName("target")
-		local _,_,caster=string.find(arg1,"(%a+) begins to cast")
-        	if string.find(arg1,"begins to cast") and mytarg==caster then
+		local _,_,caster,spell=string.find(arg1,"(.*) begins to cast (.*).")
+        	if caster and mytarg==caster then
+			if mytarg and spell and not OnCooldown(MB_INT_spell[myclass]) then RunLine("/yell Interrupting "..mytarg.." "..spell) end
 			MB_do_an_interrupt=true
-			--cast("MB_INT_spell[myclass]")
 		end
 	elseif (event == "CHAT_MSG_SPELL_HOSTILEPLAYER_DAMAGE") then
 		if myclass~="Rogue" and myclass~="Shaman" and myclass~="Warrior" and myclass~="Mage" then return end
 		local mytarg=UnitName("target")
-		local _,_,caster=string.find(arg1,"(%a+) begins to cast")
-        	if string.find(arg1,"begins to cast") and mytarg==caster then
+		local _,_,caster,spell=string.find(arg1,"(.*) begins to cast (.*).")
+        	if caster and mytarg==caster then
+			if mytarg and spell and not OnCooldown(MB_INT_spell[myclass]) then RunLine("/yell Interrupting "..mytarg.." "..spell) end
 			MB_do_an_interrupt=true
-			--cast("MB_INT_spell[myclass]")
 		end
 	elseif (event == "CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE") then
 		if myclass~="Rogue" and myclass~="Shaman" and myclass~="Warrior" and myclass~="Mage" then return end
 		local mytarg=UnitName("target")
-		local _,_,caster=string.find(arg1,"(%a+) begins to cast")
-        	if string.find(arg1,"begins to cast") and mytarg==caster then
+		local _,_,caster,spell=string.find(arg1,"(.*) begins to cast (.*).")
+        	if caster and mytarg==caster then
 			for _,badspell in MB_spellsToInt do
-				if (string.find(arg1,badspell)) then
-					if UnitIsEnemy("target","player") then RunLine("/yell Interrupting "..UnitName("target").." "..badspell) end
+				if spell==badspell then
+					if mytarg and badspell and not OnCooldown(MB_INT_spell[myclass]) then RunLine("/yell Interrupting "..mytarg.."'s "..badspell) end
 					MB_do_an_interrupt=true
-					--cast("MB_INT_spell[myclass]")
 				end
 			end
 		end
 	elseif (event == "CHAT_MSG_SPELL_CREATURE_VS_CREATURE_BUFF") then
 		if myclass~="Rogue" and myclass~="Shaman" and myclass~="Warrior" and myclass~="Mage" then return end
 		local mytarg=UnitName("target")
-		local _,_,caster=string.find(arg1,"(%a+) begins to cast")
-		Print(caster)
-		Print("DEBUG: "..arg1)
+		local _,_,caster,spell=string.find(arg1,"(.*) begins to cast (.*).")
+        	if caster and mytarg==caster then
+			for _,badspell in MB_spellsToInt do
+				if spell==badspell then
+					if mytarg and badspell and not OnCooldown(MB_INT_spell[myclass]) then RunLine("/yell Interrupting "..mytarg.."'s "..badspell) end
+					MB_do_an_interrupt=true
+				end
+			end
+		end
         	if string.find(arg1,"begins to cast") and mytarg==caster then
 			for _,badspell in MB_spellsToInt do
 				if (string.find(arg1,badspell)) then
@@ -6047,13 +6054,22 @@ function PerfectAim()
 	end
 end
 function fd()
-	if InCombat() and not OnCooldown("Feign Death") then
-	SpellStopCasting()
 	PetPassiveMode()
 	PetFollow()
-	cast("Freezing Trap")
-	cast("Feign Death") end
-	cast("Faerie Fire (Feral)()")
+	if (UnitAffectingCombat("player")) then 
+		CastSpellByName("Feign Death()") 
+	elseif not (UnitAffectingCombat("player")) then 
+		CastSpellByName("Freezing Trap"); 
+	end
+end
+function ExplosiveTrap()
+	PetPassiveMode()
+	PetFollow()
+	if (UnitAffectingCombat("player")) then 
+		CastSpellByName("Feign Death()") 
+	elseif not (UnitAffectingCombat("player")) then 
+		CastSpellByName("Explosive Trap"); 
+	end
 end
 function hunter_single()
 	if not TargetInCombat() and not IAmFocus() then if MB_RAIS_shooting then UseAction(72) end end
@@ -6171,6 +6187,7 @@ function hunter_aoe()
 		if InMeleeRange() then
 			--wing clip on alt
 			if not IsAltKeyDown() then
+				ExplosiveTrap()
 				cast("Mongoose Bite")
 				cast ("Raptor Strike")
 				cast ("Blood Fury")

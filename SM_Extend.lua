@@ -1,4 +1,4 @@
-MB_version="111918a"
+MB_version="112218a"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -115,7 +115,8 @@ FsR_SummoningLastCast = GetTime()
 --*Fs
 raid_state=1
 party_size=1
-MB_spellsToInt={"Arcane Explosion","Greater Heal","Holy Fire","Drain Life"}
+MB_spellsToInt={"Arcane Explosion","Greater Heal","Holy Fire","Drain Life","Heal","Cripple","Heal","Venom Spit","Banish"}
+MB_spellsToStun={"Unstable Concoction"}
 MB_maxheal={Druid=8,Priest=4,Shaman=8,Paladin=4}
 MB_reportcpu=false
 MB_reportzerotime=false
@@ -171,7 +172,8 @@ MB_msgcd=GetTime()
 MB_aacd=GetTime()
 MB_prev_msg=""
 MB_CC_spell={Priest="Shackle Undead",Mage="Polymorph",Warlock="Banish",Druid="Hibernate"}
-MB_INT_spell={Rogue="Kick",Shaman="Earth Shock(Rank1)",Mage="Counterspell",Warrior="Shield Bash"}
+MB_INT_spell={Rogue="Kick",Shaman="Earth Shock(Rank1)",Mage="Counterspell",Warrior="Shield Bash",Paladin="None",Priest="Silence",Hunter="Wyvern Sting",Druid="Bash",Warlock="Death Coil"}
+MB_STUN_spell={Rogue="Gouge",Shaman="War Stomp",Mage="None",Warrior="War Stomp",Hunter="Intimidation",Paladin="Hammer of Justice",Priest="None",Druid="War Stomp",Warlock="Death Coil"}
 MB_Fear_spell={Warlock="Fear",Hunter="Scare Beast"}
 MB_cooldowns={}
 MB_rez_spells = { Druid="Rebirth",Paladin="Redemption",Priest="Resurrection", Shaman="Ancestral Spirit" }
@@ -324,6 +326,9 @@ function InitializeClasslists()
 	--Party initialize
 		MBID={}
 		MB_classlist={Warrior={},Mage={},Shaman={},Paladin={},Priest={},Rogue={},Druid={},Hunter={},Warlock={}}
+		for i=1,8 do
+			MB_ToonsInGroup[i]={}
+		end
 		for i=1,GetNumPartyMembers()+1 do
 			local id
 			if i==GetNumPartyMembers()+1 then id="player" else id="party"..i end
@@ -1899,7 +1904,6 @@ function FSMB:OnEvent()
 			end
 		end
 	elseif (event == "CHAT_MSG_SPELL_HOSTILEPLAYER_BUFF") then
-		if myclass~="Rogue" and myclass~="Shaman" and myclass~="Warrior" and myclass~="Mage" then return end
 		local mytarg=UnitName("target")
 		local _,_,caster,spell=string.find(arg1,"(.*) begins to cast (.*).")
         	if caster and mytarg==caster then
@@ -1907,7 +1911,6 @@ function FSMB:OnEvent()
 			MB_do_an_interrupt=true
 		end
 	elseif (event == "CHAT_MSG_SPELL_HOSTILEPLAYER_DAMAGE") then
-		if myclass~="Rogue" and myclass~="Shaman" and myclass~="Warrior" and myclass~="Mage" then return end
 		local mytarg=UnitName("target")
 		local _,_,caster,spell=string.find(arg1,"(.*) begins to cast (.*).")
         	if caster and mytarg==caster then
@@ -1915,7 +1918,6 @@ function FSMB:OnEvent()
 			MB_do_an_interrupt=true
 		end
 	elseif (event == "CHAT_MSG_SPELL_CREATURE_VS_CREATURE_DAMAGE") then
-		if myclass~="Rogue" and myclass~="Shaman" and myclass~="Warrior" and myclass~="Mage" then return end
 		local mytarg=UnitName("target")
 		local _,_,caster,spell=string.find(arg1,"(.*) begins to cast (.*).")
         	if caster and mytarg==caster then
@@ -1925,9 +1927,14 @@ function FSMB:OnEvent()
 					MB_do_an_interrupt=true
 				end
 			end
+			for _,badspell in MB_spellsToStun do
+				if spell==badspell then
+					if mytarg and badspell and not OnCooldown(MB_STUN_spell[myclass]) then RunLine("/yell Interrupting "..mytarg.."'s "..badspell) end
+					MB_do_a_stun=true
+				end
+			end
 		end
 	elseif (event == "CHAT_MSG_SPELL_CREATURE_VS_CREATURE_BUFF") then
-		if myclass~="Rogue" and myclass~="Shaman" and myclass~="Warrior" and myclass~="Mage" then return end
 		local mytarg=UnitName("target")
 		local _,_,caster,spell=string.find(arg1,"(.*) begins to cast (.*).")
         	if caster and mytarg==caster then
@@ -1935,6 +1942,12 @@ function FSMB:OnEvent()
 				if spell==badspell then
 					if mytarg and badspell and not OnCooldown(MB_INT_spell[myclass]) then RunLine("/yell Interrupting "..mytarg.."'s "..badspell) end
 					MB_do_an_interrupt=true
+				end
+			end
+			for _,badspell in MB_spellsToStun do
+				if spell==badspell then
+					if mytarg and badspell and not OnCooldown(MB_STUN_spell[myclass]) then RunLine("/yell Interrupting "..mytarg.."'s "..badspell) end
+					MB_do_an_stun=true
 				end
 			end
 		end
@@ -3487,7 +3500,7 @@ function interrupt_boss()
 	if class=="Priest" then cast("Silence") end
 	if class=="Rogue" then cast("Kick") end
 	if class=="Paladin" then cast("Hammer of Justice") end
-	cast("Warstomp")
+	cast("War Stomp")
 end
 function TankTarget(mobname)
 	--Sometimes we have to know if the tank is targeting a certain boss, so we can do things differently as dps.
@@ -3903,7 +3916,7 @@ function ChooseAirTotem()
 	return "Tranquil Air Totem"
 end
 function ChooseEarthTotem()
-	if MB_DruidTankInParty or MB_WarriorTankInParty then return "Stoneskin Totem" end
+	if MB_DruidTankInParty or MB_WarriorTankInParty then return "Strength of Earth Totem" end
 	if MB_MeleeDPSInParty>0 then return "Strength of Earth Totem" end
 	return "Stoneskin Totem"
 end
@@ -4047,6 +4060,8 @@ function buffedTest(spell, target)
 	--elseif spell == "Mark of the Wild" then
 	elseif spell == "Arcane Brilliance" then
 		return buffCheck("Interface\\Icons\\Spell_Holy_ArcaneIntellect", target)
+	elseif spell == "Weakened Soul" then
+		return buffCheck("Interface\\Icons\\Spell_Holy_PowerWordShield", target)
 	--elseif spell == "Arcane Intellect" then
 	--elseif spell == "Dampen Magic" then
 	--elseif spell == "Amplify Magic" then
@@ -5152,7 +5167,7 @@ function warrior_tank_single()
 	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
 	if IAmFocus() and UnitName("target")=="Shazzrah" then CloseDistance() end
 	if SpellExists("Charge") then
-		if IAmFocus() and (CooldownTime("Charge")>.85 and CooldownTime("Charge")<4) and not OnCooldown("Thunder Clap") and InMeleeRange() then cast("Thunder Clap") end
+		if IAmFocus() and (CooldownTime("Charge")>.85 and CooldownTime("Charge")<4) and not buffed("Thunderfury","target") and not OnCooldown("Thunder Clap") and InMeleeRange() then cast("Thunder Clap") end
 		if CooldownTime("Charge")>0 and CooldownTime("Charge")<1.5 then return ReportCPU("Warrior tank single charge") end
 	end
 	--TAUNT CODE
@@ -5267,7 +5282,7 @@ function warrior_tank_multi()
 		if TankTarget("The Prophet Skeram") and UnitMana("player")<11 then return end
 		SelfBuff("Battle Shout")
 		if not IsAltKeyDown() then BuffCast("Demoralizing Shout") end
-		if not IsAltKeyDown() and not buffed("Thunder Clap","target") and not OnCooldown("Thunder Clap") then
+		if not IsAltKeyDown() and not buffed("Thunder Clap","target") and not buffed("Thunderfury","target") and not OnCooldown("Thunder Clap") then
 			cast("Thunder Clap")
 			StanceCast("Battle Stance")
 		end
@@ -5303,7 +5318,7 @@ function warrior_tank_aoe()
 		cast("Bloodrage")
 		SelfBuff("Battle Shout")
 		BuffCast("Demoralizing Shout")
-		if MyRage()>19 and not buffed("Thunder Clap","target") and not OnCooldown("Thunder Clap") then
+		if MyRage()>19 and not buffed("Thunder Clap","target") and not buffed("Thunderfury","target") and not OnCooldown("Thunder Clap") then
 			StanceCast("Battle Stance")
 			cast("Thunder Clap")
 			return ReportCPU("Warrior tank aoe tc")
@@ -5319,6 +5334,115 @@ function warrior_tank_aoe()
 		if not IsCurrentAction(72) then UseAction(72) end;
 	end
 	ReportCPU("Warrior tank aoe")
+end
+function furytank_single()
+	AnubAlert()
+	AutoAssignCC()
+	if IsControlKeyDown() then WarriorInterrupt() ; end
+  if not IAmFocus() and buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
+  if not IAmFocus() and buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
+	if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.2 and UnitHealth("target")>1000 then cast("Execute") end
+  if TankTarget("Shazzrah") and not IAmFocus() then return ReportCPU("Warrior furytank single shazzrah") end
+	local tname=UnitName("target")
+	if not tname then tname="" end
+	if MyHealthPct()<.15 then WarriorSurvive() end
+	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
+	if IAmFocus() and UnitName("target")=="Shazzrah" then CloseDistance() end
+	if SpellExists("Charge") then
+		if IAmFocus() and (CooldownTime("Charge")>.85 and CooldownTime("Charge")<4) and not OnCooldown("Thunder Clap") and not buffed("Thunderfury","target") and InMeleeRange() then cast("Thunder Clap") end
+		if CooldownTime("Charge")>0 and CooldownTime("Charge")<1.5 then return ReportCPU("Warrior furytank single charge") end
+	end
+	OT()
+	ttname=UnitName("targettarget")
+	if MB_My_ot_target then
+		if tname and ttname and UnitIsEnemy("player","target") and ttname~=myname then
+			WarriorTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
+		end
+	else
+		if tname and ttname and UnitIsEnemy("player","target") and not FindInTable(MB_raidtanks,ttname) then
+			WarriorTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
+		end
+	end
+	--Force taunt on alt-2 if you are main tank, otherwise ctrl-3 if you are bot
+	if IAmFocus() and IsAltKeyDown() then WarriorTaunt("TAUNT--alt-2: "..tname) end
+	if not IAmFocus() and IsAltKeyDown() and UnitName("target")=="Kurinnaxx" then
+	--stop attacking during kurinnaxx when you are the off tank and the main tank is taunting!
+		if IsCurrentAction(72) then UseAction(72) end
+		return ReportCPU("Warrior furytank single swing")
+	end
+	if not UnitName("target") and not MB_My_ot_target and not IAmFocus() then TargetNotOnTank() end
+	if (not UnitName("target") or not IsAlive("target") or (not UnitIsEnemy("target","player") and UnitLevel("target")>9)) and IAmFocus() then TargetNotOnTank() end
+	if not IAmFocus() and (not UnitName("target") or not UnitIsEnemy("target","player") or UnitIsDead("target")) then LockonTarget() end
+	if UnitName("target") and ((TargetInCombat() or IAmFocus() or IsAltKeyDown())) then
+		if IAmFocus() or (TargetInCombat() and not IsAltKeyDown()) then
+			WarriorSnarePlayer()
+			if InMeleeRange() and InCombat() then StanceCast("Berserker Stance") ; end
+			SelfBuff("Battle Shout")
+			SelfBuff("Bloodrage")
+			SelfBuff("Berserker Rage")
+			if IAmFocus() then StackCast("Sunder Armor",5) end
+			cast("Bloodthirst")
+			if OnCooldown("Bloodthirst") then cast("Whirlwind") end
+			if MyRage("player")>73 then cast("Heroic Strike") end
+			if InMeleeRange() and InCombat() then StanceCast("Berserker Stance") ; end
+			if not IsCurrentAction(72) then UseAction(72) end;
+		else
+			if IsCurrentAction(72) then UseAction(72) end;
+		end
+	end
+	ReportCPU("Warrior furytank single")
+end
+function furytank_multi()
+	AnubAlert()
+	AutoAssignCC()
+	if IsControlKeyDown() then cast("Challenging Shout") return ReportCPU("Warrior tank multi ctrl") ; end
+	if TankTarget("Shazzrah") and not IAmFocus() then return ReportCPU("Warrior tank single shazzrah") end
+	local tname=UnitName("target")
+	if not tname then tname="" end
+	if MyHealthPct()<.15 then WarriorSurvive() end
+	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
+	if IAmFocus() and UnitName("target")=="Shazzrah" then CloseDistance() end
+	--TAUNT CODE
+	OT()
+	ttname=UnitName("targettarget")
+	if MB_My_ot_target then
+		if tname and ttname and UnitIsEnemy("player","target") and ttname~=myname then
+			WarriorTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
+		end
+	else
+		if tname and ttname and UnitIsEnemy("player","target") and not FindInTable(MB_raidtanks,ttname) then
+			WarriorTaunt("AUTOTAUNT: "..tname.." attacking "..ttname)
+		end
+	end
+	--END TAUNT CODE	
+	if not IAmFocus() and not MB_My_ot_target and IsAltKeyDown() then TargetNotOnTank() end
+	if IAmFocus() and IsAltKeyDown() then TargetNotOnTank() end
+	if (not UnitName("target") or not IsAlive("target") or not UnitIsEnemy("target","player")) and IAmFocus() then TargetNotOnTank() end
+	if not IAmFocus() and (not UnitName("target") or not UnitIsEnemy("target","player") or UnitIsDead("target")) then LockonTarget() end
+	if UnitName("target") and (TargetInCombat() or IAmFocus()) then
+		if IAmFocus() and IsAltKeyDown() then TargetNotOnTank() end
+		if IAmFocus() or (TargetInCombat() and not IsAltKeyDown()) then
+			WarriorSnarePlayer()
+			SelfBuff("Battle Shout")
+			if not IsAltKeyDown() then BuffCast("Demoralizing Shout") end
+			if not IsAltKeyDown() and not buffed("Thunder Clap","target") and not buffed("Thunderfury","target") and not OnCooldown("Thunder Clap") then
+				cast("Thunder Clap")
+				StanceCast("Battle Stance")
+				return
+			end
+			if InMeleeRange() and InCombat() then StanceCast("Berserker Stance") ; end
+			if not IsAltKeyDown() then BuffCast("Demoralizing Shout") end
+			cast("Berserker Rage")
+			cast("Bloodrage")
+			if IAmFocus() then StackCast("Sunder Armor",5) end
+			cast("Whirlwind")
+			if MyRage()>55 then cast("Cleave") end
+			if not IsCurrentAction(72) then UseAction(72) end;
+		else
+			if IsCurrentAction(72) then UseAction(72) end
+		end
+	end
+	ReportCPU("Warrior fury multi")
 end
 function fury_single()
     	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
@@ -5434,6 +5558,7 @@ end
 function warrior_turbo()
 	if not InCombat() then return ReportCPU("Warrior turbo incombat") end
 	if not OnCooldown("Death Wish") then cast("Death Wish"); cast("Bloodrage") ; cast("Berserker Rage") end
+	if IsFury() and not OnCooldown("Recklessness") then cast("Recklessness"); cast("Bloodrage") ; cast("Berserker Rage") end
 	cast("Blood Fury")
 	CombatUse(13)
 	CombatUse(14)
@@ -6063,6 +6188,8 @@ function fd()
 	end
 end
 function ExplosiveTrap()
+	if OnCooldown("Explosive Trap") and buffed("Feign Death","player") then cast("Feign Death") end
+	if OnCooldown("Explosive Trap") then return end
 	PetPassiveMode()
 	PetFollow()
 	if (UnitAffectingCombat("player")) then 
@@ -6076,7 +6203,6 @@ function hunter_single()
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	if ImBusy() then return ReportCPU("Hunter Single busy") end
-	if buffed("Feign Death","player") then return ReportCPU("Hunter Single feigned") end
 	if IsAltKeyDown() then
 		if IsAutoRepeatAction(72) then cast("Auto Shot") end
 		return ReportCPU("Hunter Single shoot")
@@ -6632,6 +6758,7 @@ end
 ----Warrior (arms/fury/prot)
 function warrior_single()
 	local name,realm=UnitName("player")
+	if IsFury() and FindInTable(MB_raidtanks,name) then furytank_single() return end
 	if FindInTable(MB_raidtanks,name) then warrior_tank_single() return end
 	if IsFury() then fury_single() return end
 	if IsArms() then arms_single() return end
@@ -6639,6 +6766,7 @@ function warrior_single()
 end
 function warrior_multi()
 	local name,realm=UnitName("player")
+	if IsFury() and FindInTable(MB_raidtanks,name) then furytank_multi() return end
 	if FindInTable(MB_raidtanks,name) then warrior_tank_multi() return end
 	if IsFury() then fury_multi() return end
 	if IsArms() then arms_multi() return end
@@ -6646,6 +6774,7 @@ function warrior_multi()
 end
 function warrior_aoe()
 	local name,realm=UnitName("player")
+	if IsFury() and FindInTable(MB_raidtanks,name) then furytank_multi() return end
 	if FindInTable(MB_raidtanks,name) then warrior_tank_aoe() return end
 	if IsFury() then fury_multi() return end
 	if IsArms() then arms_multi() return end
@@ -6654,7 +6783,7 @@ end
 function ShieldBomb()
 	if not TankTarget("Baron Geddon") then return end
 	for i=1,GetNumRaidMembers() do
-		if buffed("Living Bomb","raid"..i) and not buffed("Weakened Soul","raid"..i) then
+		if buffed("Living Bomb","raid"..i) and not buffedTest("Weakened Soul","raid"..i) then
 				TargetUnit("raid"..i)
 				cast("Power Word: Shield")
 			return
@@ -7982,13 +8111,13 @@ function HunterDuel()
 end
 function Shield(id)
 	if not id then return end
-	if UnitClass("player")=="Priest" and (UnitHealth(id)/UnitHealthMax(id))<.55 and not buffed("Weakened Soul",id) then TargetUnit(id) Print("Shielding "..UnitName(id)) cast("Power Word: Shield") end
+	if UnitClass("player")=="Priest" and (UnitHealth(id)/UnitHealthMax(id))<.55 and not buffedTest("Weakened Soul",id) then TargetUnit(id) Print("Shielding "..UnitName(id)) cast("Power Word: Shield") end
 end
 function Shield_Party()
 	if Ungrouped() then return end
 	for _,gname in MB_ToonsInGroup[MB_GroupID[myname]] do
 		id=MBID[gname]
-		if id and UnitClass("player")=="Priest" and (UnitHealth(id)/UnitHealthMax(id))<.55 and not buffed("Weakened Soul",id) then TargetUnit(id) Print("Shielding "..UnitName(id)) cast("Power Word: Shield") end
+		if id and UnitClass("player")=="Priest" and (UnitHealth(id)/UnitHealthMax(id))<.55 and not buffedTest("Weakened Soul",id) then TargetUnit(id) Print("Shielding "..UnitName(id)) cast("Power Word: Shield") end
 	end
 end
 function Bubble(id)

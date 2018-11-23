@@ -1,4 +1,4 @@
-MB_version="112218a"
+MB_version="112218b"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -6,6 +6,7 @@ Printd("SM_extend.lua loaded OK!")
 --IF YOU ARE COMBINING RAIDS WITH SOMEONE ELSE, MAKE SURE YOU CHOOSE A UNIQUE RAID NAME IN THIS VARIABLE
 MB_RAID = "MULTIBOX_toddsraid"
 --------------------------------------------User edited values--------------------------------------
+MB_spellcast_counter=0
 --Warlocks will soulstone rezzers during setup
 MB_soulstone_rezzers=true
 --Automatically Trade a list of items to specific people. See FsR_Stuff2Track below.
@@ -30,18 +31,25 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={"Cuppycake","Eversmile","Enticer","Komal","Furyswipes"}
+MB_tanklist={}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list={"Shamanquatro","Punchingbear","Shamancinco","Orinoco","Shamansiete","Shamanocho","Cashme","Refill","Bubbling","Avindra","Zumwalt"}
+MB_healer_list={}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist={"Shamantres","Brutalic","Toshredsusay","Cuppycake","Stabsya","Kimboslicer","Eversmile","Brutalium","Enticer","Brutaliar","Shamanuno","Brutalio","Shamanquatro","Punchingbear","Shamancinco","Orinoco","Shamansiete","Flameshocked","Shamanocho","Calypsa","Cashme","Zillazee","Refill","Merazza","Bubbling","Jenjja","Avindra","Silza","Zumwalt","Olympic","Icefloes","Everglades","Brutalia","Yellowstone","Monterey","Badlands","Shamanseis","Crookshanks","Komal","Furyswipes"}
+MB_toonlist={"Awt","Chainit","Enyu","Cym","Ata","Aturi","Osna","Loil","Yerlt","Shyrt","Olora","Sial","Bels","Queurt","Ideni","Oughs","Irgh","Agea","Cerd","Rodr","Noeld","Etory","Ries","Bloogh","Inau","Smont","Inent","Taim","Epolo","Aorma","Asuku","Iab","Oinai","Nymh","Polt","Enm","Deuth","Rard","Yiso","Nteyr"}
 --When in raid with group loot, always pass on loot unless this is set to false
 MB_autopass=true
 --This is the powerleveler your lowbies will follow when powerleveling
-MB_powerleveler="Titanator"
+MB_powerleveler="Chainit"
 --This is your set of lowbie leveling parties. You can run 4 at a time. The first toon name on the left of = is the squad leader.
 MB_levelingparties={
-
+	Enm={"Deuth","Rard","Yiso","Nteyr"},
+	Chainit={"Awt","Enyu","Cym","Ata"},
+	Asuku={"Iab","Oinai","Nymh","Polt"},
+	Smont={"Inent","Taim","Epolo","Aorma"},
+	Olora={"Sial","Bels","Queurt","Ideni"},
+	Aturi={"Osna","Loil","Yerlt","Shyrt"},
+	Noeld={"Etory","Ries","Bloogh","Inau"},
+	Oughs={"Irgh","Agea","Cerd","Rodr"}
 }
 --This is who people will run to when they have the bomb on Baron.
 MB_bombfollow="Enticer"
@@ -636,6 +644,7 @@ function Leveler(name)
 	end
 end
 function partyup()
+	if Leveler(myname) then return end
 	if MB_reportcpu then MB_cpustart=GetTime() end
 	if IsControlKeyDown() then GetMoneyFromLeader(25) return ReportCPU("Partyup getmoney") end
 	if UnitInRaid("player") and (not IsRaidLeader() or not IsRaidOfficer()) then Print("MAKE ME RAID LEADER OR ASSIST AND I'D BE GLAD TO INVITE MORE, OR PROMOTE, OR CHANGE LOOT.") return ReportCPU("Partyup notinraid") end
@@ -2165,12 +2174,17 @@ function init()
 	tapmap[2]={"shftap","Shift"}
 	tapmap[3]={"ctltap","Control"}
 	tapmap[4]={"altap","Alt"}
+	tapmap[5]={"tap","Open"}
+	tapmap[6]={"shftap","Shift"}
+	tapmap[7]={"ctltap","Control"}
+	tapmap[8]={"altap","Alt"}
 	for sql,sqmem in MB_levelingparties do 
 		if myname==sql or FindInTable(sqmem,myname) then 
-			index=CreateSuperMacro(tapmap[levidx][1],"Interface\\Icons\\Ability_ShootWand","/script ".."tap(\""..tapmap[levidx][2].."\")")
+			if levidx>4 then MB_even=1 else MB_even=0 end
+			index=CreateSuperMacro(tapmap[levidx][1],"Interface\\Icons\\Ability_ShootWand","/script ".."tap(\""..tapmap[levidx][2].."\","..MB_even..")")
 			PickupMacro(index,tapmap[levidx][1])
 			PlaceAction(1)
-			if levidx==2 then 
+			if levidx==2 or levidx==6 then 
 				PickupMacro(index,tapmap[levidx][1])
 				PlaceAction(61)
 			end
@@ -4846,11 +4860,11 @@ function aoe()
 	if myclass=="Druid" then dru_aoe() return end
 	if myclass=="Hunter" then hunter_aoe() return end
 end
-function tap(modifier)
+function tap(modifier,even)
 	if not MB_raidleader and (TableLength(MBID)>1) then Print("WARNING: You have not chosen a raid leader--hit alt-4") end
 	if myclass=="Mage" then mage_tap(modifier) return end
 	if myclass=="Paladin" then paladin_tap(modifier) return end
-	if myclass=="Shaman" then shammy_tap(modifier) return end
+	if myclass=="Shaman" then shammy_tap(modifier,even) return end
 	if myclass=="Priest" then priest_tap(modifier) return end
 	if myclass=="Rogue" then rogue_tap(modifier) return end
 	if myclass=="Warrior" then warrior_tap(modifier) return end
@@ -7994,14 +8008,21 @@ function hunter_tap(modifier)
 	end
 	if not IsAutoRepeatAction(72) then cast("Auto Shot") end
 end
-function shammy_tap(modifier)
+function shammy_tap(modifier,even)
 	MB_raidleader=MB_powerleveler
 	Follow()
 	RunLine("/assist "..MB_powerleveler)
 	if Mounted() then return end
 	if not RequestedTap(modifier) then return end
-	cast("Earth Shock")
-	if not IsCurrentAction(71) then UseAction(71) end
+	MB_isOdd=MB_spellcast_counter - math.floor(MB_spellcast_counter/2)*2
+	if MB_spellcast_counter==1 then MB_spellcast_counter=0 else MB_spellcast_counter=1 end
+	if (MB_isOdd==1 and even==0) or (MB_isOdd==0 and even==1) then 
+		cast("Earth Shock")
+		cast("Lightning Bolt")
+		if not IsCurrentAction(71) then UseAction(71) end
+	else
+		if IsCurrentAction(71) then UseAction(71) end
+	end
 end
 function priest_tap(modifier)
 	MB_raidleader=MB_powerleveler

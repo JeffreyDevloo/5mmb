@@ -1,4 +1,4 @@
-MB_version="112218b"
+MB_version="112318b"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -10,7 +10,7 @@ MB_spellcast_counter=0
 --Warlocks will soulstone rezzers during setup
 MB_soulstone_rezzers=true
 --Automatically Trade a list of items to specific people. See FsR_Stuff2Track below.
-MB_autotrade=true
+MB_autotrade=false
 --Flashes frames yellow if target out of range or behind you. Flashes red if aggro and you aren't a tank. White if aggro and you ARE a tank. Blue if missing a reagent.
 MB_frameflash=true
 --Automatically delete stuff from TheList. Starts out blank and won't delete shit.
@@ -31,25 +31,18 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={}
+MB_tanklist={"Cuppycake","Eversmile","Enticer","Komal","Furyswipes"}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list={}
+MB_healer_list={"Shamanquatro","Punchingbear","Shamancinco","Orinoco","Shamansiete","Shamanocho","Cashme","Refill","Bubbling","Avindra","Zumwalt"}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist={"Awt","Chainit","Enyu","Cym","Ata","Aturi","Osna","Loil","Yerlt","Shyrt","Olora","Sial","Bels","Queurt","Ideni","Oughs","Irgh","Agea","Cerd","Rodr","Noeld","Etory","Ries","Bloogh","Inau","Smont","Inent","Taim","Epolo","Aorma","Asuku","Iab","Oinai","Nymh","Polt","Enm","Deuth","Rard","Yiso","Nteyr"}
+MB_toonlist={"Shamantres","Brutalic","Toshredsusay","Cuppycake","Stabsya","Kimboslicer","Eversmile","Brutalium","Enticer","Brutaliar","Shamanuno","Brutalio","Shamanquatro","Punchingbear","Shamancinco","Orinoco","Shamansiete","Flameshocked","Shamanocho","Calypsa","Cashme","Zillazee","Refill","Merazza","Bubbling","Jenjja","Avindra","Silza","Zumwalt","Olympic","Icefloes","Everglades","Brutalia","Yellowstone","Monterey","Badlands","Shamanseis","Crookshanks","Komal","Furyswipes"}
 --When in raid with group loot, always pass on loot unless this is set to false
 MB_autopass=true
 --This is the powerleveler your lowbies will follow when powerleveling
 MB_powerleveler="Chainit"
 --This is your set of lowbie leveling parties. You can run 4 at a time. The first toon name on the left of = is the squad leader.
 MB_levelingparties={
-	Enm={"Deuth","Rard","Yiso","Nteyr"},
-	Chainit={"Awt","Enyu","Cym","Ata"},
-	Asuku={"Iab","Oinai","Nymh","Polt"},
-	Smont={"Inent","Taim","Epolo","Aorma"},
-	Olora={"Sial","Bels","Queurt","Ideni"},
-	Aturi={"Osna","Loil","Yerlt","Shyrt"},
-	Noeld={"Etory","Ries","Bloogh","Inau"},
-	Oughs={"Irgh","Agea","Cerd","Rodr"}
+
 }
 --This is who people will run to when they have the bomb on Baron.
 MB_bombfollow="Enticer"
@@ -646,7 +639,7 @@ end
 function partyup()
 	if Leveler(myname) then return end
 	if MB_reportcpu then MB_cpustart=GetTime() end
-	if IsControlKeyDown() then GetMoneyFromLeader(25) return ReportCPU("Partyup getmoney") end
+	if IsControlKeyDown() then GetMoneyFromLeader(35) return ReportCPU("Partyup getmoney") end
 	if UnitInRaid("player") and (not IsRaidLeader() or not IsRaidOfficer()) then Print("MAKE ME RAID LEADER OR ASSIST AND I'D BE GLAD TO INVITE MORE, OR PROMOTE, OR CHANGE LOOT.") return ReportCPU("Partyup notinraid") end
   MB_raidleader=myname
 	for k,toon in pairs(MB_toonlist) do
@@ -947,13 +940,9 @@ local pa15manraid1 = {
 	elseif MBID["Komal"] then
 		raidgrouporder=komal20manorder
 	end
-	local raidnames= {}
-	for i=1,GetNumRaidMembers() do
-		local name,rank,subgroup,level,class,fileName,zone,online,isdead=GetRaidRosterInfo(i)
-		raidnames[name]=i
-	end
-	for name,idx in raidnames do
-		local subgroup=WhichSubgroup(name)
+	for name,id in MBID do
+		_,_,idx=string.find(id,"raid(.*)")
+		local subgroup=MB_GroupID[name]
 		TargetByName(name,1)
 		local online=UnitIsConnected("target")
 		if not raidgrouporder then return end
@@ -966,10 +955,14 @@ local pa15manraid1 = {
 				if RoomInGroup(targetgroup) then
 						SetRaidSubgroup(idx,targetgroup)
 				else
-					for othername,otheridx in raidnames do
-						local othersubgroup=WhichSubgroup(othername)
+					for othername,otherid in MBID do
+						otheridx=string.find(otherid,"raid(.*)")
+						local othersubgroup=MB_GroupID[othername]
 						if othername~=name and othersubgroup==targetgroup and othersubgroup~=raidgrouporder[othername] then
-							SwapPos(raidnames,idx,otheridx)
+							Print("DEBUG:")
+							Print(idx)
+							Print(otheridx)
+							SwapPos(idx,otheridx)
 						end
 					end
 				end
@@ -1534,7 +1527,7 @@ function focusme()
 	else
 		SendAddonMessage(MB_RAID,"focusme")
 	end
-	if not InCombat() and not MB_initial_update then FsR_RequestMaterialUpdate() MB_initial_update=true end
+	if not InCombat() and not MB_initial_update and MB_autotrade then FsR_RequestMaterialUpdate() MB_initial_update=true end
 end
 function set_min_settings()
 	ConsoleExec("anisotropic 1")
@@ -1604,7 +1597,7 @@ function FSMB:OnEvent()
 			MB_Find(item)
 		end
 		if arg1==MB_RAID and arg2=="focusme" and arg4~=UnitName("player") then
-			--Printd(MB_RAID.." Focusing " .. arg4)
+			Printd(MB_RAID.." Focusing " .. arg4)
 			MB_raidleader=arg4
 		elseif arg1 == "INVITE_ME" then
 						if MB_raidleader==myname and myname~=arg4 and not MBID[arg4] then InviteByName(arg4) end
@@ -2733,24 +2726,6 @@ function MB_slowmsg(msg)
 	end
 	Print(msg)
 end
-function MyGroupOrder()
-	--This sorts the number of toons in a given party in alphabetical order and returns a number
-	--representing which number in that list this toon is.
-	local _,_,mygroup=GetRaidRosterInfo(RaidIdx(myname))
-	local myparty={}
-	table.insert(myparty,myname)
-	for i=1,GetNumPartyMembers() do
-		local name,_=UnitName("party"..i)
-		table.insert(myparty,name)
-	end
-	table.sort( myparty )
-	local order=1
-	for k,toon in pairs(myparty) do
-		if toon==myname then return order end
-		order=order+1
-	end
-	return order
-end
 function MakeALine()
 	--Makes your raid form a single file line by group
 	if not UnitInRaid("player") then Print("MakeALine only works in raid") return end
@@ -2835,21 +2810,19 @@ function HasPouch()
 		if GetBagName(bag) and string.find(GetBagName(bag),"Ammo Pouch") then return true end
 	end
 end
-function SwapPos(raidnames,i1,i2)
+function SwapPos(i1,i2)
 	--Swaps two people in a raid.
 	--Does not work on a full 40 man raid.
 	--Wow 1.12 raid movement commands are VERY flakey.
 	--I'm not sure we can sort 40 man full raids properly.
 	--I use group8 as a holding place for the swaps.
 	--In the end I may have to remove a person in group8 from raid then reinvite to rearrange
-	for name,idx in raidnames do
-		if idx==i1 then n1=name end
-		if idx==i2 then n2=name end
+	for name,id in MBID do
+		if id=="raid"..i1 then n1=name end
+		if id=="raid"..i2 then n2=name end
 	end
-	g1=WhichSubgroup(n1)
-	--Print(n1.." is in group "..g1)
-	g2=WhichSubgroup(n2)
-	--Print(n2.." is in group "..g2)
+	g1=MB_GroupID[n1]
+	g2=MB_GroupID[n2]
 	SetRaidSubgroup(i1,8)
 	SetRaidSubgroup(i2,g1)
 	SetRaidSubgroup(i1,g2)
@@ -3809,13 +3782,6 @@ function WarriorSnarePlayer()
 		end
 	end
 end
-function WhichSubgroup(toonname)
-	--Returns what raid group a given name is in
-	for i=1,GetNumRaidMembers() do
-		local name,rank,subgroup=GetRaidRosterInfo(i)
-		if toonname==name then return subgroup end
-	end
-end
 function RoomInGroup(group)
 	--True if there is an empty slot in a raid group
 	numingrp=0
@@ -3940,6 +3906,7 @@ function ChooseWaterTotem()
 	return "Mana Spring Totem"
 end
 function party_totems()
+	if 1 then return end
 	CastTotem(ChooseWaterTotem())
 	CastTotem(ChooseAirTotem())
 	--Print("Air totem is "..ChooseAirTotem())
@@ -4777,7 +4744,7 @@ function setup()
 	if MB_reportcpu then MB_cpustart=GetTime() end
 	if IsAlive("player") and not IsAltKeyDown() and not IsControlKeyDown() and not InCombat() then MB_autotrade_for30sec=GetTime()+30 end
 	if not MB_raidleader and (TableLength(MBID)>1) then Print("WARNING: You have not chosen a raid leader--hit alt-4") end
-	if IsControlKeyDown() and IsAltKeyDown() then TradeGoldToLeaderAllBut(10) AcceptTrade() return end
+	if IsControlKeyDown() and IsAltKeyDown() then TradeGoldToLeaderAllBut(0) AcceptTrade() return end
 	if UnitLevel("player")==60 and IsControlKeyDown() then buystacks() end
 	if myclass=="Mage" then mage_setup() return end
 	if myclass=="Paladin" then paladin_setup() return end
@@ -5721,6 +5688,7 @@ function TradeGoldToLeaderAllBut(amt)
 	else
 		local mymoney=GetMoney()
 		if mymoney<=amt*10000 then return end
+		Print("I want to trade "..mymoney)
 		local mytrade=mymoney-amt*10000
 		TargetUnit(MBID[MB_raidleader])
 		InitiateTrade("target")
@@ -5735,7 +5703,9 @@ function GetMoneyFromLeader(amt)
 	if not MB_raidleader then return end
 	if MB_raidleader~=UnitName("player") then
 		local mymoney=GetMoney()
-		if mymoney>amt*10000 then return end
+		Print(mymoney)
+		Print(amt)
+		if mymoney>=amt*10000 then return end
 		if not MB_tradeopen then InitiateTrade(MBID[MB_raidleader]) end
 		if MB_tradeopen and GetTargetTradeMoney()>0 then AcceptTrade() return end
 	else
@@ -6002,7 +5972,7 @@ function shammy_enh_aoe()
 	if not IAmFocus() then LockonTarget() end
 	if (TargetInCombat() or IAmFocus()) and InMeleeRange() then
 		cast("Fire Nova Totem")
-		SelfBuff("Lightning Shield")
+		--SelfBuff("Lightning Shield")
 		cast("Stormstrike")
 		--cast("Frost Shock")
 		--cast("Earth Shock")
@@ -6048,7 +6018,8 @@ function shammy_ele_single()
 			CombatUse(14)
 			cast("Lightning Bolt")
 		else
-			SelfBuff("Lightning Shield")
+			cast("Earth Shock")
+			--SelfBuff("Lightning Shield")
 			cast("Lightning Bolt")
 			cast("Frost Shock")
 			cast("Earth Shock")
@@ -6072,7 +6043,7 @@ function shammy_ele_multi()
 	if IsAltKeyDown() then SpellStopCasting() return ReportCPU("Shammy ele multi alt") end
 	if IAmFocus() or (not IsAltKeyDown() and TargetInCombat()) then
 		if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
-		SelfBuff("Lightning Shield")
+		--SelfBuff("Lightning Shield")
 		party_totems()
 		if buffed("Elemental Mastery","player") then
 			CombatUse(13)
@@ -6081,7 +6052,7 @@ function shammy_ele_multi()
 			cast("Lightning Bolt")
 		else
 			cast("Earth Shock")
-			SelfBuff("Lightning Shield")
+			--SelfBuff("Lightning Shield")
 			cast("Chain Lightning")
 			cast("Lightning Bolt")
 			CombatUse(14)

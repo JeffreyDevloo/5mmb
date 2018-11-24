@@ -1,4 +1,4 @@
-set version 110118a
+set version 112318a
 array unset toons
 array unset autodelete
 array unset raidorder10
@@ -7,7 +7,7 @@ array unset raidorder40
 array unset levelingparty
 set dontsoulstone ""
 set dontflashframe ""
-set dontautotrade ""
+set useautotrade ""
 set dontautodelete ""
 set dontbuystacks ""
 set dontautopass ""
@@ -109,9 +109,11 @@ while { [gets $tL line] >= 0 } {
     } elseif { [string tolower [lindex $line 0]] == "keyboard" } {
  		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set keyboard [lindex $line 1] 
-				if { $keyboard !="us" && $keyboard !="uk" && $keyboard !="de" }  { puts "ERROR: keyboard choices are us/uk/de" ; return }
+				if { $keyboard !="us" && $keyboard !="uk" && $keyboard !="de" && $keyboard !="other" }  { puts "ERROR: keyboard choices are us/uk/de/other" ; return }
 				if { $keyboard=="de" } {
 					set oem "oem5"
+				} elseif { $keyboard=="other" } {
+					set oem "oem7"
 				} elseif { $keyboard=="uk" } {
 					set oem "oem8"
 				} else {
@@ -120,7 +122,7 @@ while { [gets $tL line] >= 0 } {
     } elseif { [string tolower [lindex $line 0]] == "monitor" } {
  		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set monitor [lindex $line 1] 
-				if { $monitor !="1k" && $monitor !="4k" }  { puts "ERROR: monitor choices are 1k/4k" ; return }
+				if { $monitor !="1k" && $monitor !="3k" && $monitor !="4k" }  { puts "ERROR: monitor choices are 1k/3k/4k" ; return }
     } elseif { [string tolower [lindex $line 0]] == "computer" } {
  		  	if { [llength $line] != 3 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set computer([lindex $line 1]) [lindex $line 2]
@@ -165,9 +167,9 @@ while { [gets $tL line] >= 0 } {
     } elseif { [string tolower [lindex $line 0]] == "dontflashframe" } {
  		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set dontflashframe true
-    } elseif { [string tolower [lindex $line 0]] == "dontautotrade" } {
+    } elseif { [string tolower [lindex $line 0]] == "useautotrade" } {
  		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set dontautotrade true
+				set useautotrade true
     } elseif { [string tolower [lindex $line 0]] == "dontbuystacks" } {
  		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set dontbuystacks true
@@ -340,6 +342,12 @@ if { ! $nohotkeyoverwrite } {
 	  set raidhash(20) "640 480 0 0 960 720 0 1440 960 720 960 1440 960 720 1920 1440 640 480 640 0 640 480 1280 0 640 480 1920 0 640 480 2560 0 640 480 3200 0 640 480 0 480 640 480 640 480 640 480 1280 480 640 480 1920 480 640 480 2560 480 640 480 3200 480 640 480 0 960 640 480 640 960 640 480 1280 960 640 480 1920 960  640 480 2560 960" 
 	  set raidhash(25) "533 430 1548 0 1548 1290 0 860 533 430 1548 430 533 430 1548 860 533 430 1548 1290 533 430 1548 1720 533 430 2081 0 533 430 2081 430 533 430 2081 860 533 430 2081 1290 533 430 2081 1720 533 430 2614 0 533 430 2614 430 533 430 2614 860 533 430 2614 1290 533 430 2614 1720 533 430 3147 0 533 430 3147 430 533 430 3147 860 533 430 3147 1290 533 430 3147 1720 533 430 482 0 533 430 1015 0 533 430 482 430 533 430 1015 430"
 	  set raidhash(40) " 480 360 0 0 1440 1080 960 1080 480 360 480 0 480 360 960 0 480 360 1440 0 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 0 360 480 360 480 360 480 360 960 360 480 360 1440 360 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 0 720 480 360 480 720 480 360 960 720 480 360 1440 720 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 480 360 0 1080 480 360 480 1080 480 360 2400 1080 480 360 2880 1080 480 360 3360 1080 480 360 0 1440 480 360 480 1440 480 360 2400 1440 480 360 2880 1440 480 360 3360 1440 480 360 0 1800 480 360 480 1800 480 360 2400 1800 480 360 2880 1800 480 360 3360 1800"
+	} elseif { $monitor == "3k" } {
+	  #3k
+ 		set raidhash(5) "1720 1440 860 0 860 720 0 0 860 720 0 720 860 720 2580 0 860 720 2580 720"
+      		set raidhash(10) "2064 960 688 0 688 480 0 0 688 480 0 480 688 480 0 960 688 480 688 960 688 480 1376 960 688 480 2064 960 688 480 2752 0 688 480 2752 480 688 480 2752 960"
+      		set raidhash(15) "1440 1200 720 0 720 600 0 0 720 600 0 600 720 600 2160 0 720 600 2160 600 480 400 2880 0 480 400 2880 400 480 400 2880 800 480 400 3360 0 480 400 3360 400 480 400 3360 800 480 400 3840 0 480 400 3840 400 480 400 3840 800 480 400 4320 0"
+      		set raidhash(20) "490 360 0 0 490 360 0 360 490 360 0 720 490 360 0 1080 490 360 490 0 490 360 490 360 490 360 490 720 490 360 490 1080 980 720 980 0 490 360 980 1080 490 360 1470 720 490 360 1470 1080 490 360 1960 0 490 360 1960 720 490 360 1960 1080 490 360 2450 0 490 360 2450 360 490 360 2450 720 490 360 2450 1080 490 360 980 720"
 	} else {
 	  #1080p
 		set raidhash(5) "960 720 480 360 480 360 0 360 480 360 480 0 480 360 960 0 480 360 1440 360"
@@ -528,6 +536,9 @@ if { ! $nohotkeyoverwrite } {
 	<Hotkey ScrollLockOn Alt Minus>}
 	puts $hK $winlabels
 	puts $hK {  <Key Alt Minus> 
+	<Hotkey ScrollLockOn Ctrl Alt 1>}
+	puts $hK $winlabels
+	puts $hK {  <Key Ctrl Alt 1>
 	<Hotkey ScrollLockOn Ctrl 1>}
 	puts $hK $winlabels
 	puts $hK {  <Key Ctrl 1>
@@ -845,10 +856,10 @@ if { ! $nosmoverwrite } {
 	    puts $sMN "MB_frameflash=false"
 		} elseif { [regexp "^MB_frameflash" $line ] && $dontflashframe == "" } {
 	    puts $sMN "MB_frameflash=true"
-		} elseif { [regexp "^MB_autotrade=" $line ] && $dontautotrade == "true" } {
-	    puts $sMN "MB_autotrade=false"
-		} elseif { [regexp "^MB_autotrade=" $line ] && $dontautotrade == "" } {
+		} elseif { [regexp "^MB_autotrade=" $line ] && $useautotrade == "true" } {
 	    puts $sMN "MB_autotrade=true"
+		} elseif { [regexp "^MB_autotrade=" $line ] && $useautotrade == "" } {
+	    puts $sMN "MB_autotrade=false"
 		} elseif { [regexp "^MB_autodelete" $line ] && $dontautodelete == "true" } {
 	    puts $sMN "MB_autodelete=false"
 		} elseif { [regexp "^MB_autodelete" $line ] && $dontautodelete == "" } {

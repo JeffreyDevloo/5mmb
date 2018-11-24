@@ -1,4 +1,4 @@
-set version 112318a
+set version 112418a
 array unset toons
 array unset autodelete
 array unset raidorder10
@@ -918,18 +918,8 @@ if { ! $nosmoverwrite } {
 	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5}}},
  	["Symbol of Kings"] = {itemkind = "item" , class = {Paladin = {AnnounceValue = 5}}},
  	["Wild Thornroot"] = {itemkind = "item" , class = {Druid = {AnnounceValue = 5}}},
-	["Instant Poison VI"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
- 	["Wound Poison IV"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
- 	["Mind Numbing Poison"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
  	["Major Healing Potion"] = {itemkind = "item", class = {Druid = {},Rogue = {},Warrior = {},Hunter = {},Warlock = {},Mage = {}, Priest = {}, Shaman = {}, Paladin = {}}},
-	["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {}, Priest = {}, Shaman = {}, Paladin = {}}},
-	["Major Healthstone"] = {itemkind = "item", class = {Druid = {TradeIfLessThan = 1},Rogue = {TradeIfLessThan = 1},Warrior = {TradeIfLessThan = 1},Hunter = {TradeIfLessThan = 1},Mage = {TradeIfLessThan = 1}, Priest = {TradeIfLessThan = 1}, Shaman = {TradeIfLessThan = 1}, Paladin = {TradeIfLessThan = 1}}},
-	["Conjured Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
-	["Conjured Fresh Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
-	["Conjured Purified Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
-	["Conjured Spring Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
-	["Conjured Mineral Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
-	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},}
+	["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {}, Priest = {}, Shaman = {}, Paladin = {}}},}
 				if { $boeto!="" } {
 	    		puts -nonewline $sMN "\t\[\"BOE\"\] = \{itemkind = \"itemGrp\", collector = \{"
 	    	  set first true

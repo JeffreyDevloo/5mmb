@@ -1,4 +1,4 @@
-MB_version="112318b"
+MB_version="112418a"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -8542,6 +8542,7 @@ MB_updateevery2 = GetTime()
 MB_autotrade_for30sec = GetTime()
 FsR_ItemTrade.GotUpdate = true
 function FsR_ItemTrade:OnUpdate()
+	if not MB_autotrade then return end
 	if (MB_updateevery2+.5) > GetTime() then return end
 	MB_updateevery2=GetTime()
 	if not MB_autotrade or ((MB_autotrade_for30sec)<GetTime()) then 

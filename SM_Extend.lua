@@ -10,7 +10,7 @@ MB_spellcast_counter=0
 --Warlocks will soulstone rezzers during setup
 MB_soulstone_rezzers=true
 --Automatically Trade a list of items to specific people. See FsR_Stuff2Track below.
-MB_autotrade=false
+MB_autotrade=true
 --Flashes frames yellow if target out of range or behind you. Flashes red if aggro and you aren't a tank. White if aggro and you ARE a tank. Blue if missing a reagent.
 MB_frameflash=true
 --Automatically delete stuff from TheList. Starts out blank and won't delete shit.
@@ -61,25 +61,14 @@ FsR_Stuff2Track={
 	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5}}},
  	["Symbol of Kings"] = {itemkind = "item" , class = {Paladin = {AnnounceValue = 5}}},
  	["Wild Thornroot"] = {itemkind = "item" , class = {Druid = {AnnounceValue = 5}}},
-	["Instant Poison VI"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
- 	["Wound Poison IV"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
- 	["Mind Numbing Poison"] = {itemkind = "item" , class = {Rogue = {AnnounceValue = 5}}},
  	["Major Healing Potion"] = {itemkind = "item", class = {Druid = {},Rogue = {},Warrior = {},Hunter = {},Warlock = {},Mage = {}, Priest = {}, Shaman = {}, Paladin = {}}},
 	["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {}, Priest = {}, Shaman = {}, Paladin = {}}},
-	["Major Healthstone"] = {itemkind = "item", class = {Druid = {TradeIfLessThan = 1},Rogue = {TradeIfLessThan = 1},Warrior = {TradeIfLessThan = 1},Hunter = {TradeIfLessThan = 1},Mage = {TradeIfLessThan = 1}, Priest = {TradeIfLessThan = 1}, Shaman = {TradeIfLessThan = 1}, Paladin = {TradeIfLessThan = 1}}},
-	["Conjured Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
-	["Conjured Fresh Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
-	["Conjured Purified Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
-	["Conjured Spring Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
-	["Conjured Mineral Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
-	["Conjured Crystal Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}},
-	["BOE"] = {itemkind = "itemGrp", collector = {"Crookshanks","Cashme"}},
+	["BOE"] = {itemkind = "itemGrp", collector = {"Crookshanks","Enticer"}},
 	["Fiery Core"] = {itemkind = "itemGrp", collector = {"Jenjja","Zumwalt"}},
 	["Large Brill"] = {itemkind = "itemGrp", collector = {"Shamanuno","Shamanseis"}},
 	["Dream Dust"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
 	["Globe of Water"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
 	["Core of Earth"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	["Obsidian Shard"] = {itemkind = "itemGrp", collector = {"Cuppycake"}},
 	["Elemental Earth"] = {itemkind = "itemGrp", collector = {"Avindra"}},
 	[" Scarab"] = {itemkind = "itemGrp", collector = {"Enticer"}},
 	["Elemental Fire"] = {itemkind = "itemGrp", collector = {"Avindra"}},
@@ -94,10 +83,9 @@ FsR_Stuff2Track={
 	["Heart of Fire"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
 	[" Idol"] = {itemkind = "itemGrp", collector = {"Enticer"}},
 	["Essence of Fire"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	["Bijou"] = {itemkind = "itemGrp", collector = {"Cuppycake","Zumwalt"}},
-	["Coin"] = {itemkind = "itemGrp", collector = {"Cuppycake","Zumwalt"}},
+	["Bijou"] = {itemkind = "itemGrp", collector = {"Zumwalt"}},
+	["Coin"] = {itemkind = "itemGrp", collector = {"Zumwalt"}},
 	["Elemental Water"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	["Dark Iron"] = {itemkind = "itemGrp", collector = {"Cuppycake"}},
 	["Lockbox"] = {itemkind = "itemGrp", collector = {"Toshredsusay"}},
 	["Elemental Air"] = {itemkind = "itemGrp", collector = {"Avindra"}},
 	["Ichor of Undeath"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
@@ -106,7 +94,6 @@ FsR_Stuff2Track={
 	["Idol of "] = {itemkind = "itemGrp", collector = {"Enticer"}},
 	["Greater Eternal"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
 	["Breath of Wind"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Travel"] = {itemkind = "itemGrp", collector = {"Cuppycake"}},
 	["Essence of Water"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
 	["Essence of Air"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
 	["Conjured Sparkling Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}}
@@ -4542,46 +4529,39 @@ function healthdown()
 end
 function smartdrink()
 	--Smartdrink will annoy a lot of people. The mage will just keep the trade window open until he summons more than one stack of water. Then he will trade.
-	local class=UnitClass("player")
-	if class=="Warrior" or class=="Rogue" then return end
-		local class = UnitClass("player")
-		if not ManaUser() then return end
-		if buffed("Evocation","player") then return end
-		if class == "Mage" and MageWater()<5 and MyManaPct()>.2 then cast("Conjure Water") return end
-		_,mybest=MageWater()
-		if ManaUser() and ManaDown()>0 and mybest and not buffed("Drink","player") then use(mybest) return end
-		if ManaUser() and ManaDown()>0 and not buffed("Drink","player") then use("Morning Glory Dew") return end
-		if not MB_autotrade and class~="Mage" and MB_tradeopen then
-			if GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return end
-		end
-		if not MB_autotrade and class=="Mage" and MB_tradeopen then
-			if MageWater()>20 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then Print("Accepting Trade") AcceptTrade() return end
-			if MageWater()<21 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then Print("Declining Trade--not enough of my own water left") CancelTrade() return end
-		end
-		if not MB_autotrade and class~="Mage" and not MB_tradeopen then
-			local mage=MageInGroup()
-			if mage then
-				if MageWater()<1 and ManaUser() then
-					TargetByName(mage,1)
-					if not buffed("Drink","target") and not MB_tradeopen then InitiateTrade("target") end
-				end
-			end
-		end
-		if not MB_autotrade and class=="Mage" and not MB_tradeopen then
-			if MageWater()>20 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then AcceptTrade() end
-			if MageWater()>21 and PickupWater() then
-				Print("Trading Water")
-				ClickTradeButton(1)
-				return
-			end
-			if MageWater()<22 and MyManaPct()>.2 then cast("Conjure Water") end
-			--keep 22 water at all times just in case you run out
-		end
-		if buffed("Evocation","player") then return end
-		_,mybest=MageWater()
-		if ManaUser() and ManaDown()>0 and mybest and not buffed("Drink","player") then use(mybest) end
-		if ManaUser() and ManaDown()>0 and not buffed("Drink","player") then use("Morning Glory Dew") end
-		if class=="Mage" and ManaDown()>0 and not mybest and not buffed("Drink","player") then cast("Conjure Water") end
+if not ManaUser() then return end
+ local class=UnitClass("player")
+ if class~="Mage" and MB_tradeopen then
+   if GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return end
+ end
+ if class=="Mage" and MB_tradeopen then
+   if MageWater()>20 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then Print("Accepting Trade") AcceptTrade() return end
+   if MageWater()<21 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then Print("Declining Trade--not enough of my own water left") CancelTrade() return end
+ end
+ if class~="Mage" and not MB_tradeopen then
+   local mage=MageInGroup()
+   if mage then
+     if MageWater()<1 and ManaUser() then
+       TargetByName(mage,1)
+       if not buffed("Drink","target") and not MB_tradeopen then InitiateTrade("target") end
+     end
+   end
+ end
+ if class=="Mage" and MB_tradeopen then
+   if MageWater()>20 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then AcceptTrade() end
+   if MageWater()>21 and PickupWater() then
+     Print("Trading Water")
+     ClickTradeButton(1)
+     return
+   end
+   --Print("Conjuring")
+   if MageWater()<22 and MyManaPct()>.2 then cast("Conjure Water") end
+   --keep 22 water at all times just in case you run out
+ end
+ if buffed("Evocation","player") then  return end
+ _,mybest=MageWater()
+ if ManaUser() and ManaDown()>0 and mybest and not buffed("Drink","player") then use(mybest) end
+ if class=="Mage" and ManaDown()>0 and not mybest and not buffed("Drink","player") then cast("Conjure Water") end
 end
 function PartyHurt(hurt,num_party_hurt)
 	if Ungrouped() then return end

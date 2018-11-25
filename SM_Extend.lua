@@ -1,4 +1,4 @@
-MB_version="112418a"
+MB_version="112418c"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -10,7 +10,7 @@ MB_spellcast_counter=0
 --Warlocks will soulstone rezzers during setup
 MB_soulstone_rezzers=true
 --Automatically Trade a list of items to specific people. See FsR_Stuff2Track below.
-MB_autotrade=true
+MB_autotrade=false
 --Flashes frames yellow if target out of range or behind you. Flashes red if aggro and you aren't a tank. White if aggro and you ARE a tank. Blue if missing a reagent.
 MB_frameflash=true
 --Automatically delete stuff from TheList. Starts out blank and won't delete shit.
@@ -31,11 +31,11 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={"Cuppycake","Eversmile","Enticer","Komal","Furyswipes"}
+MB_tanklist={"Eversmile"}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list={"Shamanquatro","Punchingbear","Shamancinco","Orinoco","Shamansiete","Shamanocho","Cashme","Refill","Bubbling","Avindra","Zumwalt"}
+MB_healer_list={}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist={"Shamantres","Brutalic","Toshredsusay","Cuppycake","Stabsya","Kimboslicer","Eversmile","Brutalium","Enticer","Brutaliar","Shamanuno","Brutalio","Shamanquatro","Punchingbear","Shamancinco","Orinoco","Shamansiete","Flameshocked","Shamanocho","Calypsa","Cashme","Zillazee","Refill","Merazza","Bubbling","Jenjja","Avindra","Silza","Zumwalt","Olympic","Icefloes","Everglades","Brutalia","Yellowstone","Monterey","Badlands","Shamanseis","Crookshanks","Komal","Furyswipes"}
+MB_toonlist={"Awt","Chainit","Enyu","Cym","Ata","Aturi","Osna","Loil","Yerlt","Shyrt","Olora","Sial","Bels","Queurt","Ideni","Oughs","Irgh","Agea","Cerd","Rodr","Noeld","Etory","Ries","Bloogh","Inau","Smont","Inent","Taim","Epolo","Aorma","Asuku","Iab","Oinai","Nymh","Polt","Enm","Deuth","Rard","Yiso","Nteyr","Eversmile"}
 --When in raid with group loot, always pass on loot unless this is set to false
 MB_autopass=true
 --This is the powerleveler your lowbies will follow when powerleveling
@@ -49,13 +49,13 @@ MB_bombfollow="Enticer"
 --This is who people will run to when they have threatening gaze on Mandokir (raptor boss)
 MB_gazefollow="Toshredsusay"
 --LEAVE DEDICATED HEALERS BLANK. THIS IS AN ADVANCED FEATURE THAT PROBABLY DOESN'T DO WHAT YOU THINK.
-MB_dedicated_healers={Cuppycake="Avindra",Enticer="Zumwalt",Komal="Cashme",Furyswipes="Refill"}
+MB_dedicated_healers={}
 --*Fs
 FsR_AutoRepairAllItems = true
 ---------------------------------------------End of user edited values--------------------------------
 MB_debuffslotlist={"Viper Sting","Detect Magic","Curse of Recklessness","Curse of Shadow","Curse of the Elements","Curse of Agony","Curse of Agony","Curse of Agony","Demoralizing Shout","Thunder Clap","Insect Swarm(Rank 1)","Vampiric Embrace","Hunter's Mark","Fairy Fire","Placeholder for Nightfall","Placeholder for Shadow Weaving","Placeholder for Mindflay","Placeholder for Winters Chill","Scorpid Sting","Placeholder for improved Shadowbolt","Polymorph","Shackle Undead","Banish","Hibernate","Fear","Scare Beast"}
 FsR_Stuff2Track={
-	["Gold"] = {itemkind = "special", collector = {"Eversmile"}},
+	["Gold"] = {itemkind = "special", collector = {"Chainit"}},
 	["EmptyBagSlots"] = {itemkind = "special"},
  	["Soul Shard"] = {itemkind = "special"},
 	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5}}},
@@ -63,39 +63,42 @@ FsR_Stuff2Track={
  	["Wild Thornroot"] = {itemkind = "item" , class = {Druid = {AnnounceValue = 5}}},
  	["Major Healing Potion"] = {itemkind = "item", class = {Druid = {},Rogue = {},Warrior = {},Hunter = {},Warlock = {},Mage = {}, Priest = {}, Shaman = {}, Paladin = {}}},
 	["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {}, Priest = {}, Shaman = {}, Paladin = {}}},
-	["BOE"] = {itemkind = "itemGrp", collector = {"Crookshanks","Enticer"}},
-	["Fiery Core"] = {itemkind = "itemGrp", collector = {"Jenjja","Zumwalt"}},
-	["Large Brill"] = {itemkind = "itemGrp", collector = {"Shamanuno","Shamanseis"}},
-	["Dream Dust"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Globe of Water"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Core of Earth"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	["Elemental Earth"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	[" Scarab"] = {itemkind = "itemGrp", collector = {"Enticer"}},
-	["Elemental Fire"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	["Lava Core"] = {itemkind = "itemGrp", collector = {"Jenjja","Zumwalt"}},
-	["Nexus Crystal"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Righteous Orb"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Golden Pearl"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Radiant Shard"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Small Brill"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Essence of Earth"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	["Illusion Dust"] = {itemkind = "itemGrp", collector = {"Shamanuno","Shamanseis"}},
-	["Heart of Fire"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	[" Idol"] = {itemkind = "itemGrp", collector = {"Enticer"}},
-	["Essence of Fire"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	["Bijou"] = {itemkind = "itemGrp", collector = {"Zumwalt"}},
-	["Coin"] = {itemkind = "itemGrp", collector = {"Zumwalt"}},
-	["Elemental Water"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	["Lockbox"] = {itemkind = "itemGrp", collector = {"Toshredsusay"}},
-	["Elemental Air"] = {itemkind = "itemGrp", collector = {"Avindra"}},
-	["Ichor of Undeath"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Essence of Undeath"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Living Ess"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Idol of "] = {itemkind = "itemGrp", collector = {"Enticer"}},
-	["Greater Eternal"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Breath of Wind"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Essence of Water"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
-	["Essence of Air"] = {itemkind = "itemGrp", collector = {"Shamanuno"}},
+	["BOE"] = {itemkind = "itemGrp", collector = {"Asuku"}},
+	["Fiery Core"] = {itemkind = "itemGrp", collector = {"Bels"}},
+	["Large Brill"] = {itemkind = "itemGrp", collector = {"Aorma"}},
+	["Dream Dust"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Globe of Water"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Core of Earth"] = {itemkind = "itemGrp", collector = {"Nymh"}},
+	["Obsidian Shard"] = {itemkind = "itemGrp", collector = {"Cym"}},
+	["Elemental Earth"] = {itemkind = "itemGrp", collector = {"Nymh"}},
+	[" Scarab"] = {itemkind = "itemGrp", collector = {"Enm"}},
+	["Elemental Fire"] = {itemkind = "itemGrp", collector = {"Nymh"}},
+	["Lava Core"] = {itemkind = "itemGrp", collector = {"Bels"}},
+	["Nexus Crystal"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Righteous Orb"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Golden Pearl"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Radiant Shard"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Small Brill"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Essence of Earth"] = {itemkind = "itemGrp", collector = {"Nymh"}},
+	["Illusion Dust"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Heart of Fire"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	[" Idol"] = {itemkind = "itemGrp", collector = {"Enm"}},
+	["Essence of Fire"] = {itemkind = "itemGrp", collector = {"Nymh"}},
+	["Bijou"] = {itemkind = "itemGrp", collector = {"Loil"}},
+	["Coin"] = {itemkind = "itemGrp", collector = {"Loil"}},
+	["Elemental Water"] = {itemkind = "itemGrp", collector = {"Nymh"}},
+	["Dark Iron"] = {itemkind = "itemGrp", collector = {"Cym"}},
+	["Lockbox"] = {itemkind = "itemGrp", collector = {"Ries"}},
+	["Elemental Air"] = {itemkind = "itemGrp", collector = {"Nymh"}},
+	["Ichor of Undeath"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Essence of Undeath"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Living Ess"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Idol of "] = {itemkind = "itemGrp", collector = {"Enm"}},
+	["Greater Eternal"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Breath of Wind"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Travel"] = {itemkind = "itemGrp", collector = {"Cym"}},
+	["Essence of Water"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Essence of Air"] = {itemkind = "itemGrp", collector = {"Yiso"}},
 	["Conjured Sparkling Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}}
 }
 FsR_TrackedMaterial = {}
@@ -626,7 +629,7 @@ end
 function partyup()
 	if Leveler(myname) then return end
 	if MB_reportcpu then MB_cpustart=GetTime() end
-	if IsControlKeyDown() then GetMoneyFromLeader(35) return ReportCPU("Partyup getmoney") end
+	if IsControlKeyDown() then GetMoneyFromLeader(.5) return ReportCPU("Partyup getmoney") end
 	if UnitInRaid("player") and (not IsRaidLeader() or not IsRaidOfficer()) then Print("MAKE ME RAID LEADER OR ASSIST AND I'D BE GLAD TO INVITE MORE, OR PROMOTE, OR CHANGE LOOT.") return ReportCPU("Partyup notinraid") end
   MB_raidleader=myname
 	for k,toon in pairs(MB_toonlist) do
@@ -959,187 +962,203 @@ local pa15manraid1 = {
 end
 MB_TheList={
 	["Scroll of Intellect"]=0,
-	["Shiny Red Apple"]=0,
+	["Trophy Raptor Skull"]=0,
+	["Melon "]=0,
+	["Burning Pitch"]=0,
+	["Scroll of Agility"]=0,
+	["Morning Glory Dew"]=1,
+	["Dalaran Sharp"]=0,
+	["Pristine Raptor Skull"]=0,
+	["Frayed Abomination Stitching"]=0,
+	["Glowing Scorpid Blood"]=0,
+	["Gnoll Paw"]=0,
+	["Star Ruby"]=0,
+	["Short Cutlass"]=0,
+	["Tapered Greatsword"]=0,
+	["Scroll of Spirit"]=0,
+	["Thick Leather "]=0,
+	["Forest Mushroom Cap"]=0,
+	["Scroll of Stamina"]=0,
+	["Deviate Scale"]=0,
+	["Rock Chip"]=0,
+	["Alterac Swiss"]=0,
+	["Forked Tongue"]=0,
+	["Plans: Thorium"]=0,
+	["Cracked Bill"]=0,
+	["Tin Ore"]=0,
+	["Stout War"]=0,
+	["Fine Longsword"]=0,
+	["Slimy Ichor"]=0,
+	["Small Egg"]=0,
+	["Tough Jerky"]=0,
+	["Feathery Wing"]=0,
+	["Bruiseweed"]=0,
+	["Chunk of Boar Meat"]=0,
+	["Spider Silk"]=0,
+	["Barbaric Fang"]=0,
+	["Sharp Claw"]=0,
+	["Ice Cold Milk"]=0,
+	["Splintering Battle Axe"]=0,
+	["Large Candle"]=0,
+	["Broken Arrow"]=0,
+	["Thick Spider's"]=0,
+	["Thick Leather Hat"]=0,
+	["Nightcrawlers"]=0,
+	["Deeprock Stone"]=0,
+	["Smooth Leather "]=0,
+	["Blood Scythe"]=0,
+	["Ripped Wing"]=0,
+	["Sentinel Musket"]=0,
+	["Moss Agate"]=0,
+	["Patch of Fine Fur"]=0,
+	["Large Scorpid Claw"]=0,
 	["Jagged Axe"]=0,
 	["Dried King"]=0,
-	["Trophy Raptor Skull"]=0,
 	["Heavy Silith"]=0,
-	["Journeyman's"]=0,
-	["Boar Intestines"]=0,
-	["Melon "]=0,
-	["Minor Mana Potion"]=0,
-	["Runecloth"]=0,
-	["Burning Pitch"]=0,
 	["Superior Mana"]=0,
-	["Morning Glory Dew"]=1,
-	["Scroll of Agility"]=0,
-	["Basilisk Venom"]=0,
-	["Wolf Meat"]=0,
-	["Bronze Tube"]=0,
-	["Mutton Chop"]=0,
-	["Frayed Abomination Stitching"]=0,
-	["Pristine Raptor Skull"]=0,
+	["Soldier's Cloak"]=0,
 	["Brilliant Scale"]=0,
-	["Shadow Silk"]=0,
-	["Dalaran Sharp"]=0,
-	["Evil Bat Eye"]=0,
-	["Thick Leather Bracers"]=0,
 	["Crushing Maul"]=0,
-	["Primed Musket"]=0,
-	["Buzzard "]=0,
-	["Glowing Scorpid Blood"]=0,
-	["Wool Cloth"]=0,
-	["Refreshing Spring Water"]=0,
-	["Twilight Cultist Robe"]=6,
-	["Star Ruby"]=0,
-	["Clam Meat"]=0,
-	["Gnoll Paw"]=0,
+	["Thick Leather Bracers"]=0,
 	["Darkmoon Special"]=0,
-	["Boar Ribs"]=0,
-	["Twilight Cultist Mantle"]=6,
 	["Fiery Gland"]=0,
-	["Glowing Wax Stick"]=0,
-	["Deflecting Tower"]=0,
-	["Bulky Maul"]=0,
-	["Scroll of Spirit"]=0,
-	["Overlinked Chain Armor"]=0,
-	["Tapered Greatsword"]=0,
-	["Copper Ore"]=0,
-	["Short Cutlass"]=0,
-	["Shadowgem"]=0,
-	["Ancient Qiraji Artifact"]=0,
-	["Thick Leather "]=0,
-	["Tiny Fang"]=0,
-	["Scroll of Stamina"]=0,
-	["Forest Mushroom Cap"]=0,
-	["Large Slimy"]=0,
-	["Crochet Bracers"]=0,
+	["Small Raptor Tooth"]=0,
 	["Haunch of Meat"]=0,
-	["Rock Chip"]=0,
-	["Forked Tongue"]=0,
-	["Alterac Swiss"]=0,
-	["Sharp Shortsword"]=0,
 	["Large Bat Fang"]=0,
-	["Thick Leather Shoulderpads"]=0,
-	["Shimmering Basil"]=0,
-	["Undamaged Hip"]=0,
 	["Linked "]=0,
 	["Tangy Clam"]=0,
-	["Crochet "]=0,
-	["Gelatinous Goo"]=0,
-	["Cracked Bill"]=0,
-	["Brocade "]=0,
-	["Plans: Thorium"]=0,
-	["Twilight Cultist Cowl"]=6,
-	["Fine Longsword"]=0,
-	["Stout War"]=0,
-	["Tin Ore"]=0,
 	["Coarse Blasting"]=0,
-	["Scroll of Protection"]=0,
-	["Laminate "]=0,
-	["Slimy Ichor"]=0,
 	["Decomposed "]=0,
-	["Thick Furry Mane"]=0,
-	["Blackrock Pauldrons"]=0,
+	["Scroll of Protection"]=0,
 	["Rawhide "]=0,
-	["Small Egg"]=0,
-	["Breath of Wind"]=0,
 	["Laminated Scale Pants"]=0,
-	["Light Plate Belt"]=0,
-	["Feathery Wing"]=0,
-	["Vulture Talon"]=0,
 	["Stringy Vulture Meat"]=0,
-	["Smooth Stone Chip"]=0,
-	["Bruiseweed"]=0,
-	["Lesser Healing Potion"]=0,
-	["Chipped Boar Tusk"]=0,
-	["Linen Cloth"]=0,
-	["Powerful Mojo"]=1,
-	["Armored Chitin"]=0,
-	["Chunk of Boar Meat"]=0,
 	["Tigerseye"]=0,
-	["Spider Silk"]=0,
-	["Scroll of Strength"]=0,
-	["Superior Heal"]=0,
 	["Overlinked "]=0,
-	["Twill "]=0,
-	["Solid Stone"]=0,
 	["Tough Condor "]=0,
-	["Huge Venom Sac"]=0,
-	["Light Plate Boots"]=0,
-	["Goretusk Snout"]=0,
-	["Hard Spider"]=0,
-	["Basilisk Brain"]=0,
-	["Light Plate"]=0,
-	["Kobold Mining Shovel"]=0,
-	["Goretusk Liver"]=0,
-	["Laminated Scale "]=0,
+	["Twill "]=0,
 	["Crafted Light Shot"]=0,
 	["Spiked "]=0,
-	["Ice Cold Milk"]=0,
-	["Vibrant Plume"]=0,
-	["Splintering Battle Axe"]=0,
 	["Meat Cleaver"]=0,
-	["Twill Shoulderpads"]=0,
 	["Sandworm Meat"]=0,
-	["Brilliant Chromatic Scale"]=0,
-	["Aquamarine"]=0,
-	["Homemade Cherry"]=0,
-	["Protective Pavise"]=0,
-	["Ironweb Spider"]=0,
-	["Light Plate Helmet"]=0,
-	["Clout Mace"]=0,
-	["Elder Raptor Feathers"]=0,
-	["Heavy Stone"]=0,
-	["Minor Healing Potion"]=0,
-	["Rough Stone"]=0,
+	["Twill Shoulderpads"]=0,
+	["Large Slimy Bone"]=0,
 	["Rough Vulture Feathers"]=0,
-	["Greater Mana"]=0,
+	["Rough Stone"]=0,
 	["Light Feather"]=0,
+	["Greater Mana"]=0,
 	["Pattern:"]=0,
-	["Gnoll Spittle"]=0,
-	["Extinguished Torch"]=0,
-	["Large Candle"]=0,
-	["Lifeless Skull"]=0,
-	["Heavy Flint Ax"]=0,
-	["Wooden Maul"]=0,
-	["Taut Compound"]=0,
-	["Shiny Polished Stone"]=0,
-	["Mystery Meat"]=0,
-	["Thick Spider's"]=0,
 	["Smooth Pebble"]=0,
-	["Broken Arrow"]=0,
-	["Severed Talon"]=0,
-	["Nightcrawlers"]=0,
-	["Thick Leather Hat"]=0,
-	["Overlinked Chain"]=0,
-	["Deeprock Stone"]=0,
-	["Gold Dust"]=0,
+	["Mystery Meat"]=0,
+	["Shiny Polished Stone"]=0,
 	["Scarlet Cannonball"]=0,
-	["Smooth Leather "]=0,
-	["Ironfeather"]=0,
+	["Gold Dust"]=0,
+	["Overlinked Chain"]=0,
+	["Khadgar's Whisker"]=0,
+	["Broken Boar Tusk"]=0,
+	["Patch of fine fur"]=0,
+	["Ivory Boar"]=0,
+	["Coarse Stone"]=0,
+	["Flecked Raptor Scale"]=0,
+	["Shiny Red Apple"]=0,
+	["Boar Intestines"]=0,
+	["Rainbow Fin"]=0,
+	["Basilisk Venom"]=0,
+	["Shadow Silk"]=0,
+	["Mutton Chop"]=0,
+	["Buzzard "]=0,
+	["Wool Cloth"]=0,
+	["Boar Ribs"]=0,
+	["Clam Meat"]=0,
+	["Glowing Wax Stick"]=0,
+	["Twilight Cultist Mantle"]=6,
+	["Deflecting Tower"]=0,
+	["Copper Ore"]=0,
+	["Overlinked Chain Armor"]=0,
+	["Sharp Shortsword"]=0,
+	["Shimmering Basil"]=0,
+	["Thick Leather Shoulderpads"]=0,
+	["Brocade "]=0,
+	["Gelatinous Goo"]=0,
+	["Rectangular Shield"]=0,
+	["Vulture Talon"]=0,
+	["Linen Cloth"]=0,
+	["Chipped Boar Tusk"]=0,
+	["Powerful Mojo"]=1,
+	["Threshadon Ambergris"]=0,
+	["Goretusk Snout"]=0,
+	["Light Plate Boots"]=0,
+	["Goretusk Liver"]=0,
+	["Light Plate"]=0,
+	["Basilisk Brain"]=0,
+	["Hard Spider"]=0,
+	["Brilliant Chromatic Scale"]=0,
+	["Clout Mace"]=0,
+	["Light Plate Helmet"]=0,
+	["Ironweb Spider"]=0,
+	["Elder Raptor Feathers"]=0,
+	["Gnoll Spittle"]=0,
+	["Taut Compound"]=0,
+	["Wooden Maul"]=0,
+	["Heavy Flint Ax"]=0,
+	["Ruined Pelt"]=0,
 	["Fine Pointed Dagger"]=0,
-	["Blood Scythe"]=0,
 	["Lifeless Stone"]=0,
 	["Smooth Leather Bracers"]=0,
-	["Ripped Wing"]=0,
-	["Imperfect Draen"]=0,
-	["Khadgar's Whisker"]=0,
-	["Sentinel Musket"]=0,
 	["Heavy War Staff"]=0,
-	["Patch of fine fur"]=0,
-	["Dripping Spider"]=0,
-	["Patch of Fine Fur"]=0,
-	["Dripping Spider "]=0,
-	["Darnassian Bleu"]=0,
-	["Broken Boar Tusk"]=0,
-	["Moss Agate"]=0,
-	["Ivory Boar"]=0,
-	["Large Scorpid Claw"]=0,
-	["Wicked Claw"]=0,
-	["Coarse Stone"]=0,
+	["Coal"]=0,
 	["Sabertooth Fang"]=0,
-	["Coal"]=0
+	["Journeyman's"]=0,
+	["Minor Mana Potion"]=0,
+	["Runecloth"]=0,
+	["Broken Fang"]=0,
+	["Wolf Meat"]=0,
+	["Brittle Molting"]=0,
+	["Bronze Tube"]=0,
+	["Primed Musket"]=0,
+	["Evil Bat Eye"]=0,
+	["Refreshing Spring Water"]=0,
+	["Twilight Cultist Robe"]=6,
+	["Bulky Maul"]=0,
+	["Shadowgem"]=0,
+	["Tiny Fang"]=0,
+	["Large Slimy"]=0,
+	["Crochet Bracers"]=0,
+	["Chipped Claw"]=0,
+	["Undamaged Hip"]=0,
+	["Crochet "]=0,
+	["Twilight Cultist Cowl"]=6,
+	["Laminate "]=0,
+	["Blackrock Pauldrons"]=0,
+	["Thick Furry Mane"]=0,
+	["Light Plate Belt"]=0,
+	["Breath of Wind"]=0,
+	["Lesser Healing Potion"]=0,
+	["Smooth Stone Chip"]=0,
+	["Armored Chitin"]=0,
+	["Superior Heal"]=0,
+	["Scroll of Strength"]=0,
+	["Solid Stone"]=0,
+	["Huge Venom Sac"]=0,
+	["Kobold Mining Shovel"]=0,
+	["Laminated Scale "]=0,
+	["Crisp Spider Meat"]=0,
+	["Vibrant Plume"]=0,
+	["Aquamarine"]=0,
+	["Protective Pavise"]=0,
+	["Homemade Cherry"]=0,
+	["Minor Healing Potion"]=0,
+	["Heavy Stone"]=0,
+	["Extinguished Torch"]=0,
+	["Lifeless Skull"]=0,
+	["Severed Talon"]=0,
+	["Ironfeather"]=0,
+	["Imperfect Draen"]=0,
+	["Small Barnacled Clam"]=0,
+	["Darnassian Bleu"]=0,
+	["Dripping Spider "]=0,
+	["Dripping Spider"]=0,
+	["Wicked Claw"]=0
 }
 function AutoDelete()
 	if not MB_autodelete then return end
@@ -3893,7 +3912,7 @@ function ChooseWaterTotem()
 	return "Mana Spring Totem"
 end
 function party_totems()
-	if 1 then return end
+	if MB_raidleader=="Chainit" then return end
 	CastTotem(ChooseWaterTotem())
 	CastTotem(ChooseAirTotem())
 	--Print("Air totem is "..ChooseAirTotem())
@@ -5786,6 +5805,7 @@ function shammy_turbo()
 	ReportCPU("Shammy turbo")
 end
 function shammy_setup()
+	if IsAltKeyDown() and MB_raidleader=="Chainit" then QuickHeal() end
 	if IsAltKeyDown() then RaidHeal() end
 	if MB_tradeopen and GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return ReportCPU("Shammy setup trade") end
 	if IsAltKeyDown() then MB_Assist() return ReportCPU("Shammy setup alt") end
@@ -5908,7 +5928,7 @@ function shammy_enh_single()
 		if not IsAltKeyDown() then
 			--if UnitName("target")=="Shazzrah" and buffed("Deaden Magic","target") then cast("Purge") end
 			if buffed("Focus","player") then cast("Lightning Bolt") end
-			SelfBuff("Lightning Shield")
+			--SelfBuff("Lightning Shield")
 			--if not InMeleeRange() then cast("Lightning Bolt") end
 			cast("Stormstrike")
 			party_totems()
@@ -5928,7 +5948,7 @@ function shammy_enh_multi()
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
 	if not IsAltKeyDown() then
-		SelfBuff("Lightning Shield")
+		--SelfBuff("Lightning Shield")
 		if InMeleeRange() then cast("Fire Nova Totem") end
 		cast("Stormstrike")
 		--cast("Frost Shock")
@@ -5984,13 +6004,13 @@ function shammy_ele_single()
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
 	if IsAltKeyDown() then SpellStopCasting() return ReportCPU("Shammy ele single alt") end
-	if not IAmFocus() and not TargetInCombat() then return ReportCPU("Shammy ele single nottargincomb") end
-	if IAmFocus() or (not IsAltKeyDown() and TargetInCombat()) then
+	if MB_raidleader~="Chainit" and not IAmFocus() and not TargetInCombat() then return ReportCPU("Shammy ele single nottargincomb") end
+	if MB_raidleader=="Chainit" or IAmFocus() or (not IsAltKeyDown() and TargetInCombat()) then
 		if UnitName("target")=="High Priest Venoxis" and buffed("Renew","target") then cast("Purge") end
 		if UnitName("target")=="Azuregos" and buffed("Magic Shield","target") then SpellStopCasting() return end
 		--if UnitName("target")=="Shazzrah" and buffed("Deaden Magic","target") then cast("Purge") end
 		if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
-		SelfBuff("Lightning Shield")
+		--SelfBuff("Lightning Shield")
 		party_totems()
 		if TankTarget("Azuregos") then BuffCast("Frost Resistance Totem") end
 		if buffed("Elemental Mastery","player") then
@@ -5999,13 +6019,14 @@ function shammy_ele_single()
 			cast("Lightning Bolt")
 		else
 			cast("Earth Shock")
+			--CooldownCast("Searing Totem",15)
 			--SelfBuff("Lightning Shield")
 			cast("Lightning Bolt")
 			cast("Frost Shock")
 			cast("Earth Shock")
 			CombatUse(14)
 			FlametongueWeapon()
-			RockbiterWeapon()
+			--RockbiterWeapon()
 			if TargetInCombat() and InMeleeRange() then
 				if not IsCurrentAction(72) then UseAction(72) end
 			end
@@ -6021,7 +6042,7 @@ function shammy_ele_multi()
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
 	if IsAltKeyDown() then SpellStopCasting() return ReportCPU("Shammy ele multi alt") end
-	if IAmFocus() or (not IsAltKeyDown() and TargetInCombat()) then
+	if MB_raidleader=="Chainit" or IAmFocus() or (not IsAltKeyDown() and TargetInCombat()) then
 		if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
 		--SelfBuff("Lightning Shield")
 		party_totems()
@@ -6037,6 +6058,7 @@ function shammy_ele_multi()
 			cast("Lightning Bolt")
 			CombatUse(14)
 			FlametongueWeapon()
+			--RockbiterWeapon()
 			if TargetInCombat() and InMeleeRange() then
 				if not IsCurrentAction(72) then UseAction(72) end
 			end
@@ -6054,13 +6076,13 @@ function shammy_ele_aoe()
 	if not TargetInCombat() then if IsCurrentAction(72) then UseAction(72) end end
 	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
 	if IAmFocus() or (not IsAltKeyDown() and TargetInCombat()) then
-		SelfBuff("Lightning Shield")
+		--SelfBuff("Lightning Shield")
 		CombatUse(13)
 		CombatUse(14)
 		cast("Fire Nova Totem")
 		cast("Chain Lightning")
 		cast("Lightning Bolt")
-		SelfBuff("Lightning Shield")
+		--SelfBuff("Lightning Shield")
 		cast("Frost Shock")
 		cast("Earth Shock")
 	end
@@ -7963,6 +7985,7 @@ function shammy_tap(modifier,even)
 	MB_raidleader=MB_powerleveler
 	Follow()
 	RunLine("/assist "..MB_powerleveler)
+	if IsAltKeyDown() then QuickHeal() end
 	if Mounted() then return end
 	if not RequestedTap(modifier) then return end
 	MB_isOdd=MB_spellcast_counter - math.floor(MB_spellcast_counter/2)*2

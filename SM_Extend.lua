@@ -1,4 +1,4 @@
-MB_version="112718a"
+MB_version="112718b"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -1622,7 +1622,7 @@ function init()
 		PickupMacro(index)
 		PlaceAction(61)
 	end
-	if class=="Warrior" and SpellExists("Shoot "..RangedWeaponType()) then
+	if class=="Warrior" and RangedWeaponType() and SpellExists("Shoot "..RangedWeaponType()) then
 		PickupSpell(SpellNum("Shoot "..RangedWeaponType()),BOOKTYPE_SPELL)
 		PlaceAction(61)
 	end

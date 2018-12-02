@@ -1,4 +1,4 @@
-MB_version="112718d"
+MB_version="120118a"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -6,6 +6,7 @@ Printd("SM_extend.lua loaded OK!")
 --IF YOU ARE COMBINING RAIDS WITH SOMEONE ELSE, MAKE SURE YOU CHOOSE A UNIQUE RAID NAME IN THIS VARIABLE
 MB_RAID = "MULTIBOX_toddsraid"
 --------------------------------------------User edited values--------------------------------------
+MB_autoskilltrain=true
 MB_spellcast_counter=0
 --Warlocks will soulstone rezzers during setup
 MB_soulstone_rezzers=true
@@ -31,11 +32,11 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={"Skeleton","Eversmile","Battlefield","Bloodfury","Starlight","Furyswipes"}
+MB_tanklist={}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list={"Tremor","Moonlight","Windfurious","Earthshock","Bloodlust","Earthshield","Frostshock","Id","Refill","Bubbling"}
+MB_healer_list={}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist={"Furygmswipes","Tremor","Starfire","Skeleton","Totemic","Eversmile","Chaosbolt","Battlefield","Brutalio","Moonlight","Hellfire","Windfurious","Afflicted","Earthshock","Flameshocked","Bloodlust","Explode","Earthshield","Leonidas","Frostshock","Fireball","Id","Deathwish","Refill","Scorch","Bubbling","Icefloes","Jindo","Monterey","Mindflay","Yellowstone","Bloodfury","Badlands","Starlight","Olympic","Furyswipes","Stormhammer","Everglades","Toshredsusay","Brutalia","Crookshanks"}
+MB_toonlist={"Furygmswipes","Awt","Chainit","Enyu","Cym","Ata","Aturi","Osna","Loil","Yelrlt","Shyrt","Olora","Sial","Bels","Queurt","Ideni","Oughs","Irgh","Agea","Cerd","Ordr","Noeld","Etory","Ries","Bloogh","Inau","Smont","Inent","Taim","Epolo","Aorma","Asuku","Iab","Oinai","Nymh","Polt","Enm","Deuth","Rard","Yiso","Nteyr"}
 --When in raid with group loot, always pass on loot unless this is set to false
 MB_autopass=true
 --This is the powerleveler your lowbies will follow when powerleveling
@@ -47,7 +48,7 @@ MB_levelingparties={
 --This is who people will run to when they have the bomb on Baron.
 MB_bombfollow="Enticer"
 --This is who people will run to when they have threatening gaze on Mandokir (raptor boss)
-MB_gazefollow="Crookshanks"
+MB_gazefollow="Aorma"
 --LEAVE DEDICATED HEALERS BLANK. THIS IS AN ADVANCED FEATURE THAT PROBABLY DOESN'T DO WHAT YOU THINK.
 MB_dedicated_healers={}
 --*Fs
@@ -55,7 +56,7 @@ FsR_AutoRepairAllItems = true
 ---------------------------------------------End of user edited values--------------------------------
 MB_debuffslotlist={"Viper Sting","Detect Magic","Curse of Recklessness","Curse of Shadow","Curse of the Elements","Curse of Agony","Curse of Agony","Curse of Agony","Demoralizing Shout","Thunder Clap","Insect Swarm(Rank 1)","Vampiric Embrace","Hunter's Mark","Fairy Fire","Placeholder for Nightfall","Placeholder for Shadow Weaving","Placeholder for Mindflay","Placeholder for Winters Chill","Scorpid Sting","Placeholder for improved Shadowbolt","Polymorph","Shackle Undead","Banish","Hibernate","Fear","Scare Beast"}
 FsR_Stuff2Track={
-	["Gold"] = {itemkind = "special", collector = {"Eversmile"}},
+	["Gold"] = {itemkind = "special", collector = {"Chainit"}},
 	["EmptyBagSlots"] = {itemkind = "special"},
  	["Soul Shard"] = {itemkind = "special"},
 	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5}}},
@@ -63,39 +64,39 @@ FsR_Stuff2Track={
  	["Wild Thornroot"] = {itemkind = "item" , class = {Druid = {AnnounceValue = 5}}},
  	["Major Healing Potion"] = {itemkind = "item", class = {Druid = {},Rogue = {},Warrior = {},Hunter = {},Warlock = {},Mage = {}, Priest = {}, Shaman = {}, Paladin = {}}},
 	["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {}, Priest = {}, Shaman = {}, Paladin = {}}},
-	["BOE"] = {itemkind = "itemGrp", collector = {"Bubbling","Id","Refill"}},
-	["Fiery Core"] = {itemkind = "itemGrp", collector = {"Starfire"}},
-	["Large Brill"] = {itemkind = "itemGrp", collector = {"Jindo"}},
-	["Dream Dust"] = {itemkind = "itemGrp", collector = {"Jindo"}},
-	["Globe of Water"] = {itemkind = "itemGrp", collector = {"Jindo"}},
-	["Core of Earth"] = {itemkind = "itemGrp", collector = {"Fireball"}},
-	["Elemental Earth"] = {itemkind = "itemGrp", collector = {"Fireball"}},
-	[" Scarab"] = {itemkind = "itemGrp", collector = {"Earthshock"}},
-	["Elemental Fire"] = {itemkind = "itemGrp", collector = {"Fireball"}},
-	["Lava Core"] = {itemkind = "itemGrp", collector = {"Explode"}},
-	["Nexus Crystal"] = {itemkind = "itemGrp", collector = {"Jindo"}},
-	["Righteous Orb"] = {itemkind = "itemGrp", collector = {"Jindo"}},
-	["Golden Pearl"] = {itemkind = "itemGrp", collector = {"Jindo"}},
-	["Radiant Shard"] = {itemkind = "itemGrp", collector = {"Jindo"}},
-	["Small Brill"] = {itemkind = "itemGrp", collector = {"Jindo"}},
-	["Essence of Earth"] = {itemkind = "itemGrp", collector = {"Fireball"}},
-	["Illusion Dust"] = {itemkind = "itemGrp", collector = {"Jindo"}},
-	["Heart of Fire"] = {itemkind = "itemGrp", collector = {"Jindo"}},
-	[" Idol"] = {itemkind = "itemGrp", collector = {"Earthshock"}},
-	["Essence of Fire"] = {itemkind = "itemGrp", collector = {"Fireball"}},
-	["Bijou"] = {itemkind = "itemGrp", collector = {"Tremor"}},
-	["Coin"] = {itemkind = "itemGrp", collector = {"Tremor"}},
-	["Elemental Water"] = {itemkind = "itemGrp", collector = {"Fireball"}},
-	["Lockbox"] = {itemkind = "itemGrp", collector = {"Deathwish"}},
-	["Elemental Air"] = {itemkind = "itemGrp", collector = {"Fireball"}},
-	["Ichor of Undeath"] = {itemkind = "itemGrp", collector = {"Jindo"}},
-	["Essence of Undeath"] = {itemkind = "itemGrp", collector = {"Jindo"}},
-	["Living Ess"] = {itemkind = "itemGrp", collector = {"Jindo"}},
-	["Idol of "] = {itemkind = "itemGrp", collector = {"Earthshock"}},
-	["Greater Eternal"] = {itemkind = "itemGrp", collector = {"Jindo"}},
-	["Breath of Wind"] = {itemkind = "itemGrp", collector = {"Jindo"}},
-	["Essence of Water"] = {itemkind = "itemGrp", collector = {"Jindo"}},
-	["Essence of Air"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	["BOE"] = {itemkind = "itemGrp", collector = {"Liol","Irgh","Agea"}},
+	["Fiery Core"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Large Brill"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	["Dream Dust"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	["Globe of Water"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	["Core of Earth"] = {itemkind = "itemGrp", collector = {"Enm"}},
+	["Elemental Earth"] = {itemkind = "itemGrp", collector = {"Enm"}},
+	[" Scarab"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Elemental Fire"] = {itemkind = "itemGrp", collector = {"Enm"}},
+	["Lava Core"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Nexus Crystal"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	["Righteous Orb"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	["Golden Pearl"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	["Radiant Shard"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	["Small Brill"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	["Essence of Earth"] = {itemkind = "itemGrp", collector = {"Enm"}},
+	["Illusion Dust"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	["Heart of Fire"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	[" Idol"] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Essence of Fire"] = {itemkind = "itemGrp", collector = {"Enm"}},
+	["Bijou"] = {itemkind = "itemGrp", collector = {"Nymh"}},
+	["Coin"] = {itemkind = "itemGrp", collector = {"Nymh"}},
+	["Elemental Water"] = {itemkind = "itemGrp", collector = {"Enm"}},
+	["Lockbox"] = {itemkind = "itemGrp", collector = {"Oinai"}},
+	["Elemental Air"] = {itemkind = "itemGrp", collector = {"Enm"}},
+	["Ichor of Undeath"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	["Essence of Undeath"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	["Living Ess"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	["Idol of "] = {itemkind = "itemGrp", collector = {"Yiso"}},
+	["Greater Eternal"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	["Breath of Wind"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	["Essence of Water"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	["Essence of Air"] = {itemkind = "itemGrp", collector = {"Epolo"}},
 	["Conjured Sparkling Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}}
 }
 FsR_TrackedMaterial = {}
@@ -105,7 +106,7 @@ raid_state=1
 party_size=1
 MB_spellsToInt={"Arcane Explosion","Greater Heal","Holy Fire","Drain Life","Heal","Cripple","Heal","Venom Spit","Banish"}
 MB_spellsToStun={"Unstable Concoction"}
-MB_maxheal={Druid=8,Priest=4,Shaman=8,Paladin=4}
+MB_maxheal={Druid=11,Priest=11,Shaman=11,Paladin=11}
 MB_reportcpu=false
 MB_reportzerotime=false
 MB_reportbusy=false
@@ -626,7 +627,7 @@ end
 function partyup()
 	if Leveler(myname) then return end
 	if MB_reportcpu then MB_cpustart=GetTime() end
-	if IsControlKeyDown() then GetMoneyFromLeader(.5) return ReportCPU("Partyup getmoney") end
+	if IsControlKeyDown() then GetMoneyFromLeader(10) return ReportCPU("Partyup getmoney") end
 	if UnitInRaid("player") and (not IsRaidLeader() or not IsRaidOfficer()) then Print("MAKE ME RAID LEADER OR ASSIST AND I'D BE GLAD TO INVITE MORE, OR PROMOTE, OR CHANGE LOOT.") return ReportCPU("Partyup notinraid") end
   MB_raidleader=myname
 	for k,toon in pairs(MB_toonlist) do
@@ -1189,6 +1190,8 @@ FSMB = CreateFrame("Button","FSMB",UIParent)
 -- register the events we want to use (this is why we made the frame)
 FSMB:RegisterEvent("ADDON_LOADED") -- register event "ADDON_LOADED"
 FSMB:RegisterEvent("RAID_ROSTER_UPDATE")
+FSMB:RegisterEvent("TRAINER_SHOW")
+FSMB:RegisterEvent("TRAINER_CLOSED")
 FSMB:RegisterEvent("PARTY_MEMBERS_CHANGED")
 FSMB:RegisterEvent("PARTY_INVITE_REQUEST")
 FSMB:RegisterEvent("CHAT_MSG_ADDON")
@@ -1774,6 +1777,16 @@ function FSMB:OnEvent()
 			if title2=="Secrets of the Qiraji" then SelectGossipActiveQuest(2) end
 			if title3=="Secrets of the Qiraji" then SelectGossipActiveQuest(3) end
 		end
+	elseif event=="TRAINER_SHOW" then
+		if MB_autoskilltrain then
+			SetTrainerServiceTypeFilter("available", 1);
+			SetTrainerServiceTypeFilter("unavailable", 0);
+			SetTrainerServiceTypeFilter("used", 0);
+			FsR_TrainerIsUP = true
+		end
+  elseif event == "TRAINER_CLOSED" then
+		FsR_TrainerIsUP = false
+	elseif event=="TRAINER_CLOSED" then
 	elseif event=="TRADE_SHOW" then MB_tradeopen=true
 	elseif event=="TRADE_CLOSED" then MB_tradeopen=false
 	elseif ( event=="TRADE_SKILL_SHOW") then
@@ -1954,6 +1967,13 @@ function FSMB:OnEvent()
 	end
 end
 FSMB:SetScript("OnUpdate",function()
+	if FsR_TrainerIsUP and MB_autoskilltrain and GetRealmName()=="Azeroth" and FindInTable(MB_trainers,UnitName("target")) then
+		for index=1, GetNumTrainerServices() do
+			if not IsTrainerServiceTradeSkill(index) and IsTrainerServiceLearnSpell(index) then
+				BuyTrainerService(index)
+			end
+		end
+	end
 	if ( MB_RAIS_shooting == true ) then
 		if ( MB_RAIS_castStart ) then
 			local cposX, cposY = GetPlayerMapPosition("player") -- player position atm
@@ -4722,7 +4742,7 @@ function setup()
 	if MB_reportcpu then MB_cpustart=GetTime() end
 	if IsAlive("player") and not IsAltKeyDown() and not IsControlKeyDown() and not InCombat() then MB_autotrade_for30sec=GetTime()+30 end
 	if not MB_raidleader and (TableLength(MBID)>1) then Print("WARNING: You have not chosen a raid leader--hit alt-4") end
-	if IsControlKeyDown() and IsAltKeyDown() then TradeGoldToLeaderAllBut(0) AcceptTrade() return end
+	if IsControlKeyDown() and IsAltKeyDown() then TradeGoldToLeaderAllBut(10) AcceptTrade() return end
 	if UnitLevel("player")==60 and IsControlKeyDown() then buystacks() end
 	if myclass=="Mage" then mage_setup() return end
 	if myclass=="Paladin" then paladin_setup() return end
@@ -8610,6 +8630,7 @@ function FsR_ItemTrade:OnUpdate()
 							local mymoney=GetMoney()
 							if mymoney > amount then
 								SetTradeMoney(amount)
+                                				FsR_ItemTrade.PlayerToTradeWith[TradingPartner]["Gold_gold"] = nil
 							end
 						else
 							while ((FsR_ItemTrade.PlayerToTradeWith[TradingPartner][item] > 0) and (item2TradeCounter+1 < FsR_TrackedMaterial["EmptyBagSlots_slots"][TradingPartner])  ) do
@@ -9590,4 +9611,209 @@ end
 function lowturb()
 	if combat() then cast("Berserking") end
 end
-
+MB_trainers={
+"Aelthalyste",
+"Alamar Grimm",
+"Alenndaar Lapidaar",
+"Alexander Calder",
+"Alyissia",
+"Anastasia Hartwell",
+"Ander Germaine",
+"Angela Curthas",
+"Anishar",
+"Archmage Shymm",
+"Arias'ta Bladesinger",
+"Arthur the Faithful",
+"Astarii Starseeker",
+"Austil de Mon",
+"Ayanna Everstride",
+"Azar Stronghammer",
+"Baltus Fowler",
+"Beldruk Doombrow",
+"Belia Thundergranite",
+"Beram Skychaser",
+"Bilban Tosslespanner",
+"Bink",
+"Birgitte Cranston",
+"Bolyun",
+"Braenna Flintcrag",
+"Brandur Ironhammer",
+"Branstock Khalder",
+"Briarthorn",
+"Bromos Grummner",
+"Brother Benjamin",
+"Brother Joshua",
+"Brother Karman",
+"Brother Sammuel",
+"Brother Wilhelm",
+"Caelyb",
+"Cain Firesong",
+"Captain Evencane",
+"Carolyn Ward",
+"Christoph Walker",
+"Claude Erksine",
+"Daera Brightspear",
+"Danlaar Nightstride",
+"Dannal Stern",
+"Dargh Trueaim",
+"Dark Cleric Beryl",
+"Dark Cleric Duesten",
+"Darnath Bladesinger",
+"David Trias",
+"Dazalar",
+"Deino",
+"Demisette Cloyce",
+"Dhugru Gorelust",
+"Dink",
+"Dorion",
+"Drusilla La Salle",
+"Einris Brightspear",
+"Elissa Dumas",
+"Elsharin",
+"Enyo",
+"Erion Shadewhisper",
+"Father Cobb",
+"Father Lankester",
+"Father Lazarus",
+"Fenthwick",
+"Frahun Shadewhisper",
+"Frang",
+"Gest",
+"Gimrizz Shadowcog",
+"Granis Swiftaxe",
+"Gregory Charles",
+"Grezz Ragefist",
+"Grif Wildheart",
+"Grokor",
+"Grol'dar",
+"Haromm",
+"Harruk",
+"Harutt Thunderhorn",
+"Hesuwa Thunderhorn",
+"High Priest Rohan",
+"High Priestess Laurena",
+"Hogral Bakkan",
+"Holt Thunderhorn",
+"Hulfdan Blackbeard",
+"Ian Strom",
+"Ilsa Corbin",
+"Isabella",
+"Jandria",
+"Jannok Breezesong",
+"Jeen'ra Nightrunner",
+"Jen'shan",
+"Jennea Cannon",
+"Jocaste",
+"Jorik Kerridan",
+"Juli Stormkettle",
+"Kaal Soulreaper",
+"Kaelystia Hatebringer",
+"Kaerbrus",
+"Kaplak",
+"Kardris Dreamseeker",
+"Karrina Mekenda",
+"Kartosh",
+"Kary Thunderhorn",
+"Katherine the Pure",
+"Keldas",
+"Kelstrum Stonebreaker",
+"Kelv Sternhammer",
+"Ken'jai",
+"Ker Ragetotem",
+"Keryn Sylvius",
+"Khelden Bremen",
+"Kragg",
+"Krang Stonehoof",
+"Kyra Windblade",
+"Lanka Farshot",
+"Lariia",
+"Larimaine Purdue",
+"Laurna Morninglight",
+"Lexington Mortaim",
+"Llane Beshere",
+"Lord Grayson Shadowbreaker",
+"Lord Tony Romano",
+"Luther Pickman",
+"Lyria Du Lac",
+"Magis Sparkmantle",
+"Mai'ah",
+"Malakai Cross",
+"Malosh",
+"Marion Call",
+"Marryk Nurribit",
+"Maxan Anvol",
+"Maximillian Crowe",
+"Maximillion",
+"Meela Dawnstrider",
+"Miles Dexter",
+"Miles Welsh",
+"Milstaff Stormeye",
+"Mirket",
+"Nalesette Wildbringer",
+"Nara Meideros",
+"Narm Skychaser",
+"Nartok",
+"Nittlebur Sparkfizzle",
+"Ogromm",
+"Olmin Burningbeard",
+"Ormak Grimshot",
+"Ormok",
+"Ormyr Flinteye",
+"Osborne the Night Man",
+"Pephredo",
+"Peria Lamenur",
+"Pierce Shackleton",
+"Priestess Alathea",
+"Priestess Anetta",
+"Priestess Josetta",
+"Reban Freerunner",
+"Regnus Thundergranite",
+"Richard Kerwin",
+"Rupert Boch",
+"Rwag",
+"Sagorne Creststrider",
+"Sandahl",
+"Sark Ragetotem",
+"Shanda",
+"Shenthul",
+"Shikrik",
+"Sian'dur",
+"Sian'tsu",
+"Sildanair",
+"Siln Skychaser",
+"Silvaria",
+"Solm Hargrin",
+"Sorek",
+"Swart",
+"Syurna",
+"Tai'jin",
+"Tarshaw Jaggedscar",
+"Theodrus Frostbeard",
+"Thistleheart",
+"Thorfin Stoneshield",
+"Thorgas Grimson",
+"Thotar",
+"Thran Khorman",
+"Thurston Xane",
+"Thuul",
+"Tigor Skychaser",
+"Toldren Deepiron",
+"Torm Ragetotem",
+"Ulfir Ironbeard",
+"Un'Thuwa",
+"Ur'kyo",
+"Urek Thunderhorn",
+"Ursula Deline",
+"Ursyn Ghull",
+"Uthel'nay",
+"Valgar Highforge",
+"Wu Shen",
+"X'yera",
+"Xao'tsu",
+"Xor'juul",
+"Yaw Sharpmane",
+"Zaldimar Wefhellt",
+"Zel'mak",
+"Zevrost",
+"Zudd"
+}

@@ -1,4 +1,4 @@
-MB_version="120118a"
+MB_version="120518a"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -32,11 +32,11 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={}
+MB_tanklist={"Skeleton","Eversmile","Battlefield","Bloodfury","Starlight","Furyswipes"}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list={}
+MB_healer_list={"Tremor","Starfire","Moonlight","Windfurious","Earthshock","Bloodlust","Earthshield","Frostshock","Id","Refill","Bubbling","Jindo"}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist={"Furygmswipes","Awt","Chainit","Enyu","Cym","Ata","Aturi","Osna","Loil","Yelrlt","Shyrt","Olora","Sial","Bels","Queurt","Ideni","Oughs","Irgh","Agea","Cerd","Ordr","Noeld","Etory","Ries","Bloogh","Inau","Smont","Inent","Taim","Epolo","Aorma","Asuku","Iab","Oinai","Nymh","Polt","Enm","Deuth","Rard","Yiso","Nteyr"}
+MB_toonlist={"Furygmswipes","Tremor","Starfire","Skeleton","Totemic","Eversmile","Chaosbolt","Battlefield","Brutalio","Moonlight","Hellfire","Windfurious","Afflicted","Earthshock","Flameshocked","Bloodlust","Explode","Earthshield","Leonidas","Frostshock","Fireball","Id","Deathwish","Refill","Scorch","Bubbling","Icefloes","Jindo","Monterey","Mindflay","Yellowstone","Bloodfury","Badlands","Starlight","Olympic","Furyswipes","Stormhammer","Everglades","Toshredsusay","Brutalia","Crookshanks"}
 --When in raid with group loot, always pass on loot unless this is set to false
 MB_autopass=true
 --This is the powerleveler your lowbies will follow when powerleveling
@@ -48,15 +48,15 @@ MB_levelingparties={
 --This is who people will run to when they have the bomb on Baron.
 MB_bombfollow="Enticer"
 --This is who people will run to when they have threatening gaze on Mandokir (raptor boss)
-MB_gazefollow="Aorma"
+MB_gazefollow="Crookshanks"
 --LEAVE DEDICATED HEALERS BLANK. THIS IS AN ADVANCED FEATURE THAT PROBABLY DOESN'T DO WHAT YOU THINK.
-MB_dedicated_healers={}
+MB_dedicated_healers={Eversmile="Jindo"}
 --*Fs
 FsR_AutoRepairAllItems = true
 ---------------------------------------------End of user edited values--------------------------------
 MB_debuffslotlist={"Viper Sting","Detect Magic","Curse of Recklessness","Curse of Shadow","Curse of the Elements","Curse of Agony","Curse of Agony","Curse of Agony","Demoralizing Shout","Thunder Clap","Insect Swarm(Rank 1)","Vampiric Embrace","Hunter's Mark","Fairy Fire","Placeholder for Nightfall","Placeholder for Shadow Weaving","Placeholder for Mindflay","Placeholder for Winters Chill","Scorpid Sting","Placeholder for improved Shadowbolt","Polymorph","Shackle Undead","Banish","Hibernate","Fear","Scare Beast"}
 FsR_Stuff2Track={
-	["Gold"] = {itemkind = "special", collector = {"Chainit"}},
+	["Gold"] = {itemkind = "special", collector = {"Eversmile"}},
 	["EmptyBagSlots"] = {itemkind = "special"},
  	["Soul Shard"] = {itemkind = "special"},
 	["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5}}},
@@ -64,39 +64,39 @@ FsR_Stuff2Track={
  	["Wild Thornroot"] = {itemkind = "item" , class = {Druid = {AnnounceValue = 5}}},
  	["Major Healing Potion"] = {itemkind = "item", class = {Druid = {},Rogue = {},Warrior = {},Hunter = {},Warlock = {},Mage = {}, Priest = {}, Shaman = {}, Paladin = {}}},
 	["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {}, Priest = {}, Shaman = {}, Paladin = {}}},
-	["BOE"] = {itemkind = "itemGrp", collector = {"Liol","Irgh","Agea"}},
-	["Fiery Core"] = {itemkind = "itemGrp", collector = {"Yiso"}},
-	["Large Brill"] = {itemkind = "itemGrp", collector = {"Epolo"}},
-	["Dream Dust"] = {itemkind = "itemGrp", collector = {"Epolo"}},
-	["Globe of Water"] = {itemkind = "itemGrp", collector = {"Epolo"}},
-	["Core of Earth"] = {itemkind = "itemGrp", collector = {"Enm"}},
-	["Elemental Earth"] = {itemkind = "itemGrp", collector = {"Enm"}},
-	[" Scarab"] = {itemkind = "itemGrp", collector = {"Yiso"}},
-	["Elemental Fire"] = {itemkind = "itemGrp", collector = {"Enm"}},
-	["Lava Core"] = {itemkind = "itemGrp", collector = {"Yiso"}},
-	["Nexus Crystal"] = {itemkind = "itemGrp", collector = {"Epolo"}},
-	["Righteous Orb"] = {itemkind = "itemGrp", collector = {"Epolo"}},
-	["Golden Pearl"] = {itemkind = "itemGrp", collector = {"Epolo"}},
-	["Radiant Shard"] = {itemkind = "itemGrp", collector = {"Epolo"}},
-	["Small Brill"] = {itemkind = "itemGrp", collector = {"Epolo"}},
-	["Essence of Earth"] = {itemkind = "itemGrp", collector = {"Enm"}},
-	["Illusion Dust"] = {itemkind = "itemGrp", collector = {"Epolo"}},
-	["Heart of Fire"] = {itemkind = "itemGrp", collector = {"Epolo"}},
-	[" Idol"] = {itemkind = "itemGrp", collector = {"Yiso"}},
-	["Essence of Fire"] = {itemkind = "itemGrp", collector = {"Enm"}},
-	["Bijou"] = {itemkind = "itemGrp", collector = {"Nymh"}},
-	["Coin"] = {itemkind = "itemGrp", collector = {"Nymh"}},
-	["Elemental Water"] = {itemkind = "itemGrp", collector = {"Enm"}},
-	["Lockbox"] = {itemkind = "itemGrp", collector = {"Oinai"}},
-	["Elemental Air"] = {itemkind = "itemGrp", collector = {"Enm"}},
-	["Ichor of Undeath"] = {itemkind = "itemGrp", collector = {"Epolo"}},
-	["Essence of Undeath"] = {itemkind = "itemGrp", collector = {"Epolo"}},
-	["Living Ess"] = {itemkind = "itemGrp", collector = {"Epolo"}},
-	["Idol of "] = {itemkind = "itemGrp", collector = {"Yiso"}},
-	["Greater Eternal"] = {itemkind = "itemGrp", collector = {"Epolo"}},
-	["Breath of Wind"] = {itemkind = "itemGrp", collector = {"Epolo"}},
-	["Essence of Water"] = {itemkind = "itemGrp", collector = {"Epolo"}},
-	["Essence of Air"] = {itemkind = "itemGrp", collector = {"Epolo"}},
+	["BOE"] = {itemkind = "itemGrp", collector = {"Bubbling","Id","Refill"}},
+	["Fiery Core"] = {itemkind = "itemGrp", collector = {"Starfire"}},
+	["Large Brill"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	["Dream Dust"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	["Globe of Water"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	["Core of Earth"] = {itemkind = "itemGrp", collector = {"Fireball"}},
+	["Elemental Earth"] = {itemkind = "itemGrp", collector = {"Fireball"}},
+	[" Scarab"] = {itemkind = "itemGrp", collector = {"Earthshock"}},
+	["Elemental Fire"] = {itemkind = "itemGrp", collector = {"Fireball"}},
+	["Lava Core"] = {itemkind = "itemGrp", collector = {"Explode"}},
+	["Nexus Crystal"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	["Righteous Orb"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	["Golden Pearl"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	["Radiant Shard"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	["Small Brill"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	["Essence of Earth"] = {itemkind = "itemGrp", collector = {"Fireball"}},
+	["Illusion Dust"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	["Heart of Fire"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	[" Idol"] = {itemkind = "itemGrp", collector = {"Earthshock"}},
+	["Essence of Fire"] = {itemkind = "itemGrp", collector = {"Fireball"}},
+	["Bijou"] = {itemkind = "itemGrp", collector = {"Tremor"}},
+	["Coin"] = {itemkind = "itemGrp", collector = {"Tremor"}},
+	["Elemental Water"] = {itemkind = "itemGrp", collector = {"Fireball"}},
+	["Lockbox"] = {itemkind = "itemGrp", collector = {"Deathwish"}},
+	["Elemental Air"] = {itemkind = "itemGrp", collector = {"Fireball"}},
+	["Ichor of Undeath"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	["Essence of Undeath"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	["Living Ess"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	["Idol of "] = {itemkind = "itemGrp", collector = {"Earthshock"}},
+	["Greater Eternal"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	["Breath of Wind"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	["Essence of Water"] = {itemkind = "itemGrp", collector = {"Jindo"}},
+	["Essence of Air"] = {itemkind = "itemGrp", collector = {"Jindo"}},
 	["Conjured Sparkling Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}}
 }
 FsR_TrackedMaterial = {}
@@ -106,7 +106,7 @@ raid_state=1
 party_size=1
 MB_spellsToInt={"Arcane Explosion","Greater Heal","Holy Fire","Drain Life","Heal","Cripple","Heal","Venom Spit","Banish"}
 MB_spellsToStun={"Unstable Concoction"}
-MB_maxheal={Druid=11,Priest=11,Shaman=11,Paladin=11}
+MB_maxheal={Druid=5,Priest=3,Shaman=5,Paladin=4}
 MB_reportcpu=false
 MB_reportzerotime=false
 MB_reportbusy=false
@@ -3035,6 +3035,46 @@ function IsTank()
 	if FindInTable(MB_raidtanks,myname) then return true end
 end
 function Decurse()
+   --REQUIRES DEURSIVE ADDON
+   if Sulfuron() then return end
+   if TankTarget("Garr") or TankTarget("Firesworn") then return end
+   if MyMana()<220 then return end
+   if ImBusy() then return end
+   if not UnitInRaid("player") then DecurseParty() return end
+   local y,x
+   for y=1,GetNumRaidMembers() do
+	for x=1,16 do 
+	  local name,count,debuffType=UnitDebuff("raid"..y,x,1)
+	  if debuffType=="Curse" and DCR_CAN_CURE_CURSE then Print("DECURSE: "..UnitName("raid"..y).." is cursed.") RunLine("/decursive") return end
+	  if debuffType=="Magic" and DCR_CAN_CURE_MAGIC then Print("DECURSE: "..UnitName("raid"..y).." is magicked.") RunLine("/decursive") return end
+	  if debuffType=="Disease" and DCR_CAN_CURE_DISEASE then Print("DECURSE: "..UnitName("raid"..y).." is Diseased.") RunLine("/decursive") return end
+	  if debuffType=="Poison"  and DCR_CAN_CURE_POISON then Print("DECURSE: "..UnitName("raid"..y).." is Poisoned.") RunLine("/decursive") return end
+        end
+   end
+   TargetUnit("playertarget")
+end
+function DecurseParty()
+   --REQUIRES DEURSIVE ADDON
+   local y,x
+	for x=1,16 do 
+	  local name,count,debuffType=UnitDebuff("player",x,1)
+	  if debuffType=="Curse" and DCR_CAN_CURE_CURSE then Print("DECURSE: "..UnitName("player").." is cursed.") RunLine("/decursive") return end
+	  if debuffType=="Magic" and DCR_CAN_CURE_MAGIC then Print("DECURSE: "..UnitName("player").." is magicked.") RunLine("/decursive") return end
+	  if debuffType=="Disease" and DCR_CAN_CURE_DISEASE then Print("DECURSE: "..UnitName("player").." is Diseased.") RunLine("/decursive") return end
+	  if debuffType=="Poison"  and DCR_CAN_CURE_POISON then  Print("DECURSE: "..UnitName("player").." is Poisoned.") RunLine("/decursive") return end
+        end
+   for y=1,4 do
+	for x=1,16 do 
+	  local name,count,debuffType=UnitDebuff("party"..y,x,1)
+	  if debuffType=="Curse" and DCR_CAN_CURE_CURSE then  Print("DECURSE: "..UnitName("party"..y).." is cursed.") RunLine("/decursive") return end
+	  if debuffType=="Magic" and DCR_CAN_CURE_MAGIC then  Print("DECURSE: "..UnitName("party"..y).." is magicked.") RunLine("/decursive") return end
+	  if debuffType=="Disease" and DCR_CAN_CURE_DISEASE then  Print("DECURSE: "..UnitName("party"..y).." is Diseased.") RunLine("/decursive") return end
+	  if debuffType=="Poison"  and DCR_CAN_CURE_POISON then  Print("DECURSE: "..UnitName("party"..y).." is Poisoned.") RunLine("/decursive") return end
+        end
+   end
+   TargetUnit("playertarget")
+end
+function Decurse_old()
 	if 1 then return end
 	for name,time in MB_dcrblacklist do
 		if time then
@@ -6001,6 +6041,7 @@ function shammy_ele_single()
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	if TankTarget("The Prophet Skerem") then AOEHeal() return end
 	Decurse()
+	QuickHeal()
 	if not IAmFocus() then LockonTarget() end
 	if IsAltKeyDown() then SpellStopCasting() return ReportCPU("Shammy ele single alt") end
 	if MB_raidleader~="Chainit" and not IAmFocus() and not TargetInCombat() then return ReportCPU("Shammy ele single nottargincomb") end
@@ -6024,8 +6065,8 @@ function shammy_ele_single()
 			cast("Frost Shock")
 			cast("Earth Shock")
 			CombatUse(14)
-			FlametongueWeapon()
-			--RockbiterWeapon()
+			--FlametongueWeapon()
+			RockbiterWeapon()
 			if TargetInCombat() and InMeleeRange() then
 				if not IsCurrentAction(72) then UseAction(72) end
 			end
@@ -6039,6 +6080,7 @@ function shammy_ele_multi()
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	if TankTarget("The Prophet Skerem") then AOEHeal() return end
 	Decurse()
+	QuickHeal()
 	if not IAmFocus() then LockonTarget() end
 	if IsAltKeyDown() then SpellStopCasting() return ReportCPU("Shammy ele multi alt") end
 	if MB_raidleader=="Chainit" or IAmFocus() or (not IsAltKeyDown() and TargetInCombat()) then
@@ -6056,8 +6098,8 @@ function shammy_ele_multi()
 			cast("Chain Lightning")
 			cast("Lightning Bolt")
 			CombatUse(14)
-			FlametongueWeapon()
-			--RockbiterWeapon()
+			--FlametongueWeapon()
+			RockbiterWeapon()
 			if TargetInCombat() and InMeleeRange() then
 				if not IsCurrentAction(72) then UseAction(72) end
 			end
@@ -8145,6 +8187,7 @@ function RaidGroup()
 end
 function HotEmUp(hot)
 	for i=1,TableLength(MBID) do
+		if not NthMostHurt(i) then return end
 		TargetUnit(NthMostHurt(i))
 		if HealthDown("target")>100 then 
 			MB_msg("Hotting "..UnitName("target"))
@@ -9679,6 +9722,7 @@ MB_trainers={
 "Frahun Shadewhisper",
 "Frang",
 "Gest",
+"Gennia Runetotem",
 "Gimrizz Shadowcog",
 "Granis Swiftaxe",
 "Gregory Charles",

@@ -1,4 +1,4 @@
-MB_version="120518a"
+MB_version="121518a"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -34,9 +34,9 @@ MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
 MB_tanklist={"Skeleton","Eversmile","Battlefield","Bloodfury","Starlight","Furyswipes"}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list={"Tremor","Starfire","Moonlight","Windfurious","Earthshock","Bloodlust","Earthshield","Frostshock","Id","Refill","Bubbling","Jindo"}
+MB_healer_list={"Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Starfire","Moonlight","Windfurious","Earthshock","Bloodlust","Frostshock","Id","Refill","Bubbling","Jindo"}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist={"Furygmswipes","Tremor","Starfire","Skeleton","Totemic","Eversmile","Chaosbolt","Battlefield","Brutalio","Moonlight","Hellfire","Windfurious","Afflicted","Earthshock","Flameshocked","Bloodlust","Explode","Earthshield","Leonidas","Frostshock","Fireball","Id","Deathwish","Refill","Scorch","Bubbling","Icefloes","Jindo","Monterey","Mindflay","Yellowstone","Bloodfury","Badlands","Starlight","Olympic","Furyswipes","Stormhammer","Everglades","Toshredsusay","Brutalia","Crookshanks"}
+MB_toonlist={"Furygmswipes","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Starfire","Skeleton","Totemic","Eversmile","Chaosbolt","Battlefield","Brutalio","Moonlight","Hellfire","Windfurious","Afflicted","Earthshock","Flameshocked","Bloodlust","Explode","Earthshield","Leonidas","Frostshock","Fireball","Id","Deathwish","Refill","Scorch","Bubbling","Icefloes","Jindo","Monterey","Mindflay","Yellowstone","Bloodfury","Badlands","Starlight","Olympic","Furyswipes","Stormhammer","Everglades","Toshredsusay","Brutalia","Crookshanks"}
 --When in raid with group loot, always pass on loot unless this is set to false
 MB_autopass=true
 --This is the powerleveler your lowbies will follow when powerleveling
@@ -50,7 +50,7 @@ MB_bombfollow="Enticer"
 --This is who people will run to when they have threatening gaze on Mandokir (raptor boss)
 MB_gazefollow="Crookshanks"
 --LEAVE DEDICATED HEALERS BLANK. THIS IS AN ADVANCED FEATURE THAT PROBABLY DOESN'T DO WHAT YOU THINK.
-MB_dedicated_healers={Eversmile="Jindo"}
+MB_dedicated_healers={}
 --*Fs
 FsR_AutoRepairAllItems = true
 ---------------------------------------------End of user edited values--------------------------------
@@ -373,6 +373,10 @@ function InitializeClasslists()
 			end
 		end
 		table.sort(MB_ots)
+	end
+	MB_NonTankDruids={}
+	for _,dru in pairs(MB_classlist["Druid"]) do
+		if not FindInTable(MB_raidtanks,dru) then table.insert(MB_NonTankDruids,dru) end
 	end
 end
 LOFGuild = CreateFrame("Frame",nil,UIParent)
@@ -1797,6 +1801,7 @@ function FSMB:OnEvent()
 		end
 	elseif ( event=="PLAYER_REGEN_ENABLED" ) then
 		if UnitClass("player")=="Warlock" and (MB_default_warlock_pet=="Voidwalker" or MB_default_warlock_pet=="Succubus") then PetDefensiveMode() else PetPassiveMode() end
+		if FindKeyInTable(MBID,"Corelock") then PetAggressiveMode() end
 		MB_cooldowns={}
 		MB_My_cc_target=nil
 		MB_My_int_target=nil
@@ -2368,16 +2373,24 @@ function init()
 		PickupSpell(findSpell("Drain Soul"),BOOKTYPE_SPELL)
 		PlaceAction(67)
 	end
-	PickupAction(6)
+	if class=="Warlock" and SpellExists("Rain of Fire") then
+		PickupSpell(findSpell("Rain of Fire"),BOOKTYPE_SPELL)
+		PlaceAction(69)
+	end
+	PickupAction(7)
 	ClearCursor()
-	PickupAction(78)
+	PickupAction(79)
 	ClearCursor()
-	PickupAction(90)
+	PickupAction(91)
 	ClearCursor()
-	PickupAction(103)
+	PickupAction(104)
 	ClearCursor()
-	PickupAction(114)
+	PickupAction(115)
 	ClearCursor()
+	if class=="Warlock" and SpellExists("Life Tap") then
+		PickupSpell(findSpell("Life Tap"),BOOKTYPE_SPELL)
+		PlaceAction(7)
+	end
 	if class=="Warrior" or class=="Priest" or class=="Shaman" or class=="Druid" or class=="Paladin" then
 		index=CreateMacro("wall",165,"/script WarriorSurvive()",1,1)
 		PickupMacro(index)
@@ -3200,6 +3213,26 @@ function PetMoveFast()
 	if HasPetSpell("Dash") then PetCast("Dash") end
 	if HasPetSpell("Dive") then PetCast("Dive") end
 end
+function throwtots()
+	local names = { "Hasselhoof","Goldchain","Zapzap","Moomoomoo"
+}
+	for _,name in names do 
+		RunLine(".send items "..name.." \"\" \"\" 5175")
+		RunLine(".send items "..name.." \"\" \"\" 5176")
+		RunLine(".send items "..name.." \"\" \"\" 5177")
+		RunLine(".send items "..name.." \"\" \"\" 5178")
+	end
+end
+function throwams()
+	local mylist={"Devun","Garret","Elery","Kalman","Verne","Hammond","Davrice","Carin","Emilee","Villetta","Amorine","Thana","Robbin","Tinuviel","Laurelia","Elleni","Kaladin","Malow","Rosita","Madeleina","Skyler","Trudy","Connie","Gaily","Kimmy","Kita","Clemidge","Ticey","Nell","Maligna","Charnel","Necria","Odia","Hardrac","Bondrin","Silmelin","Noldralda","Elbereth","Arethel","Gwethriel"}
+	for _,name in mylist do 
+		RunLine(".send items "..name.." \"\" \"\" 16309")
+	end
+end
+function throwauc()
+	RunLine(".auction item alliance 943 88 long")
+	RunLine(".auction item horde 943 88 long")
+end
 function SickemTarget()
 	--Main pet attack function.
 	--if alt key is down pets will return and go passive
@@ -3630,7 +3663,7 @@ function LockonTarget()
 		return
 	end
 	if not UnitName("target") then AssistTank() end
-	if not UnitInRaid("player") and GetNumPartyMembers()==0 then Print("I'm not in a party or raid") return end
+	--if not UnitInRaid("player") and GetNumPartyMembers()==0 then Print("I'm not in a party or raid") return end
 	--NOTE:THIS ROUTINE SHOULD NEVER RUN IF THE TOON HAS NO FOCUS. IF IT DOES, SOMETHING WENT WRONG.
 	if IAmFocus() then MB_msg("I have no focus!") return end
 	--REND targeting
@@ -3646,6 +3679,7 @@ function LockonTarget()
 	--Mar'li / Venoxis targeting Magic!
 	--Kill spiders first and immediately
 	--PRIME DIRECTIVE: IF YOU HAVE A GOOD TARGET THEN DON'T DO THIS CODE! So first line is a check for that and return if true.
+	if TankTarget("High Priestess Jeklik") and UnitName("target")=="Bloodseeker Bat" and not UnitIsDead("target") then return end
 	if TankTarget("High Priestess Mar'li") and UnitName("target")=="Spawn of Mar'li" and not UnitIsDead("target") then return end
 	if TankTarget("High Priestess Mar'li") and UnitName("target")=="Witherbark Speaker" and not UnitIsDead("target") then return end
 	if TankTarget("High Priest Venoxis") and UnitName("target")=="Razzashi Cobra" and not UnitIsDead("target") then return end
@@ -3659,6 +3693,15 @@ function LockonTarget()
 		for i=1,5 do
 			if UnitName("target")=="Spawn of Mar'li" and not UnitIsDead("target") then return end
 			if UnitName("target")=="Witherbark Speaker" and not UnitIsDead("target") then return end
+			TargetNearestEnemy()
+		end
+	end
+	--JEKLIK
+	if TankTarget("High Priestess Jeklik") then
+		if TankTargetHealth()<.2 then AssistTank() return end
+		Print("JEKLIK TARGETING")
+		for i=1,5 do
+			if UnitName("target")=="Bloodseeker Bat" and not UnitIsDead("target") then return end
 			TargetNearestEnemy()
 		end
 	end
@@ -3916,6 +3959,7 @@ end
 function NumInParty(checkclass)
 	local i=0
 	local MyGroup=MB_GroupID[myname]
+	if not MyGroup then return 0 end
 	for _,name in MB_ToonsInGroup[MyGroup] do
 			if MBID[name] and UnitClass(MBID[name])==checkclass then i=i+1 end
 	end
@@ -3936,6 +3980,7 @@ end
 function ChooseAirTotem()
 	if IsGroundingBoss() then return "Grounding Totem" end
 	if IsNatureBoss() then return "Nature Resistance Totem" end
+	if MB_DruidTankInParty and NumInParty("Rogue")>0 then return "Windfury Totem" end
 	if MB_DruidTankInParty or (NumInParty("Hunter")>0 and NumInParty("Hunter")>NumInParty("Rogue")) then return "Grace of Air Totem" end
 	if MB_WarriorTankInParty or NumInParty("Rogue")>0 then return "Windfury Totem" end
 	return "Tranquil Air Totem"
@@ -3951,7 +3996,6 @@ function ChooseWaterTotem()
 	return "Mana Spring Totem"
 end
 function party_totems()
-	if MB_raidleader=="Chainit" then return end
 	CastTotem(ChooseWaterTotem())
 	CastTotem(ChooseAirTotem())
 	--Print("Air totem is "..ChooseAirTotem())
@@ -4712,6 +4756,7 @@ function WhoIs(name)
 	end
 end
 function IsElementalShammy()
+	if TalentPointsIn(1)==46 then return true end
 	return TalentPointsIn(1)>=TalentPointsIn(2) and TalentPointsIn(1)>=TalentPointsIn(3)
 end
 function IsHolyPally()
@@ -4888,6 +4933,10 @@ end
 function lock_setup()
 	AutoDelete()
 	if (MB_default_warlock_pet=="Voidwalker" or MB_default_warlock_pet=="Succubus") then Print("Setting pet defensive!") PetDefensiveMode() else PetPassiveMode() end
+	if FindKeyInTable(MBID,"Corelock") then 
+		PetAggressiveMode()
+		if IsControlKeyDown() then MB_Assist() PetAttack("target") end
+	end
 	if MB_My_ot_target then PetPassiveMode() end
 	if IsAltKeyDown() then MB_Assist() return end
 	if InCombat() then CancelTrade() end
@@ -4924,6 +4973,7 @@ function TargetManaPct()
 	return UnitMana("target")/UnitManaMax("target")
 end
 function lock_single()
+	if IsControlKeyDown() and FindKeyInTable(MBID,"Corelock") then cast("Rain of Fire") return end
 	if UnitName("target")=="Moam" and TargetManaPct()>.4 then 
 		if not MB_isChanneling then 
 			cast("Drain Mana")
@@ -4939,6 +4989,7 @@ function lock_single()
 		end
 	end
 	if (MB_default_warlock_pet=="Voidwalker" or MB_default_warlock_pet=="Succubus") then PetDefensiveMode() else PetPassiveMode() end
+	if FindKeyInTable(MBID,"Corelock") then PetAggressiveMode() end
 	if MB_My_ot_target then PetPassiveMode() end
 	if not IsAlive("player") then return ReportCPU("Lock Single dead") end
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
@@ -5001,6 +5052,7 @@ function lock_multi()
 	--THIS MACRO SUCKS. Actually, for lock multi, locks should change target and dot every enemy in combat up.
 --
 	if (MB_default_warlock_pet=="Voidwalker" or MB_default_warlock_pet=="Succubus") then PetDefensiveMode() else PetPassiveMode() end
+	if FindKeyInTable(MBID,"Corelock") then PetAggressiveMode() end
 	if MB_My_ot_target then PetPassiveMode() end
 	CC()
 	if MB_My_ot_target then
@@ -5063,6 +5115,7 @@ function lock_aoe()
 	--Stop hellfire if you are near death
 	--You can only interrupt hellfire by casting another spell, like life tap rank 1
 	if (MB_default_warlock_pet=="Voidwalker" or MB_default_warlock_pet=="Succubus") then PetDefensiveMode() else PetPassiveMode() end
+	if FindKeyInTable(MBID,"Corelock") then Print("Setting Pet Aggressive") PetAggressiveMode() end
 	if MB_My_ot_target then PetPassiveMode() end
 	if buffed("Hellfire","player") and MyHealthPct()<.1 then RunLine("/cast Life Tap(Rank 1)") end
 	if ImBusy() then return ReportCPU("Lock aoe busy") end
@@ -5242,12 +5295,12 @@ function WarriorTaunt(msg)
 		cast("Taunt")
 		return
 	end
-	if not OnCooldown("Mocking Blow") and MyRage()>9 and MyStance()==1 then
+	if OnCooldown("Taunt") and not OnCooldown("Mocking Blow") and MyRage()>9 and MyStance()==1 then
 		--MB_msg(msg.." Taunt failed or on cooldown--trying mocking blow!")
 		cast("Mocking Blow")
 		return
 	end
-	if not OnCooldown("Mocking Blow") and MyRage()>9 then
+	if OnCooldown("Taunt") and not OnCooldown("Mocking Blow") and MyRage()>9 then
 		StanceCast("Battle Stance")
 	end
 end

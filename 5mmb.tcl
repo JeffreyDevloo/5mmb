@@ -1,4 +1,4 @@
-set version 112418a
+set version 121718c
 array unset toons
 array unset autodelete
 array unset raidorder10
@@ -97,29 +97,29 @@ while { [gets $tL line] >= 0 } {
       set name [lindex $line 3] 
       set role [lindex $line 4] 
       set raidletters [string tolower [lrange $line 5 end]]
-			set raids ""
-			foreach userraid $raidletters { 
-		    regexp {([a-z]|)([0-9])?} $userraid match userraid cpunum
- 		    if { $cpunum=="" } { set cpunum 1 } 
+      set raids ""
+      foreach userraid $raidletters { 
+        regexp {([a-z]|)([0-9])?} $userraid match userraid cpunum
+        if { $cpunum=="" } { set cpunum 1 } 
         lappend raids ${userraid}${cpunum}     
       }
-			if { $raids == "" } { set raids m1 }
+      if { $raids == "" } { set raids m1 }
       set toons($numtoons) "$account $passwd $name $role $raids"
       incr numtoons
     } elseif { [string tolower [lindex $line 0]] == "keyboard" } {
- 		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set keyboard [lindex $line 1] 
-				if { $keyboard !="us" && $keyboard !="uk" && $keyboard !="de" && $keyboard !="other" }  { puts "ERROR: keyboard choices are us/uk/de/other" ; return }
-				if { $keyboard=="de" } {
-					set oem "oem5"
-				} elseif { $keyboard=="other" } {
-					set oem "oem7"
-				} elseif { $keyboard=="uk" } {
-					set oem "oem8"
-				} else {
-					set oem "oem3"
-				}
-    } elseif { [string tolower [lindex $line 0]] == "monitor" } {
+     if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
+     set keyboard [lindex $line 1] 
+     if { $keyboard !="us" && $keyboard !="uk" && $keyboard !="de" && $keyboard !="other" }  { puts "ERROR: keyboard choices are us/uk/de/other" ; return }
+     if { $keyboard=="de" } {
+       set oem "oem5"
+     } elseif { $keyboard=="other" } {
+       set oem "oem7"
+     } elseif { $keyboard=="uk" } {
+       set oem "oem8"
+     } else {
+       set oem "oem3"
+     }
+   } elseif { [string tolower [lindex $line 0]] == "monitor" } {
  		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set monitor [lindex $line 1] 
 				if { $monitor !="1k" && $monitor !="3k" && $monitor !="4k" }  { puts "ERROR: monitor choices are 1k/3k/4k" ; return }
@@ -313,7 +313,7 @@ if { ! $nohotkeyoverwrite } {
 	for { set i 0 } { $i<[array size toons] } { incr i } {
 	  set toonname [string tolower [lindex $toons($i) 2]]
 	  set account [lindex $toons($i) 0]
-	  set raids [lindex $toons($i) 4 end]
+	  set raids [lrange $toons($i) 4 end]
 		set comps 1
 		foreach myraid $raids {
 			regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
@@ -447,7 +447,9 @@ if { ! $nohotkeyoverwrite } {
 	puts $hK $winlabels
 	puts $hK {  <Key enter>
 	  <Wait 250>
-	  <Text /init>
+	  <Key divide>
+	  <Wait 25>
+	  <Text init>
 	  <Wait 175>
 	  <Key enter>
 	}
@@ -455,7 +457,9 @@ if { ! $nohotkeyoverwrite } {
 	puts $hK $winlabels
 	puts $hK {  <Key enter>
 	  <Wait 250>
-	  <Text /reload>
+	  <Key divide>
+	  <Wait 25>
+	  <Text reload>
 	  <Wait 175>
 	  <Key enter>
 	}
@@ -655,7 +659,7 @@ if { ! $nohotkeyoverwrite } {
 	for { set i 0 } { $i<[array size toons] } { incr i } {
 	  set role [lindex $toons($i) 3]
 	  set role [string tolower $role ]
-	  set raids [lindex $toons($i) 4 end]
+	  set raids [lrange $toons($i) 4 end]
 		set comps 1
 		foreach myraid $raids {
 			  regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
@@ -679,7 +683,7 @@ if { ! $nohotkeyoverwrite } {
 	for { set i 0 } { $i<[array size toons] } { incr i } {
 	  set role [lindex $toons($i) 3]
 	  set role [string tolower $role ]
-	  set raids [lindex $toons($i) 4 end]
+	  set raids [lrange $toons($i) 4 end]
 		set comps 1
 		foreach myraid $raids {
 			  regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
@@ -703,7 +707,7 @@ if { ! $nohotkeyoverwrite } {
 	for { set i 0 } { $i<[array size toons] } { incr i } {
 	  set role [lindex $toons($i) 3]
 	  set role [string tolower $role ]
-	  set raids [lindex $toons($i) 4 end]
+	  set raids [lrange $toons($i) 4 end]
 		set comps 1
 		foreach myraid $raids {
 			  regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
@@ -727,7 +731,7 @@ if { ! $nohotkeyoverwrite } {
 	for { set i 0 } { $i<[array size toons] } { incr i } {
 	  set role [lindex $toons($i) 3]
 	  set role [string tolower $role ]
-	  set raids [lindex $toons($i) 4 end]
+	  set raids [lrange $toons($i) 4 end]
 		set comps 1
 		foreach myraid $raids {
 			  regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
@@ -751,7 +755,7 @@ if { ! $nohotkeyoverwrite } {
 	for { set i 0 } { $i<[array size toons] } { incr i } {
 	  set role [lindex $toons($i) 3]
 	  set role [string tolower $role ]
-	  set raids [lindex $toons($i) 4 end]
+	  set raids [lrange $toons($i) 4 end]
 		set comps 1
 		foreach myraid $raids {
 			  regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum

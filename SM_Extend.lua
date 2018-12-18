@@ -1,4 +1,4 @@
-MB_version="121518a"
+MB_version="121618a"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -32,11 +32,11 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={"Skeleton","Eversmile","Battlefield","Bloodfury","Starlight","Furyswipes"}
+MB_tanklist={"Rohnin","Zena","Thearmor","Farquad","Skeleton","Eversmile","Battlefield","Bloodfury","Starlight","Furyswipes"}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list={"Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Starfire","Moonlight","Windfurious","Earthshock","Bloodlust","Frostshock","Id","Refill","Bubbling","Jindo"}
+MB_healer_list={"Furysweips","Gayforpay","Druidy","Lightbomb","Surger","Twin","Octopus","Whereistotem","Negativeaura","Aintitashamy","Spankit","Consecration","Di","Tremor","Starfire","Moonlight","Windfurious","Earthshock","Bloodlust","Frostshock","Id","Refill","Bubbling","Jindo"}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist={"Furygmswipes","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Tremor","Starfire","Skeleton","Totemic","Eversmile","Chaosbolt","Battlefield","Brutalio","Moonlight","Hellfire","Windfurious","Afflicted","Earthshock","Flameshocked","Bloodlust","Explode","Earthshield","Leonidas","Frostshock","Fireball","Id","Deathwish","Refill","Scorch","Bubbling","Icefloes","Jindo","Monterey","Mindflay","Yellowstone","Bloodfury","Badlands","Starlight","Olympic","Furyswipes","Stormhammer","Everglades","Toshredsusay","Brutalia","Crookshanks"}
+MB_toonlist={"Furygmswipes","Furysweips","Rohnin","Zena","Gayforpay","Confusion","Druidy","Fister","Sploink","Moredotz","Zombia","Zorn","Sid","Badknee","Explosive","Spite","Badcosplay","Pontiac","Lightbomb","Surger","Twin","Thunda","Zing","Crank","Salvo","Chaostard","Heavenly","Spun","Twisted","Thearmor","Octopus","Farquad","Whereistotem","Negativeaura","Aintitashamy","Spankit","Consecration","Natalia","Sparky","Handy","Di","Tremor","Starfire","Skeleton","Totemic","Eversmile","Chaosbolt","Battlefield","Brutalio","Moonlight","Hellfire","Windfurious","Afflicted","Earthshock","Flameshocked","Bloodlust","Explode","Earthshield","Leonidas","Frostshock","Fireball","Id","Deathwish","Refill","Scorch","Bubbling","Icefloes","Jindo","Monterey","Mindflay","Yellowstone","Bloodfury","Badlands","Starlight","Olympic","Furyswipes","Stormhammer","Everglades","Toshredsusay","Brutalia","Crookshanks"}
 --When in raid with group loot, always pass on loot unless this is set to false
 MB_autopass=true
 --This is the powerleveler your lowbies will follow when powerleveling
@@ -631,8 +631,8 @@ end
 function partyup()
 	if Leveler(myname) then return end
 	if MB_reportcpu then MB_cpustart=GetTime() end
-	if IsControlKeyDown() then GetMoneyFromLeader(10) return ReportCPU("Partyup getmoney") end
-	if UnitInRaid("player") and (not IsRaidLeader() or not IsRaidOfficer()) then Print("MAKE ME RAID LEADER OR ASSIST AND I'D BE GLAD TO INVITE MORE, OR PROMOTE, OR CHANGE LOOT.") return ReportCPU("Partyup notinraid") end
+	if IsControlKeyDown() then GetMoneyFromLeader(10) return end
+	if UnitInRaid("player") and (not IsRaidLeader() or not IsRaidOfficer()) then Print("MAKE ME RAID LEADER OR ASSIST AND I'D BE GLAD TO INVITE MORE, OR PROMOTE, OR CHANGE LOOT.") return end
   MB_raidleader=myname
 	for k,toon in pairs(MB_toonlist) do
 		if UnitName("player")~=toon and not Leveler(toon) then
@@ -651,7 +651,6 @@ function partyup()
 		PromoteToAssistant(toon)
 	end
 	--if GetNumPartyMembers()==4 and UnitLevel("player")==60 then ConvertToRaid(); end
-	ReportCPU("Partyup")
 end
 function SortRaid()
 --Every raid needs to put its toons in specific groups to control buff sharing
@@ -3214,7 +3213,7 @@ function PetMoveFast()
 	if HasPetSpell("Dive") then PetCast("Dive") end
 end
 function throwtots()
-	local names = { "Hasselhoof","Goldchain","Zapzap","Moomoomoo"
+	local names = { "Beefytotem","Totemtroll","Naturalherb","Riddik"
 }
 	for _,name in names do 
 		RunLine(".send items "..name.." \"\" \"\" 5175")
@@ -3224,7 +3223,7 @@ function throwtots()
 	end
 end
 function throwams()
-	local mylist={"Devun","Garret","Elery","Kalman","Verne","Hammond","Davrice","Carin","Emilee","Villetta","Amorine","Thana","Robbin","Tinuviel","Laurelia","Elleni","Kaladin","Malow","Rosita","Madeleina","Skyler","Trudy","Connie","Gaily","Kimmy","Kita","Clemidge","Ticey","Nell","Maligna","Charnel","Necria","Odia","Hardrac","Bondrin","Silmelin","Noldralda","Elbereth","Arethel","Gwethriel"}
+	mylist={"Daedals"}
 	for _,name in mylist do 
 		RunLine(".send items "..name.." \"\" \"\" 16309")
 	end
@@ -3379,14 +3378,33 @@ function PickupPetFood()
 				link=GetContainerItemLink(bag,slot) 
 				--Print(link)
 				if UnitCreatureFamily("pet") == "Bear" then
-					if string.find(link, "Deep Fried Plantains") then PickupContainerItem(bag,slot) ; return end
-				elseif UnitCreatureFamily("pet") == "Cat" then
-					if string.find(link, "Roasted Quail") then PickupContainerItem(bag,slot) ; return end
-				elseif UnitCreatureFamily("pet") == "Wolf" then
-                    if string.find(link, "Roasted Quail") then Print("Picking Up "..bag..","..slot) ; PickupContainerItem(bag,slot) ; return end
-				elseif UnitCreatureFamily("pet") == "Bat" then
+                    			if string.find(link, "Roasted Quail") then PickupContainerItem(bag,slot) ; return end
+                		elseif UnitCreatureFamily("pet") == "Cat" then
+                    			if string.find(link, "Roasted Quail") then PickupContainerItem(bag,slot) ; return end
+                		elseif UnitCreatureFamily("pet") == "Wolf" then
+                                	if string.find(link, "Roasted Quail") then PickupContainerItem(bag,slot) ; return end
+                		elseif UnitCreatureFamily("pet") == "Bat" then
 					if string.find(link, "Dried King Bolete") then PickupContainerItem(bag,slot) ; return end
-				end
+                		elseif UnitCreatureFamily("pet") == "Crocolisk" then
+                    			if string.find(link, "Roasted Quail") then PickupContainerItem(bag,slot) ; return end
+                		elseif UnitCreatureFamily("pet") == "Raptor" then
+                    			if string.find(link, "Roasted Quail") then PickupContainerItem(bag,slot) ; return end
+                		elseif UnitCreatureFamily("pet") == "Spider" then
+                    			if string.find(link, "Roasted Quail") then PickupContainerItem(bag,slot) ; return end
+                		elseif UnitCreatureFamily("pet") == "Carrion Bird" then
+                    			if string.find(link, "Roasted Quail") then PickupContainerItem(bag,slot) ; return end
+				elseif UnitCreatureFamily("pet") == "Gorilla" then
+                    			if string.find(link, "Deep Fried Plantains") then PickupContainerItem(bag,slot) ; return end
+                		elseif UnitCreatureFamily("pet") == "Boar" then
+                    			if string.find(link, "Roasted Quail") then PickupContainerItem(bag,slot) ; return end
+                		elseif UnitCreatureFamily("pet") == "Turtle" then
+                    			if string.find(link, "Deep Fried Plantains") then PickupContainerItem(bag,slot) ; return end
+                		elseif UnitCreatureFamily("pet") == "Scorpid" then
+                    			if string.find(link, "Roasted Quail") then PickupContainerItem(bag,slot) ; return end
+                		elseif UnitCreatureFamily("pet") == "Owl" then
+                    			if string.find(link, "Roasted Quail") then PickupContainerItem(bag,slot) ; return end
+                		end
+		    
 			end
 		end end
 	end
@@ -4677,38 +4695,37 @@ function PartyHurt(hurt,num_party_hurt)
 	if numhurt>=num_party_hurt then return numhurt end
 end
 function NS(id)
-	if not id then return end
-	if not InCombat() or UnitHealth(id)/UnitHealthMax(id)>.3 then return end
-	if IsHybridDruid() or IsDruidHealer() or (UnitClass("player")=="Shaman" and (not IsEnhancementShammy() and not IsElementalShammy())) then
-		if OnCooldown("Nature's Swiftness") then return end
+        if id and not OnCooldown("Swiftmend") and buffed("Regrowth",id) then TargetUnit(id) cast("Swiftmend") end
+	if not id or not InCombat() then return end
+	local health=UnitHealth(id)/UnitHealthMax(id)
+	if id and health<.2 and (IsHybridDruid() or IsDruidHealer() or ((UnitClass("player")=="Shaman" and (not IsEnhancementShammy() and not IsElementalShammy())))) then
+		TargetUnit(id)
+		--Print(UnitName("target"))
+		--Print(" the tank is in trouble, casting NS")
 		cast("Nature's Swiftness")
 	end
-	if (not UnitIsEnemy(id,"player")) and (IsDruidHealer() or IsHybridDruid()) then
-		if buffed("Regrowth","target") then
-			cast("Swiftmend")
-		elseif buffed("Nature's Swiftness","player") then
-			cast("regrowth")
-		end
+	if buffed("Nature's Swiftness","player") then
+		--Print(UnitName("target"))
+		--Print(" the tank is in trouble, casting Regrowth")
+		cast("regrowth")
 	end
 end
 function Ungrouped()
 	if  GetNumPartyMembers()==0 and not UnitInRaid("player") then return true end
 end
 function NS_Party()
-	if Ungrouped() then return end
+        if not OnCooldown("Swiftmend") and buffed("Regrowth","target") then cast("Swiftmend") end
+	if Ungrouped() or not InCombat() then return end
 	for _,gname in MB_ToonsInGroup[MB_GroupID[myname]] do
-		id=MBID[gname]
-		if not InCombat() or UnitHealth(id)/UnitHealthMax(id)>.3 then return end
-		if id and IsHybridDruid() or IsDruidHealer() or (UnitClass("player")=="Shaman" and (not IsEnhancementShammy() and not IsElementalShammy())) then
-			if OnCooldown("Nature's Swiftness") then return end
+		local id=MBID[gname]
+		local health=UnitHealth(id)/UnitHealthMax(id)
+		if id and health<.2 and (IsHybridDruid() or IsDruidHealer() or ((UnitClass("player")=="Shaman" and (not IsEnhancementShammy() and not IsElementalShammy())))) then
+			TargetUnit(id)
 			cast("Nature's Swiftness")
 		end
-		if id and (not UnitIsEnemy(id,"player")) and (IsDruidHealer() or IsHybridDruid()) then
-			if buffed("Regrowth","target") then
-				cast("Swiftmend")
-			elseif buffed("Nature's Swiftness","player") then
-				cast("regrowth")
-			end
+		if buffed("Nature's Swiftness","player") then
+			TargetUnit(id)
+			cast("regrowth")
 		end
 	end
 end
@@ -4991,7 +5008,7 @@ function lock_single()
 	if (MB_default_warlock_pet=="Voidwalker" or MB_default_warlock_pet=="Succubus") then PetDefensiveMode() else PetPassiveMode() end
 	if FindKeyInTable(MBID,"Corelock") then PetAggressiveMode() end
 	if MB_My_ot_target then PetPassiveMode() end
-	if not IsAlive("player") then return ReportCPU("Lock Single dead") end
+	if not IsAlive("player") then return end
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	CC()
@@ -5000,11 +5017,11 @@ function lock_single()
 		OT()
 		SickemTarget()
 	end
-	if IsAltKeyDown() then return ReportCPU("Lock Single alt") end
+	if IsAltKeyDown() then return end
 	if UnitName("target")=="Azuregos" and buffed("Magic Shield","target") then SpellStopCasting() return end
 	if not IAmFocus() then LockonTarget() end
 	if buffed("Hellfire","player") then RunLine("/cast Life Tap(Rank 1)") end
-	if ImBusy() then return ReportCPU("Lock Single busy") end
+	if ImBusy() then return end
 	if TargetInCombat() or IAmFocus() then
 		if not MB_My_ot_target then SickemTarget() end
 		if MyHealthPct()<.1 then cast("Drain Life") end
@@ -5042,7 +5059,6 @@ function lock_single()
 		cast("Shadow Bolt")
 	end
 	if MyManaPct()<.1 and MyHealthPct()>.4 then cast("Life Tap") end
-	ReportCPU("Lock Single")
 end
 function lock_multi()
 	--This is the first of the "multi" dps programs.
@@ -5061,15 +5077,15 @@ function lock_multi()
 		SickemTarget()
 		--If you are a tank, (focus or not) and not assigned to an OT target, you will taunt anything NOT attacking a tank
 	end
-	if IsAltKeyDown() then return ReportCPU("Lock multi alt") end
+	if IsAltKeyDown() then return end
 	if not IAmFocus() then LockonTarget() end
 	--Jump out of hellfire in multi--hellfire is only run in lock_cc
 	--multi is meant for ranged targets
 	if buffed("Hellfire","player") then RunLine("/cast Life Tap(Rank 1)") end
-	if ImBusy() then return ReportCPU("Lock multi busy") end
+	if ImBusy() then return end
 	--don't run this program if busy draining
-	if buffed("Drain Life","player") then return ReportCPU("Lock multi drain life") end
-	if buffed("Drain Soul","player") then return ReportCPU("Lock multi drain soul") end
+	if buffed("Drain Life","player") then return end
+	if buffed("Drain Soul","player") then return end
 	--You are dying. Use a pot
 	--If the alt-key is down, tank wants more aggro, stop dpsing
 	--You are not a tank. Do not shoot at anything unless it is already in combat. Or you are by yourself and have no focus.
@@ -5108,7 +5124,6 @@ function lock_multi()
 		--You are out of mana but not life. Why not life tap and get some mana?
 		if MyManaPct()<.1 and MyHealthPct()>.4 then cast("Life Tap") end
 	end
-	ReportCPU("Lock multi")
 end
 function lock_aoe()
 	--ONE OF MY FAVORITES. Cast hellfire. Stack a bunch of locks doing this and get thousands of dps!
@@ -5118,7 +5133,7 @@ function lock_aoe()
 	if FindKeyInTable(MBID,"Corelock") then Print("Setting Pet Aggressive") PetAggressiveMode() end
 	if MB_My_ot_target then PetPassiveMode() end
 	if buffed("Hellfire","player") and MyHealthPct()<.1 then RunLine("/cast Life Tap(Rank 1)") end
-	if ImBusy() then return ReportCPU("Lock aoe busy") end
+	if ImBusy() then return end
 	if MB_My_ot_target then
 		--Select my off-tank target if I've lost it
 		OT()
@@ -5135,7 +5150,6 @@ function lock_aoe()
 		if MyHealthPct()<.15 then RunLine("/cast Life Tap(Rank 1)") end
 		if MyHealthPct()>.17 and not buffed("Hellfire","player") then cast("Hellfire") end
 	end
-	ReportCPU("Lock aoe")
 end
 -- WARRIOR
 function warrior_setup()
@@ -5149,12 +5163,11 @@ function warrior_setup()
 		--stop all attacks, furyswipes taunting
 		if UnitName("target")~="Kurinnaxx" and IsCurrentAction(72) then
 			UseAction(72)
-			return ReportCPU("Warrior setup alt")
+			return 
 		end
 	end
 	if not IAmFocus() and IsAltKeyDown() and TargetInCombat() then StanceCast("Defensive Stance") cast("Taunt") cast("Revenge") cast("Mocking Blow") ; end
 	AutoDelete()
-	ReportCPU("Warrior setup")
 end
 function fearbreak()
 	if not OnCooldown("Will of the Forsaken") then cast("Will of the Forsaken") return end
@@ -5230,9 +5243,9 @@ function warrior_tank_single()
 	--AutoAssignOT()
 	--AutoAssignINT()
 	AutoAssignCC()
-	if IsControlKeyDown() then WarriorInterrupt() return ReportCPU("Warrior tank single ctrl") end
+	if IsControlKeyDown() then WarriorInterrupt() return end
 	--NEVeR MAKE A MOVE ON SHAZZRAH UNLESS U R Main TANK
-	if TankTarget("Shazzrah") and not IAmFocus() then return ReportCPU("Warrior tank single shazzrah") end
+	if TankTarget("Shazzrah") and not IAmFocus() then return end
 	local tname=UnitName("target")
 	if not tname then tname="" end
 	if MyHealthPct()<.15 then WarriorSurvive() end
@@ -5240,7 +5253,7 @@ function warrior_tank_single()
 	if IAmFocus() and UnitName("target")=="Shazzrah" then CloseDistance() end
 	if SpellExists("Charge") then
 		if IAmFocus() and (CooldownTime("Charge")>.85 and CooldownTime("Charge")<4) and not buffed("Thunderfury","target") and not OnCooldown("Thunder Clap") and InMeleeRange() then cast("Thunder Clap") end
-		if CooldownTime("Charge")>0 and CooldownTime("Charge")<1.5 then return ReportCPU("Warrior tank single charge") end
+		if CooldownTime("Charge")>0 and CooldownTime("Charge")<1.5 then return end
 	end
 	--TAUNT CODE
 	OT()
@@ -5259,7 +5272,7 @@ function warrior_tank_single()
 	if not IAmFocus() and IsAltKeyDown() and UnitName("target")=="Kurinnaxx" then
 		--stop attacking during kurinnaxx when you are the off tank and the main tank is taunting!
 		if IsCurrentAction(72) then UseAction(72) end
-		return ReportCPU("Warrior tank single swing")
+		return 
 	end
 	--END TAUNT CODE
 	if not UnitName("target") and not MB_My_ot_target and not IAmFocus() then TargetNotOnTank() end
@@ -5282,7 +5295,6 @@ function warrior_tank_single()
 		if MyRage()>50 then cast("Heroic Strike") end
 		if not IsCurrentAction(72) then UseAction(72) end;
 	end
-	ReportCPU("Warrior tank single")
 end
 function InBattleStance()
 	local texture,name,isActive,isCastable = GetShapeshiftFormInfo(1)
@@ -5322,9 +5334,9 @@ function warrior_tank_multi()
 	--AutoAssignOT()
 	--AutoAssignINT()
 	AutoAssignCC()
-	if IsControlKeyDown() then cast("Challenging Shout") return ReportCPU("Warrior tank multi ctrl") ; end
+	if IsControlKeyDown() then cast("Challenging Shout") return end
 	--NEVeR MAKE A MOVE ON SHAZZRAH UNLESS U R Main TANK
-	if TankTarget("Shazzrah") and not IAmFocus() then return ReportCPU("Warrior tank single shazzrah") end
+	if TankTarget("Shazzrah") and not IAmFocus() then return end
 	local tname=UnitName("target")
 	if not tname then tname="" end
 	if MyHealthPct()<.15 then WarriorSurvive() end
@@ -5367,7 +5379,6 @@ function warrior_tank_multi()
 		if MyRage()>30 then cast("Sunder Armor") end
 		if not IsCurrentAction(72) then UseAction(72) end;
 	end
-	ReportCPU("Warrior tank multi")
 end
 function warrior_tank_aoe()
 	local tname=UnitName("target")
@@ -5393,7 +5404,7 @@ function warrior_tank_aoe()
 		if MyRage()>19 and not buffed("Thunder Clap","target") and not buffed("Thunderfury","target") and not OnCooldown("Thunder Clap") then
 			StanceCast("Battle Stance")
 			cast("Thunder Clap")
-			return ReportCPU("Warrior tank aoe tc")
+			return 
 		else
 			StanceCast("Defensive Stance")
 			cast("Cleave")
@@ -5405,7 +5416,6 @@ function warrior_tank_aoe()
 		end
 		if not IsCurrentAction(72) then UseAction(72) end;
 	end
-	ReportCPU("Warrior tank aoe")
 end
 function furytank_single()
 	AnubAlert()
@@ -5413,8 +5423,8 @@ function furytank_single()
 	if IsControlKeyDown() then WarriorInterrupt() ; end
   if not IAmFocus() and buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
   if not IAmFocus() and buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
-	if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.2 and UnitHealth("target")>1000 then cast("Execute") end
-  if TankTarget("Shazzrah") and not IAmFocus() then return ReportCPU("Warrior furytank single shazzrah") end
+	if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.2 then cast("Execute") end
+  if TankTarget("Shazzrah") and not IAmFocus() then return end
 	local tname=UnitName("target")
 	if not tname then tname="" end
 	if MyHealthPct()<.15 then WarriorSurvive() end
@@ -5422,7 +5432,7 @@ function furytank_single()
 	if IAmFocus() and UnitName("target")=="Shazzrah" then CloseDistance() end
 	if SpellExists("Charge") then
 		if IAmFocus() and (CooldownTime("Charge")>.85 and CooldownTime("Charge")<4) and not OnCooldown("Thunder Clap") and not buffed("Thunderfury","target") and InMeleeRange() then cast("Thunder Clap") end
-		if CooldownTime("Charge")>0 and CooldownTime("Charge")<1.5 then return ReportCPU("Warrior furytank single charge") end
+		if CooldownTime("Charge")>0 and CooldownTime("Charge")<1.5 then return end
 	end
 	OT()
 	ttname=UnitName("targettarget")
@@ -5440,7 +5450,7 @@ function furytank_single()
 	if not IAmFocus() and IsAltKeyDown() and UnitName("target")=="Kurinnaxx" then
 	--stop attacking during kurinnaxx when you are the off tank and the main tank is taunting!
 		if IsCurrentAction(72) then UseAction(72) end
-		return ReportCPU("Warrior furytank single swing")
+		return 
 	end
 	if not UnitName("target") and not MB_My_ot_target and not IAmFocus() then TargetNotOnTank() end
 	if (not UnitName("target") or not IsAlive("target") or (not UnitIsEnemy("target","player") and UnitLevel("target")>9)) and IAmFocus() then TargetNotOnTank() end
@@ -5462,13 +5472,12 @@ function furytank_single()
 			if IsCurrentAction(72) then UseAction(72) end;
 		end
 	end
-	ReportCPU("Warrior furytank single")
 end
 function furytank_multi()
 	AnubAlert()
 	AutoAssignCC()
-	if IsControlKeyDown() then cast("Challenging Shout") return ReportCPU("Warrior tank multi ctrl") ; end
-	if TankTarget("Shazzrah") and not IAmFocus() then return ReportCPU("Warrior tank single shazzrah") end
+	if IsControlKeyDown() then cast("Challenging Shout") return end
+	if TankTarget("Shazzrah") and not IAmFocus() then return end
 	local tname=UnitName("target")
 	if not tname then tname="" end
 	if MyHealthPct()<.15 then WarriorSurvive() end
@@ -5514,12 +5523,11 @@ function furytank_multi()
 			if IsCurrentAction(72) then UseAction(72) end
 		end
 	end
-	ReportCPU("Warrior fury multi")
 end
 function fury_single()
     	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
     	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
-	if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.2 and UnitHealth("target")>1000 then cast("Execute") end
+	if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.2 then cast("Execute") end
 	--if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.25 and UnitHealth("target")>1000 then cast("Recklessness") end
 	if IsControlKeyDown() then WarriorInterrupt() ; end
 	if not IAmFocus() then LockonTarget() end
@@ -5536,7 +5544,6 @@ function fury_single()
 	else
 		if IsCurrentAction(72) then UseAction(72) end;
 	end
-	ReportCPU("Warrior fury single")
 end
 function fury_multi()
 	if IAmFocus() or (TargetInCombat() and not IsAltKeyDown()) then
@@ -5556,12 +5563,11 @@ function fury_multi()
 	else
 		if IsCurrentAction(72) then UseAction(72) end;
 	end
-	ReportCPU("Warrior fury multi")
 end
 function arms_single()
     	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
     	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
-	if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.2 and UnitHealth("target")>1000 then cast("Execute") end
+	if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.2 then cast("Execute") end
 	--if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.25 and UnitHealth("target")>1000 then cast("Recklessness") end
 	if IsControlKeyDown() then WarriorInterrupt() ; end
 	if not IAmFocus() then LockonTarget() end
@@ -5588,12 +5594,11 @@ function arms_single()
 	else
 		if IsCurrentAction(72) then UseAction(72) end;
 	end
-	ReportCPU("Warrior arms single")
 end
 function arms_multi()
     	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
     	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
-	if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.2 and UnitHealth("target")>1000 then cast("Execute") end
+	if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.2 then cast("Execute") end
 	--if InMeleeRange() and UnitHealth("target")/UnitHealthMax("target")<=.25 and UnitHealth("target")>1000 then cast("Recklessness") end
 	if IsControlKeyDown() then WarriorInterrupt() ; end
 	if not IAmFocus() then LockonTarget() end
@@ -5625,21 +5630,18 @@ function arms_multi()
 	else
 		if IsCurrentAction(72) then UseAction(72) end;
 	end
-ReportCPU("Warrior arms multi")
 end
 function warrior_turbo()
-	if not InCombat() then return ReportCPU("Warrior turbo incombat") end
+	if not InCombat() then return end
 	if not OnCooldown("Death Wish") then cast("Death Wish"); cast("Bloodrage") ; cast("Berserker Rage") end
 	if IsFury() and not OnCooldown("Recklessness") then cast("Recklessness"); cast("Bloodrage") ; cast("Berserker Rage") end
 	cast("Blood Fury")
 	CombatUse(13)
 	CombatUse(14)
-	ReportCPU("Warrior turbo")
 end
 -- -- PALLY
 function paladin_turbo()
 	if not InCombat() then return end
-	ReportCPU("Paladin turbo")
 end
 function paladin_single()
 	if IsTank() then pally_tank_single() return end
@@ -5667,6 +5669,9 @@ function pally_heal_single()
 	PallySurvive()
 	if TankTarget("Azuregos") and IsAltKeyDown() then return end
 	SaveAndorov(.8)
+	HealTank()
+	HealSelf()
+	SaveChump()
 	Decurse()
 	--SelfBuff("Seal of Righteousness")
 	if not IAmFocus() then LockonTarget() end
@@ -5678,13 +5683,14 @@ function pally_heal_single()
 	end
 	RaidHeal()
 	BlessParty()
-	ReportCPU("Pally Heal Single")
 end
 function pally_heal_multi()
 	if IsControlKeyDown() then PallyInterrupt() ; end
 	PallySurvive()
-	--if ImBusy() then return ReportCPU("Pally heal multi busy") end
 	SaveAndorov(.8)
+	HealTank()
+	HealSelf()
+	SaveChump()
 	Decurse()
 	--SelfBuff("Seal of Righteousness")
 	if not IAmFocus() then LockonTarget() end
@@ -5696,14 +5702,15 @@ function pally_heal_multi()
 	end
 	RaidHeal()
 	BlessParty()
-	ReportCPU("Pally heal multi")
 end
 function pally_heal_aoe()
 	if IsAltKeyDown() then return end
 	if IsControlKeyDown() then PallyInterrupt() ; end
 	PallySurvive()
-	--if ImBusy() then return ReportCPU("Pally heal aoe busy") end
 	if InMeleeRange() then cast("Consecration") end
+	HealTank()
+	HealSelf()
+	SaveChump()
 	Decurse()
 	--SelfBuff("Seal of Righteousness")
 	if not IAmFocus() then LockonTarget() end
@@ -5715,13 +5722,15 @@ function pally_heal_aoe()
 	end
 	RaidHeal()
 	BlessParty()
-	ReportCPU("Pally heal aoe")
 end
 function pally_tank_single()
 	--Begin tank program
 	--Interrupts are priority one, bot or not.
 	--if IsControlKeyDown() then PallyInterrupt() ; end
 	--PallySurvive()
+	HealTank()
+	HealSelf()
+	SaveChump()
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
 	--if InMeleeRange() then cast("Consecration") end
@@ -5730,13 +5739,15 @@ function pally_tank_single()
 	if not IsCurrentAction(72) then UseAction(72) end;
 	SelfBuff("Righteous Fury")
 	PallyBuff()
-	ReportCPU("Pally tank single")
 end
 function pally_tank_multi()
 	--Begin tank program
 	--Interrupts are priority one, bot or not.
 	if IsControlKeyDown() then PallyInterrupt() ; end
 	PallySurvive()
+	HealTank()
+	HealSelf()
+	SaveChump()
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
 	CombatUse(14)
@@ -5748,7 +5759,6 @@ function pally_tank_multi()
 	--If you are tank hand have no target, target nearest, I guess.
 	SelfBuff("Righteous Fury")
 	--PallyBuff()
-	ReportCPU("Pally tank multi")
 end
 function pally_tank_aoe()
 	--Begin tank program
@@ -5757,6 +5767,9 @@ function pally_tank_aoe()
 	PallySurvive()
 	if not IAmFocus() then LockonTarget() end
 	if InMeleeRange() then cast("Consecration") end
+	HealTank()
+	HealSelf()
+	SaveChump()
 	Decurse()
 	CombatUse(14)
 	CombatUse(13)
@@ -5766,11 +5779,9 @@ function pally_tank_aoe()
 	--If you are tank hand have no target, target nearest, I guess.
 	SelfBuff("Righteous Fury")
 	--PallyBuff()
-	ReportCPU("Pally tank aoe")
 end
 function pally_turbo()
-	if not InCombat() then return ReportCPU("Pally turbo notincombat") end
-	ReportCPU("Pally turbo")
+	if not InCombat() then return end
 end
 function TradeGoldToLeaderAllBut(amt)
 	if not MB_raidleader then return end
@@ -5815,12 +5826,11 @@ end
 function paladin_setup()
 	if IsAltKeyDown() then MB_Assist() end
 	if IsAltKeyDown() then RaidHeal() return end
-	if MB_tradeopen and GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return ReportCPU("Paladin Setup trade") end
-	if IsControlKeyDown() then cast("Judgement") cast("Seal of the Crusader") return ReportCPU("Paladin Setup ctrl") end
+	if MB_tradeopen and GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return end
+	if IsControlKeyDown() then cast("Judgement") cast("Seal of the Crusader") return end
 	AutoDelete()
 	PallyBuff()
 	smartdrink()
-	ReportCPU("Paladin Setup")
 end
 function BlessParty()
 	if Ungrouped() or UnitInRaid("player") then return end
@@ -5887,24 +5897,23 @@ function SancDaTank()
 end
 ----SHAMAN
 function shammy_turbo()
-	if not InCombat() then return ReportCPU("Shammy turbo notincombat") end
-	if not TargetInCombat() then return ReportCPU("Shammy turbo targetnotincomb") end
+	if not InCombat() then return end
+	if not TargetInCombat() then return end
 	if IsElementalShammy() then
 		cast("Elemental Mastery")
 		use(13)
 		use(14)
 	end
-	ReportCPU("Shammy turbo")
 end
 function shammy_setup()
 	if IsAltKeyDown() and MB_raidleader=="Chainit" then QuickHeal() end
 	if IsAltKeyDown() then RaidHeal() end
-	if MB_tradeopen and GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return ReportCPU("Shammy setup trade") end
-	if IsAltKeyDown() then MB_Assist() return ReportCPU("Shammy setup alt") end
-	if IsAltKeyDown() or IsShiftKeyDown() then return ReportCPU("Shammy setup alt or shift") end
-	if ManaDown()>100 and buffed("Drink","player") then return ReportCPU("Shammy setup drinking") end
-	if ImBusy() then return ReportCPU("Shammy setup busy") end
-	if IsControlKeyDown() then return ReportCPU("Shammy setup ctrl") end
+	if MB_tradeopen and GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return end
+	if IsAltKeyDown() then MB_Assist() return end
+	if IsAltKeyDown() or IsShiftKeyDown() then return end
+	if ManaDown()>100 and buffed("Drink","player") then return end
+	if ImBusy() then return end
+	if IsControlKeyDown() then return end
 	if (IsEnhancementShammy()) and not IsControlKeyDown() and not IsAltKeyDown() then Follow() end
 	AutoDelete()
 	if InCombat() then CancelTrade() end
@@ -5913,7 +5922,6 @@ function shammy_setup()
 	if not InCombat() then
 		smartdrink()
 	end
-	ReportCPU("Shammy setup")
 end
 function shammy_single()
 	if IsElementalShammy() then shammy_ele_single() return end
@@ -5929,9 +5937,11 @@ end
 function shammy_heal_single()
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
-	--if ImBusy() then return ReportCPU("Shammy heal single busy") end
 	if TankTarget("Azuregos") and IsAltKeyDown() then return end
 	SaveAndorov(.8)
+	HealTank()
+	HealSelf()
+	SaveChump()
 	Decurse()
 	if Jindo() then LockonTarget() if UnitName("target")=="Powerful Healing Ward" then cast("Earth Shock(Rank 5)") end end
 	INT()
@@ -5952,7 +5962,6 @@ function shammy_heal_single()
 	--if TargetInCombat() and InMeleeRange() then
 		--if not IsCurrentAction(72) then UseAction(72) end
 	--end
-	ReportCPU("Shammy heal single")
 end
 function shammy_multi()
 	if IsElementalShammy() then shammy_ele_multi() return end
@@ -5977,8 +5986,10 @@ function preheal_tanks()
 	end
 end
 function shammy_heal_multi()
-	--if ImBusy() then return ReportCPU("Shammy heal multi busy") end
 	SaveAndorov(.8)
+	HealTank()
+	HealSelf()
+	SaveChump()
 	Decurse()
 	if Jindo() then LockonTarget() if UnitName("target")=="Powerful Healing Ward" then cast("Earth Shock(Rank 5)") end end
 	INT()
@@ -5999,19 +6010,19 @@ function shammy_heal_multi()
 	CombatUse(13)
 	CombatUse(14)
 	if not IAmFocus() then LockonTarget() end
-	ReportCPU("Shammy heal multi")
 end
 function shammy_enh_turbo()
 	SpellStopCasting()
-	if not InCombat() then return ReportCPU("Shammy enh turbo notincombat") end
-	ReportCPU("Shammy enh turbo")
+	if not InCombat() then return end
 end
 function shammy_enh_single()
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	Print("Enhancement Single")
-	if ImBusy() then return ReportCPU("Shammy enh single busy") end
-	HealSelf(.2)
+	if ImBusy() then return end
+	HealTank()
+	HealSelf()
+	SaveChump()
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
@@ -6030,13 +6041,15 @@ function shammy_enh_single()
 			if not IsCurrentAction(72) then UseAction(72) end
 		end
 	end
-	ReportCPU("Shammy enh single")
 end
 function shammy_enh_multi()
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
-	if ImBusy() then return ReportCPU("Shammy enh multi busy") end
+	if ImBusy() then return end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
+	HealTank()
+	HealSelf()
+	SaveChump()
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
 	if not IsAltKeyDown() then
@@ -6053,10 +6066,9 @@ function shammy_enh_multi()
 		if not IsCurrentAction(72) then UseAction(72) end
 		--end
 	end
-	ReportCPU("Shammy enh multi")
 end
 function shammy_enh_aoe()
-	if ImBusy() then return ReportCPU("Shammy enh aoe busy") end
+	if ImBusy() then return end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	--Stoneclaw()
 	if not IAmFocus() then LockonTarget() end
@@ -6076,7 +6088,6 @@ function shammy_enh_aoe()
 		if not IsCurrentAction(72) then UseAction(72) end
 		--end
 	end
-	ReportCPU("Shammy enh aoe")
 end
 function HealSelf(thresh)
 	--ONLY USE THIS FOR NON-HEALING_LIST healers
@@ -6089,15 +6100,16 @@ end
 function shammy_ele_single()
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
-	if ImBusy() then return ReportCPU("Shammy ele single busy") end
-	if HealSelf(.3) then return ReportCPU("Shammy ele single healself") end
+	if ImBusy() then return end
+	if HealSelf(.3) then return end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	if TankTarget("The Prophet Skerem") then AOEHeal() return end
+	HealSelf()
 	Decurse()
 	QuickHeal()
 	if not IAmFocus() then LockonTarget() end
-	if IsAltKeyDown() then SpellStopCasting() return ReportCPU("Shammy ele single alt") end
-	if MB_raidleader~="Chainit" and not IAmFocus() and not TargetInCombat() then return ReportCPU("Shammy ele single nottargincomb") end
+	if IsAltKeyDown() then SpellStopCasting() return end
+	if MB_raidleader~="Chainit" and not IAmFocus() and not TargetInCombat() then return end
 	if MB_raidleader=="Chainit" or IAmFocus() or (not IsAltKeyDown() and TargetInCombat()) then
 		if UnitName("target")=="High Priest Venoxis" and buffed("Renew","target") then cast("Purge") end
 		if UnitName("target")=="Azuregos" and buffed("Magic Shield","target") then SpellStopCasting() return end
@@ -6125,17 +6137,17 @@ function shammy_ele_single()
 			end
 		end
 	end
-	ReportCPU("Shammy ele single")
 end
 function shammy_ele_multi()
-	if ImBusy() then return ReportCPU("Shammy ele multi busy") end
-	if HealSelf(.3) then return ReportCPU("Shammy ele multi healself") end
+	if ImBusy() then return end
+	if HealSelf(.3) then return end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	if TankTarget("The Prophet Skerem") then AOEHeal() return end
+	HealSelf()
 	Decurse()
 	QuickHeal()
 	if not IAmFocus() then LockonTarget() end
-	if IsAltKeyDown() then SpellStopCasting() return ReportCPU("Shammy ele multi alt") end
+	if IsAltKeyDown() then SpellStopCasting() return end
 	if MB_raidleader=="Chainit" or IAmFocus() or (not IsAltKeyDown() and TargetInCombat()) then
 		if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
 		--SelfBuff("Lightning Shield")
@@ -6158,13 +6170,13 @@ function shammy_ele_multi()
 			end
 		end
 	end
-	ReportCPU("Shammy ele multi")
 end
 function shammy_ele_aoe()
-	if ImBusy() then return ReportCPU("Shammy ele aoe busy") end
-	if HealSelf(.3) then return ReportCPU("Shammy ele aoe healself") end
+	if ImBusy() then return end
+	if HealSelf(.3) then return end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	--Stoneclaw()
+	HealSelf()
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
 	if not TargetInCombat() then if IsCurrentAction(72) then UseAction(72) end end
@@ -6185,10 +6197,8 @@ function shammy_ele_aoe()
 	if TargetInCombat() and InMeleeRange() then
 		if not IsCurrentAction(72) then UseAction(72) end
 	end
-	ReportCPU("Shammy ele aoe")
 end
 function shammy_heal_aoe()
-	--if ImBusy() then return ReportCPU("Shammy heal aoe busy") end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	--Stoneclaw()
 	--SelfBuff("Lightning Shield")
@@ -6205,35 +6215,36 @@ function shammy_heal_aoe()
 			cast("Chain Heal")
 		end
 	end
+	HealTank()
+	HealSelf()
+	SaveChump()
 	Decurse()
-	ReportCPU("Shammy heal aoe")
 end
 ----HUNTER
 function hunter_turbo()
-	if not TargetInCombat() then return ReportCPU("HunterTurbo targnotincomb") end
-	if not InCombat() then return ReportCPU("HunterTurbo notincomb") end
+	if not TargetInCombat() then return end
+	if not InCombat() then return end
 	SpellStopCasting()
 	cast("Blood Fury")
 	cast("Bestial Wrath")
 	cast("Rapid Fire")
 	use(13)
 	use(14)
-	ReportCPU("HunterTurbo")
 end
 function hunter_setup()
 	AutoDelete()
-	if MB_tradeopen and GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return ReportCPU("Hunter setup trade") end
+	if MB_tradeopen and GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return end
 	PetPassiveMode()
 	if (IsAltKeyDown()) then
 		CastPetAction(9)
 		CastPetAction(2)
 	end
-	if IsAltKeyDown() then MB_Assist() return ReportCPU("Hunter setup alt") end
-	if ImBusy() then return ReportCPU("Hunter setup busy") end
+	if IsAltKeyDown() then MB_Assist() return end
+	if ImBusy() then return end
 	if IsAltKeyDown() then RaidHeal() end
 	if InCombat() then CancelTrade() end
-	if ManaDown()>0 and buffed("Drink","player") then return ReportCPU("Hunter setup drinking") end
-	if buffed("Food","player") then return ReportCPU("Hunter setup eating") end
+	if ManaDown()>0 and buffed("Drink","player") then return end
+	if buffed("Food","player") then return end
 	if (IsControlKeyDown()) then
 		SelfBuff("Aspect of the Cheetah")
 	else
@@ -6244,7 +6255,6 @@ function hunter_setup()
 		if not IAmFocus() then LockonTarget() end
 	end
 	if not InCombat() then smartdrink() end
-	ReportCPU("Hunter setup")
 end
 function PerfectAim()
 	--The goal of perfect aim is to start aimed shot in the first half second of a 3 second weapon auto-shoot
@@ -6283,17 +6293,17 @@ function hunter_single()
 	if not TargetInCombat() and not IAmFocus() then if MB_RAIS_shooting then UseAction(72) end end
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
-	if ImBusy() then return ReportCPU("Hunter Single busy") end
+	if ImBusy() then return end
 	if IsAltKeyDown() then
 		if IsAutoRepeatAction(72) then cast("Auto Shot") end
-		return ReportCPU("Hunter Single shoot")
+		return 
 	end
 	CC()
 	if MB_My_ot_target then
 		OT()
 		SickemTarget()
 	end
-	if IsAltKeyDown() then return ReportCPU("Hunter Single alt") end
+	if IsAltKeyDown() then return end
 	if not IAmFocus() then LockonTarget() end
 	if TargetInCombat() or IAmFocus() then
 		if not IsAltKeyDown() then
@@ -6306,7 +6316,7 @@ function hunter_single()
 			else
 				SelfBuff("Aspect of the Hawk")
 				if UnitName("target")=="Obsidian Eradicator" or UnitName("target")=="Moam" then BuffCast("Viper Sting") end
-				if UnitName("target")=="Magmadar" and MyMana()<244 then return ReportCPU("Hunter Single save mana for tranq") end
+				if UnitName("target")=="Magmadar" and MyMana()<244 then return end
 				stingit()
 				if UnitIsPlayer("targettarget") and UnitName("targettarget")~=MB_raidleader then cast("growl") end
 				if (buffed("Frenzy","target") or buffed("Enrage","target")) and not OnCooldown("Tranquilizing Shot") then cast("Tranquilizing Shot") end
@@ -6328,23 +6338,22 @@ function hunter_single()
 			end
 		end
 	end
-	ReportCPU("Hunter Single")
 end
 function hunter_multi()
 	if not TargetInCombat() and not IAmFocus() then if MB_RAIS_shooting then UseAction(72) end end
 	if IsAltKeyDown() then
 		if IsAutoRepeatAction(72) then cast("Auto Shot") end
-		return ReportCPU("Hunter multi shoot")
+		return 
 	end
-	if ImBusy() then return ReportCPU("Hunter multi busy") end
+	if ImBusy() then return end
 	CC()
 	if MB_My_ot_target then
 		OT()
 		SickemTarget()
 	end
-	if IsAltKeyDown() then return ReportCPU("Hunter multi alt") end
+	if IsAltKeyDown() then return end
 	if not IAmFocus() then LockonTarget() end
-	if UnitName("target")=="Magmadar" and MyMana()<244 then return ReportCPU("Hunter Single save mana for tranq") end
+	if UnitName("target")=="Magmadar" and MyMana()<244 then return end
 	if (buffed("Frenzy","target") or buffed("Enrage","target")) and not OnCooldown("Tranquilizing Shot") then cast("Tranquilizing Shot") end
 	if TargetInCombat() or IAmFocus() then
 		if not MB_My_ot_target then SickemTarget() end
@@ -6363,7 +6372,6 @@ function hunter_multi()
 			if not IsAutoRepeatAction(72) then cast("Auto Shot") end
 		end
 	end
-	ReportCPU("Hunter multi")
 end
 function stingit()
 	if ImBusy() then return end
@@ -6380,7 +6388,7 @@ function PetStuff()
 	end
 end
 function hunter_aoe()
-	if ImBusy() then return ReportCPU("Hunter aoe busy") end
+	if ImBusy() then return end
 	if not IAmFocus() then LockonTarget() end
 	if not TargetInCombat() then if IsCurrentAction(71) then UseAction(71) end end
 	if MB_My_ot_target then
@@ -6417,7 +6425,6 @@ function hunter_aoe()
 			end
 		end
 	end
-	ReportCPU("Hunter aoe")
 end
 function mend()
 	if ImBusy() then return end
@@ -6442,20 +6449,20 @@ function IAmFocus()
 end
 function dru_setup()
 	if (IsDruidHealer() or IsBoomkin()) and IsAltKeyDown() then RaidHeal() end
-	if MB_tradeopen and GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return ReportCPU("dru setup trade") end
+	if MB_tradeopen and GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return end
 	if IsAltKeyDown() and not MB_My_ot_target then Decurse() MB_Assist() end
 	if not IsControlKeyDown() and not IsAltKeyDown() and not IsHybridDruid() and not IsDruidHealer() and not IsBoomkin() and not FindInTable(MB_raidtanks,myname) then Follow() end
-	if IsShiftKeyDown() then return ReportCPU("dru setup shift") end
+	if IsShiftKeyDown() then return end
 	AutoDelete()
 	if IsAltKeyDown() then
 		if IsCurrentAction(72) then UseAction(72) end;
 	end
-	if IsAltKeyDown() then return ReportCPU("dru setup alt") end
+	if IsAltKeyDown() then return end
 	if InCombat() then CancelTrade() end
-	if buffed("Food","player") then return ReportCPU("dru setup eating") end
+	if buffed("Food","player") then return end
 	if not InCombat() then
 		if UnitLevel("player")==60 then RaidBuff({"Gift of the Wild"}) end
-		if ManaDown()>100 and buffed("Drink","player") then return ReportCPU("dru setup drinking") end
+		if ManaDown()>100 and buffed("Drink","player") then return end
 		TankBuff("Thorns")
 		if UnitLevel("player")<60 then RaidBuff({"Mark of the Wild"}) end
 	end
@@ -6463,12 +6470,10 @@ function dru_setup()
 	if not InCombat() then
 		smartdrink()
 	end
-	ReportCPU("dru setup")
 end
 function dru_turbo()
-	if not InCombat() then return ReportCPU("Dru turbo notincombat") end
-	if not TargetInCombat() then return ReportCPU("Dru turbo tarnotincomb") end
-	ReportCPU("Dru turbo")
+	if not InCombat() then return end
+	if not TargetInCombat() then return end
 end
 function dru_single()
 	local name,realm=UnitName("player")
@@ -6525,35 +6530,27 @@ function dru_heal_single()
 	if TankTarget("Azuregos") and IsAltKeyDown() then return end
 	CC()
 	SaveAndorov(.8)
+	HealTank()
+        HealSelf()
+	SaveChump()
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
 	if not buffed("Insect Swarm","target") and TargetInCombat() then BuffCast("Insect Swarm(Rank 1)") end
 	RaidHeal()
-	--if ImBusy() then return ReportCPU("Dru heal single busy") end
 	InnervateAHealer()
 	if buffed("Last Stand","target") or buffed("Shield Wall","target") or buffed("Frenzied Regeneration","target") then
 		CombatUse(13)
 		CombatUse(14)
 	end
-	--if UnitHealth("player")/UnitHealthMax("player")<.6 then cast ("Barkskin") end
-	--TargetUnit("player")
-	--if (RaidHealth()<.6 ) and InCombat() and not OnCooldown("Tranquility") then
-	--cast("Tranquility")
-	--use("Major Mana Potion")
-	--else
-		--if not IAmFocus() then LockonTarget() end
-		--if TargetInCombat() and InMeleeRange() then
-			--if not IsCurrentAction(72) then UseAction(72) end
-		--end
-	--end
-	ReportCPU("Dru heal single")
 end
 function dru_heal_multi()
 	CC()
 	SaveAndorov(.8)
+	HealTank()
+        HealSelf()
+	SaveChump()
 	Decurse()
 	RaidHeal()
-	--if ImBusy() then return ReportCPU("Dru heal multi busy") end
 	InnervateAHealer()
 	if UnitHealth("player")/UnitHealthMax("player")<.6 then cast ("Barkskin") end
 	if buffed("Last Stand","target") or buffed("Shield Wall","target") or buffed("Frenzied Regeneration","target") then
@@ -6572,7 +6569,6 @@ function dru_heal_multi()
 			if not IsCurrentAction(72) then UseAction(72) end
 		end
 	end
-	ReportCPU("Dru heal multi")
 end
 function dru_tank_single()
 	AnubAlert()
@@ -6582,7 +6578,7 @@ function dru_tank_single()
 		SelfBuff("Bear Form")
 	end
 	if buffed("Enveloping Webs","player") then cast("Cat Form") end
-	if TankTarget("Shazzrah") and not IAmFocus() then return ReportCPU("Dru tank single shazzrah") end
+	if TankTarget("Shazzrah") and not IAmFocus() then return end
 	if MyHealthPct()<.2 then cast("Frenzied Regeneration") end
 	if IsControlKeyDown() then FeralInterrupt() ; end
 	local tname=UnitName("target")
@@ -6625,7 +6621,6 @@ function dru_tank_single()
 			if not IsCurrentAction(72) then UseAction(72) end
 		end
 	end
-	ReportCPU("Dru tank single")
 end
 function dru_cat_single()
 	if MyHealthPct()<.2 and SpellExists("Dire Bear Form") and SpellExists("Frenzied Regeneration") then SelfBuff("Dire Bear Form") cast("Frenzied Regeneration") end
@@ -6640,7 +6635,7 @@ function dru_cat_single()
 			if not IsCurrentAction(72) then UseAction(72) end
 		end
 		if buffed("Enveloping Webs","player") then cast("Cat Form") end
-		return ReportCPU("Dru cat single bear")
+		return 
 	end
 	if buffed("Enveloping Webs","player") then cast("Cat Form") end
 	if not IAmFocus() then LockonTarget() end
@@ -6661,7 +6656,6 @@ function dru_cat_single()
 			if not IsCurrentAction(72) then UseAction(72) end
 		end
 	end
-	ReportCPU("Dru cat single")
 end
 function dru_tank_multi()
 	--Print("In Dru Tank multi")
@@ -6695,7 +6689,7 @@ function dru_tank_multi()
 	if (not UnitName("target") or not IsAlive("target") or not UnitIsEnemy("target","player")) and IAmFocus() then TargetNotOnTank() end
 	--Now you have a target. If it's in combat, do your dru shit
 	if UnitName("target") and TargetInCombat() then
-		if not IAmFocus() and IsAltKeyDown() then return ReportCPU("Dru tank multi alt") end
+		if not IAmFocus() and IsAltKeyDown() then return end
 		cast("Swipe")
 		cast("Faerie Fire (Feral)()")
 		if MyRage()>16 then cast("Maul") end
@@ -6704,7 +6698,6 @@ function dru_tank_multi()
 			if not IsCurrentAction(72) then UseAction(72) end
 		end
 	end
-	ReportCPU("Dru tank multi")
 end
 function dru_tank_aoe()
 	--Print("In Dru Tank aoe")
@@ -6743,7 +6736,6 @@ function dru_tank_aoe()
 			if not IsCurrentAction(72) then UseAction(72) end
 		end
 	end
-	ReportCPU("Dru tank aoe")
 end
 function UnitAttackingTank()
 	if not TankName() then return true end
@@ -6758,13 +6750,16 @@ function CancelForm()
 end
 function boomkin_single()
 	CC()
-	if ImBusy() then return ReportCPU("Boomkin single busy") end
+	if ImBusy() then return end
 	if UnitHealth("player")/UnitHealthMax("player")<.6 then cast ("Barkskin") end
 	SelfBuff("Moonkin Form")
 	--SelfBuff("Omen of Clarity")
 	--SelfBuff("Thorns")
 	--if TankTarget("Lord Kazzak") and MyMana()<1000 then return end
 	InnervateAHealer()
+	HealTank()
+        HealSelf()
+	SaveChump()
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
 	if UnitName("target")=="Azuregos" and buffed("Magic Shield","target") then SpellStopCasting() return end
@@ -6774,16 +6769,18 @@ function boomkin_single()
 		cast("Wrath")
 		if not IsCurrentAction(72) then UseAction(72) end
 	end
-	ReportCPU("Boomkin single")
 end
 function boomkin_multi()
 	CC()
-	if ImBusy() then return ReportCPU("Boomkin multi busy") end
+	if ImBusy() then return end
 	if UnitHealth("player")/UnitHealthMax("player")<.6 then cast ("Barkskin") end
 	SelfBuff("Moonkin Form")
 	--SelfBuff("Omen of Clarity")
 	--SelfBuff("Thorns")
 	InnervateAHealer()
+	HealTank()
+        HealSelf()
+	SaveChump()
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
 	if IAmFocus() or (not IsAltKeyDown() and TargetInCombat()) then
@@ -6792,13 +6789,15 @@ function boomkin_multi()
 		cast("Wrath")
 		if not IsCurrentAction(72) then UseAction(72) end
 	end
-	ReportCPU("Boomkin multi")
 end
 function dru_hybrid_single()
 	CC()
-	if ImBusy() then return ReportCPU("Dru hybrid single busy") end
+	if ImBusy() then return end
 	if UnitHealth("player")/UnitHealthMax("player")<.6 then cast ("Barkskin") end
 	InnervateAHealer()
+	HealTank()
+        HealSelf()
+	SaveChump()
 	Decurse()
 	RaidHeal()
 	if not IAmFocus() then LockonTarget() end
@@ -6806,13 +6805,15 @@ function dru_hybrid_single()
 		if UnitAttackingTank() and not buffed("Moonfire","target") then BuffCast("Moonfire") end
 		cast("Wrath")
 	end
-	ReportCPU("Dru hybrid single")
 end
 function dru_hybrid_multi()
 	CC()
-	if ImBusy() then return ReportCPU("Dru hybrid multi busy") end
+	if ImBusy() then return end
 	if UnitHealth("player")/UnitHealthMax("player")<.6 then cast ("Barkskin") end
 	InnervateAHealer()
+	HealTank()
+        HealSelf()
+	SaveChump()
 	Decurse()
 	RaidHeal()
 	if not IAmFocus() and (not UnitName("target") or not TargetInCombat() or not IsAlive("target")) then LockonTarget() end
@@ -6820,7 +6821,6 @@ function dru_hybrid_multi()
 			if UnitAttackingTank() and not buffed("Moonfire","target") then BuffCast("Moonfire") end
 			cast("Wrath")
 	end
-	ReportCPU("Dru hybrid multi")
 end
 ----PRIEST (shadow and holy)
 function priest_single()
@@ -6880,7 +6880,9 @@ function priest_heal_single()
 	if TankTarget("Obsidian Eradicator") or TankTarget("Moam") then MB_Assist() cast("Mana Burn") end
 	if TankTarget("Azuregos") and IsAltKeyDown() then return end
 	SelfBuff("Inner Fire")
-	--if ImBusy() then return ReportCPU("Priest heal single busy") end
+	HealTank()
+        HealSelf()
+	SaveChump()
 	Decurse()
 	RaidHeal()
 	Fade()
@@ -6889,13 +6891,14 @@ function priest_heal_single()
 		CombatUse(13)
 		CombatUse(14)
 	end
-	ReportCPU("Priest heal single")
 end
 function priest_heal_multi()
 	CC()
 	SelfBuff("Inner Fire")
-	--if ImBusy() then return ReportCPU("Priest heal multi busy") end
 	SaveAndorov(.8)
+	HealTank()
+        HealSelf()
+	SaveChump()
 	Decurse()
 	RaidHeal()
 	Fade()
@@ -6903,7 +6906,6 @@ function priest_heal_multi()
 		CombatUse(13)
 		CombatUse(14)
 	end
-	ReportCPU("Priest heal multi")
 end
 function SaveAndorov(thresh)
 	--RAJAXX--Cast of characters
@@ -6930,20 +6932,19 @@ function SaveAndorov(thresh)
 end
 function priest_heal_aoe()
 	RaidHeal()
-	if ImBusy() then return ReportCPU("Priest heal aoe busy") end
+	if ImBusy() then return end
 	cast("Holy Nova")
 	--if PartyHurt(700,3) then cast("Prayer of Healing") end
-	ReportCPU("Priest heal aoe")
 end
 function priest_shadow_single()
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
     	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
-	if ImBusy() then return ReportCPU("Priest shadow single busy") end
+	if ImBusy() then return end
 	Fade()
 	if TankTarget("The Prophet Skeram") then AOEHeal() end
+        HealSelf()
 	Decurse()
 	SelfBuff("Shadowform")
-	if HealSelf(.2) then return ReportCPU("Priest shadow single healself") end
 	if not IAmFocus() then LockonTarget() end
 	if UnitName("target")=="Azuregos" and buffed("Magic Shield","target") then SpellStopCasting() return end
 	if IAmFocus() or (not IsAltKeyDown() and TargetInCombat()) then
@@ -6958,17 +6959,16 @@ function priest_shadow_single()
 		cast("Mind Flay")
 		if UnitLevel("player")<5 then cast("Smite") end
 	end
-	ReportCPU("Priest shadow single")
 end
 function priest_shadow_multi()
-	if ImBusy() then return ReportCPU("Priest Shadow multi busy") end
+	if ImBusy() then return end
 	Fade()
 	if TankTarget("The Prophet Skeram") then AOEHeal() end
+	HealSelf()
 	Decurse()
 	SelfBuff("Shadowform")
 	if not IsAltKeyDown() then
 		--if PartyHurt(700,3) then cast("Prayer of Healing") end
-		if HealSelf(.2) then return ReportCPU("Priest Shadow multi healself") end
 		if not IAmFocus() and (not UnitName("target") or not TargetInCombat() or not IsAlive("target")) then LockonTarget() end
 		if IAmFocus() or (not IsAltKeyDown() and TargetInCombat()) then
 			if IsShadowWeaving() then 
@@ -6983,25 +6983,24 @@ function priest_shadow_multi()
 			if UnitLevel("player")<13 then cast("Smite") end
 		end
 	end
-	ReportCPU("Priest Shadow multi")
 end
 function priest_shadow_aoe()
-	if ImBusy() then return ReportCPU("Priest shadow aoe busy") end
+	if ImBusy() then return end
 	HealSelf(.2)
 	cast("Holy Nova")
 	--if PartyHurt(700,3) then cast("Prayer of Healing") end
 end
 function priest_setup()
-	if IsAltKeyDown() then Decurse() ReportCPU("priest decurse alt") end
-	if IsAltKeyDown() then RaidHeal() return ReportCPU("priest setup alt") end
-	if MB_tradeopen and GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return ReportCPU("Priest setup trade") end
-	if ImBusy() then return ReportCPU("Priest setup busy") end
-	if IsAltKeyDown() then MB_Assist() return ReportCPU("Priest setup alt") end
-	if IsShiftKeyDown() or IsAltKeyDown() then return ReportCPU("Priest setup shift or alt") end
-	if IsControlKeyDown() then return ReportCPU("Priest setup ctrl") end
+	if IsAltKeyDown() then Decurse() end
+	if IsAltKeyDown() then RaidHeal() return end
+	if MB_tradeopen and GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return end
+	if ImBusy() then return end
+	if IsAltKeyDown() then MB_Assist() return end
+	if IsShiftKeyDown() or IsAltKeyDown() then return end
+	if IsControlKeyDown() then return end
 	AutoDelete()
 	if InCombat() then CancelTrade() end
-	if MyMana()<3400 and buffed("Drink","player") then return ReportCPU("Priest setup drinking") end
+	if MyMana()<3400 and buffed("Drink","player") then return end
 	if not InCombat() then
 		if UnitLevel("player")==60 then
 			RaidBuff({"Prayer of Fortitude","Prayer of Spirit","Prayer of Shadow Protection"})
@@ -7010,19 +7009,16 @@ function priest_setup()
 		end
 	end
 	SelfBuff("Inner Fire")
-	--Decurse()
 	if not InCombat() then smartdrink() end
-	ReportCPU("Priest setup")
 end
 function priest_turbo()
-	if not InCombat() then return ReportCPU("Priest turbo notincomb") end
-	if not TargetInCombat() then return ReportCPU("Priest turbo targnotincomb") end
+	if not InCombat() then return end
+	if not TargetInCombat() then return end
 	if IsShadow() then
 		cast("Berserking")
 		use(13)
 		use(14)
 	end
-	ReportCPU("Priest turbo")
 end
 ---
 ----MAGE
@@ -7086,7 +7082,7 @@ function mage_fire_single()
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	if not IsCombustion() and MB_castingfrost and not MB_stopcasting then SpellStopCasting() MB_stopcasting=true end
-	if ImBusy() then return ReportCPU("Mage fire single busy") end
+	if ImBusy() then return end
 	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Ruby") end
 	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Citrine") end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
@@ -7125,19 +7121,18 @@ function mage_fire_single()
 			end
 		end
 	end
-	ReportCPU("Mage fire single")
 end
 function mage_fire_multi()
 	if TankTarget("Gehennas") or TankTarget("Magmadar") then SelfBuff("Fire Ward") end
 	if not IsCombustion() and MB_castingfrost and not MB_stopcasting then SpellStopCasting() MB_stopcasting=true end
-	if ImBusy() then return ReportCPU("Mage fire multi busy") end
+	if ImBusy() then return end
 	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Ruby") end
 	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Citrine") end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	CC()
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
-	if buffed("Evocation","player") then return ReportCPU("Mage fire multi evoc") end
+	if buffed("Evocation","player") then return end
 	if MyManaPct()<.1 and not OnCooldown("Evocation") then cast("Evocation") end
 	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
 	if TargetInCombat() or IAmFocus() then
@@ -7164,7 +7159,6 @@ function mage_fire_multi()
 			end
 		end
 	end
-	ReportCPU("Mage fire multi")
 end
 function FireResistant()
 	if UnitName("target")=="Golemagg the Incinerator" then return true end
@@ -7175,7 +7169,7 @@ function FireResistant()
 	if UnitName("target")=="Magmadar" then return true end
 end
 function mage_fire_aoe()
-	if ImBusy() then return ReportCPU("Mage fire aoe busy") end
+	if ImBusy() then return end
 	--if buffed("Threatening Gaze","player") then return end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	Decurse()
@@ -7183,7 +7177,6 @@ function mage_fire_aoe()
 	if InMeleeRange() and not frozen() then cast("Frost Nova(Rank 1)") end
 	cast("Blast Wave")
 	cast("Arcane Explosion")
-	ReportCPU("Mage fire aoe")
 end
 function CancelAura(buff)
 	for i=1,16 do
@@ -7195,13 +7188,12 @@ end
 function mage_frost_aoe()
 	if buffed("Ice Block","player") and MyHealthPct()>.8 then CancelAura("Ice Block") end
 	if InCombat() and MyHealthPct()<.20 and not buffed("Ice Block","player") then if OnCooldown("Ice Block") then cast("Cold Snap") end cast("Ice Block") end
-	if ImBusy() then return ReportCPU("Mage frost aoe busy") end
+	if ImBusy() then return end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	CC()
 	if not IAmFocus() then LockonTarget() end
 	if InMeleeRange() and not frozen() then cast("Frost Nova(Rank 1)") end
 	cast("Arcane Explosion")
-	ReportCPU("Mage frost aoe")
 end
 function mage_frost_single()
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
@@ -7210,7 +7202,7 @@ function mage_frost_single()
 	if InCombat() and MyHealthPct()<.20 and not buffed("Ice Block","player") then if OnCooldown("Ice Block") then cast("Cold Snap") end cast("Ice Block") end
 	if TankTarget("Gehennas") or TankTarget("Flamewaker") and UnitName("player")=="Jenjja" then FollowByName("Cashme",1) end
 	if TankTarget("Gehennas") or TankTarget("Flamewaker") and UnitName("player")=="Icefloes" then FollowByName("Refill",1) end
-	if ImBusy() then return ReportCPU("Mage frost single busy") end
+	if ImBusy() then return end
 	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Ruby") end
 	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Citrine") end
 	if MyManaPct()<.1 and InCombat() then RunLine("/use Major Mana Potion") end
@@ -7225,7 +7217,7 @@ function mage_frost_single()
 	--if TankTarget("Lord Kazzak") and MyMana()<1000 then return end
 	if TargetInCombat() or IAmFocus() then
 		if not buffed("Detect Magic","player") and (UnitName("target")=="Magmadar" or UnitName("target")=="Anubisath Sentinel" or UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Shazzrah") then BuffCast("Detect Magic") end
-		if IsAltKeyDown() then if (not MB_My_cc_target and not (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel")) then SpellStopCasting() return ReportCPU("Mage frost single alt") end end
+		if IsAltKeyDown() then if (not MB_My_cc_target and not (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel")) then SpellStopCasting() return end end
 		if not IsAltKeyDown() and (TargetInCombat() or IAmFocus()) then
 			--if UnitName("target")=="Ayamiss the Hunter" and (TargetHealthPct()<.75 and TargetHealthPct()>.69) then return end
 			--if UnitName("target")=="Magmadar" then BuffCast("Detect Magic") end
@@ -7251,13 +7243,12 @@ function mage_frost_single()
 			end
 		end
 	end
-	ReportCPU("Mage frost single")
 end
 function mage_frost_multi()
 	if TankTarget("Gehennas") or TankTarget("Magmadar") then SelfBuff("Fire Ward") end
 	if buffed("Ice Block","player") and MyHealthPct()>.8 then CancelAura("Ice Block") end
 	if InCombat() and MyHealthPct()<.20 and not buffed("Ice Block","player") then if OnCooldown("Ice Block") then cast("Cold Snap") end cast("Ice Block") end
-	if ImBusy() then return ReportCPU("Mage frost multi busy") end
+	if ImBusy() then return end
 	if MyManaPct()<.1 and InCombat() then RunLine("/use Mana Ruby") end
 	if MyManaPct()<.1 and InCombat() then RunLine("/use Mana Citrine") end
 	if MyManaPct()<.1 and InCombat() then RunLine("/use Major Mana Potion") end
@@ -7265,7 +7256,7 @@ function mage_frost_multi()
 	CC()
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
-	if buffed("Evocation","player") then return ReportCPU("Mage frost multi evoc") end
+	if buffed("Evocation","player") then return end
 	if MyManaPct()<.1 and not OnCooldown("Evocation") then cast("Evocation") end
 	if TargetInCombat() or IAmFocus() then
 		if IsAltKeyDown() then SpellStopCasting() end
@@ -7286,14 +7277,13 @@ function mage_frost_multi()
 			end
 		end
 	end
-	ReportCPU("Mage frost multi")
 end
 function frozen()
 	if buffed("Frost Nova","target") or buffed("Frostbite","target") then return true end
 end
 function mage_turbo()
-	if not TargetInCombat() then return ReportCPU("Mage turbo targnotincomb") end
-	if not InCombat() then return ReportCPU("Mage turbo notincomb") end
+	if not TargetInCombat() then return end
+	if not InCombat() then return end
 	SpellStopCasting()
 	cast("Combustion")
 	use("Talisman of Ephemeral Power")
@@ -7308,11 +7298,11 @@ function MyLevel()
 end
 function mage_setup()
 	if MB_tradeopen and MageWater()>20 and GetTradePlayerItemLink(1) and string.find(GetTradePlayerItemLink(1), "Conjured.*Water") then Print("Accepting Trade") AcceptTrade() end
-	if IsAltKeyDown() then MB_Assist() Decurse() return ReportCPU("Mage setup alt") end
-	if IsControlKeyDown() or IsShiftKeyDown() then return ReportCPU("Mage setup ctrl") end
+	if IsAltKeyDown() then MB_Assist() Decurse() return end
+	if IsControlKeyDown() or IsShiftKeyDown() then return end
 	AutoDelete()
 	if InCombat() then CancelTrade() end
-	if ImBusy() then return ReportCPU("Mage setup busy") end
+	if ImBusy() then return end
 	if MyLevel()>57 then
 		if HasItem("Mana Ruby")==0 then cast("Conjure Mana Ruby") end
 	end
@@ -7344,9 +7334,8 @@ function mage_setup()
 	if TankTarget("Kurinnaxx") then RaidBuff({"Amplify Magic"}) end
 	if TankTarget("Lieutenant General Andorov") then RaidBuff({"Amplify Magic"}) end
 	if TankTarget("Hakkar") then RaidBuff({"Amplify Magic"}) end
-	if ManaDown()>100 and buffed("Drink","player") then return ReportCPU("Mage setup drinking") end
+	if ManaDown()>100 and buffed("Drink","player") then return end
 	if not InCombat() then smartdrink() end
-	ReportCPU("Mage setup")
 end
 ---
 ----ROGUE
@@ -7355,19 +7344,18 @@ function Stealthed()
 	return isBuffed
 end
 function rogue_setup()
-	if IsAltKeyDown() then MB_Assist() return ReportCPU("Rogue setup alt") end
+	if IsAltKeyDown() then MB_Assist() return end
 	AutoDelete()
 	if not IsControlKeyDown() and not IsAltKeyDown() then Follow() end
-	if IsAltKeyDown() and Stealthed() then cast("Stealth") return ReportCPU("Rogue setup unstealth") end
+	if IsAltKeyDown() and Stealthed() then cast("Stealth") return end
 	if Stealthed() then cast("Pick Pocket") end
 	--if not Stealthed() then cast("Stealth") end
 	--InstantPoisonMain()
 	InstantPoisonOff()
-	ReportCPU("Rogue setup")
 end
 function rogue_single()
 	if InCombat() then RogueSurvive() end
-	if not TankTarget("The Prophet Skeram") and IsAltKeyDown() then if IsCurrentAction(72) then UseAction(72) return ReportCPU("Rogue single altdpsout") end end
+	if not TankTarget("The Prophet Skeram") and IsAltKeyDown() then if IsCurrentAction(72) then UseAction(72) return end end
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	INT()
@@ -7388,20 +7376,19 @@ function rogue_single()
 			if not IsCurrentAction(72) then UseAction(72) end
 		end
 	end
-	ReportCPU("Rogue single")
 end
 function RogueSurvive()
 	if MyHealthPct()<.6 then cast("Feint") end
 	if MyHealthPct()<.5 then cast("Evasion") end
 	if MyHealthPct()<.25 and InCombat() then cast("Vanish") end
 end
-function InnerFocus()
+function InnerFocus(id)
 	if UnitClass("player") ~= "Priest" then return end
-	if not OnCooldown("Inner Focus") and UnitClass("player")=="Priest" and UnitHealth("target")<800 and MyMana()<350 and InCombat() then cast("Inner Focus") end
+	if not OnCooldown("Inner Focus") and UnitClass("player")=="Priest" and UnitHealth(id)/UnitHealthMax(id)<.2 and MyMana()<350 and InCombat() then cast("Inner Focus") end
 end
 function rogue_multi()
 	if InCombat() then RogueSurvive() end
-	if not TankTarget("The Prophet Skeram") and IsAltKeyDown() then if IsCurrentAction(72) then UseAction(72) return ReportCPU("Rogue single altdpsout") end end
+	if not TankTarget("The Prophet Skeram") and IsAltKeyDown() then if IsCurrentAction(72) then UseAction(72) return end end
 	if not IAmFocus() then LockonTarget() end
 	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
 	if buffed("Thorns","target") and UnitName("target")=="Anubisath Sentinel" then if IsCurrentAction(72) then UseAction(72) end end
@@ -7415,7 +7402,6 @@ function rogue_multi()
 			if not IsCurrentAction(72) then UseAction(72) end
 		end
 	end
-	ReportCPU("Rogue multi")
 end
 function rogue_aoe()
 	if InCombat() then RogueSurvive() end
@@ -7430,17 +7416,15 @@ function rogue_aoe()
 			if not IsCurrentAction(72) then UseAction(72) end
 		end
 	end
-	ReportCPU("Rogue aoe")
 end
 function rogue_turbo()
-	if not InCombat() then return ReportCPU("Rogue turbo notincombat") end
-	if not TargetInCombat() then return ReportCPU("Rogue turbo targnotincomb") end
+	if not InCombat() then return end
+	if not TargetInCombat() then return end
 	cast ("Adrenaline Rush")
 	cast ("Blood Fury")
 	cast ("Berserking")
 	use(13)
 	use(14)
-	ReportCPU("Rogue turbo")
 end
 -- LUA UTILITIES
 function spairs(t, order)
@@ -8215,7 +8199,6 @@ function Bubble(id)
 end
 function Bubble_Party()
 	if Ungrouped() then return end
-	if not UnitInParty("player") and not UnitInRaid("player") then return end
 	for _,gname in MB_ToonsInGroup[MB_GroupID[myname]] do
 		id=MBID[gname]
 		if id and UnitClass("player")=="Paladin" and (UnitHealth(id)/UnitHealthMax(id))<.10 and not buffed("Forbearance",id) then TargetUnit(id) MB_msg("BUBBLING "..UnitName(id)) cast("Blessing of Protection") end
@@ -8248,6 +8231,46 @@ function HotEmUp(hot)
 			return
 		end
 	end
+end
+function HealTank()
+  threshold=MB_healtank_threshold
+  if TankTarget("Hakkar") or TankTarget("Kurinnaxx") then threshold=.75 end
+  for i,tank in MB_tanklist do
+    local id=MBID[tank]
+    if not id or not IsAlive(id) then return end
+    InnerFocus(id)
+    NS(id)
+    Shield(id)
+    Bubble(id)
+    if UnitHealth(id)/UnitHealthMax(id)>threshold then return end
+    QuickHeal(id)
+  end
+end
+function HealSelf()
+  threshold=MB_healself_threshold
+  local selfh=UnitHealth("player")/UnitHealthMax("player")
+  InnerFocus("player")
+  NS("player")
+  Shield("player")
+  Bubble("player")
+  if selfh<threshold then  QuickHeal("player") end
+end
+function SaveChump()
+  threshold=MB_savechump_threshold
+  for name,id in MBID do 
+    if id and IsAlive(id) then 
+      InnerFocus(id)
+      NS(id)
+      Shield(id)
+      Bubble(id)
+      local chumphp=UnitHealth(id)/UnitHealthMax(id)
+      if buffed("Hellfire",id) then Print("Saving warlock "..name.." aoe at below .7") threshold=.7 end
+      if chumphp<threshold then  
+	QuickHeal(id)
+	break
+      end
+    end
+  end
 end
 function FloodAOEHeal()
 	Print("Flood AOE HEAL!")
@@ -8285,14 +8308,14 @@ function AOEHeal()
 	if IsHealer() and myclass=="Druid" then HotEmUp("Rejuvenation(Rank 5)") end 
 end
 function RaidHeal()
-	if Sulfuron() or TankTarget("Shazzrah") or TankTarget("Ragnaros") or not InRaid() then 
+	if Sulfuron() or TankTarget("Shazzrah") or TankTarget("Ragnaros") or (not InRaid() or GetNumRaidMembers()<6) then
 		NS_Party()
 		Shield_Party()
 		Bubble_Party()
 		QuickHeal() 
 		return 
 	end
-	if MB_debugAOEHeal or TankTarget("The Prophet Skeram") or RaidHealth()<.6 then AOEHeal() return end
+	if (MB_debugAOEHeal or TankTarget("The Prophet Skeram") or RaidHealth()<.6) and myclass~="Paladin" then AOEHeal() return end
 	if not IsHealer() then return end
 	--if 1 then QuickHeal() return end
 	if Jindo() then
@@ -8394,6 +8417,7 @@ function RaidHeal()
 			i=i+1
 		end
 	end
+	Print("DEBUG")
 	--Go through each healer list by most mana first.
 	--This will effectively:
 	--If there are any tanks in trouble, they get healed first (and only)
@@ -8424,13 +8448,6 @@ function RaidHeal()
 		--if not second_pass and hurt_idx==num_hurt then hurt_idx=1 second_pass=true else hurt_idx=hurt_idx+1 end
 		if hurt_idx==num_hurt then hurt_idx=1 else hurt_idx=hurt_idx+1 end
 		--if hurt_idx==num_hurt then break end
-	end
-end
-function ReportCPU(mystring)
-	if not MB_reportcpu then return end
-	local time=(round((GetTime()-MB_cpustart)*1000,0))
-	if (time>0 or MB_reportzerotime) and (not string.find(mystring,"busy") or MB_reportbusy) then
-		Print(time.." =clicktime: "..mystring)
 	end
 end
 function round(num, numDecimalPlaces)
@@ -9092,7 +9109,7 @@ function MBHeal(targ)
 	if PartyHurt(800,3) then MB_classheals["Priest"]="Prayer of Healing" end
 	class=UnitClass("player")
 	TargetUnit(targ)
-	NS()
+	NS(id)
 	if UnitName("target") then Print("Healing "..UnitName("target").."  with "..MB_classheals[class]) end
 	--if UnitHealth(targ)/UnitHealthMax(targ)==1 then SpellStopCasting() return end
 	for i=0,MB_maxheal[class]-1 do

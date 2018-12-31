@@ -1,4 +1,4 @@
-MB_version="121618a"
+MB_version="122918a"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -32,11 +32,11 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={"Rohnin","Zena","Thearmor","Farquad","Skeleton","Eversmile","Battlefield","Bloodfury","Starlight","Furyswipes"}
+MB_tanklist={"Battlefield","Eversmile","Furyswipes"}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list={"Furysweips","Gayforpay","Druidy","Lightbomb","Surger","Twin","Octopus","Whereistotem","Negativeaura","Aintitashamy","Spankit","Consecration","Di","Tremor","Starfire","Moonlight","Windfurious","Earthshock","Bloodlust","Frostshock","Id","Refill","Bubbling","Jindo"}
+MB_healer_list={"Tremor","Moonlight","Frostshock","Refill","Jindo"}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist={"Furygmswipes","Furysweips","Rohnin","Zena","Gayforpay","Confusion","Druidy","Fister","Sploink","Moredotz","Zombia","Zorn","Sid","Badknee","Explosive","Spite","Badcosplay","Pontiac","Lightbomb","Surger","Twin","Thunda","Zing","Crank","Salvo","Chaostard","Heavenly","Spun","Twisted","Thearmor","Octopus","Farquad","Whereistotem","Negativeaura","Aintitashamy","Spankit","Consecration","Natalia","Sparky","Handy","Di","Tremor","Starfire","Skeleton","Totemic","Eversmile","Chaosbolt","Battlefield","Brutalio","Moonlight","Hellfire","Windfurious","Afflicted","Earthshock","Flameshocked","Bloodlust","Explode","Earthshield","Leonidas","Frostshock","Fireball","Id","Deathwish","Refill","Scorch","Bubbling","Icefloes","Jindo","Monterey","Mindflay","Yellowstone","Bloodfury","Badlands","Starlight","Olympic","Furyswipes","Stormhammer","Everglades","Toshredsusay","Brutalia","Crookshanks"}
+MB_toonlist={"Furygmswipes","Tremor","Battlefield","Eversmile","Furyswipes","Chaosbolt","Moonlight","Hellfire","Earthshield","Leonidas","Frostshock","Fireball","Refill","Scorch","Icefloes","Jindo","Mindflay","Olympic","Everglades","Brutalia","Crookshanks"}
 --When in raid with group loot, always pass on loot unless this is set to false
 MB_autopass=true
 --This is the powerleveler your lowbies will follow when powerleveling
@@ -3048,6 +3048,7 @@ function IsTank()
 end
 function Decurse()
    --REQUIRES DEURSIVE ADDON
+   if GetRealmName()=="Azeroth" and Jindo() then return end
    if Sulfuron() then return end
    if TankTarget("Garr") or TankTarget("Firesworn") then return end
    if MyMana()<220 then return end
@@ -3212,20 +3213,109 @@ function PetMoveFast()
 	if HasPetSpell("Dash") then PetCast("Dash") end
 	if HasPetSpell("Dive") then PetCast("Dive") end
 end
+function pois()
+	RunLine(".learn 2995")
+end
 function throwtots()
-	local names = { "Beefytotem","Totemtroll","Naturalherb","Riddik"
-}
-	for _,name in names do 
+mylist={"maddiz","shangota",}
+	
+	for _,name in mylist do 
 		RunLine(".send items "..name.." \"\" \"\" 5175")
 		RunLine(".send items "..name.." \"\" \"\" 5176")
 		RunLine(".send items "..name.." \"\" \"\" 5177")
 		RunLine(".send items "..name.." \"\" \"\" 5178")
 	end
 end
+function send(name,item)
+	RunLine(".send items "..name.." \"\" \"\" "..item)
+end
+function makeacct()
+	for i=1,20 do 
+		RunLine(".account set password testingboi"..i.." Multibox123 Multibox123") 
+	end
+end
 function throwams()
 	mylist={"Daedals"}
 	for _,name in mylist do 
 		RunLine(".send items "..name.." \"\" \"\" 16309")
+	end
+end
+function throw1k(toon)
+		RunLine(".send money "..toon.." \"\" \"\" 10000000")
+end
+function throwcf()
+	for _,name in MB_toonlist do 
+		RunLine(".send items "..name.." \"\" \"\" 18412")
+	end
+end
+function throwscho(name)
+	RunLine(".send items "..name.." \"\" \"\" 13704")
+end
+
+function throwad()
+	local MB_healer_list={"Naturalherb","Riddik","Aderetia","Malos","Virtune","Cardinalsin","Karris","Angelofdeath","Juicysteak","Curlyfries","Hotzfordayz","Maxieffort","Goldleaf","Furyslaps","Mediumrare"}
+	local MB_tanklist={"Estbro","Daedals","Rocksolid","Typherian","Unstoppable"}
+	for _,name in MB_healer_list do 
+		RunLine(".send items "..name.." \"\" \"\" 22681")
+	end
+	for _,name in MB_tanklist do 
+		RunLine(".send items "..name.." \"\" \"\" 22680")
+	end
+end
+function throwquest(number)
+	mylist={"Samsage","Leggomyaggro","Tankanspank","Bruiseeasy","Samhots","Shrimpboat","Terribleheal","Stankyfeet","Flashofstank","Flashofhappy","Flashoflight","Unholyfeels","Shadeshade","Slimshadey","Drytoast","Stalebagel","Hurtu","Samsonfury","Samstab","Tsocool","Awfuldps","Fireplace","Onemoremage","Pizardwizard","Coffeedrank","Coffeedrink","Meterbeater","Moredamage","Somedamage","Lowdps","Guddps","Noheals","Plzcrit","Critit","Evo","Trevordog","Trevdog","Terribledps","Gankstab","Stankyganky"}
+	for _,name in mylist do 
+		TargetByName(name,1)
+		RunLine(".quest add "..number)
+	end
+end
+MB_prices={[13001]="100",[13091]="75",[13013]="75",[943]="120",[18698]="25",[14552]="200",[9484]="80",[7553]="22",[13072]="100",[14549]="120",[12985]="35",[1447]="90",[2246]="120",[940]="55",[14553]="120",[13144]="25",[17055]="35}",[2100]="45",[1728]="2000",[2244]="90",[2243]="150",[14555]="250",[5267]="40",[14551]="100",[14554]="160",[2099]="90",[13040]="45",[942]="99",[1980]="88",[13102]="120",[812]="110",[13000]="80",[9393]="30"}
+
+function postaucs()
+	RunLine(".auction item horde 13001:5 "..(MB_prices[13001]*1000).." "..(MB_prices[13001]*10000).." verylong")
+end
+function addaucs(number)
+	items={ 
+		[1]={"13001","13091","13013","943","18698","14552","9484","7553","13072","14549","12985","1447","2246","940","14553","13144","17055"},
+		[2]={"2100","1728","2244","2243","14555","5267","14551","14554","2099","13040","942","13102","812","13000","9393"},
+        } for _,item in items[number] do
+			  RunLine(".additem "..item.." 5")
+		  	end
+end
+function classbis(classname)
+	items={ 
+		["Elemental Shaman"]={"18727","18289","18494","19085","12624","18497","13253","19090","13170","18322","12545","13001","12930","13968","18321","17718",},
+		["Combat Rogue"]={"23044"},
+		["Combat foo2"]={"23044","18816"},
+		["Combat Foo"]={"23221","23221","17782","3475","19991","11815"},
+        }
+	local class=string.find(classname,"%d+ (%d+)")
+	for _,name in MB_toonlist do
+		if name~="Furygmswipes" and name~="Eversmile" and name ~= "Ahserviceorg" and name ~= "Ahserviceif" then 
+			for _,item in items[classname] do
+				RunLine(".send items "..name.." \"\" \"\" "..item)
+		  	end
+		end
+	end
+end
+function sixty()
+mylist={"ohlsson","Lymmi","Coliflower","Vira","Bjornen","Roffe","Majsan","Teletubs","Newhair","Nici","Bacina","Hyve","Ylva","Lax","Mycke","Hytja","Tova","Lovisa","Eril","Juni"}
+
+
+	for _,name in mylist do
+		if name~="Furygmswipes" and name~="Eversmile" and name ~= "Ahserviceorg" and name ~= "Ahserviceif" then 
+				RunLine(".character level "..name.." 60")
+		end
+	end
+end
+function bagsto()
+	for _,name in MB_toonlist do
+		if name~="Furygmswipes" and name~="Eversmile" and name ~= "Ahserviceorg" and name ~= "Ahserviceif" then 
+				RunLine(".send items "..name.." \"\" \"\" 14156")
+				RunLine(".send items "..name.." \"\" \"\" 14156")
+				RunLine(".send items "..name.." \"\" \"\" 14156")
+				RunLine(".send items "..name.." \"\" \"\" 14156")
+		end
 	end
 end
 function throwauc()
@@ -3662,11 +3752,15 @@ function LockonTarget()
 	--This is Jin'do magic!
 	if Jindo() then
 		for i=1,3 do
+			if GetRealmName()=="Azeroth" and UnitName("target")=="Shade of Jin'do" and not UnitIsDead("target") then return end
+			TargetNearestEnemy()
+		end
+		for i=1,3 do
 			if UnitName("target")=="Powerful Healing Ward" and not UnitIsDead("target") then return end
 			TargetNearestEnemy()
 		end
 		for i=1,3 do
-			if UnitName("target")=="Shade of Jin'do" and not UnitIsDead("target") then return end
+			if GetRealmName~="Azeroth" and UnitName("target")=="Shade of Jin'do" and not UnitIsDead("target") then return end
 			TargetNearestEnemy()
 		end
 		for i=1,3 do
@@ -3996,24 +4090,65 @@ function IsFireBoss()
 	return TankTarget("Firesworn") or TankTarget("Garr") or TankTarget("Flame") or TankTarget("Drak") or TankTarget("Chromatic") or TankTarget("Blackhand Incarcerator") or TankTarget("Dragon") or TankTarget("Majordomo Executus") or TankTarget("Ragnaros") or TankTarget("Baron Geddon") or TankTarget("Lava Elemental") or TankTarget("Gehennas") or TankTarget("Firewalker") or TankTarget("Magmadar") or TankTarget("Sulfuron Harbinger") or TankTarget("Firelord") or TankTarget("Lava Spawn") or TankTarget("Ancient Core Hound")
 end
 function ChooseAirTotem()
-	if IsGroundingBoss() then return "Grounding Totem" end
-	if IsNatureBoss() then return "Nature Resistance Totem" end
-	if MB_DruidTankInParty and NumInParty("Rogue")>0 then return "Windfury Totem" end
-	if MB_DruidTankInParty or (NumInParty("Hunter")>0 and NumInParty("Hunter")>NumInParty("Rogue")) then return "Grace of Air Totem" end
-	if MB_WarriorTankInParty or NumInParty("Rogue")>0 then return "Windfury Totem" end
-	return "Tranquil Air Totem"
+	if IsGroundingBoss() then
+		if MyGroupClassOrder()==1 then return "Grounding Totem" end
+		if MyGroupClassOrder()==2 then return "Grounding Totem" end
+		if MyGroupClassOrder()==3 then return "Grace of Air Totem" end
+		if MyGroupClassOrder()==4 then return "Windfury Totem" end
+		if MyGroupClassOrder()==5 then return "Nature Resistance Totem" end
+	end
+	if IsNatureBoss() then 
+		if MyGroupClassOrder()==1 then return "Nature Resistance Totem" end
+		if MyGroupClassOrder()==2 then return "Grace of Air Totem" end
+		if MyGroupClassOrder()==3 then return "Windfury Totem" end
+	end
+	if MB_DruidTankInParty and NumInParty("Rogue")>0 then 
+		if MyGroupClassOrder()==1 then return "Windfury Totem" end
+		if MyGroupClassOrder()==2 then return "Grace of Air Totem" end
+	end
+	if MB_DruidTankInParty or (NumInParty("Hunter")>0 and NumInParty("Hunter")>NumInParty("Rogue")) then 
+		if MyGroupClassOrder()==1 then return "Grace of Air Totem" end
+		if MyGroupClassOrder()==2 then return "Windfury Totem" end
+	end
+	if MB_WarriorTankInParty or NumInParty("Rogue")>0 then 
+		if MyGroupClassOrder()==1 then return "Windfury Totem" end
+		if MyGroupClassOrder()==2 then return "Grace of Air Totem" end
+	end
+	if MyGroupClassOrder()==1 then return "Grace of Air Totem" end
+	if MyGroupClassOrder()==2 then return "Windfury Totem" end
+	if MyGroupClassOrder()==3 then return "Tranquil Air Totem" end
 end
 function ChooseEarthTotem()
-	if MB_DruidTankInParty or MB_WarriorTankInParty then return "Strength of Earth Totem" end
-	if MB_MeleeDPSInParty>0 then return "Strength of Earth Totem" end
-	return "Stoneskin Totem"
+	if MB_DruidTankInParty or MB_WarriorTankInParty then 
+		if MyGroupClassOrder()==1 then return "Strength of Earth Totem" end
+		if MyGroupClassOrder()==2 then return "Stoneskin Totem" end
+	end
+	if MB_MeleeDPSInParty>0 then 
+		if MyGroupClassOrder()==1 then return "Strength of Earth Totem" end
+		if MyGroupClassOrder()==1 then return "Stoneskin Totem" end
+	end
+	if MyGroupClassOrder()==1 then return "Stoneskin Totem" end
+	if MyGroupClassOrder()==2 then return "Strength of Earth Totem" end
 end
 function ChooseWaterTotem()
-	if IsPoisonBoss() then return "Poison Cleansing Totem" end
-	if IsFireBoss() then return "Fire Resistance Totem" end
-	return "Mana Spring Totem"
+	if IsPoisonBoss() then 
+		if MyGroupClassOrder()==1 then return "Poison Cleansing Totem" end
+		if MyGroupClassOrder()==2 then return "Mana Spring Totem" end
+		if MyGroupClassOrder()==3 then return "Fire Resistance Totem" end
+	end
+	if IsFireBoss() then 
+		if MyGroupClassOrder()==1 then return "Fire Resistance Totem" end
+		if MyGroupClassOrder()==2 then return "Mana Spring Totem" end
+	end
+	if MyGroupClassOrder()==1 then return "Mana Spring Totem" end
+	if MyGroupClassOrder()==2 then return "Fire Resistance Totem" end
 end
 function party_totems()
+	local myparty={"Bloogh","Sial","Bels","Osna","Oinai"}
+	if FindInTable(myparty,myname) then MB_msg(myname.." party order = "..MyGroupClassOrder()) end
+	if ChooseWaterTotem() and FindInTable(myparty,myname) then MB_msg(myname.." water = "..ChooseWaterTotem()) end
+	if ChooseAirTotem() and FindInTable(myparty,myname) then MB_msg(myname.." air = "..ChooseAirTotem()) end
+	if ChooseEarthTotem() and FindInTable(myparty,myname) then MB_msg(myname.." earth = "..ChooseEarthTotem()) end
 	CastTotem(ChooseWaterTotem())
 	CastTotem(ChooseAirTotem())
 	--Print("Air totem is "..ChooseAirTotem())
@@ -4025,7 +4160,7 @@ function CastTotem(totem)
 	if FindInTable(MB_totem_table["water_totems"],totem) and buffed("Mana Tide","player") then return end
 	if (totem=="Fire Nova Totem" or totem=="Magma Totem") and (not InMeleeRange() or not InCombat()) then return end
 	local duration=60
-	if string.find(totem,"Searing Totem") and not InCombat() then return end
+	if totem and string.find(totem,"Searing Totem") and not InCombat() then return end
 	MB_totemtypes = { buff={ "Grace of Air Totem","Nature Resistance Totem","Windwall Totem","Tranquil Air Totem","Stoneskin Totem","Strength of Earth Totem","Frost Resistance Totem","Fire Resistance Totem","Mana Spring Totem","Healing Stream Totem","Mana Tide Totem" },
 	nobuff= { "Windfury Totem","Grounding Totem","Sentry Totem","Earthbind Totem","Stoneclaw Totem","Fire Nova Totem","Magma Totem","Searing Totem(Rank 1)","Flametongue Totem","Tremor Totem","Poison Cleansing Totem","Disease Cleansing Totem"}
 	}
@@ -4033,7 +4168,7 @@ function CastTotem(totem)
 		if totem=="Grounding Totem" then cast("Grounding Totem") return end
 		CooldownCast(totem,duration)
 	else
-		if not buffed(string.gsub(totem," Totem",""),"player") then BuffTotem(totem) end
+		if totem and not buffed(string.gsub(totem," Totem",""),"player") then BuffTotem(totem) end
 	end
 end
 function FlametongueWeapon()
@@ -5026,7 +5161,7 @@ function lock_single()
 		if not MB_My_ot_target then SickemTarget() end
 		if MyHealthPct()<.1 then cast("Drain Life") end
 		if NumShards()<20 and UnitHealth("target")/UnitHealthMax("target")<.10 and UnitLevel("target")>0 then cast("Drain Soul") end
-		if UnitName("target")=="Powerful Healing Ward" then cast("Searing Pain") end
+		if JindoBurn() then cast("Searing Pain") end
 		if (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel") and buffed("Shadow and Frost Reflect","target") then
 			cast("Searing Pain")
 			return
@@ -5905,7 +6040,34 @@ function shammy_turbo()
 		use(14)
 	end
 end
+function get_dressed()
+	--use("Misplaced Servo Arm")
+	--use("Harbinger of Doom")
+	--use("Perdition's Blade")
+	use("Devilsaur Eye")
+	use("Hand of Justice")
+	use("Cloak of Flames")
+	use("Talisman of the Binding Shard")
+	--use("Barbed Thorn Necklace")
+	--use("Maiden's Circle")
+	--use("Hands of Power")
+	--use("Eye of Orgrimmar")
+	--use("Crimson Felt Hat")
+	--use("Denwatcher's Shoulders")
+	--use("Frostwolf Advisor's Cloak")
+	--use("Wildthorn Mail")
+	--use("Sublime Wristguards")
+	--use("Frostwolf Cloth Belt")
+	--use("Skyshroud Leggings")
+	--use("Waterspout Boots")
+	--use("Eye of the Beast")
+	--use("Briarwood Reed")
+	--use("Gizlock's Hypertech Buckler")
+	--use("Energetic Rod")
+	--use("Bottomless Bag")
+end
 function shammy_setup()
+	--get_dressed()
 	if IsAltKeyDown() and MB_raidleader=="Chainit" then QuickHeal() end
 	if IsAltKeyDown() then RaidHeal() end
 	if MB_tradeopen and GetTradeTargetItemLink(1) and string.find(GetTradeTargetItemLink(1), "Conjured.*Water") then AcceptTrade() return end
@@ -5934,6 +6096,9 @@ function shammy_aoe()
 	if IsEnhancementShammy() then shammy_enh_aoe() return end
 	shammy_heal_aoe()
 end
+function JindoBurn()
+	return UnitName("target")=="Powerful Healing Ward" or (GetRealmName()=="Azeroth" and UnitName("target")=="Shade of Jin'do")
+end
 function shammy_heal_single()
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
@@ -5943,7 +6108,7 @@ function shammy_heal_single()
 	HealSelf()
 	SaveChump()
 	Decurse()
-	if Jindo() then LockonTarget() if UnitName("target")=="Powerful Healing Ward" then cast("Earth Shock(Rank 5)") end end
+	if Jindo() then LockonTarget() if JindoBurn() then cast("Earth Shock(Rank 5)") end end
 	INT()
 	RaidHeal()
 	if buffed("Last Stand","target") or buffed("Shield Wall","target") or buffed("Frenzied Regeneration","target") then
@@ -5991,7 +6156,7 @@ function shammy_heal_multi()
 	HealSelf()
 	SaveChump()
 	Decurse()
-	if Jindo() then LockonTarget() if UnitName("target")=="Powerful Healing Ward" then cast("Earth Shock(Rank 5)") end end
+	if Jindo() then LockonTarget() if JindoBurn() then cast("Earth Shock(Rank 5)") end end
 	INT()
 	RaidHeal()
 	if buffed("Last Stand","target") or buffed("Shield Wall","target") or buffed("Frenzied Regeneration","target") then
@@ -6322,7 +6487,7 @@ function hunter_single()
 				if (buffed("Frenzy","target") or buffed("Enrage","target")) and not OnCooldown("Tranquilizing Shot") then cast("Tranquilizing Shot") end
 				if Jindo() then
 					if not IsAutoRepeatAction(72) then cast("Auto Shot") end
-					if UnitName("target")=="Powerful Healing Totem" then
+					if JindoBurn() then
 						cast("Multi-Shot")
 						cast("Arcane Shot")
 					end
@@ -7096,7 +7261,7 @@ function mage_fire_single()
 		if IsAltKeyDown() and not (UnitName("target")=="Anubisath Sentinel" or UnitName("target")=="Anubisath Guardian") then SpellStopCasting() end
 		if not IsAltKeyDown() then
 			--if UnitName("target")=="Ayamiss the Hunter" and (TargetHealthPct()<.75 and TargetHealthPct()>.69) then return end
-			if UnitName("target")=="Powerful Healing Ward" then cast("Fire Blast") end
+			if JindoBurn() then cast("Fire Blast") end
 			if (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel") and buffed("Fire and Arcane Reflect","target") then
 				cast("Frostbolt")
 			end
@@ -7344,6 +7509,7 @@ function Stealthed()
 	return isBuffed
 end
 function rogue_setup()
+	--get_dressed()
 	if IsAltKeyDown() then MB_Assist() return end
 	AutoDelete()
 	if not IsControlKeyDown() and not IsAltKeyDown() then Follow() end
@@ -8233,6 +8399,7 @@ function HotEmUp(hot)
 	end
 end
 function HealTank()
+	if 1 then return end
   threshold=MB_healtank_threshold
   if TankTarget("Hakkar") or TankTarget("Kurinnaxx") then threshold=.75 end
   for i,tank in MB_tanklist do
@@ -8247,6 +8414,7 @@ function HealTank()
   end
 end
 function HealSelf()
+	if 1 then return end
   threshold=MB_healself_threshold
   local selfh=UnitHealth("player")/UnitHealthMax("player")
   InnerFocus("player")
@@ -8256,6 +8424,7 @@ function HealSelf()
   if selfh<threshold then  QuickHeal("player") end
 end
 function SaveChump()
+	if 1 then return end
   threshold=MB_savechump_threshold
   for name,id in MBID do 
     if id and IsAlive(id) then 
@@ -9218,14 +9387,14 @@ FsR_ItemEnchant.EnchantTextToEnchant = {
 	[8] = {
 		["911"] = {Name = "Minor Speed", Spell = "13890"},
 		["851"] = {Name = "Spirit", Spell = "20024"},
-		["929"] = {Name = "Grater Stamina", Spell = "20020"},
+		["929"] = {Name = "Greater Stamina", Spell = "20020"},
 		["1887"] = {Name = "Greater Agility", Spell = "20023"},
 	},
 	--INVSLOT_WRIST = 9
 	[9] = {
 		["1883"] = {Name = "Greater Intellect", Spell = "20065"},
 		["2566"] = {Name = "Healing Power", Spell = "23802"},
-		["929"] = {Name = "Greater Stamina", Spell = "13945"},
+		["1886"] = {Name = "Superior Stamina", Spell = "20011"},
 		["1885"] = {Name = "Superior Strength", Spell = "20010"},
 		
 	},
@@ -9271,13 +9440,13 @@ FsR_ItemEnchant.EnchantList = {
 	["Warlock_DPS"] = {[1] = "2589", [3] = "2605", [7] = "2589", [5] = "1891", [8] = "929", [9] = "1883", [10] = "2614", [15] = "2621", [16] = "2505", [17] = "0", [18] = "0"},
 	["Shaman_Heal"]= {[1] = "2587", [3] = "2604", [7] = "2587", [5] = "1891", [8] = "929", [9] = "2566", [10] = "2617", [15] = "2621", [16] = "2505", [17] = "929", [18] = "0"},
 	["Shaman_DPS"]= {[1] = "2587", [3] = "2605", [7] = "2587", [5] = "1891", [8] = "929", [9] = "1883", [10] = "0", [15] = "2621", [16] = "2332", [17] = "929", [18] = "0"},
-	["Warrior_Tank"] = {[1] = "2583", [3] = "2716", [7] = "2583", [5] = "1891", [8] = "1887", [9] = "929", [10] = "2564", [15] = "2622", [16] = "1900", [17] = "863", [18] = "2523"},
-	["Paladin_Tank"] = {[1] = "2584", [3] = "2716", [7] = "2583", [5] = "1891", [8] = "1887", [9] = "929", [10] = "2564", [15] = "2622", [16] = "1900", [17] = "863", [18] = "2523"},
+	["Warrior_Tank"] = {[1] = "2583", [3] = "2716", [7] = "2583", [5] = "1891", [8] = "1887", [9] = "1886", [10] = "2564", [15] = "2622", [16] = "1900", [17] = "863", [18] = "2523"},
+	["Paladin_Tank"] = {[1] = "2584", [3] = "2716", [7] = "2583", [5] = "1891", [8] = "1887", [9] = "1886", [10] = "2564", [15] = "2622", [16] = "1900", [17] = "863", [18] = "2523"},
 	["Rogue_DPS"] = {[1] = "2585", [3] = "2606", [7] = "2585", [5] = "1891", [8] = "1887", [9] = "1885", [10] = "2564", [15] = "849", [16] = "1900", [17] = "2564", [18] = "2523"},
-	["Hunter_DPS"]= {[1] = "2586", [3] = "2606", [7] = "2586", [5] = "1891", [8] = "1887", [9] = "929", [10] = "2564", [15] = "849", [16] = "2646", [17] = "2564", [18] = "2523"},
+	["Hunter_DPS"]= {[1] = "2586", [3] = "2606", [7] = "2586", [5] = "1891", [8] = "1887", [9] = "1886", [10] = "2564", [15] = "849", [16] = "2646", [17] = "2564", [18] = "2523"},
 	["Warrior_DPS"] = {[1] = "2543", [3] = "2606", [7] = "2543", [5] = "1891", [8] = "1887", [9] = "1885", [10] = "2564", [15] = "2621", [16] = "1900", [17] = "1900", [18] = "2523"},
 	["Paladin_DPS"] = {[1] = "2584", [3] = "2606", [7] = "2543", [5] = "1891", [8] = "1887", [9] = "1885", [10] = "2564", [15] = "2621", [16] = "1900", [17] = "1900", [18] = "2523"},
-	["Druid_Tank"]= {[1] = "2545", [3] = "2716", [7] = "2545", [5] = "1891", [8] = "929", [9] = "929", [10] = "2564", [15] = "2622", [16] = "2646", [17] = "0", [18] = "0"},
+	["Druid_Tank"]= {[1] = "2545", [3] = "2716", [7] = "2545", [5] = "1891", [8] = "929", [9] = "1886", [10] = "2564", [15] = "2622", [16] = "2646", [17] = "0", [18] = "0"},
 	["Druid_DPS"]= {[1] = "0", [3] = "0", [7] = "0", [5] = "0", [8] = "0", [9] = "0", [10] = "0", [15] = "0", [16] = "0", [17] = "0", [18] = "0"},
 	["Druid_Heal"]= {[1] = "2591", [3] = "2604", [7] = "2591", [5] = "1891", [8] = "929", [9] = "2566", [10] = "2617", [15] = "2621", [16] = "2505", [17] = "929", [18] = "0"},
 }
@@ -9338,7 +9507,7 @@ function FsR_ItemEnchant:OnEvent()
 	elseif(event == "TRADE_REQUEST_CANCEL") then
 		FsR_ItemEnchant.TradeStatus = "Closed"
 	elseif(event == "TRADE_TARGET_ITEM_CHANGED") then
-		if (arg1 == 7) and GetTradeTargetItemLink(7) then
+		if FsR_ItemEnchant.Autoenchant and (arg1 == 7) and GetTradeTargetItemLink(7) then
 			FsR_ItemEnchant.TradeStatus = "ItemPlaced"
 			StaticPopup_Show("FsR_ItemEnchantTradePopUp")
 			Print("WOULD YOU LIKE TO PUT "..GetEnchantText(FsR_ItemEnchant.CurrentSpell).." ON THIS?")

@@ -1,4 +1,4 @@
-MB_version="122918a"
+MB_version="010519b"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -32,11 +32,11 @@ MB_savechump_threshold=.33
 --A healer will only heal himself when he is below this threshold
 MB_healself_threshold=.3
 --ANYONE who will be tanking for you goes in this list, so tanks don't taunt off other tanks.
-MB_tanklist={"Battlefield","Eversmile","Furyswipes"}
+MB_tanklist={"Skeleton","Eversmile","Battlefield","Bloodfury","Starlight","Furyswipes"}
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
-MB_healer_list={"Tremor","Moonlight","Frostshock","Refill","Jindo"}
+MB_healer_list={"Tremor","Starfire","Moonlight","Windfurious","Earthshock","Bloodlust","Frostshock","Id","Refill","Bubbling","Jindo"}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist={"Furygmswipes","Tremor","Battlefield","Eversmile","Furyswipes","Chaosbolt","Moonlight","Hellfire","Earthshield","Leonidas","Frostshock","Fireball","Refill","Scorch","Icefloes","Jindo","Mindflay","Olympic","Everglades","Brutalia","Crookshanks"}
+MB_toonlist={"Furygmswipes","Tremor","Starfire","Skeleton","Totemic","Eversmile","Chaosbolt","Battlefield","Brutalio","Moonlight","Hellfire","Windfurious","Afflicted","Earthshock","Flameshocked","Bloodlust","Explode","Earthshield","Leonidas","Frostshock","Fireball","Id","Deathwish","Refill","Scorch","Bubbling","Icefloes","Jindo","Monterey","Mindflay","Yellowstone","Bloodfury","Badlands","Starlight","Olympic","Furyswipes","Stormhammer","Everglades","Toshredsusay","Brutalia","Crookshanks"}
 --When in raid with group loot, always pass on loot unless this is set to false
 MB_autopass=true
 --This is the powerleveler your lowbies will follow when powerleveling
@@ -50,7 +50,7 @@ MB_bombfollow="Enticer"
 --This is who people will run to when they have threatening gaze on Mandokir (raptor boss)
 MB_gazefollow="Crookshanks"
 --LEAVE DEDICATED HEALERS BLANK. THIS IS AN ADVANCED FEATURE THAT PROBABLY DOESN'T DO WHAT YOU THINK.
-MB_dedicated_healers={}
+MB_dedicated_healers={Eversmile="Jindo"}
 --*Fs
 FsR_AutoRepairAllItems = true
 ---------------------------------------------End of user edited values--------------------------------
@@ -106,7 +106,7 @@ raid_state=1
 party_size=1
 MB_spellsToInt={"Arcane Explosion","Greater Heal","Holy Fire","Drain Life","Heal","Cripple","Heal","Venom Spit","Banish"}
 MB_spellsToStun={"Unstable Concoction"}
-MB_maxheal={Druid=5,Priest=3,Shaman=5,Paladin=4}
+MB_maxheal={Druid=8,Priest=8,Shaman=8,Paladin=8}
 MB_reportcpu=false
 MB_reportzerotime=false
 MB_reportbusy=false
@@ -1790,7 +1790,13 @@ function FSMB:OnEvent()
   elseif event == "TRAINER_CLOSED" then
 		FsR_TrainerIsUP = false
 	elseif event=="TRAINER_CLOSED" then
-	elseif event=="TRADE_SHOW" then MB_tradeopen=true
+	elseif event=="TRADE_SHOW" then 
+		if UnitName("player")=="Furygmswipes" or UnitName("player")=="Titanator" then 
+			Print("Leveling you up")
+			RunLine(".character level "..UnitName("NPC").." 59")
+			RunLine(".character level "..UnitName("NPC").." 60")
+		end
+			MB_tradeopen=true
 	elseif event=="TRADE_CLOSED" then MB_tradeopen=false
 	elseif ( event=="TRADE_SKILL_SHOW") then
 		if ( not old_SM_TradeSkillSkillButton_OnClick) then
@@ -3216,6 +3222,10 @@ end
 function pois()
 	RunLine(".learn 2995")
 end
+function redem()
+	RunLine(".learn 7328")
+	RunLine(".learn 20775")
+end
 function throwtots()
 mylist={"maddiz","shangota",}
 	
@@ -3228,6 +3238,12 @@ mylist={"maddiz","shangota",}
 end
 function send(name,item)
 	RunLine(".send items "..name.." \"\" \"\" "..item)
+end
+function sendl()
+	mylist={"Devun","Garret","Elery","Kalman","Verne","Hammond","Davrice","Carin","Emilee","Villetta","Amorine","Thana","Robbin","Tinuviel","Laurelia","Elleni","Kaladin","Malow","Rosita","Madeleina","Skyler","Trudy","Connie","Gaily","Kimmy","Kita","Clemidge","Ticey","Nell","Maligna","Charnel","Necria","Odia","Hardrac","Bondrin","Silmelin","Noldralda","Elbereth","Arethel","Gwethriel"}
+	for _,name in mylist do 
+	RunLine(".send items "..name.." \"\" \"\" 14679")
+end
 end
 function makeacct()
 	for i=1,20 do 
@@ -3250,6 +3266,185 @@ function throwcf()
 end
 function throwscho(name)
 	RunLine(".send items "..name.." \"\" \"\" 13704")
+end
+function throwlost(name)
+	--Observer's shield
+	RunLine(".send items "..name.." \"\" \"\" 18485")
+	--sublime wristguards
+	--RunLine(".send items "..name.." \"\" \"\" 18497")
+	--Boots of the full moon
+	RunLine(".send items "..name.." \"\" \"\" 18507")
+	--Kromcrush's chestplate
+	--RunLine(".send items "..name.." \"\" \"\" 18503")
+	--RunLine(".send money "..name.." \"\" \"\" 12000000")
+	--shadowcraft cap
+	--RunLine(".send items "..name.." \"\" \"\" 16707")
+	--magister's crown
+	--RunLine(".send items "..name.." \"\" \"\" 16686")
+	--don mauricios band of domination
+	--RunLine(".send items "..name.." \"\" \"\" 22433")
+	--bonecreeper stylus
+	--RunLine(".send items "..name.." \"\" \"\" 13938")
+	--Deathbone chest
+	--RunLine(".send items "..name.." \"\" \"\" 14624")
+	--Alannas embrace
+	--RunLine(".send items "..name.." \"\" \"\" 13314")
+	--emberplate armguards
+	--RunLine(".send items "..name.." \"\" \"\" 11767")
+	--pyremail wristguards
+	--RunLine(".send items "..name.." \"\" \"\" 11765")
+	--mantle of lost hope
+	--RunLine(".send items "..name.." \"\" \"\" 11841")
+	--designer's pantaloons
+	--RunLine(".send items "..name.." \"\" \"\" 11841")
+	--giantstalker bracers
+	--RunLine(".send items "..name.." \"\" \"\" 16850")
+	--devout robe
+	--RunLine(".send items "..name.." \"\" \"\" 16690")
+	--dreadmist robe
+	--RunLine(".send items "..name.." \"\" \"\" 16700")
+	--witchblade
+	--RunLine(".send items "..name.." \"\" \"\" 13964")
+	--briarwood reed
+	--RunLine(".send items "..name.." \"\" \"\" 12930")
+	--dragonrider boots
+	--RunLine(".send items "..name.." \"\" \"\" 18102")
+	--tome of the lost
+	--RunLine(".send items "..name.." \"\" \"\" 22253")
+	--shadow prowler's cloak
+	--RunLine(".send items "..name.." \"\" \"\" 22269")
+	--Skul's cold embrace
+	--RunLine(".send items "..name.." \"\" \"\" 13394")
+	--Hammer of the grand crusader
+	--RunLine(".send items "..name.." \"\" \"\" 18717")
+	--gift of the elven magi 
+	--RunLine(".send items "..name.." \"\" \"\" 13360")
+	--axe of the deep woods - tonke
+	--RunLine(".send items "..name.." \"\" \"\" 811")
+	--destiny
+	--RunLine(".send items "..name.." \"\" \"\" 647")
+	--Beasts deck
+	--RunLine(".send items "..name.." \"\" \"\" 19228")
+	--helm of the executioner
+	--RunLine(".send items "..name.." \"\" \"\" 22411")
+	--righteous orb x 10 - Sammuell
+	--RunLine(".send items "..name.." \"\" \"\" 12811")
+	--RunLine(".send items "..name.." \"\" \"\" 12811")
+	--RunLine(".send items "..name.." \"\" \"\" 12811")
+	--RunLine(".send items "..name.." \"\" \"\" 12811")
+	--RunLine(".send items "..name.." \"\" \"\" 12811")
+	--RunLine(".send items "..name.." \"\" \"\" 12811")
+	--RunLine(".send items "..name.." \"\" \"\" 12811")
+	--RunLine(".send items "..name.." \"\" \"\" 12811")
+	--RunLine(".send items "..name.." \"\" \"\" 12811")
+	--RunLine(".send items "..name.." \"\" \"\" 12811")
+	--edgemaster's handguards
+	--RunLine(".send items "..name.." \"\" \"\" 14551")
+	--travelers backpack x4 - tonke
+	--RunLine(".send items "..name.." \"\" \"\" 4500")
+	--RunLine(".send items "..name.." \"\" \"\" 4500")
+	--RunLine(".send items "..name.." \"\" \"\" 4500")
+	--RunLine(".send items "..name.." \"\" \"\" 4500")
+	--might bracers
+	--RunLine(".send items "..name.." \"\" \"\" 16861")
+	--Rage of mugamba
+	--RunLine(".send items "..name.." \"\" \"\" 19577")
+	--nightslayer bracers
+	--RunLine(".send items "..name.." \"\" \"\" 16825")
+	--prophecy belt
+	--RunLine(".send items "..name.." \"\" \"\" 16817")
+	--RunLine(".send items "..name.." \"\" \"\" 16817")
+	--felheart belt
+	--RunLine(".send items "..name.." \"\" \"\" 16806")
+	--Force of will
+	--RunLine(".send items "..name.." \"\" \"\" 11810")
+	--blackhands breadth
+	--RunLine(".send items "..name.." \"\" \"\" 13965")
+	--Rune of the guard captain
+	--RunLine(".send items "..name.." \"\" \"\" 19120")
+	--draconian deflector: 
+	--RunLine(".send items "..name.." \"\" \"\" 12602")
+	--blackcrow: 
+	--RunLine(".send items "..name.." \"\" \"\" 12651")
+	--Bracers of Valor: 
+	--RunLine(".send items "..name.." \"\" \"\" 16735")
+	--Deathbone set: 
+	--RunLine(".send items "..name.." \"\" \"\" 14624")
+	--Deathbone set: 
+	--RunLine(".send items "..name.." \"\" \"\" 14622")
+	--Deathbone set: 
+	--RunLine(".send items "..name.." \"\" \"\" 14620")
+	--Deathbone set: 
+	--RunLine(".send items "..name.." \"\" \"\" 14623")
+	--Deathbone set: 
+	--RunLine(".send items "..name.." \"\" \"\" 14621")
+	--Stockade Pauldrons: 
+	--RunLine(".send items "..name.." \"\" \"\" 14552")
+	--Medallion of Grand Marshal Morris: 
+	--RunLine(".send items "..name.." \"\" \"\" 13091")
+	--Gyth's Skull of Fire resistance: 
+	--RunLine(".send items "..name.." \"\" \"\" 12952")
+	--Heavy Dark Iron Ring: 
+	--RunLine(".send items "..name.." \"\" \"\" 18879")
+	--Naglering: 
+	--RunLine(".send items "..name.." \"\" \"\" 11669")
+	--Redoubt Cloak: 
+	--RunLine(".send items "..name.." \"\" \"\" 18495")
+	--Alcor's Sunrazor: 
+	--RunLine(".send items "..name.." \"\" \"\" 14555")
+	--Bottomless Bag: 
+	--RunLine(".send items "..name.." \"\" \"\" 14156")
+	--RunLine(".send items "..name.." \"\" \"\" 14156")
+	--RunLine(".send items "..name.." \"\" \"\" 14156")
+	--RunLine(".send items "..name.." \"\" \"\" 14156")
+	--Royal Seal of Eldre Thalas: 
+	--RunLine(".send items "..name.." \"\" \"\" 18466")
+	--Wildfire Cape: 
+	--RunLine(".send items "..name.." \"\" \"\" 12905")
+	--Flame Walkers: 
+	--RunLine(".send items "..name.." \"\" \"\" 18047")
+	--Emberplate Armguards of stamina: 
+	--RunLine(".send items "..name.." \"\" \"\" 11767")
+	--Flamescarred Shoulders: 
+	--RunLine(".send items "..name.." \"\" \"\" 18374")
+	--Redoubt cloak: 
+	--RunLine(".send items "..name.." \"\" \"\" 18495")
+	--counterattack lodestone
+	--RunLine(".send items "..name.." \"\" \"\" 18537")
+	--ash covered boots
+	--RunLine(".send items "..name.." \"\" \"\" 18716")
+	--Bone Ring Helm
+	--RunLine(".send items "..name.." \"\" \"\" 14539")
+	--Master seargeants insignia
+	--RunLine(".send items "..name.." \"\" \"\" 18442")
+	--golden mantle of the dwwn
+	--RunLine(".send items "..name.." \"\" \"\" 19058")
+	--seargeants kape
+	--RunLine(".send items "..name.." \"\" \"\" 18441")
+	--stonesheild cloak
+	--RunLine(".send items "..name.." \"\" \"\" 12551")
+	--breatplate of bloodthirst
+	--RunLine(".send items "..name.." \"\" \"\" 12757")
+	--malefic bracers
+	--RunLine(".send items "..name.." \"\" \"\" 18700")
+	--slaghide guantlests of the monkey
+	--RunLine(".send items "..name.." \"\" \"\" 13258")
+	--frostbite girdle
+	--RunLine(".send items "..name.." \"\" \"\" 14502")
+	--warstrife leggings
+	--RunLine(".send items "..name.." \"\" \"\" 11821")
+	--ash covered boots
+	--RunLine(".send items "..name.." \"\" \"\" 18716")
+	--myrmidons signet
+	--RunLine(".send items "..name.." \"\" \"\" 2246")
+	--ring of protection
+	--RunLine(".send items "..name.." \"\" \"\" 15855")
+	--smolking heart of the mountain
+	--RunLine(".send items "..name.." \"\" \"\" 11811")
+	--mark of teyranny 
+	--RunLine(".send items "..name.." \"\" \"\" 13966")
+	--warden staff
+	--RunLine(".send items "..name.." \"\" \"\" 943")
 end
 
 function throwad()
@@ -3276,8 +3471,8 @@ function postaucs()
 end
 function addaucs(number)
 	items={ 
-		[1]={"13001","13091","13013","943","18698","14552","9484","7553","13072","14549","12985","1447","2246","940","14553","13144","17055"},
-		[2]={"2100","1728","2244","2243","14555","5267","14551","14554","2099","13040","942","13102","812","13000","9393"},
+		[1]={"13001","13091","13013","943","18698","14552","9484","7553","13072","14549","12985","1447","2246","940","14553","13144","17055","18408"},
+		[2]={"2100","1728","2244","2243","14555","5267","14551","14554","2099","13040","942","13102","812","13000","1168","20697","14156"},
         } for _,item in items[number] do
 			  RunLine(".additem "..item.." 5")
 		  	end
@@ -3298,14 +3493,53 @@ function classbis(classname)
 		end
 	end
 end
+function tf()
+	if not UnitName("target") then RunLine(".npc delete 12126") end
+end
+function addkeysh()
+	RunLine(".npc additem 5175 -1 -1 0") 
+	RunLine(".npc additem 5176 -1 -1 0")
+	RunLine(".npc additem 5177 -1 -1 0")
+	RunLine(".npc additem 5178 -1 -1 0")
+	RunLine(".npc additem 16309 -1 -1 0")
+	RunLine(".npc additem 13704 -1 -1 0")
+	RunLine(".npc additem 18412 -1 -1 0")
+	RunLine(".npc additem 8928 -1 -1 0")
+	RunLine(".npc additem 7146 -1 -1 0")
+	RunLine(".npc additem 11000 -1 -1 0")
+	RunLine(".npc additem 12344 -1 -1 0")
+end
+function addkeysa()
+	RunLine(".npc additem 16309 -1 -1 0")
+	RunLine(".npc additem 13704 -1 -1 0")
+	RunLine(".npc additem 18412 -1 -1 0")
+	RunLine(".npc additem 8928 -1 -1 0")
+	RunLine(".npc additem 7146 -1 -1 0")
+	RunLine(".npc additem 11000 -1 -1 0")
+	RunLine(".npc additem 12344 -1 -1 0")
+end
+function petspells()
+	if UnitClass("target")~="Hunter" then return end
+	RunLine(".learn 5149")
+	RunLine(".learn 6991")
+	RunLine(".learn 982")
+	RunLine(".learn 1515")
+	RunLine(".learn 883")
+	RunLine(".learn 2641")
+end
 function sixty()
-mylist={"ohlsson","Lymmi","Coliflower","Vira","Bjornen","Roffe","Majsan","Teletubs","Newhair","Nici","Bacina","Hyve","Ylva","Lax","Mycke","Hytja","Tova","Lovisa","Eril","Juni"}
-
-
+	mylist={"Teamramrod","Tankforhire","Pocketheals","Trumpswall","Dotsdotsdots","Dotsdotsjr","Litercola","Watertrader","Spam","Firefirefire","Snoppdog","Freexp","Homedepot","Uglybetty","Mikehunt"}
 	for _,name in mylist do
 		if name~="Furygmswipes" and name~="Eversmile" and name ~= "Ahserviceorg" and name ~= "Ahserviceif" then 
+				RunLine(".character level "..name.." 59")
 				RunLine(".character level "..name.." 60")
 		end
+	end
+end
+function sendr()
+	myrewards={["Devun"]=15413,["Garret"]=15413,["Elery"]=15413,["Kalman"]=15413,["Verne"]=15411,["Hammond"]=15411,["Davrice"]=15411,["Carin"]=15411,["Emilee"]=15411,["Villetta"]=15411,["Amorine"]=15411,["Thana"]=15411,["Robbin"]=15411,["Tinuviel"]=15411,["Laurelia"]=15411,["Elleni"]=15411,["Kaladin"]=16058,["Malow"]=16058,["Rosita"]=16058,["Madeleina"]=16058,["Skyler"]=16058,["Hardrac"]=16058,["Bondrin"]=16058,["Silmelin"]=16058,["Noldralda"]=16058,["Elbereth"]=16058,["Arethel"]=16058,["Gwethriel"]=16058,["Trudy"]=15421,["Connie"]=15421,["Gaily"]=15421,["Kimmy"]=15421,["Kita"]=15421,["Clemidge"]=15421,["Ticey"]=15421,["Nell"]=15421,["Maligna"]=15421,["Charnel"]=15421,["Necria"]=15421,["Odia"]=15421}
+	for name,reward in myrewards do
+				RunLine(".send items "..name.." \"\" \"\" "..reward)
 	end
 end
 function bagsto()
@@ -3822,7 +4056,7 @@ function LockonTarget()
 		if TankTargetHealth()<.2 then AssistTank() return end
 		Print("VENOXIS TARGETING")
 		for i=1,5 do
-			if UnitName("target")=="Razzashi Cobra" and not UnitIsDead("target") then return end
+			if UnitName("target")=="Razzashi Cobra" and not UnitIsDead("target") and not GetRaidTargetIndex("target") then return end
 			TargetNearestEnemy()
 		end
 	end
@@ -5162,6 +5396,7 @@ function lock_single()
 		if MyHealthPct()<.1 then cast("Drain Life") end
 		if NumShards()<20 and UnitHealth("target")/UnitHealthMax("target")<.10 and UnitLevel("target")>0 then cast("Drain Soul") end
 		if JindoBurn() then cast("Searing Pain") end
+ 		if UnitName("target")=="Spawn of Mar'li" and not UnitIsDead("target") then cast("Searing Pain") end
 		if (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel") and buffed("Shadow and Frost Reflect","target") then
 			cast("Searing Pain")
 			return
@@ -6927,7 +7162,7 @@ function boomkin_single()
 	SaveChump()
 	Decurse()
 	if not IAmFocus() then LockonTarget() end
-	if UnitName("target")=="Azuregos" and buffed("Magic Shield","target") then SpellStopCasting() return end
+	if not MB_My_cc_target and UnitName("target")=="Azuregos" and buffed("Magic Shield","target") then SpellStopCasting() return end
 	if IAmFocus() or (not IsAltKeyDown() and TargetInCombat()) then
 		if UnitAttackingTank() and not buffed("Moonfire","target") then BuffCast("Moonfire") end
 		cast("Starfire")
@@ -7246,7 +7481,7 @@ function mage_fire_single()
 	if TankTarget("Gehennas") or TankTarget("Magmadar") then SelfBuff("Fire Ward") end
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
-	if not IsCombustion() and MB_castingfrost and not MB_stopcasting then SpellStopCasting() MB_stopcasting=true end
+	if not MB_My_cc_target and not IsCombustion() and MB_castingfrost and not MB_stopcasting then SpellStopCasting() MB_stopcasting=true end
 	if ImBusy() then return end
 	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Ruby") end
 	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Citrine") end
@@ -7258,10 +7493,14 @@ function mage_fire_single()
 	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
 	if TargetInCombat() or IAmFocus() then
 		if not buffed("Detect Magic","player") and (UnitName("target")=="Magmadar" or UnitName("target")=="Anubisath Sentinel" or UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Shazzrah") then BuffCast("Detect Magic") end
-		if IsAltKeyDown() and not (UnitName("target")=="Anubisath Sentinel" or UnitName("target")=="Anubisath Guardian") then SpellStopCasting() end
+		if IsAltKeyDown() and not MB_My_cc_target and not (UnitName("target")=="Anubisath Sentinel" or UnitName("target")=="Anubisath Guardian") then SpellStopCasting() end
 		if not IsAltKeyDown() then
 			--if UnitName("target")=="Ayamiss the Hunter" and (TargetHealthPct()<.75 and TargetHealthPct()>.69) then return end
 			if JindoBurn() then cast("Fire Blast") end
+			if UnitName("target")=="Spawn of Mar'li" and not UnitIsDead("target") then cast("Fire Blast") end
+			if UnitName("target")=="Spawn of Mar'li" and not UnitIsDead("target") then cast("Scorch") end
+            if UnitName("target")=="Spawn of Mar'li" and not UnitIsDead("target") and InMeleeRange() then cast("Blast Wave") end
+            if UnitName("target")=="Spawn of Mar'li" and not UnitIsDead("target") and InMeleeRange() then cast("Arcane Explosion") end
 			if (UnitName("target")=="Anubisath Guardian" or UnitName("target")=="Anubisath Sentinel") and buffed("Fire and Arcane Reflect","target") then
 				cast("Frostbolt")
 			end
@@ -7289,7 +7528,7 @@ function mage_fire_single()
 end
 function mage_fire_multi()
 	if TankTarget("Gehennas") or TankTarget("Magmadar") then SelfBuff("Fire Ward") end
-	if not IsCombustion() and MB_castingfrost and not MB_stopcasting then SpellStopCasting() MB_stopcasting=true end
+	if not MB_My_cc_target and not IsCombustion() and MB_castingfrost and not MB_stopcasting then SpellStopCasting() MB_stopcasting=true end
 	if ImBusy() then return end
 	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Ruby") end
 	if MyManaPct()<.8 and InCombat() then RunLine("/use Mana Citrine") end
@@ -7301,7 +7540,7 @@ function mage_fire_multi()
 	if MyManaPct()<.1 and not OnCooldown("Evocation") then cast("Evocation") end
 	if MB_do_an_interrupt then cast(MB_INT_spell[myclass]) MB_do_an_interrupt=nil end
 	if TargetInCombat() or IAmFocus() then
-		if IsAltKeyDown() then SpellStopCasting() end
+		if not MB_My_cc_target and IsAltKeyDown() then SpellStopCasting() end
 		if not IsAltKeyDown() then
 			cast("Combustion")
 			if InMeleeRange() then cast("Blast Wave") end
@@ -7424,7 +7663,7 @@ function mage_frost_multi()
 	if buffed("Evocation","player") then return end
 	if MyManaPct()<.1 and not OnCooldown("Evocation") then cast("Evocation") end
 	if TargetInCombat() or IAmFocus() then
-		if IsAltKeyDown() then SpellStopCasting() end
+		if not MB_My_cc_target and IsAltKeyDown() then SpellStopCasting() end
 		if not IsAltKeyDown() and TargetInCombat() then
 			if Jindo() and UnitName("target")~="Jin'do the Hexxer" then
 				cast("Fire Blast")
@@ -7454,7 +7693,7 @@ function mage_turbo()
 	use("Talisman of Ephemeral Power")
 	cast("Berserking")
 	cast("Presence of Mind")
-	cast("Arcane Power")
+	if not buffed("Arcane Power") then cast("Arcane Power") end
 	use(13)
 	use(14)
 end
@@ -8289,7 +8528,7 @@ function GetLink(item)
 		end
 	end end
 end
-MB_mountnames={"Horn of the ", "Reins of the Swift Stormsaber", "Swift White Steed", "Warhorse"," Mare","Horse","Timber Wolf","Kodo","Raptor"," Ram"," Mechanostrider"," Bridle","Charger"," Frostsaber"," Nightsaber", "Swift Palomino"}
+MB_mountnames={"Black Qiraji Resonating Crystal","Horn of the ", "Reins of the Swift Stormsaber", "Swift White Steed", "Warhorse"," Mare","Horse","Timber Wolf","Kodo","Raptor"," Ram"," Mechanostrider"," Bridle","Charger"," Frostsaber"," Nightsaber", "Swift Palomino"}
 function MountUp()
 	--Print("Mounting Up!")
 	if ImBusy() then return end
@@ -8399,7 +8638,6 @@ function HotEmUp(hot)
 	end
 end
 function HealTank()
-	if 1 then return end
   threshold=MB_healtank_threshold
   if TankTarget("Hakkar") or TankTarget("Kurinnaxx") then threshold=.75 end
   for i,tank in MB_tanklist do
@@ -8414,7 +8652,6 @@ function HealTank()
   end
 end
 function HealSelf()
-	if 1 then return end
   threshold=MB_healself_threshold
   local selfh=UnitHealth("player")/UnitHealthMax("player")
   InnerFocus("player")
@@ -8424,7 +8661,6 @@ function HealSelf()
   if selfh<threshold then  QuickHeal("player") end
 end
 function SaveChump()
-	if 1 then return end
   threshold=MB_savechump_threshold
   for name,id in MBID do 
     if id and IsAlive(id) then 
@@ -8535,6 +8771,7 @@ function RaidHeal()
 	for name,id in MBID do
 		local h_max=UnitHealthMax(id) ; h=UnitHealth(id)
 		local hdown=h_max-h ; hpct=h/h_max
+		local hpctdown=1-hpct
 		-- Make a healer list.
 		-- If the healer is a dedicated healer, leave him out.
 		-- If the healer has less than 500 mana leave him out. He can just do emergency healing
@@ -8546,14 +8783,14 @@ function RaidHeal()
 		--If he's alive he goes on the list
 		--If he has a dedicated healer, he does NOT go on the list. His dedicated healer needs to save him.
 		if IsAlive(id) and not DHActive(id) then
-			if hdown>0 and FindInTable(MB_raidtanks,name) and hpct<MB_healtank_threshold then
+			if hpctdown>.1 and FindInTable(MB_raidtanks,name) and hpct<MB_healtank_threshold then
 				MB_tanks_introuble[name]=h
-			elseif hdown>0 and FindInTable(MB_healerinraid,name) and hpct<MB_savechump_threshold then
+			elseif hpctdown>.1 and FindInTable(MB_healerinraid,name) and hpct<MB_savechump_threshold then
 				MB_healers_introuble[name]=h
-			elseif hdown>0 and (hpct<MB_savechump_threshold or (buffed("Hellfire",id) and hpct<.7)) then
+			elseif hpctdown>.1 and (hpct<MB_savechump_threshold or (buffed("Hellfire",id) and hpct<.7)) then
 				MB_chumps_introuble[name]=h
 			end
-			if hdown>0 then MB_raid_damage[name]=h end
+			if hpctdown>.1 then MB_raid_damage[name]=h end
 		end
 	end
 	--order the three lists of hurt people into an ordered list of hurt people. introuble toons might be listed twice.

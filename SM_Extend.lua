@@ -1,4 +1,4 @@
-MB_version="010519b"
+MB_version="012919b"
 --IMPORTANT NOTE TO USERS: IF YOU ARE EDITING THIS FILE BY HAND, YOU WILL RECEIVE NO SUPPORT.
 --THIS FILE IS ONLY MEANT TO BE UPDATED BY 5MMB.BAT USING INFORMATION YOU PROVIDE IN TOONLIST.TXT
 --
@@ -6,6 +6,7 @@ Printd("SM_extend.lua loaded OK!")
 --IF YOU ARE COMBINING RAIDS WITH SOMEONE ELSE, MAKE SURE YOU CHOOSE A UNIQUE RAID NAME IN THIS VARIABLE
 MB_RAID = "MULTIBOX_toddsraid"
 --------------------------------------------User edited values--------------------------------------
+MB_HighCPU=true
 MB_autoskilltrain=true
 MB_spellcast_counter=0
 --Warlocks will soulstone rezzers during setup
@@ -36,7 +37,7 @@ MB_tanklist={"Skeleton","Eversmile","Battlefield","Bloodfury","Starlight","Furys
 --ONLY YOUR HEALERS go in this list. Not guest healers. DO NOT PUT DPS SPEC TOONS HERE. THEY WILL NOT HEAL.
 MB_healer_list={"Tremor","Starfire","Moonlight","Windfurious","Earthshock","Bloodlust","Frostshock","Id","Refill","Bubbling","Jindo"}
 --This is a list of all your toons and any other toon you want to auto-invite to raid, even if they are not yours.
-MB_toonlist={"Furygmswipes","Tremor","Starfire","Skeleton","Totemic","Eversmile","Chaosbolt","Battlefield","Brutalio","Moonlight","Hellfire","Windfurious","Afflicted","Earthshock","Flameshocked","Bloodlust","Explode","Earthshield","Leonidas","Frostshock","Fireball","Id","Deathwish","Refill","Scorch","Bubbling","Icefloes","Jindo","Monterey","Mindflay","Yellowstone","Bloodfury","Badlands","Starlight","Olympic","Furyswipes","Stormhammer","Everglades","Toshredsusay","Brutalia","Crookshanks"}
+MB_toonlist={"Furygmswipes","Levelnator","Tremor","Starfire","Skeleton","Totemic","Eversmile","Chaosbolt","Battlefield","Brutalio","Moonlight","Hellfire","Windfurious","Afflicted","Earthshock","Flameshocked","Bloodlust","Explode","Earthshield","Leonidas","Frostshock","Fireball","Id","Deathwish","Refill","Scorch","Bubbling","Icefloes","Jindo","Monterey","Mindflay","Yellowstone","Bloodfury","Badlands","Starlight","Olympic","Furyswipes","Stormhammer","Everglades","Toshredsusay","Brutalia","Crookshanks"}
 --When in raid with group loot, always pass on loot unless this is set to false
 MB_autopass=true
 --This is the powerleveler your lowbies will follow when powerleveling
@@ -104,7 +105,7 @@ FsR_SummoningLastCast = GetTime()
 --*Fs
 raid_state=1
 party_size=1
-MB_spellsToInt={"Arcane Explosion","Greater Heal","Holy Fire","Drain Life","Heal","Cripple","Heal","Venom Spit","Banish"}
+MB_spellsToInt={"Arcane Explosion","Great Heal","Greater Heal","Holy Fire","Drain Life","Heal","Cripple","Heal","Venom Spit","Banish"}
 MB_spellsToStun={"Unstable Concoction"}
 MB_maxheal={Druid=8,Priest=8,Shaman=8,Paladin=8}
 MB_reportcpu=false
@@ -1791,11 +1792,8 @@ function FSMB:OnEvent()
 		FsR_TrainerIsUP = false
 	elseif event=="TRAINER_CLOSED" then
 	elseif event=="TRADE_SHOW" then 
-		if UnitName("player")=="Furygmswipes" or UnitName("player")=="Titanator" then 
-			Print("Leveling you up")
-			RunLine(".character level "..UnitName("NPC").." 59")
-			RunLine(".character level "..UnitName("NPC").." 60")
-		end
+			TargetUnit("NPC")
+			sixty()
 			MB_tradeopen=true
 	elseif event=="TRADE_CLOSED" then MB_tradeopen=false
 	elseif ( event=="TRADE_SKILL_SHOW") then
@@ -2765,7 +2763,9 @@ function MakeALine()
 	end
 	for i=1,GetNumRaidMembers() do
 		local name,_,group=GetRaidRosterInfo(i)
-		table.insert(MB_groups[group],name)
+		if FindInTable(MB_toonlist,name) then 
+			table.insert(MB_groups[group],name)
+		end
 	end
 	for g=1,8 do
 		table.sort(MB_groups[g])
@@ -3226,6 +3226,12 @@ function redem()
 	RunLine(".learn 7328")
 	RunLine(".learn 20775")
 end
+function bear()
+	RunLine(".learn 5487")
+	RunLine(".learn 6795")
+	RunLine(".learn 6807")
+	RunLine(".learn 1066")
+end
 function throwtots()
 mylist={"maddiz","shangota",}
 	
@@ -3240,7 +3246,7 @@ function send(name,item)
 	RunLine(".send items "..name.." \"\" \"\" "..item)
 end
 function sendl()
-	mylist={"Devun","Garret","Elery","Kalman","Verne","Hammond","Davrice","Carin","Emilee","Villetta","Amorine","Thana","Robbin","Tinuviel","Laurelia","Elleni","Kaladin","Malow","Rosita","Madeleina","Skyler","Trudy","Connie","Gaily","Kimmy","Kita","Clemidge","Ticey","Nell","Maligna","Charnel","Necria","Odia","Hardrac","Bondrin","Silmelin","Noldralda","Elbereth","Arethel","Gwethriel"}
+	mylist={"Kemepowaw","Lorenabobit","Kemewarr","Kemedrudu","Kishar","Ayahuasca","Nahtiri","Ramboh","Neliphem","Nazgul","Nazzgul","Nazgool","Bhuta","Rheinmetal","Sabu","Olorinn","Curumo","Awendil","Alatar","Pallando","Dogath","Begathan","Lintuli","Crimerian","Calisian","Bludthunder","Ruantorne","Krankajawo","Barathrume","Eikal","Triruk","Rapshader","Trazzahn","Mezilijina","Rjanxil","Grokkai","Rhinaflu","Crixaura","Brebetha","Uzaris"}
 	for _,name in mylist do 
 	RunLine(".send items "..name.." \"\" \"\" 14679")
 end
@@ -3458,7 +3464,7 @@ function throwad()
 	end
 end
 function throwquest(number)
-	mylist={"Samsage","Leggomyaggro","Tankanspank","Bruiseeasy","Samhots","Shrimpboat","Terribleheal","Stankyfeet","Flashofstank","Flashofhappy","Flashoflight","Unholyfeels","Shadeshade","Slimshadey","Drytoast","Stalebagel","Hurtu","Samsonfury","Samstab","Tsocool","Awfuldps","Fireplace","Onemoremage","Pizardwizard","Coffeedrank","Coffeedrink","Meterbeater","Moredamage","Somedamage","Lowdps","Guddps","Noheals","Plzcrit","Critit","Evo","Trevordog","Trevdog","Terribledps","Gankstab","Stankyganky"}
+	mylist=MB_toonlist
 	for _,name in mylist do 
 		TargetByName(name,1)
 		RunLine(".quest add "..number)
@@ -3508,6 +3514,7 @@ function addkeysh()
 	RunLine(".npc additem 7146 -1 -1 0")
 	RunLine(".npc additem 11000 -1 -1 0")
 	RunLine(".npc additem 12344 -1 -1 0")
+	RunLine(".npc additem 18249 -1 -1 0")
 end
 function addkeysa()
 	RunLine(".npc additem 16309 -1 -1 0")
@@ -3517,6 +3524,7 @@ function addkeysa()
 	RunLine(".npc additem 7146 -1 -1 0")
 	RunLine(".npc additem 11000 -1 -1 0")
 	RunLine(".npc additem 12344 -1 -1 0")
+	RunLine(".npc additem 18249 -1 -1 0")
 end
 function petspells()
 	if UnitClass("target")~="Hunter" then return end
@@ -3527,17 +3535,32 @@ function petspells()
 	RunLine(".learn 883")
 	RunLine(".learn 2641")
 end
+function fishing()
+	RunLine(".learn 18248")
+	RunLine(".setskill 356 300")
+end
+function firsta()
+	RunLine(".learn 19902")
+	RunLine(".setskill 129 300")
+end
+function cook()
+	RunLine(".learn 18260")
+	RunLine(".setskill 185 300")
+end
 function sixty()
-	mylist={"Teamramrod","Tankforhire","Pocketheals","Trumpswall","Dotsdotsdots","Dotsdotsjr","Litercola","Watertrader","Spam","Firefirefire","Snoppdog","Freexp","Homedepot","Uglybetty","Mikehunt"}
-	for _,name in mylist do
-		if name~="Furygmswipes" and name~="Eversmile" and name ~= "Ahserviceorg" and name ~= "Ahserviceif" then 
-				RunLine(".character level "..name.." 59")
-				RunLine(".character level "..name.." 60")
-		end
-	end
+	if not (UnitName("player")=="Levelnator" or UnitName("player")=="Furygmswipes") then return end
+	if UnitName("target")~=UnitName("NPC") then TargetUnit("NPC") end
+	if (UnitName("player")=="Levelnator" or UnitName("player")=="Furygmswipes") and UnitName("target")~=UnitName("NPC") then TargetUnit("NPC") end
+	if UnitLevel("NPC") < 60 then
+	  RunLine(".character level 60")
+        end
+	--redem()
+	fishing()
+	firsta()
+	cook()
 end
 function sendr()
-	myrewards={["Devun"]=15413,["Garret"]=15413,["Elery"]=15413,["Kalman"]=15413,["Verne"]=15411,["Hammond"]=15411,["Davrice"]=15411,["Carin"]=15411,["Emilee"]=15411,["Villetta"]=15411,["Amorine"]=15411,["Thana"]=15411,["Robbin"]=15411,["Tinuviel"]=15411,["Laurelia"]=15411,["Elleni"]=15411,["Kaladin"]=16058,["Malow"]=16058,["Rosita"]=16058,["Madeleina"]=16058,["Skyler"]=16058,["Hardrac"]=16058,["Bondrin"]=16058,["Silmelin"]=16058,["Noldralda"]=16058,["Elbereth"]=16058,["Arethel"]=16058,["Gwethriel"]=16058,["Trudy"]=15421,["Connie"]=15421,["Gaily"]=15421,["Kimmy"]=15421,["Kita"]=15421,["Clemidge"]=15421,["Ticey"]=15421,["Nell"]=15421,["Maligna"]=15421,["Charnel"]=15421,["Necria"]=15421,["Odia"]=15421}
+	myrewards={["Elyas"]="18879",["Mandragoran"]="18495",["Gareth"]="11669",}
 	for name,reward in myrewards do
 				RunLine(".send items "..name.." \"\" \"\" "..reward)
 	end
@@ -6032,6 +6055,12 @@ function PallySurvive()
 	if healthpct<1 and (buffed("Divine Protection","player") or buffed("Blessing of Protection","player")) then RunLine("/qh player") return end
 	if healthpct<.1 then TargetUnit("player") cast ("Lay on Hands") TargetUnit("playertarget") end
 end
+function Seals()
+	if MyClassOrder()==1 and InMeleeRange() then SelfBuff("Seal of Light") end
+        if not buffed("Judgement of Light","target") and TargetInCombat() then cast("Judgement") end
+    if MyClassOrder()==2 and InMeleeRange() then SelfBuff("Seal of Wisdom") end
+        if not buffed("Judgement of Wisdom","target") and TargetInCombat() then cast("Judgement") end
+end
 function pally_heal_single()
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
  	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
@@ -6051,6 +6080,7 @@ function pally_heal_single()
 	else
 		if IsCurrentAction(72) then UseAction(72) end;
 	end
+	Seals()
 	RaidHeal()
 	BlessParty()
 end
@@ -6070,6 +6100,7 @@ function pally_heal_multi()
 	else
 		if IsCurrentAction(72) then UseAction(72) end;
 	end
+	Seals()
 	RaidHeal()
 	BlessParty()
 end
@@ -6501,7 +6532,6 @@ function shammy_ele_single()
 	if buffed("Living Bomb","player") then Follow_Dude(MB_bombfollow) end
 	if buffed("Threatening Gaze","player") then Follow_Dude(MB_gazefollow) end
 	if ImBusy() then return end
-	if HealSelf(.3) then return end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	if TankTarget("The Prophet Skerem") then AOEHeal() return end
 	HealSelf()
@@ -6540,7 +6570,6 @@ function shammy_ele_single()
 end
 function shammy_ele_multi()
 	if ImBusy() then return end
-	if HealSelf(.3) then return end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	if TankTarget("The Prophet Skerem") then AOEHeal() return end
 	HealSelf()
@@ -6573,7 +6602,6 @@ function shammy_ele_multi()
 end
 function shammy_ele_aoe()
 	if ImBusy() then return end
-	if HealSelf(.3) then return end
 	if MyManaPct()<.1 then RunLine("/use Major Mana Potion") end
 	--Stoneclaw()
 	HealSelf()
@@ -7280,6 +7308,10 @@ function priest_heal_single()
 	if TankTarget("Obsidian Eradicator") or TankTarget("Moam") then MB_Assist() cast("Mana Burn") end
 	if TankTarget("Azuregos") and IsAltKeyDown() then return end
 	SelfBuff("Inner Fire")
+	if not OnCooldown("Fear Ward") and FearBoss() then
+		TargetUnit(MBID[TankName()])
+		if UnitName("target")==TankName() then BuffCast("Fear Ward") end
+	end
 	HealTank()
         HealSelf()
 	SaveChump()
@@ -7300,6 +7332,10 @@ function priest_heal_multi()
         HealSelf()
 	SaveChump()
 	Decurse()
+	if not OnCooldown("Fear Ward") and FearBoss() then
+		TargetUnit(MBID[TankName()])
+		if UnitName("target")==TankName() then BuffCast("Fear Ward") end
+	end
 	RaidHeal()
 	Fade()
 	if buffed("Last Stand","target") or buffed("Shield Wall","target") or buffed("Frenzied Regeneration","target") then
@@ -7383,6 +7419,9 @@ function priest_shadow_multi()
 			if UnitLevel("player")<13 then cast("Smite") end
 		end
 	end
+end 
+function FearBoss()
+	return TankTarget("Magmadar") or TankTarget("Onyxia") or TankTarget("High Priestess Jeklik")
 end
 function priest_shadow_aoe()
 	if ImBusy() then return end
@@ -7444,6 +7483,7 @@ function IsShadowWeaving()
 	if EM>0 then return true else return nil end
 end
 function RollingIgnite()
+	Print("In Rolling Ignite")
 	-- On Vanilla gaming, the fire mage that gets a crit and starts ignite will score 40% of damage over time of that crit.
 	-- But he will also score the SAME 40% damage for ANY OTHER MAGE CRITS on that same target.
 	-- So we arrange mages as Combustion Mages (guarantees a crit) and support mages.
@@ -7455,22 +7495,26 @@ function RollingIgnite()
 	-- should only cast scorch or fireblast to keep the ignite up and ticking.
 	if not buffed("Ignite","target") then
 		if IsCombustion() then
+			Print("Ignite:Casting Combustion or Fireball")
 			use("Talisman of Ephemeral Power")
-			cast("Combustion")
+			if not OnCooldown("Combustion") then cast("Combustion") end
 			cast("Fireball")
 		else
+			Print("Ignite:Casting Frostbolt")
 			MB_ignited=false
 			MB_castingfrost=true
 			cast("Frostbolt")
 		end
 	else
 		if IsCombustion() then
-		use("Talisman of Ascendance")
+			Print("No ignite:Casting Scorch")
+			use("Talisman of Ascendance")
 			cast("Scorch")
 		else
 			MB_ignited=true
 			MB_castingfrost=false
 			if not MB_castingfrost and MB_stopcasting then MB_stopcasting=false end
+			Print("No ignite:Casting Fireblast/POM/Scorch")
 			cast("Fire Blast")
 			cast("Presence of Mind")
 			cast("Scorch")
@@ -7542,7 +7586,7 @@ function mage_fire_multi()
 	if TargetInCombat() or IAmFocus() then
 		if not MB_My_cc_target and IsAltKeyDown() then SpellStopCasting() end
 		if not IsAltKeyDown() then
-			cast("Combustion")
+			if not OnCooldown("Combustion") then cast("Combustion") end
 			if InMeleeRange() then cast("Blast Wave") end
 			if InMeleeRange() then cast("Frost Nova(Rank 1)") end
 			if InMeleeRange() and frozen() then cast("Cone of Cold") end
@@ -7583,7 +7627,7 @@ function mage_fire_aoe()
 	cast("Arcane Explosion")
 end
 function CancelAura(buff)
-	for i=1,16 do
+	for i=1,32 do
 	buffname=GetPlayerBuff(i)
 	if not buffname then return end
 	if buffname==buff then CancelPlayerBuff(i) end
@@ -7689,7 +7733,7 @@ function mage_turbo()
 	if not TargetInCombat() then return end
 	if not InCombat() then return end
 	SpellStopCasting()
-	cast("Combustion")
+        if not OnCooldown("Combustion") then cast("Combustion") end
 	use("Talisman of Ephemeral Power")
 	cast("Berserking")
 	cast("Presence of Mind")
@@ -8643,10 +8687,12 @@ function HealTank()
   for i,tank in MB_tanklist do
     local id=MBID[tank]
     if not id or not IsAlive(id) then return end
-    InnerFocus(id)
-    NS(id)
-    Shield(id)
-    Bubble(id)
+    if MB_HighCPU then 
+    	InnerFocus(id)
+    	NS(id)
+    	Shield(id)
+    	Bubble(id)
+    end
     if UnitHealth(id)/UnitHealthMax(id)>threshold then return end
     QuickHeal(id)
   end
@@ -8654,20 +8700,22 @@ end
 function HealSelf()
   threshold=MB_healself_threshold
   local selfh=UnitHealth("player")/UnitHealthMax("player")
-  InnerFocus("player")
-  NS("player")
-  Shield("player")
-  Bubble("player")
+  	InnerFocus("player")
+  	NS("player")
+  	Shield("player")
+  	Bubble("player")
   if selfh<threshold then  QuickHeal("player") end
 end
 function SaveChump()
   threshold=MB_savechump_threshold
   for name,id in MBID do 
     if id and IsAlive(id) then 
-      InnerFocus(id)
-      NS(id)
-      Shield(id)
-      Bubble(id)
+	if MB_HighCPU then 
+      		InnerFocus(id)
+      		NS(id)
+      		Shield(id)
+      		Bubble(id)
+	end
       local chumphp=UnitHealth(id)/UnitHealthMax(id)
       if buffed("Hellfire",id) then Print("Saving warlock "..name.." aoe at below .7") threshold=.7 end
       if chumphp<threshold then  

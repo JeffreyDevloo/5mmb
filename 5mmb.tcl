@@ -1,10 +1,12 @@
 set version 011719a
+# Toon list processing
 array unset toons
 array unset autodelete
 array unset raidorder10
 array unset raidorder20
 array unset raidorder40
 array unset levelingparty
+set numtoons 0
 set dontsoulstone ""
 set dontflashframe ""
 set useautotrade ""
@@ -31,213 +33,332 @@ set goldto ""
 set boeto ""
 set monitor 4k
 set oem oem3
+# End toonlist processing
 set HKN 5mmb_HKN.txt
 set SME "Interface\\Addons\\SuperMacro\\SM_Extend.lua"
 #set SME SM_Extend.lua
 set fail false
-if { ! [file exist toonlist.txt ] } {
-	puts "ERROR: YOU MUST HAVE A FILE NAMED toonlist.txt IN THIS DIRECTORY"
-	puts ""
-	puts "FORMAT OF FILE:"
-	puts "# <-this is a comment. It is ignored by the program"
-	puts "You need to specify your multibox accounts with 5 words starting with box"
-	puts "box <accountname> <password> <toon name> <role>"
-	puts "Role can be tank / melee/ caster / hunter /healer"
-	puts "EVERY TOON must have a role"
-	puts "Windows for the toons will come out on the screen in the order you list them."
-	puts "First toon will be in upper left"
-	puts "Last toon will be in lower right"
-	puts "Tanks will get bigger windows, if possible"
+
+
+proc wait_for_any_key {} {
+	puts "hit any key to return"
+	gets stdin char
+}
+
+
+# Validate the existence of the toonlist.
+proc validate_toonlist {} {
+	if { ! [file exist toonlist.txt ] } {
+		puts "ERROR: YOU MUST HAVE A FILE NAMED toonlist.txt IN THIS DIRECTORY"
+		puts ""
+		puts "FORMAT OF FILE:"
+		puts "# <-this is a comment. It is ignored by the program"
+		puts "You need to specify your multibox accounts with 5 words starting with box"
+		puts "box <accountname> <password> <toon name> <role>"
+		puts "Role can be tank / melee/ caster / hunter /healer"
+		puts "EVERY TOON must have a role"
+		puts "Windows for the toons will come out on the screen in the order you list them."
+		puts "First toon will be in upper left"
+		puts "Last toon will be in lower right"
+		puts "Tanks will get bigger windows, if possible"
+		return false
+	}
+	return true
+}
+
+
+# Read the toonlist
+proc parse_toonlist {} {
+
+	# Validate the length of the line and throw exception if it doens't match
+	proc validate_line_length { line {expected_elements 1} {message ""} } {
+		if { [llength $line] != $expected_elements } {
+			if { [$message != ""] } {
+				set error_message $message
+			} else {
+				switch $expected_elements {
+					1 {
+						set error_message "ERROR: should be only one element on line $line"
+					}
+					default {
+						set error_message "ERROR: incorrect number of elements line $line"
+					}
+				}
+			}
+			return -code error $error_message
+		}
+	}
+
+	set tL [open toonlist.txt r]
+	set supported_keyboard {"us" "uk" "de" "other"}
+	set supported_monitors {"1k" "3k" "4k" }
+	if { $tL != "" } {
+		puts "Found toonlist.txt"
+	} else {
+		return -code error "ERROR: Could not open toonlist.txt in read mode."
+	}
+	if {[catch {
+		while { [gets $tL line] >= 0 } {
+			set line [regsub "\n" $line "" ]
+			if { $line == "" } { continue }
+			set line [string trim $line]
+			if { [string index $line 0] == "#" } {
+				continue
+			}
+			set first_word [string tolower [lindex $line 0]]
+			switch $first_word {
+				"box" {
+					if { [llength $line] < 5 } { return -code error "ERROR: box takes 4 or 5 arguments in toonlist line $line" }
+					set account [lindex $line 1]
+					set passwd [lindex $line 2]
+					set name [lindex $line 3]
+					set role [lindex $line 4]
+					set raidletters [string tolower [lrange $line 5 end]]
+					set raids ""
+					foreach userraid $raidletters {
+						regexp {([a-z]|)([0-9])?} $userraid match userraid cpunum
+						if { $cpunum=="" } { set cpunum 1 }
+						lappend raids ${userraid}${cpunum}
+					  }
+					if { $raids == "" } { set raids m1 }
+					set ::toons($::numtoons) "$account $passwd $name $role $raids"
+					incr ::numtoons
+				}
+				"keyboard" {
+					validate_line_length $line 2
+					set keyboard [lindex $line 1]
+					if { [lsearch -exact $supported_keyboard $keyboard ] == -1 }  { return -code error "ERROR: keyboard choices are us/uk/de/other" }
+					switch $keyboard {
+						"de" {
+							set oem "oem5"
+						}
+						"other" {
+							set oem "oem7"
+						}
+						"uk" {
+							set oem "oem8"
+						}
+						default {
+							set oem "oem3"
+						}
+					}
+					set ::oem $oem
+				}
+				"monitor" {
+					validate_line_length $line 2
+					set monitor [lindex $line 1]
+					if { [lsearch -exact $supported_monitors $monitor] == -1 }  { return -code error "ERROR: monitor choices are 1k/3k/4k"}
+					set ::monitor $monitor
+				}
+				"computer" {
+					validate_line_length $line 3
+					set ::computer([lindex $line 1]) [lindex $line 2]
+				}
+				"raidname" {
+					validate_line_length $line 2
+					if { [llength [lindex $line 1]] > 1 } { return -code error "ERROR: arg must be one name $line" }
+					set ::raidname [lindex $line 1]
+				}
+				"powerlevel" {
+					validate_line_length $line 2
+					if { [llength [lindex $line 1]] > 1 } { return -code error "ERROR: arg must be one name $line" }
+					set ::powerleveler [lindex $line 1]
+				}
+				"bombfollow" {
+					validate_line_length $line 2
+					if { [llength [lindex $line 1]] > 1 } { return -code error "ERROR: arg must be one name $line" }
+					set ::bombfollow [lindex $line 1]
+				}
+				"gazefollow" {
+					validate_line_length $line 2
+					if { [llength [lindex $line 1]] > 1 } { return -code error "ERROR: arg must be one name $line" }
+						set ::gazefollow [lindex $line 1]
+				}
+				"dedicated_healers" {
+					if { [expr ([llength $line]-1) % 2] } { return -code error "ERROR: must be sequence of paired tank and healer $line" }
+					set ::dedicated_healers [lrange $line 1 end]
+				}
+				"goldto" {
+					validate_line_length $line 2
+					if { [llength [lindex $line 1]] > 1 } { return -code error "ERROR: arg must be one name $line" }
+					set ::goldto [lindex $line 1]
+				}
+				"boeto" {
+					if { [llength $line]  < 2 } { return -code error "ERROR: incorrect number of elements line $line" }
+					set ::boeto [lrange $line 1 end]
+				}
+				"itemto" {
+					if { [llength $line] < 3 } { return -code error "ERROR: incorrect number of elements line $line" }
+					set ::itemto([lindex $line 1]) [lrange $line 2 end]
+				}
+				"maxheal" {
+					validate_line_length $line 5
+					set ::maxheal [lrange $line 1 end]
+				}
+				"dontautodelete" {
+					validate_line_length $line 1
+					set ::dontautodelete true
+				}
+				"dontsoulstone" {
+					validate_line_length $line 1
+					set ::dontsoulstone true
+				}
+				"dontflashframe" {
+					validate_line_length $line 1
+					set ::dontflashframe true
+				}
+				"use2monitors" {
+					validate_line_length $line 1
+					set ::use2monitors true
+				}
+				"useautotrade" {
+					validate_line_length $line 1
+					set ::useautotrade true
+				}
+				"dontbuystacks" {
+					validate_line_length $line 1
+					set ::dontbuystacks true
+				}
+				"dontautopass" {
+					validate_line_length $line 1
+					set ::dontautopass
+				}
+				"autoturn" {
+					validate_line_length $line 1
+					set ::autoturn true
+				}
+				"clearcastmissiles" {
+					validate_line_length $line 1
+					set ::clearcastmissiles true
+				}
+				"warlockpet" {
+					validate_line_length $line 2
+					set ::warlockpet [lindex $line 1]
+				}
+				"healhellfireat" {
+					validate_line_length $line 2
+					set ::healhellfireat [lindex $line 1]
+				}
+				"healtankat" {
+					validate_line_length $line 2
+					set ::healtankat [lindex $line 1]
+				}
+				"healchumpat" {
+					validate_line_length $line 2
+					set ::healchumpat [lindex $line 1]
+				}
+				"healselfat" {
+					validate_line_length $line 2
+					set ::healselfat [lindex $line 1]
+				}
+				"autodelete" {
+					validate_line_length $line 3
+					if {  [expr ([llength $line ]-1) % 2] } { return -code error "ERROR: must be even number of elements after command $line" }
+					foreach {item stack} [lrange $line 1 end] {
+						set ::autodelete($item) $stack
+					}
+				}
+				"levelingparty" {
+					if { [llength $line] < 2 || [llength $line] > 6  } { return -code error "ERROR: incorrect number of elements line $line. Must be between one and 5 toon names" }
+					set sql [string totitle [ string tolower [lindex $line 1]]]
+					set sqmem [lrange $line 2 end]
+					set ::levelingparties($sql) $sqmem
+				}
+				"raidorder10" {
+					if { [llength [lindex $line 1]] >11 } { return -code error "ERROR: second arg must 10 or less names $line"}
+					set index [expr [array size raidorder10] + 1]
+					set ::raidorder10($index) [lrange $line 1 end]
+				}
+				"raidorder20" {
+					if { [llength [lindex $line 1]] >21 } { return -code error "ERROR: second arg must 20 or less names $line" }
+					set index [expr [array size raidorder20] + 1]
+					set ::raidorder20($index) [lrange $line 1 end]
+				}
+				"raidorder40" {
+					if { [llength [lindex $line 1]] >41 } { puts "ERROR: second arg must 40 or less names $line" ; puts "hit any key to return" ; gets stdin char ; return }
+					set index [expr [array size raidorder40] + 1]
+					set ::raidorder40($index) [lrange $line 1 end]
+				}
+			}
+		}
+	} result] } {
+		# On error
+		close $tL
+		return -code error $result
+	} else {
+		# On result
+		close $tL
+	}
+}
+
+# Validate the existence of the passed exe names
+# Checks the full list. Does not exit after a single failure
+# Returns true if an empty list was passed
+proc validate_wow_exes { exe_names {mode "and"} } {
+	set res true
+	foreach {exe_name} $exe_names {
+		set exists [file exist $exe_name]
+		if { ! $exists } {
+			puts "ERROR: THIS PROGRAM MUST BE THE DIRECTORY WHERE YOUR WOW.EXE resides. $exe_name not found."
+		}
+		set res [expr $res && $exists]
+	}
+	return $res
+}
+
+# Ask for overwrite. Returns true if user said OK to the overwrite
+proc ask_overwrite {file_name} {
+	set overwrite false
+	if { [file exist $file_name] } {
+	  puts "DO YOU WANT TO OVERWRITE $file_name ?"
+	  puts "You should back this file up first."
+	  puts "ARE YOU SURE YOU WANT TO OVERWRITE $file_name? y/n"
+	  gets stdin char
+	  if { $char!="Y" && $char!="y" } {
+		puts "File won't be changed."
+		set overwrite true
+		wait_for_any_key
+	  }
+	}
+	return $overwrite
+}
+
+#
+# Start program
+#
+if {![validate_toonlist] } {
 	return
 }
-if { ! [file exist "wow.exe" ] && ! [file exist "Wow.exe"] } {
-	puts "ERROR: THIS PROGRAM MUST BE THE DIRECTORY WHERE YOUR WOW.EXE resides"
-	return
-}
+
+# @todo fix
+#if { ! ([validate_wow_exes {{"WoW.exe"}} ] || [validate_wow_exes {{"wow.exe"}} ]) } {
+#	puts "No wow.exe found. Put the program in the wow.exe directory."
+#	return
+#}
+
 set nohotkeyoverwrite false
 set nosmoverwrite false
-if { $fail } { puts "hit any key to return" ; gets stdin char ; return }
-set tL [open toonlist.txt r]
-if { [set tL [open toonlist.txt r]] != "" } {
-  puts "Found toonlist.txt"
-} else {
-  puts "ERROR: Could not open toonlist.txt in read mode."
+if { $fail } {
+	wait_for_any_key
+	return
 }
-if { [file exist $HKN] } {
-  puts "DO YOU WANT TO OVERWRITE $HKN ?"
-  puts "You should back this file up first."
-  puts "ARE YOU SURE YOU WANT TO OVERWRITE $HKN? y/n"
-  gets stdin char
-  if { $char!="Y" && $char!="y" } {
-    puts "File won't be changed."
-    set nohotkeyoverwrite true
-    puts "hit enter to continue" ; gets stdin char
-  }
+
+set nohotkeyoverwrite [ask_overwrite $HKN]
+set nosmoverwrite [ask_overwrite $SME]
+if {[catch {
+    parse_toonlist
+} result]} {
+	wait_for_any_key
 }
-if { [file exist $SME] } {
-  puts "DO YOU WANT TO OVERWRITE $SME ?"
-  puts "You should back this file up first."
-  puts "ARE YOU SURE YOU WANT TO OVERWRITE $SME? y/n"
-  gets stdin char
-  if { $char!="Y" && $char!="y" } {
-    puts "File won't be changed."
-	set nosmoverwrite true
-    puts "hit enter to contineue" ; gets stdin char
-  }
-}
-set numtoons 0
-while { [gets $tL line] >= 0 } {
-  set line [regsub "\n" $line "" ]
-  if { $line == "" } { continue }
-  set line [string trim $line] 
-  if { [string index $line 0] != "#" } {
-    if { [string tolower [lindex $line 0]] == "box" } {
-      if { [llength $line] < 5 } { puts "ERROR: box takes 4 or 5 arguments in toonlist line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-      set account [lindex $line 1] 
-      set passwd [lindex $line 2] 
-      set name [lindex $line 3] 
-      set role [lindex $line 4] 
-      set raidletters [string tolower [lrange $line 5 end]]
-			set raids ""
-			foreach userraid $raidletters { 
-		    regexp {([a-z]|)([0-9])?} $userraid match userraid cpunum
- 		    if { $cpunum=="" } { set cpunum 1 } 
-        lappend raids ${userraid}${cpunum}     
-      }
-			if { $raids == "" } { set raids m1 }
-      set toons($numtoons) "$account $passwd $name $role $raids"
-      incr numtoons
-    } elseif { [string tolower [lindex $line 0]] == "keyboard" } {
- 		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set keyboard [lindex $line 1] 
-				if { $keyboard !="us" && $keyboard !="uk" && $keyboard !="de" && $keyboard !="other" }  { puts "ERROR: keyboard choices are us/uk/de/other" ; return }
-				if { $keyboard=="de" } {
-					set oem "oem5"
-				} elseif { $keyboard=="other" } {
-					set oem "oem7"
-				} elseif { $keyboard=="uk" } {
-					set oem "oem8"
-				} else {
-					set oem "oem3"
-				}
-    } elseif { [string tolower [lindex $line 0]] == "monitor" } {
- 		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set monitor [lindex $line 1] 
-				if { $monitor !="1k" && $monitor !="3k" && $monitor !="4k" }  { puts "ERROR: monitor choices are 1k/3k/4k" ; return }
-    } elseif { [string tolower [lindex $line 0]] == "computer" } {
- 		  	if { [llength $line] != 3 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set computer([lindex $line 1]) [lindex $line 2]
-    } elseif { [string tolower [lindex $line 0]] == "raidname" } {
- 		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
- 		  	if { [llength [lindex $line 1]] > 1 } { puts "ERROR: arg must be one name $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set raidname [lindex $line 1]
-    } elseif { [string tolower [lindex $line 0]] == "powerleveler" } {
- 		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
- 		  	if { [llength [lindex $line 1]] > 1 } { puts "ERROR: arg must be one name $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set powerleveler [lindex $line 1]
-    } elseif { [string tolower [lindex $line 0]] == "bombfollow" } {
- 		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
- 		  	if { [llength [lindex $line 1]] > 1 } { puts "ERROR: arg must be one name $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set bombfollow [lindex $line 1]
-    } elseif { [string tolower [lindex $line 0]] == "gazefollow" } {
- 		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
- 		  	if { [llength [lindex $line 1]] > 1 } { puts "ERROR: arg must be one name $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set gazefollow [lindex $line 1]
-    } elseif { [string tolower [lindex $line 0]] == "dedicated_healers" } {
- 		  	if { [expr ([llength $line]-1) % 2] } { puts "ERROR: must be sequence of paired tank and healer $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set dedicated_healers [lrange $line 1 end]
-    } elseif { [string tolower [lindex $line 0]] == "goldto" } {
- 		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
- 		  	if { [llength [lindex $line 1]] > 1 } { puts "ERROR: arg must be one name $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set goldto [lindex $line 1]
-    } elseif { [string tolower [lindex $line 0]] == "boeto" } {
- 		  	if { [llength $line]  < 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set boeto [lrange $line 1 end]
-    } elseif { [string tolower [lindex $line 0]] == "itemto" } {
- 		  	if { [llength $line] < 3 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set itemto([lindex $line 1]) [lrange $line 2 end]
-    } elseif { [string tolower [lindex $line 0]] == "maxheal" } {
- 		  	if { [llength $line] != 5 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set maxheal [lrange $line 1 end]
-    } elseif { [string tolower [lindex $line 0]] == "dontautodelete" } {
- 		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set dontautodelete true
-    } elseif { [string tolower [lindex $line 0]] == "dontsoulstone" } {
- 		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set dontsoulstone true
-    } elseif { [string tolower [lindex $line 0]] == "dontflashframe" } {
- 		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set dontflashframe true
-    } elseif { [string tolower [lindex $line 0]] == "use2monitors" } {
- 		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set use2monitors true
-    } elseif { [string tolower [lindex $line 0]] == "useautotrade" } {
- 		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set useautotrade true
-    } elseif { [string tolower [lindex $line 0]] == "dontbuystacks" } {
- 		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set dontbuystacks true
-    } elseif { [string tolower [lindex $line 0]] == "dontautopass" } {
- 		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set dontautopass true
-    } elseif { [string tolower [lindex $line 0]] == "autoturn" } {
- 		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set autoturn true
-    } elseif { [string tolower [lindex $line 0]] == "clearcastmissiles" } {
- 		  	if { [llength $line] != 1 } { puts "ERROR: should be only one element on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set clearcastmissiles true
-    } elseif { [string tolower [lindex $line 0]] == "warlockpet" } {
- 		  	if { [llength $line] != 2 } { puts "ERROR: should be only two elements on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set warlockpet [lindex $line 1]
-    } elseif { [string tolower [lindex $line 0]] == "healhellfireat" } {
- 		  	if { [llength $line] != 2 } { puts "ERROR: should be only two elements on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set healhellfireat [lindex $line 1]
-    } elseif { [string tolower [lindex $line 0]] == "healtankat" } {
- 		  	if { [llength $line] != 2 } { puts "ERROR: should be only two elements on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set healtankat [lindex $line 1]
-    } elseif { [string tolower [lindex $line 0]] == "healchumpat" } {
- 		  	if { [llength $line] != 2 } { puts "ERROR: should be only two elements on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set healchumpat [lindex $line 1]
-    } elseif { [string tolower [lindex $line 0]] == "healchumpat" } {
- 		  	if { [llength $line] != 2 } { puts "ERROR: should be only two elements on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set healchumpat [lindex $line 1]
-    } elseif { [string tolower [lindex $line 0]] == "healselfat" } {
- 		  	if { [llength $line] != 2 } { puts "ERROR: should be only two elements on line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set healselfat [lindex $line 1]
-    } elseif { [string tolower [lindex $line 0]] == "autodelete" } {
- 		  	if { [llength $line] < 3 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
- 		  	if {  [expr ([llength $line ]-1) % 2] } { puts "ERROR: must be even number of elements after command $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				foreach {item stack} [lrange $line 1 end] {
-					set autodelete($item) $stack
-				}
-    } elseif { [string tolower [lindex $line 0]] == "levelingparty" } {
- 		  	if { [llength $line] < 2 || [llength $line] > 6  } { puts "ERROR: incorrect number of elements line $line. Must be between one and 5 toon names" ; puts "hit any key to return" ; gets stdin char ; return }
-	      set sql [string totitle [ string tolower [lindex $line 1]]]
-				set sqmem [lrange $line 2 end]
-				set levelingparties($sql) $sqmem
-    } elseif { [string tolower [lindex $line 0]] == "raidorder10" } {
- 		  	if { [llength [lindex $line 1]] >11 } { puts "ERROR: second arg must 10 or less names $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set index [expr [array size raidorder10] + 1]
-				set raidorder10($index) [lrange $line 1 end]
-    } elseif { [string tolower [lindex $line 0]] == "raidorder20" } {
- 		  	if { [llength [lindex $line 1]] >21 } { puts "ERROR: second arg must 20 or less names $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set index [expr [array size raidorder20] + 1]
-				set raidorder20($index) [lrange $line 1 end]
-    } elseif { [string tolower [lindex $line 0]] == "raidorder40" } {
- 		  	if { [llength [lindex $line 1]] >41 } { puts "ERROR: second arg must 40 or less names $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set index [expr [array size raidorder40] + 1]
-				set raidorder40($index) [lrange $line 1 end]
-    }
-  }
-}
+
 if { ! [info exists computer(1) ] } { set computer(1) Local }
-if $numtoons==0 { 
+if $numtoons==0 {
   puts "ERROR: No box commands with toon names were found in toonlist.txt. "
   puts "SEE toonlist_command_reference.txt"
-  puts "hit any key to return" ; gets stdin char ; return
+  wait_for_any_key
 }
+
 set tooncount $numtoons
-close $tL 
 while { $tooncount >= 1 } {
   incr tooncount -1
   #puts $toons($tooncount)
@@ -247,6 +368,8 @@ while { $tooncount >= 1 } {
   #puts "Account $account has toon name $name"
   #puts "Account $account has role [ string tolower [lindex $toons($tooncount) 3]]"
 }
+
+# Write out autohotkey
 if { ! $nohotkeyoverwrite } {
 	set hK [open $HKN w+]
 	puts $hK {// Defined WoW Lauchers:
@@ -262,7 +385,7 @@ if { ! $nohotkeyoverwrite } {
 	// h: BACK UP ALL MANA USERS
 	// Alt Ctrl O: Close all windows
 	// 0: party up! Form a party or raid with all your toons.
-	
+
 	//-----------------------------------------------------------
 	// SUBROUTINE TO LAUNCH AND RENAME A COPY OF WOW.
 	//-----------------------------------------------------------
@@ -282,11 +405,11 @@ if { ! $nohotkeyoverwrite } {
 	puts -nonewline $hK {     <Run "}
 	puts $hK "$curdir/Wow.exe\" -nosound>
 	"
-	
+
 	puts $hK { <Command RenameAndSize>
      <SendPC %1%>}
 	puts $hK {     <TargetWin "World of Warcraft">
-     <RenameTargetWin %2%>  
+     <RenameTargetWin %2%>
      <SetWinSize %5% %6%>
      <SetWinPos %7% %8%>
      <SetForegroundWin>
@@ -297,11 +420,11 @@ if { ! $nohotkeyoverwrite } {
      <wait 50>
      <Text %4%>
      //<RemoveWinFrame>
-     
+
  <Command LaunchHiresAndRename>
-     <SendPC %1%> 
+     <SendPC %1%>
      <Run "C:\wow_hires_1.12\WoW.exe" -nosound>
-     <RenameTargetWin %2%> 
+     <RenameTargetWin %2%>
      <WaitForWin %2% 40000>
      <WaitForInputIdle 40000>
      <Text %3%>
@@ -317,10 +440,10 @@ if { ! $nohotkeyoverwrite } {
      <TargetWin %2%>
      <SetWinSize %5% %6%>
      <SetWinPos %7% %8%>
-	
+
 	// ResetWindowPosition %1<Which PC(always "Local" for us)> %2<Window Name> %3<Account> %4<Password> %5<Winsizex> %6<Winsizey> %7<Winposx> %8<Winposy>
 	<Command ResetWindowPosition>
-	   <SendPC %1%> 
+	   <SendPC %1%>
 	      <TargetWin %2%>
 	      <SetForegroundWin>
 	      <SetWinSize %5% %6%>
@@ -334,7 +457,7 @@ if { ! $nohotkeyoverwrite } {
 		set comps 1
 		foreach myraid $raids {
 			regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
-			if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum } 
+			if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum }
 		}
 	  set length [string length $account]
 		foreach mycomp $comps {
@@ -351,32 +474,32 @@ if { ! $nohotkeyoverwrite } {
 		}
 	}
 	puts $hK ""
-	  
-	# 20 Window Raid 
+
+	# 20 Window Raid
 	if { $monitor == "4k" } {
 	  #4k
-		if { $use2monitors } { 
+		if { $use2monitors } {
 			set raidhash(5) "1920 1440 960 720 960 720 0 720 960 720 960 0 960 720 1920 0 960 720 2880 720"
 			set raidhash(10) "1280 1020 0 960 1280 1020 1280 960 1280 1020 2560 960 640 480 640 0 640 480 0 0 640 480 0 480 640 480 1280 0 640 480 640 480 640 480 1280 480 640 480 1920 480"
-		 	set raidhash(20) "640 480 0 0 960 720 0 1440 960 720 960 1440 960 720 1920 1440 640 480 640 0 640 480 1280 0 640 480 1920 0 640 480 2560 0 640 480 3200 0 640 480 0 480 640 480 640 480 640 480 1280 480 640 480 1920 480 640 480 2560 480 640 480 3200 480 640 480 0 960 640 480 640 960 640 480 1280 960 640 480 1920 960  640 480 2560 960" 
+		 	set raidhash(20) "640 480 0 0 960 720 0 1440 960 720 960 1440 960 720 1920 1440 640 480 640 0 640 480 1280 0 640 480 1920 0 640 480 2560 0 640 480 3200 0 640 480 0 480 640 480 640 480 640 480 1280 480 640 480 1920 480 640 480 2560 480 640 480 3200 480 640 480 0 960 640 480 640 960 640 480 1280 960 640 480 1920 960  640 480 2560 960"
 	  	set raidhash(25) "533 430 1548 0 1548 1290 0 860 533 430 1548 430 533 430 1548 860 533 430 1548 1290 533 430 1548 1720 533 430 2081 0 533 430 2081 430 533 430 2081 860 533 430 2081 1290 533 430 2081 1720 533 430 2614 0 533 430 2614 430 533 430 2614 860 533 430 2614 1290 533 430 2614 1720 533 430 3147 0 533 430 3147 430 533 430 3147 860 533 430 3147 1290 533 430 3147 1720 533 430 482 0 533 430 1015 0 533 430 482 430 533 430 1015 430"
 	  	set raidhash(40) " 480 360 0 0 1440 1080 960 1080 480 360 480 0 480 360 960 0 480 360 1440 0 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 0 360 480 360 480 360 480 360 960 360 480 360 1440 360 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 0 720 480 360 480 720 480 360 960 720 480 360 1440 720 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 480 360 0 1080 480 360 480 1080 480 360 2400 1080 480 360 2880 1080 480 360 3360 1080 480 360 0 1440 480 360 480 1440 480 360 2400 1440 480 360 2880 1440 480 360 3360 1440 480 360 0 1800 480 360 480 1800 480 360 2400 1800 480 360 2880 1800 480 360 3360 1800"
-		} else { 
+		} else {
 			set raidhash(5) "1920 1440 960 720 960 720 0 720 960 720 960 0 960 720 1920 0 960 720 2880 720"
 			set raidhash(10) "1280 1020 0 960 1280 1020 1280 960 1280 1020 2560 960 640 480 640 0 640 480 0 0 640 480 0 480 640 480 1280 0 640 480 640 480 640 480 1280 480 640 480 1920 480"
-		 	set raidhash(20) "640 480 0 0 960 720 0 1440 960 720 960 1440 960 720 1920 1440 640 480 640 0 640 480 1280 0 640 480 1920 0 640 480 2560 0 640 480 3200 0 640 480 0 480 640 480 640 480 640 480 1280 480 640 480 1920 480 640 480 2560 480 640 480 3200 480 640 480 0 960 640 480 640 960 640 480 1280 960 640 480 1920 960  640 480 2560 960" 
+		 	set raidhash(20) "640 480 0 0 960 720 0 1440 960 720 960 1440 960 720 1920 1440 640 480 640 0 640 480 1280 0 640 480 1920 0 640 480 2560 0 640 480 3200 0 640 480 0 480 640 480 640 480 640 480 1280 480 640 480 1920 480 640 480 2560 480 640 480 3200 480 640 480 0 960 640 480 640 960 640 480 1280 960 640 480 1920 960  640 480 2560 960"
 	  	set raidhash(25) "533 430 1548 0 1548 1290 0 860 533 430 1548 430 533 430 1548 860 533 430 1548 1290 533 430 1548 1720 533 430 2081 0 533 430 2081 430 533 430 2081 860 533 430 2081 1290 533 430 2081 1720 533 430 2614 0 533 430 2614 430 533 430 2614 860 533 430 2614 1290 533 430 2614 1720 533 430 3147 0 533 430 3147 430 533 430 3147 860 533 430 3147 1290 533 430 3147 1720 533 430 482 0 533 430 1015 0 533 430 482 430 533 430 1015 430"
 	  	set raidhash(40) " 480 360 0 0 1440 1080 960 1080 480 360 480 0 480 360 960 0 480 360 1440 0 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 0 360 480 360 480 360 480 360 960 360 480 360 1440 360 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 0 720 480 360 480 720 480 360 960 720 480 360 1440 720 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 480 360 0 1080 480 360 480 1080 480 360 2400 1080 480 360 2880 1080 480 360 3360 1080 480 360 0 1440 480 360 480 1440 480 360 2400 1440 480 360 2880 1440 480 360 3360 1440 480 360 0 1800 480 360 480 1800 480 360 2400 1800 480 360 2880 1800 480 360 3360 1800"
 	  	set raidhash(80) " 480 360 0 0 1440 1080 960 1080 480 360 480 0 480 360 960 0 480 360 1440 0 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 0 360 480 360 480 360 480 360 960 360 480 360 1440 360 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 0 720 480 360 480 720 480 360 960 720 480 360 1440 720 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 480 360 0 1080 480 360 480 1080 480 360 2400 1080 480 360 2880 1080 480 360 3360 1080 480 360 0 1440 480 360 480 1440 480 360 2400 1440 480 360 2880 1440 480 360 3360 1440 480 360 0 1800 480 360 480 1800 480 360 2400 1800 480 360 2880 1800 480 360 3360 1800 480 360 0 0 1440 1080 960 1080 480 360 480 0 480 360 960 0 480 360 1440 0 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 0 360 480 360 480 360 480 360 960 360 480 360 1440 360 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 0 720 480 360 480 720 480 360 960 720 480 360 1440 720 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 480 360 0 1080 480 360 480 1080 480 360 2400 1080 480 360 2880 1080 480 360 3360 1080 480 360 0 1440 480 360 480 1440 480 360 2400 1440 480 360 2880 1440 480 360 3360 1440 480 360 0 1800 480 360 480 1800 480 360 2400 1800 480 360 2880 1800 480 360 3360 1800"
 		}
 	} elseif { $monitor == "3k" } {
 	  #3k
-		if { $use2monitors } { 
+		if { $use2monitors } {
  			set raidhash(5) "1720 1440 860 0 860 720 0 0 860 720 0 720 860 720 2580 0 860 720 2580 720"
      	set raidhash(10) "2064 960 688 0 688 480 0 0 688 480 0 480 688 480 0 960 688 480 688 960 688 480 1376 960 688 480 2064 960 688 480 2752 0 688 480 2752 480 688 480 2752 960"
      	set raidhash(15) "1440 1200 720 0 720 600 0 0 720 600 0 600 720 600 2160 0 720 600 2160 600 480 400 2880 0 480 400 2880 400 480 400 2880 800 480 400 3360 0 480 400 3360 400 480 400 3360 800 480 400 3840 0 480 400 3840 400 480 400 3840 800 480 400 4320 0"
       			set raidhash(20) "490 360 0 0 490 360 0 360 490 360 0 720 490 360 0 1080 490 360 490 0 490 360 490 360 490 360 490 720 490 360 490 1080 980 720 980 0 490 360 980 1080 490 360 1470 720 490 360 1470 1080 490 360 1960 0 490 360 1960 720 490 360 1960 1080 490 360 2450 0 490 360 2450 360 490 360 2450 720 490 360 2450 1080 490 360 980 720"
-		} else { 
+		} else {
  			set raidhash(5) "1720 1440 860 0 860 720 0 0 860 720 0 720 860 720 2580 0 860 720 2580 720"
      	set raidhash(10) "2064 960 688 0 688 480 0 0 688 480 0 480 688 480 0 960 688 480 688 960 688 480 1376 960 688 480 2064 960 688 480 2752 0 688 480 2752 480 688 480 2752 960"
      	set raidhash(15) "1440 1200 720 0 720 600 0 0 720 600 0 600 720 600 2160 0 720 600 2160 600 480 400 2880 0 480 400 2880 400 480 400 2880 800 480 400 3360 0 480 400 3360 400 480 400 3360 800 480 400 3840 0 480 400 3840 400 480 400 3840 800 480 400 4320 0"
@@ -384,7 +507,7 @@ if { ! $nohotkeyoverwrite } {
 		}
 	} else {
 	  #1080p
-		if { $use2monitors } { 
+		if { $use2monitors } {
 			set raidhash(5) "1920 1080 0 0 960 540 1920 540 960 540 1920 0 960 540 2880 0 960 540 2880 540 "
 			set raidhash(10) "1920 1080 0 0 640 360 1920 0 640 360 2560 0 640 360 3200 0 640 360 1920 360 640 360 2560 360 640 360 3200 360 640 360 1920 720 640 360 2560 720 640 360 3200 720 "
 	  	set raidhash(20) "960 720 0 360 480 360 0 0 480 360 480 0 480 360 960 0 480 360 1440 0 480 360 960 360 480 360 1440 360 480 360 960 720 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 "
@@ -392,7 +515,7 @@ if { ! $nohotkeyoverwrite } {
 	  	set raidhash(25) "533 430 1548 0 1548 1290 0 860 533 430 1548 430 533 430 1548 860 533 430 1548 1290 533 430 1548 1720 533 430 2081 0 533 430 2081 430 533 430 2081 860 533 430 2081 1290 533 430 2081 1720 533 430 2614 0 533 430 2614 430 533 430 2614 860 533 430 2614 1290 533 430 2614 1720 533 430 3147 0 533 430 3147 430 533 430 3147 860 533 430 3147 1290 533 430 3147 1720 533 430 482 0 533 430 1015 0 533 430 482 430 533 430 1015 430"
 	  	set raidhash(25) "266 215 774 0 774 645 0 430 266 215 774 215 266 215 774 430 266 215 774 645 266 215 774 860 266 215 1040 0 266 215 1040 215 266 215 1040 430 266 215 1040 645 266 215 1040 860 266 215 1307 0 266 215 1307 215 266 215 1307 430 266 215 1307 645 266 215 1307 860 266 215 1573 0 266 215 1573 215 266 215 1573 430 266 215 1573 645 266 215 1573 860 266 215 241 0 266 215 507 0 266 215 241 215 266 215 507 215"
 		set raidhash(40) "240 180 0 0 480 360 480 720 480 360 0 720 480 360 960 720 480 360 1440 720 240 180 120 0 240 180 240 0 240 180 360 0 240 180 480 0 240 180 600 0 240 180 720 0 240 180 840 0 240 180 960 0 240 180 1200 0 240 180 1440 0 240 180 1680 0 240 180 0 180 240 180 240 180 240 180 480 180 240 180 720 180 240 180 960 180 240 180 1200 180 240 180 1440 180 240 180 1680 180 240 180 0 360 240 180 240 360 240 180 480 360 240 180 720 360 240 180 960 360 240 180 1200 360 240 180 1440 360 240 180 1680 360 240 180 0 540 240 180 240 540 240 180 480 540 240 180 720 540 240 180 960 540 240 180 1200 540 240 180 1440 540 240 180 1680 540"
-		} else { 
+		} else {
 			set raidhash(5) "960 720 480 360 480 360 0 360 480 360 480 0 480 360 960 0 480 360 1440 360"
 			set raidhash(10) "640 510 0 480 640 510 640 480 640 510 1280 480 320 240 320 0 320 240 0 0 320 240
 	 	0 240 320 240 640 0 320 240 320 240 320 240 640 240 320 240 960 240"
@@ -412,11 +535,11 @@ if { ! $nohotkeyoverwrite } {
 		}
 	}
 	set mainraids ""
-	foreach userraid $raids { 
+	foreach userraid $raids {
 		regexp {([a-z]|[A-Z])([0-9])?} $userraid match userraid cpunum
 		set raididx($userraid) 0
 		array unset group${userraid}
-		if { [lsearch $mainraids $userraid ] == -1 } { lappend mainraids $userraid } 
+		if { [lsearch $mainraids $userraid ] == -1 } { lappend mainraids $userraid }
 	}
 	for {set i 0} {$i < [array size toons]} {incr i} {
 		set myraids [lrange $toons($i) 4 end]
@@ -437,13 +560,13 @@ if { ! $nohotkeyoverwrite } {
 			}
 		}
 	}
-	foreach raid [array names windowcount] { 
+	foreach raid [array names windowcount] {
 	  #Set window count in each raid to something I actually have a hash for
 		if {$windowcount($raid) > 25} { set windowcount($raid) 40
-		} elseif {$windowcount($raid) > 20 } { set windowcount($raid) 25  
-		} elseif {$windowcount($raid) > 10 } { set windowcount($raid) 20  
-		} elseif {$windowcount($raid) > 5 } { set windowcount($raid) 10  
-		} else { set windowcount($raid) 5 } 
+		} elseif {$windowcount($raid) > 20 } { set windowcount($raid) 25
+		} elseif {$windowcount($raid) > 10 } { set windowcount($raid) 20
+		} elseif {$windowcount($raid) > 5 } { set windowcount($raid) 10
+		} else { set windowcount($raid) 5 }
 		set windex($raid) 0
 	}
 	foreach mainraid $mainraids {
@@ -459,7 +582,7 @@ if { ! $nohotkeyoverwrite } {
 	  		set account [lindex $thistoon 0]
 	  		set winname ${toonname}_${cpunum}$acct_winname($account)
 	  		puts $hK " <if WinDoesNotExist $winname>"
-			if { $i==[expr $sz - 1] } { 
+			if { $i==[expr $sz - 1] } {
 			  puts $hK "   <RunOne $computer($cpunum)>"
 		  	} else {
 			  puts $hK "   <OpenOne $computer($cpunum)>"
@@ -481,7 +604,7 @@ if { ! $nohotkeyoverwrite } {
 	        puts $hK " <endif>"
 			incr windex($myraid)
 		}
-		foreach raid [array names windowcount] { 
+		foreach raid [array names windowcount] {
 			set windex($raid) 0
 		}
 		puts $hK ""
@@ -503,24 +626,24 @@ if { ! $nohotkeyoverwrite } {
 		set winnum [format "%03d" $i]
 		set winlabels  "$winlabels ax${winnum}"
 	}
-	puts $hK "" 
+	puts $hK ""
 	puts $hK "<Hotkey ScrollLockOn Ctrl i>"
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK "<Key enter><Wait 250><key divide><wait 25><Text init><Wait 175><Key enter>"
 	}
 	puts $hK ""
-	puts $hK "" 
+	puts $hK ""
 	puts $hK "<Hotkey ScrollLockOn Ctrl l>"
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK "<Key enter><Wait 250><key divide><wait 25><Text reload><Wait 175><Key enter>"
 	}
 	puts $hK ""
 	puts $hK "<Hotkey ScrollLockOn Alt Ctrl o>"
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK "<CloseWin>"
@@ -528,7 +651,7 @@ if { ! $nohotkeyoverwrite } {
 	puts $hK ""
 	puts $hK "<Hotkey ScrollLockOn 0>"
 	puts $hK "  <SendFocusWin><Key 0>"
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK "<Key Alt 4>"
@@ -539,7 +662,7 @@ if { ! $nohotkeyoverwrite } {
 	// SENT TO BOTH WOWS. ADD MORE KEY COMBO'S IF YOU WANT.
 	//-----------------------------------------------------------
 <Hotkey ScrollLockOn A-Z, 1-9, Shift, Ctrl, Alt, Plus, Minus, Esc , Space, Tab, Divide, F1-F12 except E,F,Q,H, W, A, S, D, R, T, Y, I, U, J>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK "<Key %Trigger%>"
@@ -550,7 +673,7 @@ if { ! $nohotkeyoverwrite } {
 	// ADD MORE KEYS IF YOU WANT.
 	//-----------------------------------------------------------
 <MovementHotkey ScrollLockOn up, down, left, right,e,q>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK "<Key %Trigger%>"
@@ -565,93 +688,93 @@ if { ! $nohotkeyoverwrite } {
 	puts $hK ""
 	puts $hK "<Hotkey ScrollLockOn $oem LButton, RButton, Button4, Button5>"
 	puts $hK "<Cancel>"
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK "<ClickMouse %TriggerMainKey%>"
 	}
 	puts $hK ""
 	puts $hK "<Hotkey ScrollLockOn Alt 1><SendFocusWin><Key f10>"
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Alt 1>}
-        }	
+        }
 	puts $hK {<Hotkey ScrollLockOn Alt 2>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Alt 2>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Alt 3>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Alt 3>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Alt 4>}
 	puts $hK {  <SendFocusWin> <Key f10>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Alt 4>}
 	}
         puts $hK {<Hotkey ScrollLockOn Alt 5>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Alt 5>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Alt 6>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Alt 6>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Alt 7>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Alt 7>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Alt 8>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {  <Key Alt 8>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Alt 9>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {  <Key Alt 9>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Alt 0>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {  <Key Alt 0>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Alt Plus>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {  <Key Alt Plus>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Alt Minus>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {  <Key Alt Minus>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Ctrl 1>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {  <Key Ctrl 1>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Ctrl 2>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {  <Key Ctrl 2>}
@@ -659,199 +782,199 @@ if { ! $nohotkeyoverwrite } {
 	puts $hK {<Hotkey ScrollLockOn Ctrl 3>}
 	puts $hK {  <SendFocusWin><Key Ctrl 3>}
 	puts $hK {<Hotkey ScrollLockOn Ctrl 4>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {  <Key Ctrl 4>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Ctrl 5>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Ctrl 5>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Ctrl 6>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Ctrl 6>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Ctrl 7>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Ctrl 7>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Ctrl 8>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Ctrl 8>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Ctrl 9>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Ctrl 9>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Ctrl 0>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Ctrl 0>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Ctrl Plus>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Ctrl Plus>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Ctrl Minus>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Ctrl Minus>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift 1>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift 1>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift 2>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift 2>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift 3>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift 3>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift 4>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift 4>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift 5>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift 5>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift 6>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift 6>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift 7>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift 7>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift 8>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift 8>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift 9>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift 9>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift 0>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift 0>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift Plus>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift Plus>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift Minus>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift Minus>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift F1>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift F1>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift F2>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift F2>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift F3>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift F3>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift F4>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift F4>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift F5>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift F5>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift F6>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift F6>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift F7>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift F7>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift F8>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift F8>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift F9>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift F9>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift F10>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift F10>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift F11>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift F11>}
 	}
 	puts $hK {<Hotkey ScrollLockOn Shift F12>}
-	foreach lab $winlabels { 
+	foreach lab $winlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Shift F12>}
@@ -868,17 +991,17 @@ if { ! $nohotkeyoverwrite } {
 		set comps 1
 		foreach myraid $raids {
 			  regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
-			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum } 
+			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum }
 		}
 		foreach mycomp $comps {
-	    if { $role=="hunter" } { 
+	    if { $role=="hunter" } {
 				set winnum [format "%03d" $totallabels]
 	      set classlabels  "$classlabels ax${winnum}"
 			}
-		  incr totallabels		
+		  incr totallabels
 	  }
 	}
-	foreach lab $classlabels { 
+	foreach lab $classlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Down>}
@@ -895,17 +1018,17 @@ if { ! $nohotkeyoverwrite } {
 		set comps 1
 		foreach myraid $raids {
 			  regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
-			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum } 
+			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum }
 		}
 		foreach mycomp $comps {
-	    if { $role=="melee" } { 
+	    if { $role=="melee" } {
 				set winnum [format "%03d" $totallabels]
 	      set classlabels  "$classlabels ax${winnum}"
 			}
-		  incr totallabels		
+		  incr totallabels
 	  }
 	}
-	foreach lab $classlabels { 
+	foreach lab $classlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key Down>}
@@ -922,17 +1045,17 @@ if { ! $nohotkeyoverwrite } {
 		set comps 1
 		foreach myraid $raids {
 			  regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
-			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum } 
+			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum }
 		}
 		foreach mycomp $comps {
-	    if { $role=="melee" } { 
+	    if { $role=="melee" } {
 				set winnum [format "%03d" $totallabels]
 	      set classlabels  "$classlabels ax${winnum}"
 			}
-		  incr totallabels		
+		  incr totallabels
 	  }
 	}
-	foreach lab $classlabels { 
+	foreach lab $classlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key up>}
@@ -949,17 +1072,17 @@ if { ! $nohotkeyoverwrite } {
 		set comps 1
 		foreach myraid $raids {
 			  regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
-			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum } 
+			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum }
 		}
 		foreach mycomp $comps {
-	    if { $role=="healer" } { 
+	    if { $role=="healer" } {
 				set winnum [format "%03d" $totallabels]
 	      set classlabels  "$classlabels ax${winnum}"
 			}
-		  incr totallabels		
+		  incr totallabels
 	  }
 	}
-	foreach lab $classlabels { 
+	foreach lab $classlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key down>}
@@ -976,23 +1099,23 @@ if { ! $nohotkeyoverwrite } {
 		set comps 1
 		foreach myraid $raids {
 			  regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
-			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum } 
+			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum }
 		}
 		foreach mycomp $comps {
-	    if { $role=="healer" || $role=="caster" } { 
+	    if { $role=="healer" || $role=="caster" } {
 				set winnum [format "%03d" $totallabels]
 	      set classlabels  "$classlabels ax${winnum}"
 			}
-		  incr totallabels		
+		  incr totallabels
 	  }
 	}
-	foreach lab $classlabels { 
+	foreach lab $classlabels {
 		puts -nonewline $hK "  <SendLabel "
 		puts -nonewline $hK "${lab}>"
 		puts $hK {<Key down>}
 	}
 }
-if { ! $nosmoverwrite } { 
+if { ! $nosmoverwrite } {
 	set INSTUFF2TRACK false
 	set INAUTODELETE false
 	set INTHELIST false
@@ -1006,12 +1129,12 @@ if { ! $nosmoverwrite } {
 	    for { set i 0 } { $i<[array size toons] } { incr i } {
 	      if { [lindex $toons($i) 3] == "tank" } {
 	        set name [string totitle [ string tolower [lindex $toons($i) 2]]]
-	        if { $first=="false" } { 
+	        if { $first=="false" } {
 	          puts -nonewline $sMN \"$name\"
 	          set first true
 	        } else {
 	          puts -nonewline $sMN ,\"$name\"
-	        } 
+	        }
 	      }
 	    }
 	    puts $sMN "\}"
@@ -1021,12 +1144,12 @@ if { ! $nosmoverwrite } {
 	    for { set i 0 } { $i<[array size toons] } { incr i } {
 	      if { [lindex $toons($i) 3] == "healer" } {
 	        set name [string totitle [ string tolower [lindex $toons($i) 2]]]
-	        if { $first=="false" } { 
+	        if { $first=="false" } {
 	          puts -nonewline $sMN \"$name\"
 	          set first true
 	        } else {
 	          puts -nonewline $sMN ,\"$name\"
-	        } 
+	        }
 	      }
 	    }
 	    puts $sMN "\}"
@@ -1035,12 +1158,12 @@ if { ! $nosmoverwrite } {
 	    set first false
 	    for { set i 0 } { $i<[array size toons] } { incr i } {
 	      set name [string totitle [ string tolower [lindex $toons($i) 2]]]
-	      if { $first=="false" } { 
+	      if { $first=="false" } {
 	        puts -nonewline $sMN \"$name\"
 	        set first true
 	      } else {
 	        puts -nonewline $sMN ,\"$name\"
-	      } 
+	      }
 	    }
 	    puts $sMN "\}"
 		} elseif { [regexp "^MB_RAID" $line ] && $raidname!="" } {
@@ -1060,12 +1183,12 @@ if { ! $nosmoverwrite } {
 	    foreach { tank healer } $dedicated_healers {
 	      set tank [string totitle [ string tolower $tank]]
 	      set healer [string totitle [ string tolower $healer]]
-	      if { $first=="true" } { 
+	      if { $first=="true" } {
 	        puts -nonewline $sMN "$tank=\"$healer\""
 	        set first false
 	      } else {
 	        puts -nonewline $sMN ",$tank=\"$healer\""
-	      } 
+	      }
 	    }
 	    puts $sMN "\}"
 	  } elseif { [regexp "^MB_maxheal" $line ] && $maxheal!="" } {
@@ -1146,9 +1269,9 @@ if { ! $nosmoverwrite } {
 				if { $boeto!="" } {
 	    		puts -nonewline $sMN "\t\[\"BOE\"\] = \{itemkind = \"itemGrp\", collector = \{"
 	    	  set first true
-					foreach boetoon $boeto { 
+					foreach boetoon $boeto {
 	          set boetoon [string totitle [ string tolower $boetoon]]
-					  if { $first } { 
+					  if { $first } {
 						  puts -nonewline $sMN \"$boetoon\"
 							set first false
 						} else {
@@ -1161,9 +1284,9 @@ if { ! $nosmoverwrite } {
 				}
 				if { [array size itemto] > 0 } {
 					foreach item [array names itemto ] {
-						puts -nonewline $sMN "\t\[\"$item\"\] = \{itemkind = \"itemGrp\", collector = \{"					
+						puts -nonewline $sMN "\t\[\"$item\"\] = \{itemkind = \"itemGrp\", collector = \{"
 							set first true
-	            foreach coll $itemto($item) { 
+	            foreach coll $itemto($item) {
 	              set coll [string totitle [ string tolower $coll]]
 								if { $first } {
 									puts -nonewline $sMN \"$coll\"
@@ -1188,7 +1311,7 @@ if { ! $nosmoverwrite } {
 	   	puts $sMN "MB_TheList=\{"
 	 	  set first true
 		  foreach item [array names autodelete] {
-	      if { $first } { 
+	      if { $first } {
 					puts -nonewline $sMN "\t\[\"$item\"\]=$autodelete($item)"
 					set first false
 				} else {
@@ -1205,19 +1328,19 @@ if { ! $nosmoverwrite } {
 			set firstparty false
 	   	puts $sMN "MB_levelingparties=\{"
 			set firstsq true
-		  foreach sql [array names levelingparties] { 
+		  foreach sql [array names levelingparties] {
 	      set sql [string totitle [ string tolower $sql]]
-				set sq $levelingparties($sql) 
-				if { !$firstsq } { 
+				set sq $levelingparties($sql)
+				if { !$firstsq } {
 				  puts -nonewline $sMN ",\n\t${sql}=\{"
-				} else { 
+				} else {
 					puts -nonewline $sMN "\t${sql}=\{"
 					set firstsq false
 				}
 				set firstmem true
 				foreach sqmem $sq {
 	        set sqmem [string totitle [ string tolower $sqmem]]
-					if { !$firstmem } { 
+					if { !$firstmem } {
 						puts -nonewline $sMN ","
 						puts -nonewline $sMN "\"$sqmem\""
 					} else {

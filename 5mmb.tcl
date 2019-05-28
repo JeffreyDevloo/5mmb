@@ -300,6 +300,7 @@ proc parse_toonlist {} {
 	}
 }
 
+
 # Validate the existence of the passed exe names
 # Checks the full list. Does not exit after a single failure
 # Returns true if an empty list was passed
@@ -343,88 +344,98 @@ proc get_wow_executable_for_account { account } {
 	}
 }
 
-proc write_autohot_key {} {
+proc test_something { } {
+
+	set curdir [pwd]
+	set x "
+		<Command OpenOne>
+		<SendPC %1%>
+		<Open \"${curdir}/Wow.exe\" -nosound>"
+}
+# Write out the auto hotkey command definitions
+proc _get_autohotkey_definitions { } {
+	set curdir [pwd]
+	set definitions "// Defined WoW Lauchers:
+// ***NOTE: NONE OF THESE ARE CASE SENSITIVE***
+//
+// Special keys:
+// Ctrl-i: send /init to all windows
+// Ctrl-l: send /reload to all windows
+// t: BACK UP HUNTERS (feel free to add other toons)
+// r: BACK UP MELEE
+// f: MOVE MELEE FORWARD
+// y: BACK UP HEALERS
+// h: BACK UP ALL MANA USERS
+// Alt Ctrl O: Close all windows
+// 0: party up! Form a party or raid with all your toons.
+
+//-----------------------------------------------------------
+// SUBROUTINE TO LAUNCH AND RENAME A COPY OF WOW.
+//-----------------------------------------------------------
+// Arguments:
+// LaunchAndRename %1<Which PC(always \"Local\" for us)> %2<Window Name> %3<Account> %4<Password> %5<Winsizex> %6<Winsizey> %7<Winposx> %8<Winposy>
+
+<Command OpenOne>
+	<SendPC %1%>
+	<Open \"${curdir}/Wow.exe\" -nosound>
+
+<Command RunOne>
+	<SendPC %1%>
+	<Run \"${curdir}/wow.exe\" -nosound>
+
+<Command RenameAndSize>
+	<SendPC %1%>
+	<TargetWin \"World of Warcraft\">
+	<RenameTargetWin %2%>
+	<SetWinSize %5% %6%>
+	<SetWinPos %7% %8%>
+	<SetForegroundWin>
+	<WaitForInputIdle>
+	<Text %3%>
+	<wait 50>
+	<Key Tab>
+	<wait 50>
+	<Text %4%>
+	//<RemoveWinFrame>
+
+<Command LaunchHiresAndRename>
+	<SendPC %1%>
+	<Run \"C:\wow_hires_1.12\WoW.exe\" -nosound>
+	<RenameTargetWin %2%>
+	<WaitForWin %2% 40000>
+	<WaitForInputIdle 40000>
+	<Text %3%>
+	<Key Tab>
+	<WaitForInputIdle 40000>
+	<Wait 500>
+	<Text %4%>
+	<Key Enter>
+	<Wait 500>
+	<Key Enter>
+	<Text %4%>
+	<Key Enter>
+	<TargetWin %2%>
+	<SetWinSize %5% %6%>
+	<SetWinPos %7% %8%>
+
+// ResetWindowPosition %1<Which PC(always \"Local\" for us)> %2<Window Name> %3<Account> %4<Password> %5<Winsizex> %6<Winsizey> %7<Winposx> %8<Winposy>
+<Command ResetWindowPosition>
+	<SendPC %1%>
+		<TargetWin %2%>
+		<SetForegroundWin>
+		<SetWinSize %5% %6%>
+		<SetWinPos %7% %8%>"
+	return $definitions
+
+}
+# Write out the auto hotkey files
+proc write_autohotkey_instructions {} {
 	if { $nohotkeyoverwrite } { return }
 	set hK [open $HKN w+]
 	set curdir [pwd]
 	if {[catch {
-		puts $hK {// Defined WoW Lauchers:
-		// ***NOTE: NONE OF THESE ARE CASE SENSITIVE***
-		//
-		// Special keys:
-		// Ctrl-i: send /init to all windows
-		// Ctrl-l: send /reload to all windows
-		// t: BACK UP HUNTERS (feel free to add other toons)
-		// r: BACK UP MELEE
-		// f: MOVE MELEE FORWARD
-		// y: BACK UP HEALERS
-		// h: BACK UP ALL MANA USERS
-		// Alt Ctrl O: Close all windows
-		// 0: party up! Form a party or raid with all your toons.
-
-		//-----------------------------------------------------------
-		// SUBROUTINE TO LAUNCH AND RENAME A COPY OF WOW.
-		//-----------------------------------------------------------
-		// Arguments:
-		// LaunchAndRename %1<Which PC(always "Local" for us)> %2<Window Name> %3<Account> %4<Password> %5<Winsizex> %6<Winsizey> %7<Winposx> %8<Winposy>
-
-	 <Command OpenOne>
-		 <SendPC %1%>}
-		set curdir [pwd]
-		puts -nonewline $hK {     <Open "}
-		puts $hK "$curdir/Wow.exe\" -nosound>"
-
-		puts $hK {
-	 <Command RunOne>
-		 <SendPC %1%>}
-		set curdir [pwd]
-		puts -nonewline $hK {     <Run "}
-		puts $hK "$curdir/Wow.exe\" -nosound>
-		"
-
-		puts $hK { <Command RenameAndSize>
-		 <SendPC %1%>}
-		puts $hK {     <TargetWin "World of Warcraft">
-		 <RenameTargetWin %2%>
-		 <SetWinSize %5% %6%>
-		 <SetWinPos %7% %8%>
-		 <SetForegroundWin>
-		 <WaitForInputIdle>
-		 <Text %3%>
-		 <wait 50>
-		 <Key Tab>
-		 <wait 50>
-		 <Text %4%>
-		 //<RemoveWinFrame>
-
-	 <Command LaunchHiresAndRename>
-		 <SendPC %1%>
-		 <Run "C:\wow_hires_1.12\WoW.exe" -nosound>
-		 <RenameTargetWin %2%>
-		 <WaitForWin %2% 40000>
-		 <WaitForInputIdle 40000>
-		 <Text %3%>
-		 <Key Tab>
-		 <WaitForInputIdle 40000>
-		 <Wait 500>
-		 <Text %4%>
-		 <Key Enter>
-		 <Wait 500>
-		 <Key Enter>
-		 <Text %4%>
-		 <Key Enter>
-		 <TargetWin %2%>
-		 <SetWinSize %5% %6%>
-		 <SetWinPos %7% %8%>
-
-		// ResetWindowPosition %1<Which PC(always "Local" for us)> %2<Window Name> %3<Account> %4<Password> %5<Winsizex> %6<Winsizey> %7<Winposx> %8<Winposy>
-		<Command ResetWindowPosition>
-		   <SendPC %1%>
-			  <TargetWin %2%>
-			  <SetForegroundWin>
-			  <SetWinSize %5% %6%>
-			  <SetWinPos %7% %8%>
-		}
+		# Write away the definitions
+		puts $hK [_get_autohotkey_definitions]
 		set totallabels 0
 		for { set i 0 } { $i<[array size toons] } { incr i } {
 		  set toonname [string tolower [lindex $toons($i) 2]]
@@ -1097,6 +1108,261 @@ proc write_autohot_key {} {
 	}
 }
 
+proc write_sm_extend {} {
+	if { ! $nosmoverwrite } { return }
+	set INSTUFF2TRACK false
+	set INAUTODELETE false
+	set INTHELIST false
+	set INLEVPART false
+	set sM [open $SME r]
+	set sMN [open tmp w+]
+
+	if {[catch {
+		while { [gets $sM line] >= 0 } {
+		  if { [regexp "^MB_tanklist" $line ] } {
+			puts -nonewline $sMN "MB_tanklist=\{"
+			set first false
+			for { set i 0 } { $i<[array size toons] } { incr i } {
+			  if { [lindex $toons($i) 3] == "tank" } {
+				set name [string totitle [ string tolower [lindex $toons($i) 2]]]
+				if { $first=="false" } {
+				  puts -nonewline $sMN \"$name\"
+				  set first true
+				} else {
+				  puts -nonewline $sMN ,\"$name\"
+				}
+			  }
+			}
+			puts $sMN "\}"
+		  } elseif { [regexp "^MB_healer_list" $line ] } {
+			puts -nonewline $sMN "MB_healer_list=\{"
+			set first false
+			for { set i 0 } { $i<[array size toons] } { incr i } {
+			  if { [lindex $toons($i) 3] == "healer" } {
+				set name [string totitle [ string tolower [lindex $toons($i) 2]]]
+				if { $first=="false" } {
+				  puts -nonewline $sMN \"$name\"
+				  set first true
+				} else {
+				  puts -nonewline $sMN ,\"$name\"
+				}
+			  }
+			}
+			puts $sMN "\}"
+		  } elseif { [regexp "^MB_toonlist" $line ] } {
+			puts -nonewline $sMN "MB_toonlist=\{"
+			set first false
+			for { set i 0 } { $i<[array size toons] } { incr i } {
+			  set name [string totitle [ string tolower [lindex $toons($i) 2]]]
+			  if { $first=="false" } {
+				puts -nonewline $sMN \"$name\"
+				set first true
+			  } else {
+				puts -nonewline $sMN ,\"$name\"
+			  }
+			}
+			puts $sMN "\}"
+			} elseif { [regexp "^MB_RAID" $line ] && $raidname!="" } {
+			puts $sMN "MB_RAID = \"MULTIBOX_$raidname\""
+			} elseif { [regexp "^MB_powerleveler" $line ] && $powerleveler!="" } {
+			set powerleveler [string totitle [ string tolower $powerleveler]]
+			puts $sMN "MB_powerleveler=\"$powerleveler\""
+			} elseif { [regexp "^MB_bomfollow" $line ] && $bombfollow!="" } {
+			set bombfollow [string totitle [ string tolower $bombfollow]]
+			puts $sMN "MB_bombfollow=\"$bombfollow\""
+			} elseif { [regexp "^MB_gazefollow" $line ] && $gazefollow!="" } {
+			set gazefollow [string totitle [ string tolower $gazefollow]]
+			puts $sMN "MB_gazefollow=\"$gazefollow\""
+		  } elseif { [regexp "^MB_dedicated_healers" $line ] } {
+			puts -nonewline $sMN "MB_dedicated_healers=\{"
+			set first true
+			foreach { tank healer } $dedicated_healers {
+			  set tank [string totitle [ string tolower $tank]]
+			  set healer [string totitle [ string tolower $healer]]
+			  if { $first=="true" } {
+				puts -nonewline $sMN "$tank=\"$healer\""
+				set first false
+			  } else {
+				puts -nonewline $sMN ",$tank=\"$healer\""
+			  }
+			}
+			puts $sMN "\}"
+		  } elseif { [regexp "^MB_maxheal" $line ] && $maxheal!="" } {
+			puts -nonewline $sMN "MB_maxheal=\{Druid=[lindex $maxheal 0],Priest=[lindex $maxheal 1],Shaman=[lindex $maxheal 2],Paladin=[lindex $maxheal 3]"
+			puts $sMN "\}"
+			} elseif { [regexp "^MB_soulstone_rezzers" $line ] && $dontsoulstone == "true" } {
+			puts $sMN "MB_soulstone_rezzers=false"
+			} elseif { [regexp "^MB_soulstone_rezzers" $line ] && $dontsoulstone == "" } {
+			puts $sMN "MB_soulstone_rezzers=true"
+			} elseif { [regexp "^MB_frameflash" $line ] && $dontflashframe == "true" } {
+			puts $sMN "MB_frameflash=false"
+			} elseif { [regexp "^MB_frameflash" $line ] && $dontflashframe == "" } {
+			puts $sMN "MB_frameflash=true"
+			} elseif { [regexp "^MB_autotrade=" $line ] && $useautotrade == "true" } {
+			puts $sMN "MB_autotrade=true"
+			} elseif { [regexp "^MB_autotrade=" $line ] && $useautotrade == "" } {
+			puts $sMN "MB_autotrade=false"
+			} elseif { [regexp "^MB_autodelete" $line ] && $dontautodelete == "true" } {
+			puts $sMN "MB_autodelete=false"
+			} elseif { [regexp "^MB_autodelete" $line ] && $dontautodelete == "" } {
+			puts $sMN "MB_autodelete=true"
+			} elseif { [regexp "^MB_buystacks" $line ] && $dontbuystacks == "true" } {
+			puts $sMN "MB_buystacks=false"
+			} elseif { [regexp "^MB_buystacks" $line ] && $dontbuystacks == "" } {
+			puts $sMN "MB_buystacks=true"
+			} elseif { [regexp "^MB_autopass" $line ] && $dontautopass == "true" } {
+			puts $sMN "MB_autopass=false"
+			} elseif { [regexp "^MB_autopass" $line ] && $dontautopass == "" } {
+			puts $sMN "MB_autopass=true"
+			} elseif { [regexp "^MB_autoturn" $line ] && $autoturn == "true" } {
+			puts $sMN "MB_autoturn=true"
+			} elseif { [regexp "^MB_autoturn" $line ] && $autoturn == "" } {
+			puts $sMN "MB_autoturn=false"
+			} elseif { [regexp "^MB_clearcastAM" $line ] && $clearcastmissiles == "true" } {
+			puts $sMN "MB_clearcastAM=true"
+			} elseif { [regexp "^MB_clearcastAM" $line ] && $clearcastmissiles == "" } {
+			puts $sMN "MB_clearcastAM=false"
+			} elseif { [regexp "^MB_default_warlock_pet" $line ] && $warlockpet != "" } {
+			  set warlockpet [string totitle [ string tolower $warlockpet]]
+				puts $sMN "MB_default_warlock_pet=\"$warlockpet\""
+			} elseif { [regexp "^MB_default_warlock_pet" $line ] && $warlockpet == "" } {
+				puts $sMN "MB_default_warlock_pet=\"Imp\""
+			} elseif { [regexp "^MB_hellfire_threshold" $line ] && $healhellfireat != "" } {
+			puts $sMN "MB_hellfire_threshold=$healhellfireat"
+			} elseif { [regexp "^MB_hellfire_threshold" $line ] && $healhellfireat == "" } {
+			puts $sMN "MB_hellfire_threshold=.85"
+			} elseif { [regexp "^MB_healtank_threshold" $line ] && $healtankat != "" } {
+			puts $sMN "MB_healtank_threshold=$healtankat"
+			} elseif { [regexp "^MB_healtank_threshold" $line ] && $healtankat == "" } {
+			puts $sMN "MB_healtank_threshold=.5"
+			} elseif { [regexp "^MB_healchump_threshold" $line ] && $healchumpat != "" } {
+			puts $sMN "MB_healchump_threshold=$healchumpat"
+			} elseif { [regexp "^MB_healchump_threshold" $line ] && $healchumpat == "" } {
+			puts $sMN "MB_healchump_threshold=.33"
+			} elseif { [regexp "^MB_healself_threshold" $line ] && $healselfat != "" } {
+			puts $sMN "MB_healself_threshold=$healselfat"
+			} elseif { [regexp "^MB_healself_threshold" $line ] && $healselfat == "" } {
+			puts $sMN "MB_healself_threshold=.3"
+			} elseif { [regexp "^FsR_Stuff2Track" $line ] } {
+					set INSTUFF2TRACK true
+			} elseif {$INSTUFF2TRACK && ![regexp "^FsR" $line] } {
+			} elseif {$INSTUFF2TRACK && [regexp "^FsR" $line] && ![regexp "^FsR_Stuff2Track" $line] } {
+					set INSTUFF2TRACK false
+				puts $sMN "FsR_Stuff2Track=\{"
+					if { $goldto!="" } {
+				set goldto [string totitle [ string tolower $goldto]]
+					puts $sMN "\t\[\"Gold\"\] = \{itemkind = \"special\", collector = \{\"$goldto\"\}\},"
+					} else {
+					puts $sMN "\t\[\"Gold\"\] = \{itemkind = \"special\", collector = \{\"\"\}\},"
+					}
+					puts $sMN  	{	["EmptyBagSlots"] = {itemkind = "special"},
+		["Soul Shard"] = {itemkind = "special"},
+		["Sacred Candle"] = {itemkind = "item" , class = {Priest = {AnnounceValue = 5}}},
+		["Symbol of Kings"] = {itemkind = "item" , class = {Paladin = {AnnounceValue = 5}}},
+		["Wild Thornroot"] = {itemkind = "item" , class = {Druid = {AnnounceValue = 5}}},
+		["Major Healing Potion"] = {itemkind = "item", class = {Druid = {},Rogue = {},Warrior = {},Hunter = {},Warlock = {},Mage = {}, Priest = {}, Shaman = {}, Paladin = {}}},
+		["Major Mana Potion"] = {itemkind = "item" , class = {Druid = {}, Priest = {}, Shaman = {}, Paladin = {}}},}
+					if { $boeto!="" } {
+					puts -nonewline $sMN "\t\[\"BOE\"\] = \{itemkind = \"itemGrp\", collector = \{"
+				  set first true
+						foreach boetoon $boeto {
+				  set boetoon [string totitle [ string tolower $boetoon]]
+						  if { $first } {
+							  puts -nonewline $sMN \"$boetoon\"
+								set first false
+							} else {
+							  puts -nonewline $sMN ,\"$boetoon\"
+					  }
+						}
+						puts $sMN "\}\},"
+					} else {
+					puts $sMN "\t\[\"BOE\"\] = \{itemkind = \"itemGrp\", collector = \{\"\"\}\},"
+					}
+					if { [array size itemto] > 0 } {
+						foreach item [array names itemto ] {
+							puts -nonewline $sMN "\t\[\"$item\"\] = \{itemkind = \"itemGrp\", collector = \{"
+								set first true
+					foreach coll $itemto($item) {
+					  set coll [string totitle [ string tolower $coll]]
+									if { $first } {
+										puts -nonewline $sMN \"$coll\"
+										set first false
+									} else {
+										puts -nonewline $sMN ,\"$coll\"
+									}
+								}
+								puts $sMN "\}\},"
+						  }
+						} else {
+						puts $sMN "\t\[\"Lockbox\"\] = \{itemkind = \"itemGrp\", collector = \{\"\"\}\},"
+						}
+				puts $sMN {	["Conjured Sparkling Water"] = {itemkind = "item" , class = {Mage={Ratio=2},Hunter = {Ratio=1}, Warlock = {Ratio=1},Druid = {Ratio=1}, Priest = {Ratio=1}, Shaman = {Ratio=1}, Paladin = {Ratio=1}}}}
+				puts $sMN "\}"
+				puts $sMN $line
+			} elseif { [regexp "^MB_TheList" $line ] } {
+					set INTHELIST true
+			} elseif {$INTHELIST && ![regexp "^\}" $line] } {
+			} elseif {$INTHELIST && [regexp "^\}" $line] } {
+				set INTHELIST false
+			puts $sMN "MB_TheList=\{"
+			  set first true
+			  foreach item [array names autodelete] {
+			  if { $first } {
+						puts -nonewline $sMN "\t\[\"$item\"\]=$autodelete($item)"
+						set first false
+					} else {
+						puts -nonewline $sMN ",\n\t\[\"$item\"\]=$autodelete($item)"
+				  }
+				}
+				puts $sMN ""
+				puts $sMN $line
+			} elseif { [regexp "^MB_levelingparties" $line ] } {
+				set INLEVPART true
+			} elseif {$INLEVPART && ![regexp "^\}" $line] } {
+			} elseif {$INLEVPART && [regexp "^\}" $line] } {
+				set INLEVPART false
+				set firstparty false
+			puts $sMN "MB_levelingparties=\{"
+				set firstsq true
+			  foreach sql [array names levelingparties] {
+			  set sql [string totitle [ string tolower $sql]]
+					set sq $levelingparties($sql)
+					if { !$firstsq } {
+					  puts -nonewline $sMN ",\n\t${sql}=\{"
+					} else {
+						puts -nonewline $sMN "\t${sql}=\{"
+						set firstsq false
+					}
+					set firstmem true
+					foreach sqmem $sq {
+				set sqmem [string totitle [ string tolower $sqmem]]
+						if { !$firstmem } {
+							puts -nonewline $sMN ","
+							puts -nonewline $sMN "\"$sqmem\""
+						} else {
+							set firstmem false
+							puts -nonewline $sMN "\"$sqmem\""
+						}
+					}
+					puts -nonewline $sMN "\}"
+				}
+				puts $sMN ""
+				puts $sMN $line
+		  } else {
+			puts $sMN $line
+		  }
+		}
+		file copy -force tmp $SME
+		file delete tmp
+	} result]} {
+		close $sMN
+		close $sM
+	} else {
+		close $sMN
+		close $sM
+	}
+}
+
 #
 # Start program
 #
@@ -1144,13 +1410,13 @@ if { $tooncount == 0 } {
 }
 
 while { $tooncount >= 1 } {
-  #puts $toons($tooncount)
-  #puts "Account $account has password [lindex $toons($tooncount) 1]"
-  set name [string tolower [lindex $toons($tooncount) 2]]
-  set name [string totitle $name ]
-  #puts "Account $account has toon name $name"
-  #puts "Account $account has role [ string tolower [lindex $toons($tooncount) 3]]"
-  incr tooncount -1
+	incr tooncount -1
+	#puts $toons($tooncount)
+	#puts "Account $account has password [lindex $toons($tooncount) 1]"
+	set name [string tolower [lindex $toons($tooncount) 2]]
+	set name [string totitle $name ]
+	#puts "Account $account has toon name $name"
+	#puts "Account $account has role [ string tolower [lindex $toons($tooncount) 3]]"
 }
 
 # Write out autohotkey

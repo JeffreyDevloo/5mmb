@@ -35,6 +35,20 @@ set HKN 5mmb_HKN.txt
 set SME "Interface\\Addons\\SuperMacro\\SM_Extend.lua"
 #set SME SM_Extend.lua
 set fail false
+set acc_client [dict create]
+
+# Get the wow.exe name to use for the given account
+proc get_wow_executable_for_account { account } {
+	if {[catch {
+		dict get $::acc_client $account
+	} result]} {
+		return "wow.exe"
+	} else {
+		return $result
+	}
+}
+
+
 if { ! [file exist toonlist.txt ] } {
 	puts "ERROR: YOU MUST HAVE A FILE NAMED toonlist.txt IN THIS DIRECTORY"
 	puts ""
@@ -227,6 +241,11 @@ while { [gets $tL line] >= 0 } {
  		  	if { [llength [lindex $line 1]] >41 } { puts "ERROR: second arg must 40 or less names $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set index [expr [array size raidorder40] + 1]
 				set raidorder40($index) [lrange $line 1 end]
+    } elseif { [string tolower [lindex $line 0]] == "acc_client" } {
+ 		  	if { [llength $line] != 3 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
+			set account [lindex $line 1]
+			set client [lindex $line 2]
+			dict set acc_client $account $client
     }
   }
 }
@@ -249,83 +268,78 @@ while { $tooncount >= 1 } {
 }
 if { ! $nohotkeyoverwrite } {
 	set hK [open $HKN w+]
-	puts $hK {// Defined WoW Lauchers:
-	// ***NOTE: NONE OF THESE ARE CASE SENSITIVE***
-	//
-	// Special keys:
-	// Ctrl-i: send /init to all windows
-	// Ctrl-l: send /reload to all windows
-	// t: BACK UP HUNTERS (feel free to add other toons)
-	// r: BACK UP MELEE
-	// f: MOVE MELEE FORWARD
-	// y: BACK UP HEALERS
-	// h: BACK UP ALL MANA USERS
-	// Alt Ctrl O: Close all windows
-	// 0: party up! Form a party or raid with all your toons.
-	
-	//-----------------------------------------------------------
-	// SUBROUTINE TO LAUNCH AND RENAME A COPY OF WOW.
-	//-----------------------------------------------------------
-	// Arguments:
-	// LaunchAndRename %1<Which PC(always "Local" for us)> %2<Window Name> %3<Account> %4<Password> %5<Winsizex> %6<Winsizey> %7<Winposx> %8<Winposy>
-
- <Command OpenOne>
-     <SendPC %1%>}
 	set curdir [pwd]
-	puts -nonewline $hK {     <Open "}
-	puts $hK "$curdir/Wow.exe\" -nosound>"
+	puts $hK "// Defined WoW Lauchers:
+// ***NOTE: NONE OF THESE ARE CASE SENSITIVE***
+//
+// Special keys:
+// Ctrl-i: send /init to all windows
+// Ctrl-l: send /reload to all windows
+// t: BACK UP HUNTERS (feel free to add other toons)
+// r: BACK UP MELEE
+// f: MOVE MELEE FORWARD
+// y: BACK UP HEALERS
+// h: BACK UP ALL MANA USERS
+// Alt Ctrl O: Close all windows
+// 0: party up! Form a party or raid with all your toons.
 
-	puts $hK {
- <Command RunOne>
-     <SendPC %1%>}
-	set curdir [pwd]
-	puts -nonewline $hK {     <Run "}
-	puts $hK "$curdir/Wow.exe\" -nosound>
-	"
+//-----------------------------------------------------------
+// SUBROUTINE TO LAUNCH AND RENAME A COPY OF WOW.
+//-----------------------------------------------------------
+// Arguments:
+// LaunchAndRename %1<Which PC(always \"Local\" for us)> %2<Window Name> %3<Account> %4<Password> %5<Winsizex> %6<Winsizey> %7<Winposx> %8<Winposy>
+
+<Command OpenOne>
+	<SendPC %1%>
+	<Open \"${curdir}/%2%\" -nosound>
+
+<Command RunOne>
+	<SendPC %1%>
+	<Run \"${curdir}/%2%\" -nosound>
+
+<Command RenameAndSize>
+	<SendPC %1%>
+	<TargetWin \"World of Warcraft\">
+	<RenameTargetWin %2%>
+	<SetWinSize %5% %6%>
+	<SetWinPos %7% %8%>
+	<SetForegroundWin>
+	<WaitForInputIdle>
+	<Text %3%>
+	<wait 50>
+	<Key Tab>
+	<wait 50>
+	<Text %4%>
+	//<RemoveWinFrame>
+
+<Command LaunchHiresAndRename>
+	<SendPC %1%>
+	<Run \"C:\wow_hires_1.12\WoW.exe\" -nosound>
+	<RenameTargetWin %2%>
+	<WaitForWin %2% 40000>
+	<WaitForInputIdle 40000>
+	<Text %3%>
+	<Key Tab>
+	<WaitForInputIdle 40000>
+	<Wait 500>
+	<Text %4%>
+	<Key Enter>
+	<Wait 500>
+	<Key Enter>
+	<Text %4%>
+	<Key Enter>
+	<TargetWin %2%>
+	<SetWinSize %5% %6%>
+	<SetWinPos %7% %8%>
+
+// ResetWindowPosition %1<Which PC(always \"Local\" for us)> %2<Window Name> %3<Account> %4<Password> %5<Winsizex> %6<Winsizey> %7<Winposx> %8<Winposy>
+<Command ResetWindowPosition>
+	<SendPC %1%>
+		<TargetWin %2%>
+		<SetForegroundWin>
+		<SetWinSize %5% %6%>
+		<SetWinPos %7% %8%>"
 	
-	puts $hK { <Command RenameAndSize>
-     <SendPC %1%>}
-	puts $hK {     <TargetWin "World of Warcraft">
-     <RenameTargetWin %2%>  
-     <SetWinSize %5% %6%>
-     <SetWinPos %7% %8%>
-     <SetForegroundWin>
-     <WaitForInputIdle>
-     <Text %3%>
-     <wait 50>
-     <Key Tab>
-     <wait 50>
-     <Text %4%>
-     //<RemoveWinFrame>
-     
- <Command LaunchHiresAndRename>
-     <SendPC %1%> 
-     <Run "C:\wow_hires_1.12\WoW.exe" -nosound>
-     <RenameTargetWin %2%> 
-     <WaitForWin %2% 40000>
-     <WaitForInputIdle 40000>
-     <Text %3%>
-     <Key Tab>
-     <WaitForInputIdle 40000>
-     <Wait 500>
-     <Text %4%>
-     <Key Enter>
-     <Wait 500>
-     <Key Enter>
-     <Text %4%>
-     <Key Enter>
-     <TargetWin %2%>
-     <SetWinSize %5% %6%>
-     <SetWinPos %7% %8%>
-	
-	// ResetWindowPosition %1<Which PC(always "Local" for us)> %2<Window Name> %3<Account> %4<Password> %5<Winsizex> %6<Winsizey> %7<Winposx> %8<Winposy>
-	<Command ResetWindowPosition>
-	   <SendPC %1%> 
-	      <TargetWin %2%>
-	      <SetForegroundWin>
-	      <SetWinSize %5% %6%>
-	      <SetWinPos %7% %8%>
-	}
 	set totallabels 0
 	for { set i 0 } { $i<[array size toons] } { incr i } {
 	  set toonname [string tolower [lindex $toons($i) 2]]
@@ -460,9 +474,9 @@ if { ! $nohotkeyoverwrite } {
 	  		set winname ${toonname}_${cpunum}$acct_winname($account)
 	  		puts $hK " <if WinDoesNotExist $winname>"
 			if { $i==[expr $sz - 1] } { 
-			  puts $hK "   <RunOne $computer($cpunum)>"
+			  puts $hK "   <RunOne $computer($cpunum) [get_wow_executable_for_account $account]>"
 		  	} else {
-			  puts $hK "   <OpenOne $computer($cpunum)>"
+			  puts $hK "   <OpenOne $computer($cpunum) [get_wow_executable_for_account $account]>"
 		  	}
 	  		puts $hK " <endif>"
 		}

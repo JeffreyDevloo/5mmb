@@ -1,4 +1,4 @@
-set version 011719a
+set version 122818a
 array unset toons
 array unset autodelete
 array unset raidorder10
@@ -35,6 +35,7 @@ set HKN 5mmb_HKN.txt
 set SME "Interface\\Addons\\SuperMacro\\SM_Extend.lua"
 #set SME SM_Extend.lua
 set fail false
+
 set acc_client [dict create]
 
 # Get the wow.exe name to use for the given account
@@ -47,7 +48,6 @@ proc get_wow_executable_for_account { account } {
 		return $result
 	}
 }
-
 
 if { ! [file exist toonlist.txt ] } {
 	puts "ERROR: YOU MUST HAVE A FILE NAMED toonlist.txt IN THIS DIRECTORY"
@@ -103,40 +103,40 @@ set numtoons 0
 while { [gets $tL line] >= 0 } {
   set line [regsub "\n" $line "" ]
   if { $line == "" } { continue }
-  set line [string trim $line] 
+  set line [string trim $line]
   if { [string index $line 0] != "#" } {
     if { [string tolower [lindex $line 0]] == "box" } {
       if { [llength $line] < 5 } { puts "ERROR: box takes 4 or 5 arguments in toonlist line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-      set account [lindex $line 1] 
-      set passwd [lindex $line 2] 
-      set name [lindex $line 3] 
-      set role [lindex $line 4] 
+      set account [lindex $line 1]
+      set passwd [lindex $line 2]
+      set name [lindex $line 3]
+      set role [lindex $line 4]
       set raidletters [string tolower [lrange $line 5 end]]
-			set raids ""
-			foreach userraid $raidletters { 
-		    regexp {([a-z]|)([0-9])?} $userraid match userraid cpunum
- 		    if { $cpunum=="" } { set cpunum 1 } 
-        lappend raids ${userraid}${cpunum}     
+      set raids ""
+      foreach userraid $raidletters {
+        regexp {([a-z]|)([0-9])?} $userraid match userraid cpunum
+        if { $cpunum=="" } { set cpunum 1 }
+        lappend raids ${userraid}${cpunum}
       }
-			if { $raids == "" } { set raids m1 }
+      if { $raids == "" } { set raids m1 }
       set toons($numtoons) "$account $passwd $name $role $raids"
       incr numtoons
     } elseif { [string tolower [lindex $line 0]] == "keyboard" } {
+     if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
+     set keyboard [lindex $line 1]
+     if { $keyboard !="us" && $keyboard !="uk" && $keyboard !="de" && $keyboard !="other" }  { puts "ERROR: keyboard choices are us/uk/de/other" ; return }
+     if { $keyboard=="de" } {
+       set oem "oem5"
+     } elseif { $keyboard=="other" } {
+       set oem "oem7"
+     } elseif { $keyboard=="uk" } {
+       set oem "oem8"
+     } else {
+       set oem "oem3"
+     }
+   } elseif { [string tolower [lindex $line 0]] == "monitor" } {
  		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set keyboard [lindex $line 1] 
-				if { $keyboard !="us" && $keyboard !="uk" && $keyboard !="de" && $keyboard !="other" }  { puts "ERROR: keyboard choices are us/uk/de/other" ; return }
-				if { $keyboard=="de" } {
-					set oem "oem5"
-				} elseif { $keyboard=="other" } {
-					set oem "oem7"
-				} elseif { $keyboard=="uk" } {
-					set oem "oem8"
-				} else {
-					set oem "oem3"
-				}
-    } elseif { [string tolower [lindex $line 0]] == "monitor" } {
- 		  	if { [llength $line] != 2 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-				set monitor [lindex $line 1] 
+				set monitor [lindex $line 1]
 				if { $monitor !="1k" && $monitor !="3k" && $monitor !="4k" }  { puts "ERROR: monitor choices are 1k/3k/4k" ; return }
     } elseif { [string tolower [lindex $line 0]] == "computer" } {
  		  	if { [llength $line] != 3 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
@@ -241,22 +241,17 @@ while { [gets $tL line] >= 0 } {
  		  	if { [llength [lindex $line 1]] >41 } { puts "ERROR: second arg must 40 or less names $line" ; puts "hit any key to return" ; gets stdin char ; return }
 				set index [expr [array size raidorder40] + 1]
 				set raidorder40($index) [lrange $line 1 end]
-    } elseif { [string tolower [lindex $line 0]] == "acc_client" } {
- 		  	if { [llength $line] != 3 } { puts "ERROR: incorrect number of elements line $line" ; puts "hit any key to return" ; gets stdin char ; return }
-			set account [lindex $line 1]
-			set client [lindex $line 2]
-			dict set acc_client $account $client
     }
   }
 }
 if { ! [info exists computer(1) ] } { set computer(1) Local }
-if $numtoons==0 { 
+if $numtoons==0 {
   puts "ERROR: No box commands with toon names were found in toonlist.txt. "
   puts "SEE toonlist_command_reference.txt"
   puts "hit any key to return" ; gets stdin char ; return
 }
 set tooncount $numtoons
-close $tL 
+close $tL
 while { $tooncount >= 1 } {
   incr tooncount -1
   #puts $toons($tooncount)
@@ -268,78 +263,70 @@ while { $tooncount >= 1 } {
 }
 if { ! $nohotkeyoverwrite } {
 	set hK [open $HKN w+]
+	puts $hK {// Defined WoW Lauchers:
+	// ***NOTE: NONE OF THESE ARE CASE SENSITIVE***
+	//
+	// Special keys:
+	// Ctrl-i: send /init to all windows
+	// Ctrl-l: send /reload to all windows
+	// t: BACK UP HUNTERS (feel free to add other toons)
+	// r: BACK UP MELEE
+	// f: MOVE MELEE FORWARD
+	// y: BACK UP HEALERS
+	// h: BACK UP ALL MANA USERS
+	// Alt Ctrl O: Close all windows
+	// 0: party up! Form a party or raid with all your toons.
+
+	//-----------------------------------------------------------
+	// SUBROUTINE TO LAUNCH AND RENAME A COPY OF WOW.
+	//-----------------------------------------------------------
+	// Arguments:
+	// LaunchAndRename %1<Which PC(always "Local" for us)> %2<Window Name> %3<Account> %4<Password> %5<Winsizex> %6<Winsizey> %7<Winposx> %8<Winposy>
+
+	<Command LaunchAndRename>
+	   <SendPC %1%>}
 	set curdir [pwd]
-	puts $hK "// Defined WoW Lauchers:
-// ***NOTE: NONE OF THESE ARE CASE SENSITIVE***
-//
-// Special keys:
-// Ctrl-i: send /init to all windows
-// Ctrl-l: send /reload to all windows
-// t: BACK UP HUNTERS (feel free to add other toons)
-// r: BACK UP MELEE
-// f: MOVE MELEE FORWARD
-// y: BACK UP HEALERS
-// h: BACK UP ALL MANA USERS
-// Alt Ctrl O: Close all windows
-// 0: party up! Form a party or raid with all your toons.
+	puts -nonewline $hK {   <Run "}
+	puts $hK "$curdir/%9%\" -nosound>"
+	puts $hK {      <RenameTargetWin %2%>
+	      <WaitForWin %2% 40000>
+	      <WaitForInputIdle 40000>
+	      <Text %3%>
+	      <Key Tab>
+	      <Text %4%>
+	      <TargetWin %2%>
+	      //<RemoveWinFrame>
+	      <SetWinSize %5% %6%>
+	      <SetWinPos %7% %8%>
 
-//-----------------------------------------------------------
-// SUBROUTINE TO LAUNCH AND RENAME A COPY OF WOW.
-//-----------------------------------------------------------
-// Arguments:
-// LaunchAndRename %1<Which PC(always \"Local\" for us)> %2<Window Name> %3<Account> %4<Password> %5<Winsizex> %6<Winsizey> %7<Winposx> %8<Winposy>
+	<Command LaunchHiresAndRename>
+	   <SendPC %1%>
+	      <Run "C:\wow_hires_1.12\WoW.exe" -nosound>
+	      <RenameTargetWin %2%>
+	      <WaitForWin %2% 40000>
+	      <WaitForInputIdle 40000>
+	      <Text %3%>
+	      <Key Tab>
+	      <WaitForInputIdle 40000>
+	      <Wait 500>
+	      <Text %4%>
+	      <Key Enter>
+	      <Wait 500>
+	      <Key Enter>
+	      <Text %4%>
+	      <Key Enter>
+	      <TargetWin %2%>
+	      <SetWinSize %5% %6%>
+	      <SetWinPos %7% %8%>
 
-<Command OpenOne>
-	<SendPC %1%>
-	<Open \"${curdir}/%2%\" -nosound>
-
-<Command RunOne>
-	<SendPC %1%>
-	<Run \"${curdir}/%2%\" -nosound>
-
-<Command RenameAndSize>
-	<SendPC %1%>
-	<TargetWin \"World of Warcraft\">
-	<RenameTargetWin %2%>
-	<SetWinSize %5% %6%>
-	<SetWinPos %7% %8%>
-	<SetForegroundWin>
-	<WaitForInputIdle>
-	<Text %3%>
-	<wait 50>
-	<Key Tab>
-	<wait 50>
-	<Text %4%>
-	//<RemoveWinFrame>
-
-<Command LaunchHiresAndRename>
-	<SendPC %1%>
-	<Run \"C:\wow_hires_1.12\WoW.exe\" -nosound>
-	<RenameTargetWin %2%>
-	<WaitForWin %2% 40000>
-	<WaitForInputIdle 40000>
-	<Text %3%>
-	<Key Tab>
-	<WaitForInputIdle 40000>
-	<Wait 500>
-	<Text %4%>
-	<Key Enter>
-	<Wait 500>
-	<Key Enter>
-	<Text %4%>
-	<Key Enter>
-	<TargetWin %2%>
-	<SetWinSize %5% %6%>
-	<SetWinPos %7% %8%>
-
-// ResetWindowPosition %1<Which PC(always \"Local\" for us)> %2<Window Name> %3<Account> %4<Password> %5<Winsizex> %6<Winsizey> %7<Winposx> %8<Winposy>
-<Command ResetWindowPosition>
-	<SendPC %1%>
-		<TargetWin %2%>
-		<SetForegroundWin>
-		<SetWinSize %5% %6%>
-		<SetWinPos %7% %8%>"
-	
+	// ResetWindowPosition %1<Which PC(always "Local" for us)> %2<Window Name> %3<Account> %4<Password> %5<Winsizex> %6<Winsizey> %7<Winposx> %8<Winposy>
+	<Command ResetWindowPosition>
+	   <SendPC %1%>
+	      <TargetWin %2%>
+	      <SetForegroundWin>
+	      <SetWinSize %5% %6%>
+	      <SetWinPos %7% %8%>
+	}
 	set totallabels 0
 	for { set i 0 } { $i<[array size toons] } { incr i } {
 	  set toonname [string tolower [lindex $toons($i) 2]]
@@ -348,7 +335,7 @@ if { ! $nohotkeyoverwrite } {
 		set comps 1
 		foreach myraid $raids {
 			regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
-			if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum } 
+			if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum }
 		}
 	  set length [string length $account]
 		foreach mycomp $comps {
@@ -359,38 +346,37 @@ if { ! $nohotkeyoverwrite } {
 	    	set acctnick ${account}
 	  	}
 	  	set acct_winname($account) ${acctnick}
-			set winnum [format "%03d" $totallabels]
-	  	puts $hK "  <Label ax${winnum} $computer($mycomp) SendWinM ${toonname}_${mycomp}${acctnick}>"
+	  	puts $hK "  <Label w${totallabels} $computer($mycomp) SendWinM ${toonname}_${mycomp}${acctnick}>"
 			incr totallabels
 		}
 	}
 	puts $hK ""
-	  
-	# 20 Window Raid 
+
+	# 20 Window Raid
 	if { $monitor == "4k" } {
 	  #4k
-		if { $use2monitors } { 
+		if { $use2monitors } {
+		set raidhash(5) "1920 1440 960 720 960 720 0 720 960 720 960 0 960 720 1920 0 960 720 2880 720"
+		set raidhash(10) "1280 1020 0 960 1280 1020 1280 960 1280 1020 2560 960 640 480 640 0 640 480 0 0 640 480 0 480 640 480 1280 0 640 480 640 480 640 480 1280 480 640 480 1920 480"
+	  set raidhash(20) "640 480 0 0 960 720 0 1440 960 720 960 1440 960 720 1920 1440 640 480 640 0 640 480 1280 0 640 480 1920 0 640 480 2560 0 640 480 3200 0 640 480 0 480 640 480 640 480 640 480 1280 480 640 480 1920 480 640 480 2560 480 640 480 3200 480 640 480 0 960 640 480 640 960 640 480 1280 960 640 480 1920 960  640 480 2560 960"
+	  set raidhash(25) "533 430 1548 0 1548 1290 0 860 533 430 1548 430 533 430 1548 860 533 430 1548 1290 533 430 1548 1720 533 430 2081 0 533 430 2081 430 533 430 2081 860 533 430 2081 1290 533 430 2081 1720 533 430 2614 0 533 430 2614 430 533 430 2614 860 533 430 2614 1290 533 430 2614 1720 533 430 3147 0 533 430 3147 430 533 430 3147 860 533 430 3147 1290 533 430 3147 1720 533 430 482 0 533 430 1015 0 533 430 482 430 533 430 1015 430"
+	  set raidhash(40) " 480 360 0 0 1440 1080 960 1080 480 360 480 0 480 360 960 0 480 360 1440 0 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 0 360 480 360 480 360 480 360 960 360 480 360 1440 360 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 0 720 480 360 480 720 480 360 960 720 480 360 1440 720 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 480 360 0 1080 480 360 480 1080 480 360 2400 1080 480 360 2880 1080 480 360 3360 1080 480 360 0 1440 480 360 480 1440 480 360 2400 1440 480 360 2880 1440 480 360 3360 1440 480 360 0 1800 480 360 480 1800 480 360 2400 1800 480 360 2880 1800 480 360 3360 1800"
+		} else {
 			set raidhash(5) "1920 1440 960 720 960 720 0 720 960 720 960 0 960 720 1920 0 960 720 2880 720"
 			set raidhash(10) "1280 1020 0 960 1280 1020 1280 960 1280 1020 2560 960 640 480 640 0 640 480 0 0 640 480 0 480 640 480 1280 0 640 480 640 480 640 480 1280 480 640 480 1920 480"
-		 	set raidhash(20) "640 480 0 0 960 720 0 1440 960 720 960 1440 960 720 1920 1440 640 480 640 0 640 480 1280 0 640 480 1920 0 640 480 2560 0 640 480 3200 0 640 480 0 480 640 480 640 480 640 480 1280 480 640 480 1920 480 640 480 2560 480 640 480 3200 480 640 480 0 960 640 480 640 960 640 480 1280 960 640 480 1920 960  640 480 2560 960" 
+		 	set raidhash(20) "640 480 0 0 960 720 0 1440 960 720 960 1440 960 720 1920 1440 640 480 640 0 640 480 1280 0 640 480 1920 0 640 480 2560 0 640 480 3200 0 640 480 0 480 640 480 640 480 640 480 1280 480 640 480 1920 480 640 480 2560 480 640 480 3200 480 640 480 0 960 640 480 640 960 640 480 1280 960 640 480 1920 960  640 480 2560 960"
 	  	set raidhash(25) "533 430 1548 0 1548 1290 0 860 533 430 1548 430 533 430 1548 860 533 430 1548 1290 533 430 1548 1720 533 430 2081 0 533 430 2081 430 533 430 2081 860 533 430 2081 1290 533 430 2081 1720 533 430 2614 0 533 430 2614 430 533 430 2614 860 533 430 2614 1290 533 430 2614 1720 533 430 3147 0 533 430 3147 430 533 430 3147 860 533 430 3147 1290 533 430 3147 1720 533 430 482 0 533 430 1015 0 533 430 482 430 533 430 1015 430"
 	  	set raidhash(40) " 480 360 0 0 1440 1080 960 1080 480 360 480 0 480 360 960 0 480 360 1440 0 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 0 360 480 360 480 360 480 360 960 360 480 360 1440 360 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 0 720 480 360 480 720 480 360 960 720 480 360 1440 720 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 480 360 0 1080 480 360 480 1080 480 360 2400 1080 480 360 2880 1080 480 360 3360 1080 480 360 0 1440 480 360 480 1440 480 360 2400 1440 480 360 2880 1440 480 360 3360 1440 480 360 0 1800 480 360 480 1800 480 360 2400 1800 480 360 2880 1800 480 360 3360 1800"
-		} else { 
-			set raidhash(5) "1920 1440 960 720 960 720 0 720 960 720 960 0 960 720 1920 0 960 720 2880 720"
-			set raidhash(10) "1280 1020 0 960 1280 1020 1280 960 1280 1020 2560 960 640 480 640 0 640 480 0 0 640 480 0 480 640 480 1280 0 640 480 640 480 640 480 1280 480 640 480 1920 480"
-		 	set raidhash(20) "640 480 0 0 960 720 0 1440 960 720 960 1440 960 720 1920 1440 640 480 640 0 640 480 1280 0 640 480 1920 0 640 480 2560 0 640 480 3200 0 640 480 0 480 640 480 640 480 640 480 1280 480 640 480 1920 480 640 480 2560 480 640 480 3200 480 640 480 0 960 640 480 640 960 640 480 1280 960 640 480 1920 960  640 480 2560 960" 
-	  	set raidhash(25) "533 430 1548 0 1548 1290 0 860 533 430 1548 430 533 430 1548 860 533 430 1548 1290 533 430 1548 1720 533 430 2081 0 533 430 2081 430 533 430 2081 860 533 430 2081 1290 533 430 2081 1720 533 430 2614 0 533 430 2614 430 533 430 2614 860 533 430 2614 1290 533 430 2614 1720 533 430 3147 0 533 430 3147 430 533 430 3147 860 533 430 3147 1290 533 430 3147 1720 533 430 482 0 533 430 1015 0 533 430 482 430 533 430 1015 430"
-	  	set raidhash(40) " 480 360 0 0 1440 1080 960 1080 480 360 480 0 480 360 960 0 480 360 1440 0 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 0 360 480 360 480 360 480 360 960 360 480 360 1440 360 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 0 720 480 360 480 720 480 360 960 720 480 360 1440 720 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 480 360 0 1080 480 360 480 1080 480 360 2400 1080 480 360 2880 1080 480 360 3360 1080 480 360 0 1440 480 360 480 1440 480 360 2400 1440 480 360 2880 1440 480 360 3360 1440 480 360 0 1800 480 360 480 1800 480 360 2400 1800 480 360 2880 1800 480 360 3360 1800"
-	  	set raidhash(80) " 480 360 0 0 1440 1080 960 1080 480 360 480 0 480 360 960 0 480 360 1440 0 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 0 360 480 360 480 360 480 360 960 360 480 360 1440 360 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 0 720 480 360 480 720 480 360 960 720 480 360 1440 720 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 480 360 0 1080 480 360 480 1080 480 360 2400 1080 480 360 2880 1080 480 360 3360 1080 480 360 0 1440 480 360 480 1440 480 360 2400 1440 480 360 2880 1440 480 360 3360 1440 480 360 0 1800 480 360 480 1800 480 360 2400 1800 480 360 2880 1800 480 360 3360 1800 480 360 0 0 1440 1080 960 1080 480 360 480 0 480 360 960 0 480 360 1440 0 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 0 360 480 360 480 360 480 360 960 360 480 360 1440 360 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 0 720 480 360 480 720 480 360 960 720 480 360 1440 720 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 480 360 0 1080 480 360 480 1080 480 360 2400 1080 480 360 2880 1080 480 360 3360 1080 480 360 0 1440 480 360 480 1440 480 360 2400 1440 480 360 2880 1440 480 360 3360 1440 480 360 0 1800 480 360 480 1800 480 360 2400 1800 480 360 2880 1800 480 360 3360 1800"
+		set raidhash(80) " 480 360 0 0 1440 1080 960 1080 480 360 480 0 480 360 960 0 480 360 1440 0 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 0 360 480 360 480 360 480 360 960 360 480 360 1440 360 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 0 720 480 360 480 720 480 360 960 720 480 360 1440 720 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 480 360 0 1080 480 360 480 1080 480 360 2400 1080 480 360 2880 1080 480 360 3360 1080 480 360 0 1440 480 360 480 1440 480 360 2400 1440 480 360 2880 1440 480 360 3360 1440 480 360 0 1800 480 360 480 1800 480 360 2400 1800 480 360 2880 1800 480 360 3360 1800 480 360 0 0 1440 1080 960 1080 480 360 480 0 480 360 960 0 480 360 1440 0 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 0 360 480 360 480 360 480 360 960 360 480 360 1440 360 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 0 720 480 360 480 720 480 360 960 720 480 360 1440 720 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 480 360 0 1080 480 360 480 1080 480 360 2400 1080 480 360 2880 1080 480 360 3360 1080 480 360 0 1440 480 360 480 1440 480 360 2400 1440 480 360 2880 1440 480 360 3360 1440 480 360 0 1800 480 360 480 1800 480 360 2400 1800 480 360 2880 1800 480 360 3360 1800"
 		}
 	} elseif { $monitor == "3k" } {
 	  #3k
-		if { $use2monitors } { 
- 			set raidhash(5) "1720 1440 860 0 860 720 0 0 860 720 0 720 860 720 2580 0 860 720 2580 720"
-     	set raidhash(10) "2064 960 688 0 688 480 0 0 688 480 0 480 688 480 0 960 688 480 688 960 688 480 1376 960 688 480 2064 960 688 480 2752 0 688 480 2752 480 688 480 2752 960"
-     	set raidhash(15) "1440 1200 720 0 720 600 0 0 720 600 0 600 720 600 2160 0 720 600 2160 600 480 400 2880 0 480 400 2880 400 480 400 2880 800 480 400 3360 0 480 400 3360 400 480 400 3360 800 480 400 3840 0 480 400 3840 400 480 400 3840 800 480 400 4320 0"
-      			set raidhash(20) "490 360 0 0 490 360 0 360 490 360 0 720 490 360 0 1080 490 360 490 0 490 360 490 360 490 360 490 720 490 360 490 1080 980 720 980 0 490 360 980 1080 490 360 1470 720 490 360 1470 1080 490 360 1960 0 490 360 1960 720 490 360 1960 1080 490 360 2450 0 490 360 2450 360 490 360 2450 720 490 360 2450 1080 490 360 980 720"
-		} else { 
+		if { $use2monitors } {
+ 		set raidhash(5) "1720 1440 860 0 860 720 0 0 860 720 0 720 860 720 2580 0 860 720 2580 720"
+      		set raidhash(10) "2064 960 688 0 688 480 0 0 688 480 0 480 688 480 0 960 688 480 688 960 688 480 1376 960 688 480 2064 960 688 480 2752 0 688 480 2752 480 688 480 2752 960"
+      		set raidhash(15) "1440 1200 720 0 720 600 0 0 720 600 0 600 720 600 2160 0 720 600 2160 600 480 400 2880 0 480 400 2880 400 480 400 2880 800 480 400 3360 0 480 400 3360 400 480 400 3360 800 480 400 3840 0 480 400 3840 400 480 400 3840 800 480 400 4320 0"
+      		set raidhash(20) "490 360 0 0 490 360 0 360 490 360 0 720 490 360 0 1080 490 360 490 0 490 360 490 360 490 360 490 720 490 360 490 1080 980 720 980 0 490 360 980 1080 490 360 1470 720 490 360 1470 1080 490 360 1960 0 490 360 1960 720 490 360 1960 1080 490 360 2450 0 490 360 2450 360 490 360 2450 720 490 360 2450 1080 490 360 980 720"
+	} else {
  			set raidhash(5) "1720 1440 860 0 860 720 0 0 860 720 0 720 860 720 2580 0 860 720 2580 720"
      	set raidhash(10) "2064 960 688 0 688 480 0 0 688 480 0 480 688 480 0 960 688 480 688 960 688 480 1376 960 688 480 2064 960 688 480 2752 0 688 480 2752 480 688 480 2752 960"
      	set raidhash(15) "1440 1200 720 0 720 600 0 0 720 600 0 600 720 600 2160 0 720 600 2160 600 480 400 2880 0 480 400 2880 400 480 400 2880 800 480 400 3360 0 480 400 3360 400 480 400 3360 800 480 400 3840 0 480 400 3840 400 480 400 3840 800 480 400 4320 0"
@@ -398,22 +384,22 @@ if { ! $nohotkeyoverwrite } {
 		}
 	} else {
 	  #1080p
-		if { $use2monitors } { 
-			set raidhash(5) "1920 1080 0 0 960 540 1920 540 960 540 1920 0 960 540 2880 0 960 540 2880 540 "
-			set raidhash(10) "1920 1080 0 0 640 360 1920 0 640 360 2560 0 640 360 3200 0 640 360 1920 360 640 360 2560 360 640 360 3200 360 640 360 1920 720 640 360 2560 720 640 360 3200 720 "
+		if { $use2monitors } {
+		set raidhash(5) "1920 1080 0 0 960 540 1920 540 960 540 1920 0 960 540 2880 0 960 540 2880 540 "
+		set raidhash(10) "1920 1080 0 0 640 360 1920 0 640 360 2560 0 640 360 3200 0 640 360 1920 360 640 360 2560 360 640 360 3200 360 640 360 1920 720 640 360 2560 720 640 360 3200 720 "
 	  	set raidhash(20) "960 720 0 360 480 360 0 0 480 360 480 0 480 360 960 0 480 360 1440 0 480 360 960 360 480 360 1440 360 480 360 960 720 480 360 1920 0 480 360 2400 0 480 360 2880 0 480 360 3360 0 480 360 1920 360 480 360 2400 360 480 360 2880 360 480 360 3360 360 480 360 1920 720 480 360 2400 720 480 360 2880 720 480 360 3360 720 "
-	  	set raidhash(25) "320 240 320 0 480 360 0 480 680 480 360 480 320 240 0 0 320 240 640 0 320 240 960 0 320 240 1280 0 320 240 1600 0 320 240 0 240 320 240 320 240 320 240 640 240 320 240 960 240 320 240 960 480 320 240 1600 240 320 240 1280 240 320 240 1280 480 320 240  1600 480 320 240 960 720 320 240 1280 720 320 240 1600 720 "
-	  	set raidhash(25) "533 430 1548 0 1548 1290 0 860 533 430 1548 430 533 430 1548 860 533 430 1548 1290 533 430 1548 1720 533 430 2081 0 533 430 2081 430 533 430 2081 860 533 430 2081 1290 533 430 2081 1720 533 430 2614 0 533 430 2614 430 533 430 2614 860 533 430 2614 1290 533 430 2614 1720 533 430 3147 0 533 430 3147 430 533 430 3147 860 533 430 3147 1290 533 430 3147 1720 533 430 482 0 533 430 1015 0 533 430 482 430 533 430 1015 430"
-	  	set raidhash(25) "266 215 774 0 774 645 0 430 266 215 774 215 266 215 774 430 266 215 774 645 266 215 774 860 266 215 1040 0 266 215 1040 215 266 215 1040 430 266 215 1040 645 266 215 1040 860 266 215 1307 0 266 215 1307 215 266 215 1307 430 266 215 1307 645 266 215 1307 860 266 215 1573 0 266 215 1573 215 266 215 1573 430 266 215 1573 645 266 215 1573 860 266 215 241 0 266 215 507 0 266 215 241 215 266 215 507 215"
+	  	set raidhash(25) "1440 810 0 0 480 270 0 810 480 270 480 810 480 270 960 810 480 270 1440 810 480 270 1920 0 480 270 1920 270 480 270 1920 540 480 270 1920 810 480 270 2400 0 480 270 2400 270 480 270 2400 540 480 270 2400 810 480 270 2880 0 480 270 2880 270 480 270 2880 540 480 270 2880 810 480 270 3360 0 480 270 3360 270 480 270 3360 540 480 270 3360 810 480 270 144 0 0 480 270 1440 270 480 270 1440 540 480 270 1440 810"
+	  	set raidhash(40) " 320 240 320 0 480 360 0 480 680 480 360 480 320 240 0 0 320 240 640 0 320 240 960 0 320 240 1280 0 320 240 1600 0 320 240 0 240 320 240 320 240 320 240 640 240 320 240 960 240 320 240 960 480 320 240 1600 240 320 240 1280 240 320 240 1280 480 320 240  1600 480 320 240 960 720 320 240 1280 720 320 240 1600 720 320 240 2240 0 480 360 1920 480 680 480 2280 480 320 240 1920 0 320 240 2560 0 320 240 2880 0 320 240 3200 0 320 240 3520 0 320 240 1920 240 320 240 2240 240 320 240 2560 240 320 240 2880 240 320 240 2880 480 320 240 3520 240 320 240 3200 240 320 240 3200 480 320 240 3520 480 320 240 2880 720 320 240 3200 720 320 240 3520 720"
+		set raidhash(25) "266 215 774 0 774 645 0 430 266 215 774 215 266 215 774 430 266 215 774 645 266 215 774 860 266 215 1040 0 266 215 1040 215 266 215 1040 430 266 215 1040 645 266 215 1040 860 266 215 1307 0 266 215 1307 215 266 215 1307 430 266 215 1307 645 266 215 1307 860 266 215 1573 0 266 215 1573 215 266 215 1573 430 266 215 1573 645 266 215 1573 860 266 215 241 0 266 215 507 0 266 215 241 215 266 215 507 215"
 		set raidhash(40) "240 180 0 0 480 360 480 720 480 360 0 720 480 360 960 720 480 360 1440 720 240 180 120 0 240 180 240 0 240 180 360 0 240 180 480 0 240 180 600 0 240 180 720 0 240 180 840 0 240 180 960 0 240 180 1200 0 240 180 1440 0 240 180 1680 0 240 180 0 180 240 180 240 180 240 180 480 180 240 180 720 180 240 180 960 180 240 180 1200 180 240 180 1440 180 240 180 1680 180 240 180 0 360 240 180 240 360 240 180 480 360 240 180 720 360 240 180 960 360 240 180 1200 360 240 180 1440 360 240 180 1680 360 240 180 0 540 240 180 240 540 240 180 480 540 240 180 720 540 240 180 960 540 240 180 1200 540 240 180 1440 540 240 180 1680 540"
-		} else { 
-			set raidhash(5) "960 720 480 360 480 360 0 360 480 360 480 0 480 360 960 0 480 360 1440 360"
-			set raidhash(10) "640 510 0 480 640 510 640 480 640 510 1280 480 320 240 320 0 320 240 0 0 320 240
-	 	0 240 320 240 640 0 320 240 320 240 320 240 640 240 320 240 960 240"
-	  	set raidhash(20) "320 240 320 0 480 360 0 480 680 480 360 480 320 240 0 0 320 240 640 0 320 240 960 0 320 240 1280 0 320 240 1600 0 320 240 0 240 320 240 320 240 320 240 640 240 320 240 960 240 320 240 960 480 320 240 1600 240 320 240 1280 240 320 240 1280 480 320 240  1600 480 320 240 960 720 320 240 1280 720 320 240 1600 720"
-	  	set raidhash(25) "266 215 774 0 774 645 0 430 266 215 774 215 266 215 774 430 266 215 774 645 266 215 774 860 266 215 1040 0 266 215 1040 215 266 215 1040 430 266 215 1040 645 266 215 1040 860 266 215 1307 0 266 215 1307 215 266 215 1307 430 266 215 1307 645 266 215 1307 860 266 215 1573 0 266 215 1573 215 266 215 1573 430 266 215 1573 645 266 215 1573 860 266 215 241 0 266 215 507 0 266 215 241 215 266 215 507 215"
-			set raidhash(40) "240 180 0 0 480 360 480 720 480 360 0 720 480 360 960 720 480 360 1440 720 240 180 120 0 240 180 240 0 240 180 360 0 240 180 480 0 240 180 600 0 240 180 720 0 240 180 840 0 240 180 960 0 240 180 1200 0 240 180 1440 0 240 180 1680 0 240 180 0 180 240 180 240 180 240 180 480 180 240 180 720 180 240 180 960 180 240 180 1200 180 240 180 1440 180 240 180 1680 180 240 180 0 360 240 180 240 360 240 180 480 360 240 180 720 360 240 180 960 360 240 180 1200 360 240 180 1440 360 240 180 1680 360 240 180 0 540 240 180 240 540 240 180 480 540 240 180 720 540 240 180 960 540 240 180 1200 540 240 180 1440 540 240 180 1680 540"
-		}
+		} else {
+		set raidhash(5) "960 720 480 360 480 360 0 360 480 360 480 0 480 360 960 0 480 360 1440 360"
+		set raidhash(10) "640 510 0 480 640 510 640 480 640 510 1280 480 320 240 320 0 320 240 0 0 320 240
+	 0 240 320 240 640 0 320 240 320 240 320 240 640 240 320 240 960 240"
+	  set raidhash(20) "320 240 320 0 480 360 0 480 680 480 360 480 320 240 0 0 320 240 640 0 320 240 960 0 320 240 1280 0 320 240 1600 0 320 240 0 240 320 240 320 240 320 240 640 240 320 240 960 240 320 240 960 480 320 240 1600 240 320 240 1280 240 320 240 1280 480 320 240  1600 480 320 240 960 720 320 240 1280 720 320 240 1600 720"
+	  set raidhash(25) "266 215 774 0 774 645 0 430 266 215 774 215 266 215 774 430 266 215 774 645 266 215 774 860 266 215 1040 0 266 215 1040 215 266 215 1040 430 266 215 1040 645 266 215 1040 860 266 215 1307 0 266 215 1307 215 266 215 1307 430 266 215 1307 645 266 215 1307 860 266 215 1573 0 266 215 1573 215 266 215 1573 430 266 215 1573 645 266 215 1573 860 266 215 241 0 266 215 507 0 266 215 241 215 266 215 507 215"
+		set raidhash(40) "240 180 0 0 480 360 480 720 480 360 0 720 480 360 960 720 480 360 1440 720 240 180 120 0 240 180 240 0 240 180 360 0 240 180 480 0 240 180 600 0 240 180 720 0 240 180 840 0 240 180 960 0 240 180 1200 0 240 180 1440 0 240 180 1680 0 240 180 0 180 240 180 240 180 240 180 480 180 240 180 720 180 240 180 960 180 240 180 1200 180 240 180 1440 180 240 180 1680 180 240 180 0 360 240 180 240 360 240 180 480 360 240 180 720 360 240 180 960 360 240 180 1200 360 240 180 1440 360 240 180 1680 360 240 180 0 540 240 180 240 540 240 180 480 540 240 180 720 540 240 180 960 540 240 180 1200 540 240 180 1440 540 240 180 1680 540"
+	}
 	}
 	array unset raidlist
 	array unset raididx
@@ -426,11 +412,11 @@ if { ! $nohotkeyoverwrite } {
 		}
 	}
 	set mainraids ""
-	foreach userraid $raids { 
+	foreach userraid $raids {
 		regexp {([a-z]|[A-Z])([0-9])?} $userraid match userraid cpunum
 		set raididx($userraid) 0
 		array unset group${userraid}
-		if { [lsearch $mainraids $userraid ] == -1 } { lappend mainraids $userraid } 
+		if { [lsearch $mainraids $userraid ] == -1 } { lappend mainraids $userraid }
 	}
 	for {set i 0} {$i < [array size toons]} {incr i} {
 		set myraids [lrange $toons($i) 4 end]
@@ -451,37 +437,19 @@ if { ! $nohotkeyoverwrite } {
 			}
 		}
 	}
-	foreach raid [array names windowcount] { 
+	foreach raid [array names windowcount] {
 	  #Set window count in each raid to something I actually have a hash for
 		if {$windowcount($raid) > 25} { set windowcount($raid) 40
-		} elseif {$windowcount($raid) > 20 } { set windowcount($raid) 25  
-		} elseif {$windowcount($raid) > 10 } { set windowcount($raid) 20  
-		} elseif {$windowcount($raid) > 5 } { set windowcount($raid) 10  
-		} else { set windowcount($raid) 5 } 
+		} elseif {$windowcount($raid) > 20 } { set windowcount($raid) 25
+		} elseif {$windowcount($raid) > 10 } { set windowcount($raid) 20
+		} elseif {$windowcount($raid) > 5 } { set windowcount($raid) 10
+		} else { set windowcount($raid) 5 }
 		set windex($raid) 0
 	}
 	foreach mainraid $mainraids {
 		puts $hK ""
 		puts $hK "<Hotkey ScrollLockOn Alt Ctrl $mainraid>"
 		set arrayname group${mainraid}
-		set sz [array size $arrayname]
-		for { set i 0 } { $i<$sz } { incr i } {
-			set thistoon [lindex [array get $arrayname $i] 1]
-	  		set myraid [lindex $thistoon 4]
-	  		set toonname [string tolower [lindex $thistoon 2]]
-			regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
-	  		set account [lindex $thistoon 0]
-	  		set winname ${toonname}_${cpunum}$acct_winname($account)
-	  		puts $hK " <if WinDoesNotExist $winname>"
-			if { $i==[expr $sz - 1] } { 
-			  puts $hK "   <RunOne $computer($cpunum) [get_wow_executable_for_account $account]>"
-		  	} else {
-			  puts $hK "   <OpenOne $computer($cpunum) [get_wow_executable_for_account $account]>"
-		  	}
-	  		puts $hK " <endif>"
-		}
-		puts $hK "   <TargetWin \"World of Warcraft\">"
-		puts $hK "   <WaitForInputIdle 40000>"
 		for { set i 0 } { $i<[array size $arrayname] } { incr i } {
 			set thistoon [lindex [array get $arrayname $i] 1]
 	  	set toonname [string tolower [lindex $thistoon 2]]
@@ -491,11 +459,10 @@ if { ! $nohotkeyoverwrite } {
 	  	set passwd [lindex $thistoon 1]
 	  	set winname ${toonname}_${cpunum}$acct_winname($account)
 	  	puts $hK "  <if WinDoesNotExist $winname>"
-	  	puts $hK "  <RenameAndSize $computer($cpunum) $winname $account $passwd [lindex $raidhash($windowcount($myraid)) [expr $windex($myraid)*4+0]] [lindex $raidhash($windowcount($myraid)) [expr $windex($myraid)*4+1]] [lindex $raidhash($windowcount($myraid)) [expr $windex($myraid)*4+2]] [lindex $raidhash($windowcount($myraid)) [expr $windex($myraid)*4+3]]>"
-	        puts $hK " <endif>"
+	  	puts $hK "  <LaunchAndRename $computer($cpunum) $winname $account $passwd [lindex $raidhash($windowcount($myraid)) [expr $windex($myraid)*4+0]] [lindex $raidhash($windowcount($myraid)) [expr $windex($myraid)*4+1]] [lindex $raidhash($windowcount($myraid)) [expr $windex($myraid)*4+2]] [lindex $raidhash($windowcount($myraid)) [expr $windex($myraid)*4+3]] [get_wow_executable_for_account $account]>"
 			incr windex($myraid)
 		}
-		foreach raid [array names windowcount] { 
+		foreach raid [array names windowcount] {
 			set windex($raid) 0
 		}
 		puts $hK ""
@@ -512,63 +479,57 @@ if { ! $nohotkeyoverwrite } {
 			incr windex($myraid)
 		}
 	}
-	set winlabels ""
+	set winlabels "  <SendLabel"
 	for { set i 0 } { $i<$totallabels } { incr i } {
-		set winnum [format "%03d" $i]
-		set winlabels  "$winlabels ax${winnum}"
+	  if { $winlabels=="  <SendLabel" } { set winlabels  "$winlabels w${i}" } else { set winlabels "${winlabels},w${i}" }
 	}
-	puts $hK "" 
+	set winlabels "${winlabels}>"
+	puts $hK ""
 	puts $hK "<Hotkey ScrollLockOn Ctrl i>"
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK "<Key enter><Wait 250><key divide><wait 25><Text init><Wait 175><Key enter>"
+	puts $hK $winlabels
+	puts $hK {  <Key enter>
+	  <Wait 250>
+	  <Key divide>
+	  <Wait 25>
+	  <Text init>
+	  <Wait 175>
+	  <Key enter>
 	}
-	puts $hK ""
-	puts $hK "" 
 	puts $hK "<Hotkey ScrollLockOn Ctrl l>"
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK "<Key enter><Wait 250><key divide><wait 25><Text reload><Wait 175><Key enter>"
+	puts $hK $winlabels
+	puts $hK {  <Key enter>
+	  <Wait 250>
+	  <Key divide>
+	  <Wait 25>
+	  <Text reload>
+	  <Wait 175>
+	  <Key enter>
 	}
-	puts $hK ""
 	puts $hK "<Hotkey ScrollLockOn Alt Ctrl o>"
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK "<CloseWin>"
+	puts $hK $winlabels
+	puts $hK {  <CloseWin>
 	}
-	puts $hK ""
 	puts $hK "<Hotkey ScrollLockOn 0>"
-	puts $hK "  <SendFocusWin><Key 0>"
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK "<Key Alt 4>"
-	}
+	puts $hK {  <SendFocusWin>
+	  <Key 0>}
+	puts $hK $winlabels
+	puts $hK "  <Key Alt 4>"
 	puts $hK ""
 	puts $hK {//-----------------------------------------------------------
 	// DEFINE HOTKEYS FOR ALL KEY COMBINATIONS THAT WILL GET
 	// SENT TO BOTH WOWS. ADD MORE KEY COMBO'S IF YOU WANT.
 	//-----------------------------------------------------------
-<Hotkey ScrollLockOn A-Z, 1-9, Shift, Ctrl, Alt, Plus, Minus, Esc , Space, Tab, Divide, F1-F12 except E,F,Q,H, W, A, S, D, R, T, Y, I, U, J>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK "<Key %Trigger%>"
-	}
+	<Hotkey ScrollLockOn A-Z, 1-9, Shift, Ctrl, Alt, Plus, Minus, Esc , Space, Tab, Divide, F1-F12 except E,F,Q,H, W, A, S, D, R, T, Y, I, U, J>}
+	puts $hK $winlabels
+	puts $hK { <Key %Trigger%>}
 	puts $hK ""
 	puts $hK {//-----------------------------------------------------------
 	// DEFINE MOVEMENT KEYS THAT WILL GET SENT TO BOTH WOW'S.
 	// ADD MORE KEYS IF YOU WANT.
 	//-----------------------------------------------------------
-<MovementHotkey ScrollLockOn up, down, left, right,e,q>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK "<Key %Trigger%>"
-	}
+	<MovementHotkey ScrollLockOn up, down, left, right,e,q>}
+	puts $hK $winlabels
+	puts $hK { <Key %Trigger%>}
 	puts $hK ""
 	puts $hK {//-----------------------------------------------------------
 	// BROADCAST MOUSE CLICKS. HOLD DOWN oem3 (ON U.S. KEYBOARDS,
@@ -578,303 +539,165 @@ if { ! $nohotkeyoverwrite } {
 	puts $hK "<UseKeyAsModifier $oem>"
 	puts $hK ""
 	puts $hK "<Hotkey ScrollLockOn $oem LButton, RButton, Button4, Button5>"
-	puts $hK "<Cancel>"
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK "<ClickMouse %TriggerMainKey%>"
-	}
+	puts $hK $winlabels
+	puts $hK {      <ClickMouse %TriggerMainKey%>}
+	puts ""
+	puts $hK {<Hotkey ScrollLockOn Alt 1>
+	<SendFocusWin>
+	  <Key f10>}
+	puts $hK $winlabels
+	puts $hK {  <Key Alt 1>
+	<Hotkey ScrollLockOn Alt 2>}
+	puts $hK $winlabels
+	puts $hK {  <Key Alt 2>
+	<Hotkey ScrollLockOn Alt 3>}
+	puts $hK $winlabels
+	puts $hK {  <Key Alt 3>
+	<Hotkey ScrollLockOn Alt 4>
+	<SendFocusWin>
+	  <Key f10>}
+	puts $hK $winlabels
+	puts $hK {  <Key Alt 4>
+	<Hotkey ScrollLockOn Alt 5>}
+	puts $hK $winlabels
+	puts $hK {  <Key Alt 5>
+	<Hotkey ScrollLockOn Alt 6>}
+	puts $hK $winlabels
+	puts $hK {  <Key Alt 6>
+	<Hotkey ScrollLockOn Alt 7>}
+	puts $hK $winlabels
+	puts $hK {  <Key Alt 7>
+	<Hotkey ScrollLockOn Alt 8>}
+	puts $hK $winlabels
+	puts $hK {  <Key Alt 8>
+	<Hotkey ScrollLockOn Alt 9>}
+	puts $hK $winlabels
+	puts $hK {  <Key Alt 9>
+	<Hotkey ScrollLockOn Alt 0>}
+	puts $hK $winlabels
+	puts $hK {  <Key Alt 0>
+	<Hotkey ScrollLockOn Alt Plus>}
+	puts $hK $winlabels
+	puts $hK {  <Key Alt Plus>
+	<Hotkey ScrollLockOn Alt Minus>}
+	puts $hK $winlabels
+	puts $hK {  <Key Alt Minus>
+	<Hotkey ScrollLockOn Ctrl Alt 1>}
+	puts $hK $winlabels
+	puts $hK {  <Key Ctrl Alt 1>
+	<Hotkey ScrollLockOn Ctrl 1>}
+	puts $hK $winlabels
+	puts $hK {  <Key Ctrl 1>
+	<Hotkey ScrollLockOn Ctrl 2> }
+	puts $hK $winlabels
+	puts $hK {  <Key Ctrl 2>
+	<Hotkey ScrollLockOn Ctrl 3>
+	<SendFocusWin>
+	  <Key Ctrl 3>
+	<Hotkey ScrollLockOn Ctrl 4>}
+	puts $hK $winlabels
+	puts $hK {  <Key Ctrl 4>
+	<Hotkey ScrollLockOn Ctrl 5>}
+	puts $hK $winlabels
+	puts $hK {  <Key Ctrl 5>
+	<Hotkey ScrollLockOn Ctrl 6>}
+	puts $hK $winlabels
+	puts $hK {  <Key Ctrl 6>
+	<Hotkey ScrollLockOn Ctrl 7>}
+	puts $hK $winlabels
+	puts $hK {  <Key Ctrl 7>
+	<Hotkey ScrollLockOn Ctrl 8>}
+	puts $hK $winlabels
+	puts $hK {  <Key Ctrl 8>
+	<Hotkey ScrollLockOn Ctrl 9>}
+	puts $hK $winlabels
+	puts $hK {  <Key Ctrl 9>
+	<Hotkey ScrollLockOn Ctrl 0>}
+	puts $hK $winlabels
+	puts $hK {  <Key Ctrl 0>
+	<Hotkey ScrollLockOn Ctrl Plus>}
+	puts $hK $winlabels
+	puts $hK {  <Key Ctrl Plus>
+	<Hotkey ScrollLockOn Ctrl Minus>}
+	puts $hK $winlabels
+	puts $hK {  <Key Ctrl Minus>
+	<Hotkey ScrollLockOn Shift 1>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift 1>
+	<Hotkey ScrollLockOn Shift 2>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift 2>
+	<Hotkey ScrollLockOn Shift 3>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift 3>
+	<Hotkey ScrollLockOn Shift 4>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift 4>
+	<Hotkey ScrollLockOn Shift 5>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift 5>
+	<Hotkey ScrollLockOn Shift 6>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift 6>
+	<Hotkey ScrollLockOn Shift 7>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift 7>
+	<Hotkey ScrollLockOn Shift 8>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift 8>
+	<Hotkey ScrollLockOn Shift 9>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift 9>
+	<Hotkey ScrollLockOn Shift 0>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift 0>
+	<Hotkey ScrollLockOn Shift Plus>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift Plus>
+	<Hotkey ScrollLockOn Shift Minus>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift Minus>
+	<Hotkey ScrollLockOn Shift F1>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift F1>
+	<Hotkey ScrollLockOn Shift F2>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift F2>
+	<Hotkey ScrollLockOn Shift F3>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift F3>
+	<Hotkey ScrollLockOn Shift F4>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift F4>
+	<Hotkey ScrollLockOn Shift F5>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift F5>
+	<Hotkey ScrollLockOn Shift F6>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift F6>
+	<Hotkey ScrollLockOn Shift F7>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift F7>
+	<Hotkey ScrollLockOn Shift F8>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift F8>
+	<Hotkey ScrollLockOn Shift F9>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift F9>
+	<Hotkey ScrollLockOn Shift F10>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift F10>
+	<Hotkey ScrollLockOn Shift F11>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift F11>
+	<Hotkey ScrollLockOn Shift F12>}
+	puts $hK $winlabels
+	puts $hK {  <Key Shift F12> }
 	puts $hK ""
-	puts $hK "<Hotkey ScrollLockOn Alt 1><SendFocusWin><Key f10>"
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Alt 1>}
-        }	
-	puts $hK {<Hotkey ScrollLockOn Alt 2>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Alt 2>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Alt 3>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Alt 3>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Alt 4>}
-	puts $hK {  <SendFocusWin> <Key f10>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Alt 4>}
-	}
-        puts $hK {<Hotkey ScrollLockOn Alt 5>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Alt 5>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Alt 6>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Alt 6>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Alt 7>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Alt 7>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Alt 8>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {  <Key Alt 8>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Alt 9>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {  <Key Alt 9>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Alt 0>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {  <Key Alt 0>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Alt Plus>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {  <Key Alt Plus>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Alt Minus>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {  <Key Alt Minus>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Ctrl 1>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {  <Key Ctrl 1>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Ctrl 2>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {  <Key Ctrl 2>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Ctrl 3>}
-	puts $hK {  <SendFocusWin><Key Ctrl 3>}
-	puts $hK {<Hotkey ScrollLockOn Ctrl 4>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {  <Key Ctrl 4>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Ctrl 5>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Ctrl 5>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Ctrl 6>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Ctrl 6>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Ctrl 7>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Ctrl 7>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Ctrl 8>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Ctrl 8>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Ctrl 9>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Ctrl 9>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Ctrl 0>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Ctrl 0>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Ctrl Plus>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Ctrl Plus>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Ctrl Minus>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Ctrl Minus>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift 1>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift 1>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift 2>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift 2>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift 3>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift 3>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift 4>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift 4>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift 5>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift 5>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift 6>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift 6>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift 7>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift 7>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift 8>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift 8>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift 9>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift 9>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift 0>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift 0>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift Plus>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift Plus>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift Minus>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift Minus>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift F1>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift F1>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift F2>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift F2>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift F3>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift F3>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift F4>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift F4>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift F5>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift F5>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift F6>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift F6>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift F7>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift F7>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift F8>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift F8>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift F9>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift F9>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift F10>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift F10>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift F11>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift F11>}
-	}
-	puts $hK {<Hotkey ScrollLockOn Shift F12>}
-	foreach lab $winlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Shift F12>}
-	}
-	puts $hK ""
-        puts $hK {//Hunter backup}
+	puts $hK {//Hunter backup}
 	puts $hK {<MovementHotkey ScrollLockOn T>}
 	set totallabels 0
-	set classlabels ""
+	set hunterlabels "<Sendlabel"
 	for { set i 0 } { $i<[array size toons] } { incr i } {
 	  set role [lindex $toons($i) 3]
 	  set role [string tolower $role ]
@@ -882,26 +705,23 @@ if { ! $nohotkeyoverwrite } {
 		set comps 1
 		foreach myraid $raids {
 			  regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
-			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum } 
+			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum }
 		}
 		foreach mycomp $comps {
-	    if { $role=="hunter" } { 
-				set winnum [format "%03d" $totallabels]
-	      set classlabels  "$classlabels ax${winnum}"
+	    if { $role=="hunter" } {
+	      if { $hunterlabels=="<Sendlabel" } { set hunterlabels  "$hunterlabels w${totallabels}" } else { set hunterlabels "$hunterlabels,w${totallabels}" }
 			}
-		  incr totallabels		
+		  incr totallabels
 	  }
 	}
-	foreach lab $classlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Down>}
-	}
+	set hunterlabels "${hunterlabels}>"
+	puts $hK $hunterlabels
+	puts $hK "  <Key Down>"
 	puts $hK ""
-        puts $hK {//Melee backup}
+	puts $hK {//Melee backup}
 	puts $hK {<MovementHotkey ScrollLockOn R>}
 	set totallabels 0
-	set classlabels ""
+	set meleelabels "<Sendlabel"
 	for { set i 0 } { $i<[array size toons] } { incr i } {
 	  set role [lindex $toons($i) 3]
 	  set role [string tolower $role ]
@@ -909,26 +729,23 @@ if { ! $nohotkeyoverwrite } {
 		set comps 1
 		foreach myraid $raids {
 			  regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
-			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum } 
+			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum }
 		}
 		foreach mycomp $comps {
-	    if { $role=="melee" } { 
-				set winnum [format "%03d" $totallabels]
-	      set classlabels  "$classlabels ax${winnum}"
-			}
-		  incr totallabels		
-	  }
+	  	if { $role=="melee" || $role=="tank" } {
+	   	 if { $meleelabels=="<Sendlabel" } { set meleelabels  "$meleelabels w${totallabels}" } else { set meleelabels "$meleelabels,w${totallabels}" }
+	  	}
+			incr totallabels
+		}
 	}
-	foreach lab $classlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key Down>}
-	}
+	set meleelabels "${meleelabels}>"
+	puts $hK $meleelabels
+	puts $hK "  <Key Down>"
 	puts $hK ""
-        puts $hK {//Melee forward}
+	puts $hK {//Melee forward}
 	puts $hK {<MovementHotkey ScrollLockOn F>}
 	set totallabels 0
-	set classlabels ""
+	set meleelabels "<Sendlabel"
 	for { set i 0 } { $i<[array size toons] } { incr i } {
 	  set role [lindex $toons($i) 3]
 	  set role [string tolower $role ]
@@ -936,26 +753,23 @@ if { ! $nohotkeyoverwrite } {
 		set comps 1
 		foreach myraid $raids {
 			  regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
-			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum } 
+			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum }
 		}
 		foreach mycomp $comps {
-	    if { $role=="melee" } { 
-				set winnum [format "%03d" $totallabels]
-	      set classlabels  "$classlabels ax${winnum}"
-			}
-		  incr totallabels		
-	  }
+	  	if { $role=="melee" } {
+	    	if { $meleelabels=="<Sendlabel" } { set meleelabels  "$meleelabels w${totallabels}" } else { set meleelabels "$meleelabels,w${totallabels}" }
+	  	}
+			incr totallabels
+		}
 	}
-	foreach lab $classlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key up>}
-	}
+	set meleelabels "${meleelabels}>"
+	puts $hK $meleelabels
+	puts $hK "  <Key Up>"
 	puts $hK ""
-        puts $hK {//Healer backup}
+	puts $hK {//Healer backup}
 	puts $hK {<MovementHotkey ScrollLockOn Y>}
 	set totallabels 0
-	set classlabels ""
+	set healerlabels "<Sendlabel"
 	for { set i 0 } { $i<[array size toons] } { incr i } {
 	  set role [lindex $toons($i) 3]
 	  set role [string tolower $role ]
@@ -963,26 +777,23 @@ if { ! $nohotkeyoverwrite } {
 		set comps 1
 		foreach myraid $raids {
 			  regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
-			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum } 
+			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum }
 		}
 		foreach mycomp $comps {
-	    if { $role=="healer" } { 
-				set winnum [format "%03d" $totallabels]
-	      set classlabels  "$classlabels ax${winnum}"
-			}
-		  incr totallabels		
-	  }
+	  	if { $role=="healer" } {
+	   	 if { $healerlabels=="<Sendlabel" } { set healerlabels  "$healerlabels w${totallabels}" } else { set healerlabels "$healerlabels,w${totallabels}" }
+	  	}
+			incr totallabels
+		}
 	}
-	foreach lab $classlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key down>}
-	}
+	set healerlabels "${healerlabels}>"
+	puts $hK $healerlabels
+	puts $hK "  <Key Down>"
 	puts $hK ""
-        puts $hK {//Mana backup}
+	puts $hK {//Mana backup}
 	puts $hK {<MovementHotkey ScrollLockOn H>}
 	set totallabels 0
-	set classlabels ""
+	set manalabels "<Sendlabel"
 	for { set i 0 } { $i<[array size toons] } { incr i } {
 	  set role [lindex $toons($i) 3]
 	  set role [string tolower $role ]
@@ -990,21 +801,19 @@ if { ! $nohotkeyoverwrite } {
 		set comps 1
 		foreach myraid $raids {
 			  regexp {([a-z]|[A-Z])([0-9])?} $myraid match foo cpunum
-			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum } 
+			  if { [lsearch $comps $cpunum] == -1 } { lappend comps $cpunum }
 		}
 		foreach mycomp $comps {
-	    if { $role=="healer" || $role=="caster" } { 
-				set winnum [format "%03d" $totallabels]
-	      set classlabels  "$classlabels ax${winnum}"
-			}
-		  incr totallabels		
-	  }
+	  	if { $role=="healer" || $role=="caster" } {
+	    	if { $manalabels=="<Sendlabel" } { set manalabels  "$manalabels w${totallabels}" } else { set manalabels "$manalabels,w${totallabels}" }
+	  	}
+			incr totallabels
+		}
 	}
-	foreach lab $classlabels { 
-		puts -nonewline $hK "  <SendLabel "
-		puts -nonewline $hK "${lab}>"
-		puts $hK {<Key down>}
-	}
+	set manalabels "${manalabels}>"
+	puts $hK $manalabels
+	puts $hK "  <Key Down>"
+	close $hK
 }
 if { ! $nosmoverwrite } { 
 	set INSTUFF2TRACK false
